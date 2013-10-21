@@ -13,14 +13,20 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import org.dom4j.DocumentException;
+
+import pi.data.importer.Importer;
 import pi.graph.signal.Graph;
 import pi.inputs.signal.Channel;
+import pi.inputs.signal.ECG;
 import pi.inputs.signal.Probe;
 import pi.shared.SharedController;
 
 public class Dummy
 {
 	private Graph graph;
+	
+	private ECG ecg;
 	
 	private JFrame frame;
 	private Channel signal1;
@@ -50,14 +56,13 @@ public class Dummy
 		frame.addWindowListener(new MyWindowListener());
 		
 		// SIGNAL
-		createDummySignal1();
-		createDummySignal2();
+		createDummySignal();
 		
 		graph = new Graph(new Dimension(1100, 200), signal1);
 		graph.recalculate();
 		graph.setLocation(200, 30);
 
-		//Segment temp = graph.getSegment(0);
+
 		frame.add(graph);
 		
 		
@@ -187,196 +192,23 @@ public class Dummy
 		frame.setVisible(true);
 	}
 
-	public void createDummySignal1()
+	public void createDummySignal()
 	{
-		signal1 = new Channel();
+		try
+		{	
+			Importer imp = new Importer("src/michal/ekg_A.xml");
+			
+			ArrayList <ECG> temp = imp.importSignals();
+			this.ecg = temp.get(0);
+			
+			this.signal1 = ecg.getChannel().get(0);
+			this.signal2 = ecg.getChannel().get(1);
 
-		signal1.setName("Dummy");
-
-		signal1.setTranslation(0.0d);
-		signal1.setInterval(1.0d / 100.0d);
-
-		signal1.setMinValue(-100);
-		signal1.setMaxValue(300);
-
-		signal1.setStartAxis(0.0d);
-		signal1.setScale(0.2d);
-		
-		//LinkedList<Range> temp = new LinkedList<Range>();
-		//signal1.setP_wave(temp);
-
-		//temp = new LinkedList<Range>();
-		//signal1.setQrs_complex(temp);
-		
-		//temp = new LinkedList<Range>();
-		//signal1.setSt_segment(temp);
-		
-		ArrayList<Probe> array = new ArrayList<Probe>(20 * 100);
-
-		for (int i = 0; i < 20; i++)
+			
+		} catch (DocumentException e)
 		{
-			for (int j = 0; j < 15; j++)
-			{
-				array.add(new Probe(i * 100 + j, 0));
-			}
-
-			//signal1.getP_wave().add(new Range(i * 100 + 15, i * 100 + 15 + 8));
-			
-			for (int j = 0; j < 8; j++)
-			{
-				int value = (int) (50 * Math.sin((double) ((double)j / 8.0d) * Math.PI));
-				array.add(new Probe(i * 100 + 15 + j, value));
-			}
-
-			for (int j = 0; j < 5; j++)
-			{
-				array.add(new Probe(i * 100 + 23 + j, 0));
-			}
-
-			//signal1.getQrs_complex().add(new Range(i * 100 + 28, i * 100 + 58));
-			
-			
-			for (int j = 0; j < 5; j++)
-			{
-				array.add(new Probe(i * 100 + 28 + j, -7 * j));
-			}
-
-			for (int j = 0; j < 5; j++)
-			{
-				array.add(new Probe(i * 100 + 33 + j, -7 * (5 - j)));
-			}
-
-			
-			for (int j = 0; j < 5; j++)
-			{
-				array.add(new Probe(i * 100 + 38 + j, 50 * j));
-			}
-
-			for (int j = 0; j < 5; j++)
-			{
-				array.add(new Probe(i * 100 + 43 + j, 50 * (5 - j)));
-			}
-
-			for (int j = 0; j < 5; j++)
-			{
-				array.add(new Probe(i * 100 + 48 + j, -11 * j));
-			}
-
-			for (int j = 0; j < 5; j++)
-			{
-				array.add(new Probe(i * 100 + 53 + j, -11 * (5 - j)));
-			}
-
-			//signal1.getSt_segment().add(new Range(i * 100 + 58, i * 100 + 63));
-			
-			for (int j = 0; j < 5; j++)
-			{
-				array.add(new Probe(i * 100 + 58 + j, 0));
-			}
-
-			for (int j = 0; j < 10; j++)
-			{
-				int value = (int) (50 * Math.sin((double) ((double)j / 10.0d) * Math.PI));
-				array.add(new Probe(i * 100 + 63 + j, value));
-			}
-
-			for (int j = 0; j < 27; j++)
-			{
-				array.add(new Probe(i * 100 + 73 + j, 0));
-			}
-
+			e.printStackTrace();
 		}
-		
-		signal1.setProbe(array);
-		signal1.recalculate();
-
-	}
-	
-	public void createDummySignal2()
-	{
-		signal2 = new Channel();
-
-		signal2.setName("Dummy");
-
-		signal2.setTranslation(0.0d);
-		signal2.setInterval(1.0d / 100.0d);
-
-		signal2.setMinValue(-100);
-		signal2.setMaxValue(300);
-
-		signal2.setStartAxis(0.0d);
-		signal2.setScale(0.2d);
-
-		ArrayList<Probe> array = new ArrayList<Probe>(20 * 100);
-
-		for (int i = 0; i < 20; i++)
-		{
-			for (int j = 0; j < 15; j++)
-			{
-				array.add(new Probe(i * 100 + j, 100));
-			}
-
-			for (int j = 0; j < 8; j++)
-			{
-				int value = (int) (50 * Math.sin((double) ((double)j / 8.0d) * Math.PI));
-				array.add(new Probe(i * 100 + 15 + j, 200 - value));
-			}
-
-			for (int j = 0; j < 5; j++)
-			{
-				array.add(new Probe(i * 100 + 23 + j, 100));
-			}
-
-			for (int j = 0; j < 5; j++)
-			{
-				array.add(new Probe(i * 100 + 28 + j, 200 - -7 * j));
-			}
-
-			for (int j = 0; j < 5; j++)
-			{
-				array.add(new Probe(i * 100 + 33 + j,200 -  -7 * (5 - j)));
-			}
-
-			for (int j = 0; j < 5; j++)
-			{
-				array.add(new Probe(i * 100 + 38 + j, 200 - 50 * j));
-			}
-
-			for (int j = 0; j < 5; j++)
-			{
-				array.add(new Probe(i * 100 + 43 + j, 200 - 50 * (5 - j)));
-			}
-
-			for (int j = 0; j < 5; j++)
-			{
-				array.add(new Probe(i * 100 + 48 + j,200 -  -11 * j));
-			}
-
-			for (int j = 0; j < 5; j++)
-			{
-				array.add(new Probe(i * 100 + 53 + j, 200 - -11 * (5 - j)));
-			}
-
-			for (int j = 0; j < 5; j++)
-			{
-				array.add(new Probe(i * 100 + 58 + j, 100));
-			}
-
-			for (int j = 0; j < 10; j++)
-			{
-				int value = (int) (50 * Math.sin((double) ((double)j / 10.0d) * Math.PI));
-				array.add(new Probe(i * 100 + 63 + j, 200 - value));
-			}
-
-			for (int j = 0; j < 27; j++)
-			{
-				array.add(new Probe(i * 100 + 73 + j, 100));
-			}
-
-		}
-		
-		signal2.setProbe(array);
-
 	}
 	
 }

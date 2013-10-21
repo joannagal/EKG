@@ -56,12 +56,12 @@ public class Channel
 	private ArrayList <Probe> probe;
 	
 	// MINIMALNA I MAKSYMALNA WARTOSC, USTALANA PRZY WCZYTYWANIU
-	private int minValue;
-	private int maxValue;
+	private int minValue = 0;
+	private int maxValue = 0;
 	
 	// TO MOJE PIERDY DO WYKRESOW, NIE WAZNE
-	private Double startAxis;
-	private Double scale;
+	private Double startAxis = 0.0d;
+	private Double scale = 0.0d;
 	
 	public Channel()
 	{
