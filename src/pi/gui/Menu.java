@@ -1,4 +1,7 @@
 package pi.gui;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -27,6 +30,7 @@ public class Menu extends JMenuBar {
 	private JMenuItem preferencesItem;
 	private JMenuItem closeAppItem;
 	private JMenuItem aboutAppItem;
+	private ProjectDialog projectDialog;
 	
 	public Menu(){
 		
@@ -41,6 +45,15 @@ public class Menu extends JMenuBar {
 	
 	public void setProjectMenuItems(){		
 		createProjectItem = new JMenuItem("New");
+		createProjectItem.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				projectDialog = new ProjectDialog();
+				
+			}
+		});
+		
 		openProjectItem = new JMenuItem("Open");
 		saveProjectItem = new JMenuItem("Save");
 		saveAsProjectItem = new JMenuItem("Save as...");
@@ -66,7 +79,7 @@ public class Menu extends JMenuBar {
 		preferencesItem = new JMenuItem("Preferences");
 		aboutAppItem = new JMenuItem("About application");
 		closeAppItem = new JMenuItem("Exit");
-		logOutItem = new JMenuItem("Log Out");
+		logOutItem = new JMenuItem("Log in");
 		
 		mainMenu.add(preferencesItem);
 		mainMenu.add(new JSeparator());
