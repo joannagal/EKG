@@ -61,7 +61,7 @@ public class Specimen
 	}
 	public boolean loadBefore(String path)
 	{
-		this.before = this.loadSignal(path);
+		this.setBefore(this.loadSignal(path));
 		// just dummy signal
 		
 		if (this.before == null) return false;
@@ -163,5 +163,13 @@ public class Specimen
 	public void setAfter(Input after)
 	{
 		this.after = after;
+	}
+	public Input getBefore()
+	{
+		return before;
+	}
+	public void setBefore(Input before)
+	{
+		this.before = before;
 	}
 }
