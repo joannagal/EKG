@@ -172,4 +172,8 @@ public class Specimen
 	{
 		this.before = before;
 	}
+	public void setWeight(int weight) {
+		// TODO Auto-generated method stub
+		
+	}
 }
