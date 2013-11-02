@@ -35,16 +35,17 @@ public class Application {
 		frame.setJMenuBar(menubar);
 		MenuController menuController = new MenuController(menubar);
 		frame.setMinimumSize(new Dimension(1140,1000));
-				
+		
 		while(true){
 			menubar.setLogItemText();
 			
 			if (!SharedController.getInstance().isLogged()){
-				menubar.setEditable(false);
+				menubar.setEditable(true);
 			} else {
 				menubar.setEditable(true);
 			}
 		}
+	
 	
 		
 		
