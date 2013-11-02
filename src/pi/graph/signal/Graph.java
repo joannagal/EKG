@@ -2,10 +2,12 @@ package pi.graph.signal;
 
 import javax.swing.JPanel;
 
-import java.awt.Color;
+
+
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
@@ -50,7 +52,7 @@ public class Graph extends JPanel
 
 
 	// -------------------------------------------
-
+	
 	public Graph(Dimension size, Channel signal)
 	{
 		this.controller = SharedController.getInstance();
@@ -421,8 +423,10 @@ public class Graph extends JPanel
 	// INCREASE NUMBER OF SEGMENTS
 	public void addSegment()
 	{
+		System.out.println("W addSegment");
 		if (this.segments < this.controller.getMaxSegments())
 		{
+			System.out.println("W ifie addSegment");
 			this.segments++;
 			this.recalculate();
 			this.draw();
@@ -569,4 +573,6 @@ public class Graph extends JPanel
 	{
 		this.getToolBox().setSt_segmentShown(st_segmentShown);
 	}
+	
+
 }

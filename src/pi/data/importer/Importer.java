@@ -1,5 +1,6 @@
 package pi.data.importer;
 import java.io.File;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -12,15 +13,13 @@ import org.dom4j.io.SAXReader;
 import pi.inputs.signal.Channel;
 import pi.inputs.signal.ECG;
 import pi.inputs.signal.Probe;
+import pi.population.Specimen;
 
 //TODO To test!
 public class Importer {
 
 	private Document document;
-	
-	//TODO Chyba pole do usuniêcia (niepotrzebne):
 	private String filePath;
-
 	/**
 	 * Constructor. From given file path loads the xml document to import data.
 	 * @param filePath
@@ -29,6 +28,23 @@ public class Importer {
 	public Importer(String filePath) throws DocumentException {
 		this.filePath = filePath;
 		document = loadDocument(filePath);
+		System.out.println("Nowy specimen utorzony");
+	}
+	
+	public String[] getAttributes() throws DocumentException {
+		String[] test = new String[4];
+		String xPath = "//patient";
+		List<?> nodes = document.selectNodes(xPath);
+
+		if (nodes.iterator().hasNext())
+		{
+			Node node = (Node) nodes.iterator().next();
+			test[0] = node.valueOf("@surname");
+			test[1] = node.valueOf("@firstName");
+			test[2]= node.valueOf("@birthDate");
+			test[3]= node.valueOf("@ID");
+		}
+		return test;	
 	}
 
 	/**
@@ -38,6 +54,7 @@ public class Importer {
 	 */
 	public ArrayList<ECG> importSignals() throws DocumentException {
 
+		
 		String xPath = "//ekgSignal";
 		List<?> nodes = document.selectNodes(xPath);
 		int size = nodes.size();
@@ -64,6 +81,7 @@ public class Importer {
 	 * @throws DocumentException
 	 */
 	public ArrayList<Channel> importWaves(Node signal, double interval) throws DocumentException {
+		
 		String xPath = "./ekgWave";
 		List<?> nodes = signal.selectNodes(xPath);
 		int size = nodes.size();

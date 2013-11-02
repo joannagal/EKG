@@ -6,34 +6,27 @@ import pi.inputs.signal.Probe;
 import pi.statistics.logic.Function;
 import pi.statistics.logic.StatisticResult;
 
-//SD - standard deviation (odchylenie standardowe)
-public class SD extends Function {
+public class Max extends Function {
 
-    public SD() {
-	super("SD");
+    private int max;
+    
+    public Max() {
+	super("Max");
     }
 
     @Override
     public void countResult() {
 	Vector<Double> result = new Vector<Double>();
-
-	double var = StatisticResult.getValue().get("Variance").firstElement();
-	// TODO co z mullami?
-	if (var != 0) {
-	    double sd = Math.sqrt(var);
-	    result.add(sd);
-	}
-
+	result.add((double)max);
 	StatisticResult.addValue(this.getName(), result);
     }
 
     @Override
     public void iterate(Probe probe) {
-
+	if (probe.getValue() < max) max = probe.getValue();
     }
 
-    public void setName(String waveName) {
+    public void setName(String waveName){
 	super.setName(waveName);
     }
-
 }

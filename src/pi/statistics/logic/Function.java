@@ -4,10 +4,10 @@ import pi.inputs.signal.Probe;
 
 public abstract class Function {
 	//TODO typ zwracany
-	private final String name;
+	private String name;
 	
 	public Function(String name){
-		this.name = name;
+		this.setName(name);
 	}
 	
 	public abstract void countResult();	
@@ -16,6 +16,10 @@ public abstract class Function {
 		
 	public String getName() {
 		return name;
+	}
+
+	public void setName(String name) {
+	    this.name = this.name + " " + name;
 	}
 	
 }
