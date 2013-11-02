@@ -5,21 +5,30 @@ import pi.statistics.logic.Function;
 
 public class Median extends Function {
 
-	public Median() {
-		super("Median");
-		// TODO Auto-generated constructor stub
-	}
+    public Median() {
+	super("Median");
+	// TODO Auto-generated constructor stub
+    }
 
-	@Override
-	public void countResult() {
-		// TODO Auto-generated method stub
+    @Override
+    public void countResult() {
+	// TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public void iterate(Probe probe) {
-		// TODO Auto-generated method stub
+    @Override
+    public void iterate(Probe probe) {
+	// TODO Auto-generated method stub
 
-	}
+    }
 
+    public void setName(String waveName) {
+	super.setName(waveName);
+    }
+
+    @Override
+    public void setWaveName(String waveName) {
+	// TODO Auto-generated method stub
+	
+    }
 }

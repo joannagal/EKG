@@ -6,35 +6,27 @@ import pi.inputs.signal.Probe;
 import pi.statistics.logic.Function;
 import pi.statistics.logic.StatisticResult;
 
-public class Average extends Function {
+public class Max extends Function {
 
-    public Average() {
-	super("Average");
+    private int max;
+    
+    public Max() {
+	super("Max");
     }
 
-    private int sum = 0;
-    private int denominator = 0;
-
+    @Override
     public void countResult() {
 	Vector<Double> result = new Vector<Double>();
-
-	if (denominator != 0) {
-	    double avg = (sum / denominator);
-
-	    result.add(avg);
-	} else {
-	    // TODO Co jeœli mianownik (liczba próbek) jest zerem
-	}
+	result.add((double)max);
 	StatisticResult.addValue(this.getName(), result);
     }
 
+    @Override
     public void iterate(Probe probe) {
-	sum += probe.getValue();
-	denominator++;
-
+	if (probe.getValue() < max) max = probe.getValue();
     }
 
-    public void setName(String waveName) {
+    public void setName(String waveName){
 	super.setName(waveName);
     }
 
@@ -43,5 +35,4 @@ public class Average extends Function {
 	// TODO Auto-generated method stub
 	
     }
-
 }

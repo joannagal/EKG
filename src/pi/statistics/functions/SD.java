@@ -8,30 +8,38 @@ import pi.statistics.logic.StatisticResult;
 
 //SD - standard deviation (odchylenie standardowe)
 public class SD extends Function {
-    	
-	public SD() {
-		super("SD");
+    private String waveName;
+    
+    public SD() {
+	super("SD");
+    }
+
+    @Override
+    public void countResult() {
+	Vector<Double> result = new Vector<Double>();
+
+	double var = StatisticResult.getValue().get("Variance "+ waveName).firstElement();
+	// TODO co z mullami?
+	if (var != 0) {
+	    double sd = Math.sqrt(var);
+	    result.add(sd);
 	}
 
-	@Override
-	public void countResult() {
-	    Vector<Double> result = new Vector<Double>();
+	StatisticResult.addValue(this.getName(), result);
+    }
 
-	    double var = StatisticResult.getValue().get("Variance").firstElement();
-	    //TODO co z mullami?
-	    if (var != 0) {
-		double sd = Math.sqrt(var);
-		result.add(sd);
-	    }
-	    
-	    StatisticResult.addValue(this.getName(), result);
-	}
+    @Override
+    public void iterate(Probe probe) {
 
-	@Override
-	public void iterate(Probe probe) {
-		
-	}
+    }
 
-	
+    public void setName(String waveName) {
+	super.setName(waveName);
+    }
+
+    @Override
+    public void setWaveName(String waveName) {
+	this.waveName = waveName;
+    }
 
 }

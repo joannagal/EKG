@@ -1,3 +1,4 @@
+
 package pi.population;
 
 import java.sql.Date;
@@ -14,17 +15,14 @@ import pi.inputs.signal.ECG;
 
 public class Specimen
 {
-	// IMIE, NAZWISKO OSOBNIKA
-	// W PRANIU MOZE WYJSC ZE LACZYMY TO W JEDNEGO
-	// STRINGA I ZOSTAWIAMY PO PROSTU NAME
+	
 	private String name = "";
 	private String surname = "";
+	private String birth = null;
+	private String id = "";
 	
-	// DATA URODZENIA
-	private Date birth = null;
-	// WIEK OSOBNIKA
+	
 	private int age = -1;
-	
 	// CZAS TRWALNIA UZALEZNIENIA/UPRAWIANIA SPORTU
 	// W LATACH
 	private int activityDuration = -1;
@@ -61,7 +59,7 @@ public class Specimen
 	}
 	public boolean loadBefore(String path)
 	{
-		this.setBefore(this.loadSignal(path));
+		this.before = this.loadSignal(path);
 		// just dummy signal
 		
 		if (this.before == null) return false;
@@ -92,11 +90,11 @@ public class Specimen
 	{
 		this.surname = surname;
 	}
-	public Date getBirth()
+	public String getBirth()
 	{
 		return birth;
 	}
-	public void setBirth(Date birth)
+	public void setBirth(String birth)
 	{
 		this.birth = birth;
 	}
@@ -164,14 +162,30 @@ public class Specimen
 	{
 		this.after = after;
 	}
+	
 	public Input getBefore()
 	{
 		return before;
 	}
-	public void setBefore(Input before)
-	{
+	
+	public void setBefore(Input before){
 		this.before = before;
 	}
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	public void setDetails(String[] array){
+		this.name = array[0];
+		this.surname = array[1];
+		this.birth = array[2];
+		this.id = array[3];
+	}
+	
 	public void setWeight(int weight) {
 		// TODO Auto-generated method stub
 		

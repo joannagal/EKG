@@ -1,6 +1,6 @@
 package pi.project;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.LinkedList;
 
 import pi.analyze.AnalysisResult;
@@ -20,12 +20,12 @@ import pi.population.Population;
 
 public class Project
 {
-	// NAZWA PROJEKTU 
+	//NAZWA PROJEKTU
 	private String name;
 	
 	// SCIEZKA PLIKU PROJEKTU
 	private String path;
-	
+
 	// DATA UTWORZENIA PROJEKTU
 	private Date date;
 	
@@ -60,7 +60,7 @@ public class Project
 	{
 		setAnalyzer(new ECGAnalyzer());
 	}
-
+	
 	// OGOLNIE PONIZEJ SA GLOWNIE SETTERY I GETTERY
 	// NO ALE TO W MIARE POTRZEB, BEDZIE SIE TA KLASE ROZBUDOWYWALO
 	// NP. TRZEBA NAPISAC KLASE LOAD, SAVE

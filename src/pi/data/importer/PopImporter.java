@@ -102,7 +102,7 @@ public class PopImporter extends DefaultHandler {
 		project.setPath(attributes.getValue("path"));
 		Date date = new Date();// TODO parse string to date = new
 								// Date(attributes.getValue("date"));
-		project.setDate(date);
+		//project.setDate(date);
 		String type = attributes.getValue("type");
 		if (type != "")
 			project.setType(Integer.parseInt(type));

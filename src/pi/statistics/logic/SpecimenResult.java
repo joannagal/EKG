@@ -1,26 +1,26 @@
 package pi.statistics.logic;
 
 public class SpecimenResult {
-	private AttributeResult after;
-	private AttributeResult before;
+	private ChannelResult after;
+	private ChannelResult before;
 	
 	public void compareResult(){
 		//TODO
 	}
 
-	public AttributeResult getAfter() {
+	public ChannelResult getAfter() {
 		return after;
 	}
 
-	public void setAfter(AttributeResult after) {
+	public void setAfter(ChannelResult after) {
 		this.after = after;
 	}
 
-	public AttributeResult getBefore() {
+	public ChannelResult getBefore() {
 		return before;
 	}
 
-	public void setBefore(AttributeResult before) {
+	public void setBefore(ChannelResult before) {
 		this.before = before;
 	}
 }

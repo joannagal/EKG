@@ -6,42 +6,37 @@ import pi.inputs.signal.Probe;
 import pi.statistics.logic.Function;
 import pi.statistics.logic.StatisticResult;
 
-public class Average extends Function {
-
-    public Average() {
-	super("Average");
+public class Amplitude extends Function {
+    private String waveName;
+    
+    public Amplitude() {
+	super("Amplitude");
     }
 
-    private int sum = 0;
-    private int denominator = 0;
-
+    @Override
     public void countResult() {
 	Vector<Double> result = new Vector<Double>();
-
-	if (denominator != 0) {
-	    double avg = (sum / denominator);
-
-	    result.add(avg);
-	} else {
-	    // TODO Co jeœli mianownik (liczba próbek) jest zerem
-	}
+	
+	//TODO null?
+	double min = StatisticResult.getValue().get("Min "+ waveName).firstElement();
+	double max = StatisticResult.getValue().get("Max "+ waveName).firstElement();
+	double amplitude = max - min;
+	
+	result.add(amplitude);
 	StatisticResult.addValue(this.getName(), result);
     }
 
+    @Override
     public void iterate(Probe probe) {
-	sum += probe.getValue();
-	denominator++;
 
     }
-
-    public void setName(String waveName) {
+    
+    public void setName(String waveName){
 	super.setName(waveName);
     }
 
     @Override
     public void setWaveName(String waveName) {
-	// TODO Auto-generated method stub
-	
+	this.waveName = waveName;
     }
-
 }
