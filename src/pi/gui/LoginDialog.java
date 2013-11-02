@@ -15,6 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import pi.shared.SharedController;
+
 public class LoginDialog extends JDialog {
 
 	private JTextField usernameField;
@@ -80,6 +82,7 @@ public class LoginDialog extends JDialog {
 				if (Login.authenticate(getUsername(), getPassword())){
 					JOptionPane.showMessageDialog(LoginDialog.this, "You have successfully log in", "Login", JOptionPane.INFORMATION_MESSAGE);
 					succeeded = true;
+					SharedController.getInstance().setLogged(true);
 					dispose();
 				}
 				else {

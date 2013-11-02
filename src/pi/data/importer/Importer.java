@@ -17,9 +17,8 @@ import pi.inputs.signal.Probe;
 public class Importer {
 
 	private Document document;
-	
-	//TODO Chyba pole do usuniêcia (niepotrzebne):
 	private String filePath;
+	
 
 	/**
 	 * Constructor. From given file path loads the xml document to import data.
@@ -38,8 +37,20 @@ public class Importer {
 	 */
 	public ArrayList<ECG> importSignals() throws DocumentException {
 
-		String xPath = "//ekgSignal";
+		String xPath = "//patient";
 		List<?> nodes = document.selectNodes(xPath);
+		
+		if (nodes.iterator().hasNext())
+		{
+			Node node = (Node) nodes.iterator().next();
+			String surname = node.valueOf("@surname");
+			String firstName = node.valueOf("@firstName");
+			//System.out.printf("%s %s", surname, firstName);
+		}
+		
+		
+		xPath = "//ekgSignal";
+		nodes = document.selectNodes(xPath);
 		int size = nodes.size();
 		ArrayList<ECG> vectorOfSignals = new ArrayList<>(size);
 		
@@ -64,6 +75,7 @@ public class Importer {
 	 * @throws DocumentException
 	 */
 	public ArrayList<Channel> importWaves(Node signal, double interval) throws DocumentException {
+		
 		String xPath = "./ekgWave";
 		List<?> nodes = signal.selectNodes(xPath);
 		int size = nodes.size();

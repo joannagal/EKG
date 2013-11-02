@@ -2,8 +2,15 @@ package pi.shared;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import pi.data.importer.Importer;
 import pi.shared.schemes.Scheme;
 import pi.shared.schemes.signal.SignalScheme;
 import pi.utilities.Margin;
@@ -57,6 +64,12 @@ public class SharedController
 	
 	private double minInterval;
 	private double maxInterval;
+	
+	private boolean logged  = false;
+	
+	private JFrame frame;
+	private Importer importer;
+	private Container container;
 	
 	private SharedController()
 	{
@@ -223,6 +236,47 @@ public class SharedController
 	public void setMaxInterval(double maxInterval)
 	{
 		this.maxInterval = maxInterval;
+	}
+
+	public boolean isLogged() {
+		return logged;
+	}
+
+	public void setLogged(boolean logged) {
+		this.logged = logged;
+	}
+
+	public JFrame getFrame() {
+		return frame;
+	}
+
+	public void setFrame(JFrame frame) {
+		this.frame = frame;
+	}
+
+	public Importer getImporter() {
+		return importer;
+	}
+
+	public void setImporter(Importer importer) {
+		this.importer = importer;
+	}
+	
+	public Container getContainer(){
+		return container;
+	}
+	
+	public void setContainer(Container container){
+		this.container = container;
+	}
+
+	public void addPanel(JPanel panel){
+		this.frame.add(panel);
+		panel.setVisible(true);
+	}
+	
+	public void packFrame(){
+		this.frame.pack();
 	}
 	
 }

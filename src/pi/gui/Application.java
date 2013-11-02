@@ -1,21 +1,54 @@
 package pi.gui;
 
-import javax.swing.SwingUtilities;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.nio.channels.Channel;
+import java.util.ArrayList;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import org.dom4j.DocumentException;
+
+import pi.data.importer.Importer;
+import pi.inputs.signal.ECG;
+import pi.shared.SharedController;
 
 public class Application {
 
+	private static ECG ecg;
+
 	public static void main(String[] args) {
-
-
-		SwingUtilities.invokeLater(new Runnable(){
-
-			@Override
-			public void run() {
-				new MainFrame();				
-			}
+		
+		JFrame frame = new JFrame("ECG Analyzer"); 
+		frame.setLocation(100, 0);
+		frame.setLayout(null);
+		
+		SharedController.getInstance().setFrame(frame);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+        frame.setVisible(true); 
+        
+        MenuView menubar = new MenuView(frame);
+		frame.setJMenuBar(menubar);
+		MenuController menuController = new MenuController(menubar);
+		frame.setMinimumSize(new Dimension(1140,1000));
+				
+		while(true){
+			menubar.setLogItemText();
 			
-		});
+			if (!SharedController.getInstance().isLogged()){
+				menubar.setEditable(false);
+			} else {
+				menubar.setEditable(true);
+			}
+		}
+	
+		
+		
 		
 	}
-
+		
 }
