@@ -26,4 +26,10 @@ public class AverageSignal extends Function {
 	super.setName(waveName);
     }
 
+    @Override
+    public void setWaveName(String waveName) {
+	// TODO Auto-generated method stub
+	
+    }
+
 }

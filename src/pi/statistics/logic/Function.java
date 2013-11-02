@@ -13,7 +13,9 @@ public abstract class Function {
 	public abstract void countResult();	
 	
 	public abstract void iterate(Probe probe);
-		
+	
+	public abstract void setWaveName(String waveName);
+	
 	public String getName() {
 		return name;
 	}

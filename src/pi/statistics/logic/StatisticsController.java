@@ -59,6 +59,7 @@ public class StatisticsController {
 			    if (calculate == true) {
 				statResult.clearValues();
 				for (Function function : functions) {
+				    function.setWaveName(waveName);
 				    function.iterate(probe);
 				}
 			    }

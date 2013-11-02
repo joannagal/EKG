@@ -7,6 +7,7 @@ import pi.statistics.logic.Function;
 import pi.statistics.logic.StatisticResult;
 
 public class Variance extends Function {
+    private String waveName;
     private double x = 0;
     private double y = 0;
     private double var = 0;
@@ -32,7 +33,7 @@ public class Variance extends Function {
 
     @Override
     public void iterate(Probe probe) {
-	double avg = StatisticResult.getValue().get("Average").firstElement();
+	double avg = StatisticResult.getValue().get("Average " + waveName).firstElement();
 	// TODO co z nullami?
 
 	if (avg != 0) {
@@ -45,5 +46,10 @@ public class Variance extends Function {
 
     public void setName(String waveName) {
 	super.setName(waveName);
+    }
+
+    @Override
+    public void setWaveName(String waveName) {
+	this.waveName = waveName;
     }
 }

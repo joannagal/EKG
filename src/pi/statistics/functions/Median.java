@@ -25,4 +25,10 @@ public class Median extends Function {
     public void setName(String waveName) {
 	super.setName(waveName);
     }
+
+    @Override
+    public void setWaveName(String waveName) {
+	// TODO Auto-generated method stub
+	
+    }
 }
