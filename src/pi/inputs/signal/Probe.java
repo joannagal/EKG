@@ -39,10 +39,17 @@ public class Probe
 		this.setNormalized(this.normalize());
 	}
 	
-	//TODO
+	
+	public Probe getCopy()
+	{
+		Probe result = new Probe(this.number, this.value);
+		return result;
+	}
+	
+	// TODO
 	private Double normalize()
 	{
-		return (double) value;
+		return (double) value / 1000.0d;
 	}
 
 	public int getNumber()

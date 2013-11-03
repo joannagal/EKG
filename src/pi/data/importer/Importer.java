@@ -65,7 +65,8 @@ public class Importer {
 			Node node = (Node) i.next();
 			double interval = 1.0d / Double.parseDouble(node.valueOf("@frequency"));
 			ECG ecg = new ECG();
-			ecg.setChannel(importWaves(node, interval));
+			ecg.setChannel(importWaves(node, interval, ecg));
+			ecg.findAll();
 			vectorOfSignals.add(index, ecg);
 			index++;
 		}
@@ -80,7 +81,7 @@ public class Importer {
 	 * @return
 	 * @throws DocumentException
 	 */
-	public ArrayList<Channel> importWaves(Node signal, double interval) throws DocumentException {
+	public ArrayList<Channel> importWaves(Node signal, double interval, ECG ecg) throws DocumentException {
 		
 		String xPath = "./ekgWave";
 		List<?> nodes = signal.selectNodes(xPath);
@@ -115,6 +116,7 @@ public class Importer {
 			channel.setMinValue(min);
 			channel.setStartAxis(0.0d);
 			channel.setScale(0.2d);
+			channel.setParent(ecg);
 			channel.recalculate();
 			result.add(index, channel);
 			index++;

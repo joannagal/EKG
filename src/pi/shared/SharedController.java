@@ -9,6 +9,7 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 
 import pi.data.importer.Importer;
 import pi.shared.schemes.Scheme;
@@ -70,6 +71,19 @@ public class SharedController
 	private JFrame frame;
 	private Importer importer;
 	private Container container;
+	
+	// --------------------------
+	// SHARED PASKU POSTEPU
+	private JProgressBar progressBar = null;
+	
+	public void updateProgressBar()
+	{
+		if (this.progressBar != null)
+		{
+			this.progressBar.setValue(this.progressBar.getValue() + 1);
+		}
+	}
+
 	
 	private SharedController()
 	{
@@ -278,5 +292,16 @@ public class SharedController
 	public void packFrame(){
 		this.frame.pack();
 	}
+	
+	public JProgressBar getProgressBar()
+	{
+		return progressBar;
+	}
+
+	public void setProgressBar(JProgressBar progressBar)
+	{
+		this.progressBar = progressBar;
+	}
+
 	
 }

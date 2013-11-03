@@ -3,6 +3,7 @@ package pi.inputs.signal;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import pi.inputs.signal.autofinder.Parameters;
 import pi.utilities.Range;
 
 //-------------------------------------------
@@ -16,6 +17,9 @@ import pi.utilities.Range;
 
 public class Channel
 {
+	// PARENT 
+	private ECG parent = null;
+	
 	// NAZWA CHANNELU
 	private String name;
 	
@@ -62,6 +66,10 @@ public class Channel
 	// TO MOJE PIERDY DO WYKRESOW, NIE WAZNE
 	private Double startAxis = 0.0d;
 	private Double scale = 0.0d;
+	
+	// PARAMETRY AUTOFINDERA
+	private Parameters params;
+	
 	
 	public Channel()
 	{
@@ -193,6 +201,26 @@ public class Channel
 	public void setEndTime(Double endTime)
 	{
 		this.endTime = endTime;
+	}
+	
+	public Parameters getParams()
+	{
+		return params;
+	}
+
+	public void setParams(Parameters params)
+	{
+		this.params = params;
+	}
+
+	public ECG getParent()
+	{
+		return parent;
+	}
+
+	public void setParent(ECG parent)
+	{
+		this.parent = parent;
 	}
 	
 }
