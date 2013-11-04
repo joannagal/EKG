@@ -32,6 +32,8 @@ public class Graph extends JPanel
 	// -------------------------------------------
 	// SOME PROJECT OBJECTS
 	// -------------------------------------------
+	//
+	//
 	// --- CURRENT SIGNAL
 	private Channel signal;
 	// --- CURRENT DRAWING STYLE
