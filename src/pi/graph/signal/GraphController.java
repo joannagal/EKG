@@ -34,6 +34,9 @@ public class GraphController implements ActionListener {
 		if (action.equals("RESULTS")){
 			
 		}
+		if (action.equals("AUTOFINDER")){
+			this.view.getAfView().showWithSignal(model);
+		}
 		if (action.equals("ADD")){
 			model.addSegment();
 

@@ -11,28 +11,32 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import pi.graph.signal.Graph;
+import pi.gui.AutoFinder.AutoFinderView;
 import pi.shared.SharedController;
 
 public class GraphToolbar extends JPanel {
+	
+	private AutoFinderView afView = new AutoFinderView();
 	
 	private JButton informationButton;
 	private JButton analysisButton;
 	private JButton resultsButton;
 	private JPanel segmentPanel;
+	private JButton autofinderButton;
 	private JButton addSegmentButton;
 	private JButton deleteDegmentButton;
 	private JSlider segmentHeightSlider;
 	private JSlider heightSlider;
-	private JSlider widthSlider;
+	//private JSlider widthSlider;
 	private Graph graph;
 
 	private JPanel segmentHeightSliderPanel;
 	private JPanel panelHeightSliderPanel;
-	private JPanel panelWidthSliderPanel;
+	//private JPanel panelWidthSliderPanel;
 	
 	private JButton[] buttonArray;
 	private JSlider[] sliderArray;
-	private String[] itemEvent = new String[]{"INFO", "ANALYSIS", "RESULTS", "ADD", "DELETE"};
+	private String[] itemEvent = new String[]{"INFO", "ANALYSIS", "RESULTS", "AUTOFINDER", "ADD", "DELETE"};
 
 	
 	public GraphToolbar(final Graph graph){
@@ -49,6 +53,9 @@ public class GraphToolbar extends JPanel {
 		resultsButton = new JButton("Results");
 		resultsButton.setVisible(true);
 		
+		autofinderButton = new JButton("AutoFinder");
+		autofinderButton.setVisible(true);
+		
 		
 		segmentPanel = new JPanel();
 		segmentPanel.setBorder(BorderFactory.createTitledBorder("+/- Segments"));
@@ -59,7 +66,7 @@ public class GraphToolbar extends JPanel {
 		deleteDegmentButton.setVisible(true);
 		segmentPanel.add(deleteDegmentButton);
 		
-		buttonArray = new JButton[]{informationButton, analysisButton, resultsButton, 
+		buttonArray = new JButton[]{informationButton, analysisButton, resultsButton, autofinderButton,
 				addSegmentButton, deleteDegmentButton};
 		
 		/* setting panel with segment height slider */
@@ -85,22 +92,7 @@ public class GraphToolbar extends JPanel {
         
         
         /* setting panel with panel width slider*/
-        panelWidthSliderPanel = new JPanel();
-		panelWidthSliderPanel.setBorder(BorderFactory.createTitledBorder("Panel Width"));
-		panelWidthSliderPanel.setVisible(true);
         
-        widthSlider = new JSlider();
-        widthSlider.setMinimum(800);
-        widthSlider.setMaximum(1500);
-        widthSlider.setValue(1100);
-        widthSlider.addChangeListener(new ChangeListener() {
-			
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				graph.setWidth(widthSlider.getValue());
-			}
-		});
-        panelWidthSliderPanel.add(widthSlider);
         
         
         /* setting panel with panel height slider*/
@@ -121,14 +113,14 @@ public class GraphToolbar extends JPanel {
 		});
         panelHeightSliderPanel.add(heightSlider);
         
-        sliderArray = new JSlider[]{segmentHeightSlider, heightSlider, widthSlider};
+        sliderArray = new JSlider[]{segmentHeightSlider, heightSlider};
         
 		this.add(informationButton);
 		this.add(analysisButton);
 		this.add(resultsButton);
+		this.add(autofinderButton);
 		this.add(segmentPanel);
 		this.add(segmentHeightSliderPanel);
-		this.add(panelWidthSliderPanel);
 		this.add(panelHeightSliderPanel);
 		SharedController.getInstance().packFrame();
 	}
@@ -138,6 +130,14 @@ public class GraphToolbar extends JPanel {
 			buttonArray[i].setActionCommand(itemEvent[i]);
 			buttonArray[i].addActionListener(al);
 		}
+	}
+
+	public AutoFinderView getAfView() {
+		return afView;
+	}
+
+	public void setAfView(AutoFinderView afView) {
+		this.afView = afView;
 	}
 	
 	

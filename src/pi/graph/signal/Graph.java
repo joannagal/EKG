@@ -48,8 +48,7 @@ public class Graph extends JPanel
 	private Segment[] segment;
 	private int segments;
 	private Dimension segmentSize;
-	// -------------------------------------------
-
+	// -----------------------------------------
 
 	// -------------------------------------------
 	
