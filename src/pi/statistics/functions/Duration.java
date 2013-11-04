@@ -21,7 +21,7 @@ public class Duration {
     }
 
     public void setName(String waveName){
-	this.name = this.name + waveName;
+        this.name = this.name + waveName;
     }
     
 }

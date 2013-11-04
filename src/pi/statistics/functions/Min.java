@@ -8,7 +8,7 @@ import pi.statistics.logic.StatisticResult;
 
 public class Min extends Function {
 
-    private int min = 0;
+    private double min = 0;
     
     public Min() {
 	super("Min");
@@ -17,23 +17,14 @@ public class Min extends Function {
     @Override
     public void countResult() {
 	Vector<Double> result = new Vector<Double>();
-	result.add((double)min);
+	result.add(min);
 	StatisticResult.addValue(this.getName(), result);
     }
 
     @Override
-    public void iterate(Probe probe) {
-	if (probe.getValue() < min) min = probe.getValue();
-    }
-    
-    public void setName(String waveName){
-	super.setName(waveName);
+    public void iterate(double value) {
+	if (value < min) min = value;
     }
 
-    @Override
-    public void setWaveName(String waveName) {
-	// TODO Auto-generated method stub
-	
-    }
 
 }

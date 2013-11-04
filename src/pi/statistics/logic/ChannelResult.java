@@ -6,12 +6,12 @@ import java.util.Map;
 public class ChannelResult {
     private Map<String, AttributeResult> channelResult = new HashMap<String, AttributeResult>();
 
-	public Map<String, AttributeResult> getValue() {
-		return channelResult;
-	}
+        public Map<String, AttributeResult> getValue() {
+                return channelResult;
+        }
 
-	public void addValue(String name, AttributeResult result ) {
-		channelResult.put(name, result);
-	}
+        public void addValue(String name, AttributeResult result ) {
+                channelResult.put(name, result);
+        }
 
 }
