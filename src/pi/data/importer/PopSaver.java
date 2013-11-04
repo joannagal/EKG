@@ -38,7 +38,10 @@ public class PopSaver {
 
 		out.writeStartDocument();
 		out.writeStartElement("PROJECT");
-		// TODO atrybuty projektu...
+		out.writeAttribute("name", project.getName());
+		out.writeAttribute("path", project.getPath());
+		out.writeAttribute("date", project.getDate().toString());
+		out.writeAttribute("type", String.valueOf(project.getType()));
 
 		if (project.getFirstPopulation() != null) {
 			savePopul(project.getFirstPopulation());
@@ -50,13 +53,15 @@ public class PopSaver {
 
 		out.writeEndElement();
 		out.writeEndDocument();
-		
+
 		out.close();
 	}
 
 	private void savePopul(Population popul) throws XMLStreamException {
 		out.writeStartElement("POPUL");
-		// TODO atrybuty populacji
+		out.writeAttribute("id", popul.getName());
+		out.writeAttribute("specimens",
+				String.valueOf(popul.getSpecimen().size()));
 
 		for (Specimen s : popul.getSpecimen()) {
 			saveSpecimen(s);
@@ -67,12 +72,29 @@ public class PopSaver {
 
 	private void saveSpecimen(Specimen s) throws XMLStreamException {
 		out.writeStartElement("SPECIMEN");
-		// TODO atrybuty
+		out.writeAttribute("name", s.getName());
+		out.writeAttribute("surname", s.getSurname());
+		out.writeAttribute("birth_date", s.getBirth());
+		out.writeAttribute("age", String.valueOf(s.getAge()));
+		out.writeAttribute("weight", String.valueOf(s.getWeight()));
+		out.writeAttribute("activity_duration",
+				String.valueOf(s.getActivityDuration()));
+		out.writeAttribute("hiv", String.valueOf(s.getHiv()));
+		out.writeAttribute("metadon", String.valueOf(s.getMetadon()));
+		out.writeAttribute("metadon_time_application",
+				String.valueOf(s.getMetadonTimeApplication()));
+		out.writeAttribute("good_mood_duration",
+				String.valueOf(s.getTimeToGoodMood()));
+		if (s.getAfter() != null) {
+			out.writeAttribute("inputs_number", "2");
+		} else {
+			out.writeAttribute("inputs_number", "1");
+		}
 
 		if (s.getBefore() != null) {
 			saveECG((ECG) s.getBefore());
 		}
-		
+
 		if (s.getAfter() != null) {
 			saveECG((ECG) s.getAfter());
 		}
@@ -82,42 +104,50 @@ public class PopSaver {
 
 	private void saveECG(ECG ecg) throws XMLStreamException {
 		out.writeStartElement("INPUT");
-		//TODO atrybuty
-		
-		for(Channel ch : ecg.getChannel()){
+		out.writeAttribute("id", ecg.getName());
+		out.writeAttribute("channels", String.valueOf(ecg.getChannel().size()));
+
+		for (Channel ch : ecg.getChannel()) {
 			saveChannel(ch);
 		}
-		
+
 		out.writeEndElement();
-		
+
 	}
 
 	private void saveChannel(Channel ch) throws XMLStreamException {
 		out.writeStartElement("CHANNEL");
-		//TODO atrybuty 
-		
+		out.writeAttribute("name", ch.getName());
+		// TODO - INTERVAL VS. FREQUENCY out.writeAttribute("frequency", ch.get)
+		out.writeAttribute("samples", String.valueOf(ch.getProbe().size()));
+		out.writeAttribute("translations", String.valueOf(ch.getTranslation()));
+
 		out.writeStartElement("RAW_DATA");
-		//TODO raw data
+		// TODO raw data
 		out.writeEndElement();
-		
+
 		out.writeStartElement("CYCLES");
-		for(Cycle c : ch.getCycle()){
+		out.writeAttribute("number", String.valueOf(ch.getCycle().size()));
+		for (Cycle c : ch.getCycle()) {
 			saveCycle(c);
 		}
-		
+
 		out.writeEndElement();
-		
+
 		out.writeEndElement();
 	}
 
 	private void saveCycle(Cycle c) throws XMLStreamException {
 		out.writeStartElement("CYCLE");
-		//TODO atrybuty
-		out.writeCharacters("dane");
-		//TODO dane!
+		out.writeAttribute("range", c.getRange().toString());
+		out.writeAttribute("p_wave", c.getP_wave().toString());
+		out.writeAttribute("pr_segment", c.getPr_segment().toString());
+		out.writeAttribute("qrs_segment", c.getQrs_complex().toString());//TODO change caption segment to complex
+		out.writeAttribute("t_wave", c.getT_wave().toString());
+		out.writeAttribute("u_wave", c.getU_wave().toString());
+		out.writeAttribute("markered", c.getMarkered().toString());
 		
+		out.writeCharacters("dane");
 		out.writeEndElement();
 	}
-	
-	
 }

@@ -118,4 +118,10 @@ public class Range
 		return interval;
 	}
 
+	/**
+	 * Returns string representing left and right edge of interval
+	 */
+	public String toString(){
+		return (left + " " + right);
+	}
 }

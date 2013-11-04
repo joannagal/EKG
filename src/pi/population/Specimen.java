@@ -23,6 +23,8 @@ public class Specimen
 	
 	
 	private int age = -1;
+	
+	private int weight = -1;
 	// CZAS TRWALNIA UZALEZNIENIA/UPRAWIANIA SPORTU
 	// W LATACH
 	private int activityDuration = -1;
@@ -50,6 +52,7 @@ public class Specimen
 	// DRUGI SYGNAL AFTER (NP PO LEKACH, ALBO IMPREZIE
 	// NIE ZAWSZE OBOWIAZKOWY, ZALEZY OD TEGO KTORY TO PROJEKT
 	private Input after;
+	
 	
 	// TODO NAPISAC LOAD SIGNAL
 	public Input loadSignal(String path)
@@ -188,6 +191,10 @@ public class Specimen
 	
 	public void setWeight(int weight) {
 		// TODO Auto-generated method stub
-		
+		this.weight = weight;
+	}
+	
+	public int getWeight(){
+		return weight;
 	}
 }
