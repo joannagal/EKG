@@ -4,24 +4,20 @@ import pi.inputs.signal.Probe;
 
 public abstract class Function {
 	//TODO typ zwracany
-	private String name;
+	private final String name;
 	
 	public Function(String name){
-		this.setName(name);
+		this.name = name;
 	}
 	
 	public abstract void countResult();	
 	
-	public abstract void iterate(Probe probe);
-	
-	public abstract void setWaveName(String waveName);
+	public abstract void iterate(double value);
 	
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
-	    this.name = this.name + " " + name;
-	}
+
 	
 }

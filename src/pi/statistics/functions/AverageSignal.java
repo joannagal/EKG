@@ -17,19 +17,10 @@ public class AverageSignal extends Function {
     }
 
     @Override
-    public void iterate(Probe probe) {
+    public void iterate(double value) {
 	// TODO Auto-generated method stub
 
     }
 
-    public void setName(String waveName) {
-	super.setName(waveName);
-    }
-
-    @Override
-    public void setWaveName(String waveName) {
-	// TODO Auto-generated method stub
-	
-    }
 
 }

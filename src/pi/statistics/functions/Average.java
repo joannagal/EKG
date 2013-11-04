@@ -17,31 +17,22 @@ public class Average extends Function {
 
     public void countResult() {
 	Vector<Double> result = new Vector<Double>();
-
+	double avg;
 	if (denominator != 0) {
-	    double avg = (sum / denominator);
-
-	    result.add(avg);
+	   avg = (sum / denominator);
 	} else {
+	    avg = 0;
 	    // TODO Co jeœli mianownik (liczba próbek) jest zerem
 	}
+	result.add(avg);
 	StatisticResult.addValue(this.getName(), result);
     }
 
-    public void iterate(Probe probe) {
-	sum += probe.getValue();
+    public void iterate(double value) {
+	sum += value;
 	denominator++;
 
     }
 
-    public void setName(String waveName) {
-	super.setName(waveName);
-    }
-
-    @Override
-    public void setWaveName(String waveName) {
-	// TODO Auto-generated method stub
-	
-    }
 
 }

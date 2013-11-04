@@ -8,7 +8,7 @@ import pi.statistics.logic.StatisticResult;
 
 public class Max extends Function {
 
-    private int max;
+    private double max;
     
     public Max() {
 	super("Max");
@@ -17,22 +17,13 @@ public class Max extends Function {
     @Override
     public void countResult() {
 	Vector<Double> result = new Vector<Double>();
-	result.add((double)max);
+	result.add(max);
 	StatisticResult.addValue(this.getName(), result);
     }
 
     @Override
-    public void iterate(Probe probe) {
-	if (probe.getValue() < max) max = probe.getValue();
+    public void iterate(double value) {
+	if (value < max) max = value;
     }
 
-    public void setName(String waveName){
-	super.setName(waveName);
-    }
-
-    @Override
-    public void setWaveName(String waveName) {
-	// TODO Auto-generated method stub
-	
-    }
 }

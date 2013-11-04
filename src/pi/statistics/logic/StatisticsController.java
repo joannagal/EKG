@@ -41,37 +41,51 @@ public class StatisticsController {
 	    for (Cycle cycle : channel.getCycle()) {
 		if (cycle.getMarkered() == true) {
 		    Waves waves = new Waves(cycle);
-		    
+
 		    waves.setJPoint();
-		    
+
 		    for (Range wave : waves.getWaves().keySet()) {
 			int left = wave.getLeft();
 			int right = wave.getRight();
 			String waveName = waves.getWaves().get(wave);
 			duration.setName(waveName);
-			duration.countDuration(left, right, channel.getInterval());
-			Boolean calculate = false;
-			for (Probe probe : channel.getProbe()) {
-			    if (probe.getNumber() == left)
-				calculate = true;
-			    if (probe.getNumber() == right)
-				calculate = false;
-			    if (calculate == true) {
-				statResult.clearValues();
-				for (Function function : functions) {
-				    function.setWaveName(waveName);
-				    function.iterate(probe);
-				}
-			    }
-			}
-			for (Function function : functions) {
-			    function.setName(waveName);
-			    function.countResult();
-			}
+			duration.countDuration(left, right,
+				channel.getInterval());
+//			Boolean calculate = false;
+//			for (Probe probe : channel.getProbe()) {
+//			    if (probe.getNumber() == left)
+//				calculate = true;
+//			    if (probe.getNumber() == right)
+//				calculate = false;
+//			    if (calculate == true) {
+//				statResult.clearValues();
+//				for (Function function : functions) {
+//				    function.iterate(probe);
+//				}
+//			    }
+//			}
+//			for (Function function : functions) {
+//			    function.countResult();
+//			}
+			//atrResult.addValue(waveName, statResult);
 		    }
 		}
 		atrResult.addValue(statResult);
 	    }
+	    
+	    statResult.clearValues();
+	    for (StatisticResult stat : atrResult.getValue()){
+		for (String name : stat.getValue().keySet()){
+		    for (Function function : functions){
+			function.iterate(stat.getValue().get(name).firstElement());
+		    }
+		}
+	    }
+	    for (Function function : functions){
+		function.countResult();
+	    }
+	    
+	    atrResult.addValue(statResult);
 	    channelResult.addValue(channel.getName(), atrResult);
 	}
 	return channelResult;

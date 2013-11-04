@@ -7,7 +7,6 @@ import pi.statistics.logic.Function;
 import pi.statistics.logic.StatisticResult;
 
 public class Amplitude extends Function {
-    private String waveName;
     
     public Amplitude() {
 	super("Amplitude");
@@ -18,8 +17,8 @@ public class Amplitude extends Function {
 	Vector<Double> result = new Vector<Double>();
 	
 	//TODO null?
-	double min = StatisticResult.getValue().get("Min "+ waveName).firstElement();
-	double max = StatisticResult.getValue().get("Max "+ waveName).firstElement();
+	double min = StatisticResult.getValue().get("Min").firstElement();
+	double max = StatisticResult.getValue().get("Max").firstElement();
 	double amplitude = max - min;
 	
 	result.add(amplitude);
@@ -27,16 +26,8 @@ public class Amplitude extends Function {
     }
 
     @Override
-    public void iterate(Probe probe) {
+    public void iterate(double value) {
 
     }
-    
-    public void setName(String waveName){
-	super.setName(waveName);
-    }
 
-    @Override
-    public void setWaveName(String waveName) {
-	this.waveName = waveName;
-    }
 }
