@@ -1,4 +1,5 @@
 package pi.data.importer;
+
 import java.io.File;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -20,8 +21,10 @@ public class Importer {
 
 	private Document document;
 	private String filePath;
+
 	/**
 	 * Constructor. From given file path loads the xml document to import data.
+	 * 
 	 * @param filePath
 	 * @throws DocumentException
 	 */
@@ -30,40 +33,59 @@ public class Importer {
 		document = loadDocument(filePath);
 		System.out.println("Nowy specimen utorzony");
 	}
-	
+
 	public String[] getAttributes() throws DocumentException {
 		String[] test = new String[4];
 		String xPath = "//patient";
 		List<?> nodes = document.selectNodes(xPath);
 
-		if (nodes.iterator().hasNext())
-		{
+		if (nodes.iterator().hasNext()) {
 			Node node = (Node) nodes.iterator().next();
 			test[0] = node.valueOf("@surname");
 			test[1] = node.valueOf("@firstName");
-			test[2]= node.valueOf("@birthDate");
-			test[3]= node.valueOf("@ID");
+			test[2] = node.valueOf("@birthDate");
+			test[3] = node.valueOf("@ID");
 		}
-		return test;	
+		return test;
+	}
+
+	public Specimen importSpecimen() throws DocumentException {
+		Specimen spec = new Specimen();
+		
+		//TODO Atrybuty specimena
+		//spec.setName(name)
+		
+		ArrayList<ECG> vectorOfSignals = importSignals();
+		// TODO wczytujemy listê a w specimenie jest tylko after i before?
+		if (vectorOfSignals.get(0) != null) {
+			// spec.loadBefore(vectorOfSignals.get(0));//TODO STRING?!
+		}
+		if (vectorOfSignals.get(1) != null){
+			//TODO
+		}
+			
+		return spec;
 	}
 
 	/**
-	 * Adds next ECGSignals to the returned list and fills each channel list with data
+	 * Adds next ECGSignals to the returned list and fills each channel list
+	 * with data
+	 * 
 	 * @return
 	 * @throws DocumentException
 	 */
 	public ArrayList<ECG> importSignals() throws DocumentException {
 
-		
 		String xPath = "//ekgSignal";
 		List<?> nodes = document.selectNodes(xPath);
 		int size = nodes.size();
 		ArrayList<ECG> vectorOfSignals = new ArrayList<>(size);
-		
+
 		int index = 0;
 		for (Iterator<?> i = nodes.iterator(); i.hasNext();) {
 			Node node = (Node) i.next();
-			double interval = 1.0d / Double.parseDouble(node.valueOf("@frequency"));
+			double interval = 1.0d / Double.parseDouble(node
+					.valueOf("@frequency"));
 			ECG ecg = new ECG();
 			ecg.setChannel(importWaves(node, interval, ecg));
 			ecg.findAll();
@@ -81,8 +103,9 @@ public class Importer {
 	 * @return
 	 * @throws DocumentException
 	 */
-	public ArrayList<Channel> importWaves(Node signal, double interval, ECG ecg) throws DocumentException {
-		
+	public ArrayList<Channel> importWaves(Node signal, double interval, ECG ecg)
+			throws DocumentException {
+
 		String xPath = "./ekgWave";
 		List<?> nodes = signal.selectNodes(xPath);
 		int size = nodes.size();
@@ -98,14 +121,16 @@ public class Importer {
 
 			int min = Integer.MAX_VALUE;
 			int max = Integer.MIN_VALUE;
-			
+
 			for (int probeNo = 0; probeNo < values.length; probeNo++) {
 				int probeValue = Integer.parseInt(values[probeNo]);
-				Probe probe = new Probe(probeNo, probeValue);			
-				
-				if (probeValue > max) max = probeValue;
-				if (probeValue < min) min = probeValue;
-				
+				Probe probe = new Probe(probeNo, probeValue);
+
+				if (probeValue > max)
+					max = probeValue;
+				if (probeValue < min)
+					min = probeValue;
+
 				probes.add(probeNo, probe);
 			}
 
