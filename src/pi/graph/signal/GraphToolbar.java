@@ -13,10 +13,12 @@ import javax.swing.event.ChangeListener;
 import pi.graph.signal.Graph;
 import pi.gui.AutoFinder.AutoFinderView;
 import pi.shared.SharedController;
+import pi.statistics.gui.StatisticWindowView;
 
 public class GraphToolbar extends JPanel {
 	
 	private AutoFinderView afView = new AutoFinderView();
+	private StatisticWindowView stView = new StatisticWindowView();
 	
 	private JButton informationButton;
 	private JButton analysisButton;
@@ -138,6 +140,14 @@ public class GraphToolbar extends JPanel {
 
 	public void setAfView(AutoFinderView afView) {
 		this.afView = afView;
+	}
+
+	public StatisticWindowView getStView() {
+	    return stView;
+	}
+
+	public void setStView(StatisticWindowView stView) {
+	    this.stView = stView;
 	}
 	
 	
