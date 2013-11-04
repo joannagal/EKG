@@ -56,7 +56,7 @@ public class Importer {
 		//spec.setName(name)
 		
 		ArrayList<ECG> vectorOfSignals = importSignals();
-		// TODO wczytujemy listê a w specimenie jest tylko after i before?
+		// TODO wczytujemy listï¿½ a w specimenie jest tylko after i before?
 		if (vectorOfSignals.get(0) != null) {
 			// spec.loadBefore(vectorOfSignals.get(0));//TODO STRING?!
 		}
@@ -96,7 +96,7 @@ public class Importer {
 		return vectorOfSignals;
 	}
 
-	// Metoda zwraca wektor kana³ów dla klasy ECG
+	// Metoda zwraca wektor kanaï¿½ï¿½w dla klasy ECG
 	/**
 	 * 
 	 * @param signal

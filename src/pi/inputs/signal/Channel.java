@@ -94,6 +94,17 @@ public class Channel
 	public void setName(String name)
 	{
 		this.name = name;
+		
+		if (this.name.compareTo("I") == 0) this.params = Parameters.getIParameters();
+		else if (this.name.compareTo("II") == 0) this.params = Parameters.getIIParameters();
+		else if (this.name.compareTo("III") == 0) this.params = Parameters.getIIIParameters();
+		else if (this.name.compareTo("V1") == 0) this.params = Parameters.getV1Parameters();
+		else if (this.name.compareTo("V2") == 0) this.params = Parameters.getV2Parameters();
+		else if (this.name.compareTo("V3") == 0) this.params = Parameters.getV3Parameters();
+		else if (this.name.compareTo("V4") == 0) this.params = Parameters.getV4Parameters();
+		else if (this.name.compareTo("V5") == 0) this.params = Parameters.getV5Parameters();
+		else if (this.name.compareTo("V6") == 0) this.params = Parameters.getV6Parameters();
+		else this.params = Parameters.getIParameters();
 	}
 
 	public Double getInterval()

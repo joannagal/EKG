@@ -38,6 +38,7 @@ public class AutoFinder
 	{
 		
 		this.params = signal.getParams();
+		
 		this.baseSignal = signal;
 		this.signal = new Channel();
 		this.upSignal = new Channel(); 
@@ -86,8 +87,8 @@ public class AutoFinder
 	{
 		// CREATE CANDIDATES
 		this.createDerivatives();
-		this.simplifySignal(!this.params.DOWN_SIGNAL, params.SIMPLIFIED_RANGE, this.signal);
-		this.simplifySignal(true, params.SIMPLIFIED_RANGE, this.upSignal);
+		this.simplifySignal(!this.params.DOWN_SIGNAL, this.params.SIMPLIFIED_RANGE, this.signal);
+		this.simplifySignal(true, this.params.SIMPLIFIED_RANGE, this.upSignal);
 		this.createDerivatives();
 
 		LinkedList<Range> candidateQRS = new LinkedList<Range>();
