@@ -34,8 +34,6 @@ public class Probe
 		
 		this.setNumber(number);
 		this.setValue(value);
-		
-
 		this.setNormalized(this.normalize());
 	}
 	
@@ -70,6 +68,7 @@ public class Probe
 	public void setValue(int value)
 	{
 		this.value = value;
+		//this.normalize();
 	}
 
 	public Double getNormalized()

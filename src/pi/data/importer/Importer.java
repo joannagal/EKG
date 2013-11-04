@@ -137,8 +137,8 @@ public class Importer {
 			channel.setProbe(probes);
 			channel.setTranslation(0.0d);
 			channel.setInterval(interval);
-			channel.setMaxValue(max);
-			channel.setMinValue(min);
+			channel.setMaxValue((double) max / 1000.0d);
+			channel.setMinValue((double) min / 1000.0d);
 			channel.setStartAxis(0.0d);
 			channel.setScale(0.2d);
 			channel.setParent(ecg);

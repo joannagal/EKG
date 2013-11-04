@@ -52,7 +52,7 @@ public class VerticalAxis
 
 		for (int i = 0; point[i].isActive(); i++)
 		{
-			graphics.drawString(String.format("%.2f", point[i].getValue()),
+			graphics.drawString(String.format("%.2fmV", point[i].getValue()),
 					point[i].getPosition().x, point[i].getPosition().y);
 
 			graphics.drawLine(marker[i].getPosition().x,
@@ -68,7 +68,7 @@ public class VerticalAxis
 
 		for (int i = 0; point[i].isActive(); i++)
 		{
-			xshift = fontMetrics.stringWidth(String.format("%.2f",
+			xshift = fontMetrics.stringWidth(String.format("%.2fmV",
 					point[i].getValue()));
 
 			point[i].setPosition((int) (point[i].getPosition().x - xshift),

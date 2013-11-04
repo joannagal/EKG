@@ -112,12 +112,12 @@ public class SignalAdapter
 		p2 = new DPoint(0.0d, 0.0d);
 
 		p1.x = check;
-		p1.y = probe.getValue();
+		p1.y = probe.getNormalized();
 
 		probe = this.signal.getProbe().get(right);
 
 		p2.x = check + this.signal.getInterval();
-		p2.y = probe.getValue();
+		p2.y = probe.getNormalized();
 
 		this.crossPoint(p1, p2, time, true);
 		
@@ -198,7 +198,7 @@ public class SignalAdapter
 					* this.signal.getInterval() + this.signal.getTranslation();
 
 			p1.x = this.getXFromTime(time);
-			p1.y = this.getYFromValue(tempProbe.getValue());
+			p1.y = this.getYFromValue(tempProbe.getNormalized());
 
 			// point 2
 
@@ -211,7 +211,7 @@ public class SignalAdapter
 					+ this.signal.getTranslation();
 
 			p2.x = this.getXFromTime(time);
-			p2.y = this.getYFromValue(tempProbe.getValue());
+			p2.y = this.getYFromValue(tempProbe.getNormalized());
 
 			// cut left
 

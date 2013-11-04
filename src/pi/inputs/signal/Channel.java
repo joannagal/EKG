@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import pi.inputs.signal.autofinder.Parameters;
-import pi.utilities.Range;
 
 //-------------------------------------------
 /*
@@ -60,8 +59,8 @@ public class Channel
 	private ArrayList <Probe> probe;
 	
 	// MINIMALNA I MAKSYMALNA WARTOSC, USTALANA PRZY WCZYTYWANIU
-	private int minValue = 0;
-	private int maxValue = 0;
+	private double minValue = 0.0d;
+	private double maxValue = 0.0d;
 	
 	// TO MOJE PIERDY DO WYKRESOW, NIE WAZNE
 	private Double startAxis = 0.0d;
@@ -138,27 +137,27 @@ public class Channel
 		this.probe = probe;
 	}
 
-	public int getMinValue()
+	public double getMinValue()
 	{
 		return minValue;
 	}
 
-	public void setMinValue(int minValue)
+	public void setMinValue(double minValue)
 	{
 		this.minValue = minValue;
 	}
 
-	public int getMaxValue()
+	public double getMaxValue()
 	{
 		return maxValue;
 	}
 	
-	public int getRange()
+	public double getRange()
 	{
 		return (this.maxValue - this.minValue);
 	}
 
-	public void setMaxValue(int maxValue)
+	public void setMaxValue(double maxValue)
 	{
 		this.maxValue = maxValue;
 	}
