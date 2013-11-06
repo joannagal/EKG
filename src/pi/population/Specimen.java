@@ -47,17 +47,17 @@ public class Specimen
 	
 	// -------------------------
 	// SYGNAL ECG OSOBNIKA
-	private Input before;
+	private ECG before;
 	
 	// DRUGI SYGNAL AFTER (NP PO LEKACH, ALBO IMPREZIE
 	// NIE ZAWSZE OBOWIAZKOWY, ZALEZY OD TEGO KTORY TO PROJEKT
-	private Input after;
+	private ECG after;
 	
 	
 	// TODO NAPISAC LOAD SIGNAL
-	public Input loadSignal(String path)
+	public ECG loadSignal(String path)
 	{
-		Input result = new ECG();
+		ECG result = new ECG();
 		return result;
 	}
 	public boolean loadBefore(String path)
@@ -157,21 +157,21 @@ public class Specimen
 	{
 		this.goodMoodDuration = goodMoodDuration;
 	}
-	public Input getAfter()
+	public ECG getAfter()
 	{
 		return after;
 	}
-	public void setAfter(Input after)
+	public void setAfter(ECG after)
 	{
 		this.after = after;
 	}
 	
-	public Input getBefore()
+	public ECG getBefore()
 	{
 		return before;
 	}
 	
-	public void setBefore(Input before){
+	public void setBefore(ECG before){
 		this.before = before;
 	}
 	

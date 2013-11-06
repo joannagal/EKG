@@ -14,6 +14,8 @@ import javax.swing.JPanel;
 import org.dom4j.DocumentException;
 
 import pi.data.importer.Importer;
+import pi.data.importer.population.ImportPopulation;
+import pi.data.importer.population.SingleFile;
 import pi.inputs.signal.ECG;
 import pi.shared.SharedController;
 
@@ -22,6 +24,11 @@ public class Application {
 	private static ECG ecg;
 
 	public static void main(String[] args) {
+		
+		//ImportPopulation pop = new ImportPopulation();
+		
+
+		
 		
 		JFrame frame = new JFrame("ECG Analyzer"); 
 		frame.setLocation(100, 0);
@@ -45,9 +52,8 @@ public class Application {
 				menubar.setEditable(true);
 			}
 		}
-	
-	
-		
+	 
+
 		
 		
 	}

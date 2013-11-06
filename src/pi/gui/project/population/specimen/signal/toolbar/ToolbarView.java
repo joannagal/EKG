@@ -15,15 +15,15 @@ import javax.swing.JPanel;
 public class ToolbarView extends JPanel
 {
 	private static final long serialVersionUID = 1L;
-	private JButton specimenButton = new JButton();
-	private JButton searchButton = new JButton();
-	private JButton raportButton = new JButton();
+	private JButton specimenButton = new JButton("A");
+	private JButton searchButton = new JButton("B");
+	private JButton raportButton = new JButton("C");
 
 	public ToolbarView()
 	{
 		this.setMinimumSize(new Dimension(50, 50));
 
-		try
+		/*try
 		{
 			Image img = ImageIO.read(getClass().getResource(
 					"/resources/icon-info.png"));
@@ -48,7 +48,7 @@ public class ToolbarView extends JPanel
 			this.raportButton.setIcon(new ImageIcon(img));
 		} catch (IOException ex)
 		{
-		}
+		}*/
 
 
 		this.setLayout(new GridBagLayout());

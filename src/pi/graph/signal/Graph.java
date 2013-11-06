@@ -2,16 +2,14 @@ package pi.graph.signal;
 
 import javax.swing.JPanel;
 
-
-
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
@@ -20,6 +18,7 @@ import pi.graph.signal.popup.SelectPopUp;
 import pi.graph.signal.popup.ToolsPopUp;
 import pi.inputs.signal.Channel;
 import pi.inputs.signal.Cycle;
+import pi.inputs.signal.Probe;
 import pi.shared.SharedController;
 import pi.shared.schemes.signal.SignalScheme;
 import pi.utilities.Range;
@@ -32,10 +31,9 @@ public class Graph extends JPanel
 	// -------------------------------------------
 	// SOME PROJECT OBJECTS
 	// -------------------------------------------
-	//
-	//
 	// --- CURRENT SIGNAL
 	private Channel signal;
+	private Channel dummySignal;
 	// --- CURRENT DRAWING STYLE
 	private SignalScheme scheme;
 	// --- OWN TOOLBOX (selection, scale, view etc)
@@ -50,10 +48,11 @@ public class Graph extends JPanel
 	private Segment[] segment;
 	private int segments;
 	private Dimension segmentSize;
-	// -----------------------------------------
+	// -------------------------------------------
+
 
 	// -------------------------------------------
-	
+
 	public Graph(Dimension size, Channel signal)
 	{
 		this.controller = SharedController.getInstance();
@@ -70,8 +69,22 @@ public class Graph extends JPanel
 
 	public void prepareGraph(Dimension size, Channel signal, int segments)
 	{
-		this.setSize(size);
-		this.setSignal(signal);
+		this.createDummySignal();
+		
+		if (size != null) 
+		{
+			this.setSize(size);
+		}
+		
+		if (signal != null)
+		{
+			this.setSignal(signal);
+		}
+		else
+		{
+			this.setSignal(this.dummySignal);
+		}
+
 		this.setSegmentSize(new Dimension(size.width, size.height));
 		this.setScheme(controller.getCurrentScheme().getSignalScheme());
 		this.segments = segments;
@@ -213,6 +226,21 @@ public class Graph extends JPanel
 		});
 	}
 
+	public void createDummySignal()
+	{
+		this.dummySignal = new Channel();
+		this.dummySignal.setMinValue(-1.0d);
+		this.dummySignal.setMaxValue(1.0d);
+		this.dummySignal.setInterval(0.1d);
+		this.dummySignal.setTranslation(0.0d);
+		this.dummySignal.setProbe(new ArrayList<Probe>());
+		this.dummySignal.setStartAxis(0.0d);
+		this.dummySignal.setScale(0.2d);
+		this.dummySignal.setParent(null);
+		this.dummySignal.recalculate();
+	}
+	
+	
 	public boolean isSelectionPossible()
 	{
 		int left = this.getTranform().getProbeFromTime(
@@ -306,7 +334,7 @@ public class Graph extends JPanel
 			this.drawYProbe(graphics);
 		}
 
-		this.drawBorder(graphics);
+		//this.drawBorder(graphics);
 	}
 
 	// ------------------------------------------
@@ -410,6 +438,7 @@ public class Graph extends JPanel
 	// RECALCULATE ALL GRAPH
 	public void recalculate()
 	{
+		this.segmentSize.width = this.getSize().width;
 		this.setScheme(controller.getCurrentScheme().getSignalScheme());
 
 		for (int i = 0; i < this.segments; i++)
@@ -424,10 +453,8 @@ public class Graph extends JPanel
 	// INCREASE NUMBER OF SEGMENTS
 	public void addSegment()
 	{
-		System.out.println("W addSegment");
 		if (this.segments < this.controller.getMaxSegments())
 		{
-			System.out.println("W ifie addSegment");
 			this.segments++;
 			this.recalculate();
 			this.draw();
@@ -574,6 +601,4 @@ public class Graph extends JPanel
 	{
 		this.getToolBox().setSt_segmentShown(st_segmentShown);
 	}
-	
-
 }

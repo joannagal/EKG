@@ -12,7 +12,9 @@ import org.dom4j.DocumentException;
 import pi.data.importer.Importer;
 import pi.graph.signal.Graph;
 import pi.gui.project.population.specimen.signal.toolbar.ToolbarView;
+import pi.inputs.Input;
 import pi.inputs.signal.ECG;
+import pi.shared.SharedController;
 
 
 public class SignalView extends JPanel
@@ -25,10 +27,9 @@ public class SignalView extends JPanel
 	public SignalView()
 	{
 		this.graph = new Graph(new Dimension(500, 150), null);
-		
-		// ----------
-		this.dummy();
-		// ----------
+
+		ECG ecg = SharedController.getInstance().getProject().getFirstPopulation().getSpecimen().get(0).getBefore();
+		this.graph.setSignal(ecg.getChannel().get(0));
 		
 		this.toolbar = new ToolbarView();
 		
@@ -55,20 +56,6 @@ public class SignalView extends JPanel
 		this.graph.recalculate();
 		this.graph.draw();
 	}
-	
-	public void dummy()
-	{
-		Importer imp;
-		try
-		{
-			imp = new Importer("src/michal/ekg_C.xml");
-			ArrayList <ECG> temp = imp.importSignals();	
-			this.graph.setSignal(temp.get(0).getChannel().get(0));
-		} catch (DocumentException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+
 
 }
