@@ -108,13 +108,13 @@ public class StatisticsController {
     }
 
     public void countStatistics(ArrayList<Function> functions) {
-	finalResult = new ProjectResult();
+	setFinalResult(new ProjectResult());
 	this.functions = functions;
 	loadPopulation();
-	finalResult.setPopul1(countForPopulation(popul1));
+	getFinalResult().setPopul1(countForPopulation(popul1));
 
 	if (popul2 != null) {
-	    finalResult.setPopul2(countForPopulation(popul2));
+	    getFinalResult().setPopul2(countForPopulation(popul2));
 	    // TODO porównaj populacje?
 	}
 
@@ -135,6 +135,14 @@ public class StatisticsController {
 
     public void setPopul2(Population popul2) {
 	this.popul2 = popul2;
+    }
+
+    public ProjectResult getFinalResult() {
+	return finalResult;
+    }
+
+    public void setFinalResult(ProjectResult finalResult) {
+	this.finalResult = finalResult;
     }
 
 }

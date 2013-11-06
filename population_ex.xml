@@ -1,0 +1,22 @@
+<PROJECT name="myProject" path="myPath" date="" type="0">
+
+<POPUL id="1" specimens="1">
+	<SPECIMEN name="Jan" surname="Kowalski" birth_date="" age="33" weight = "" activity_duration="" hiv="" metadon="" metadon_time_application="" time_to_good_mood="" good_mood_duration="" inputs_number="">
+	
+	<INPUT id="100" channels="1">
+		<CHANNEL name="" frequency="" samples="" translations="">
+			<RAW_DATA>1 2 3 4</RAW_DATA>
+			<CYCLES number="2"> 
+				<CYCLE range="" p_wave="" pr_segment="" qrs_segment="" t_wave="" u_wave="" markered="">				
+					moj przykladowy cykl 1!
+				</CYCLE>		
+				<CYCLE range="" p_wave="" pr_segment="" qrs_segment="" t_wave="" u_wave="" markered="">				
+					moj przykladowy cykl 2!
+				</CYCLE>					
+			</CYCLES>
+		</CHANNEL>
+	</INPUT>
+	</SPECIMEN>
+	
+</POPUL>
+</PROJECT>
