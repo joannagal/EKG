@@ -1,4 +1,4 @@
-package pi.gui.AutoFinder;
+package pi.gui.autofinder;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

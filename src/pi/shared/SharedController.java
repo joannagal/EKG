@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
 import pi.data.importer.Importer;
+import pi.project.Project;
 import pi.shared.schemes.Scheme;
 import pi.shared.schemes.signal.SignalScheme;
 import pi.utilities.Margin;
@@ -42,7 +43,7 @@ import pi.utilities.Margin;
 	WIEC NIE TRZEBA TWORZYC NOWYCH
 	
 	NO ALE W RAZIE WSZYSTKICH WATPLIWOSCI NATURY STYLISTYCZNEJ
-	NP. KOLOR CZEGOŒ-TAM, TO WRZUCAMY ODPOWIEDNIE POLE DO 
+	NP. KOLOR CZEGOï¿½-TAM, TO WRZUCAMY ODPOWIEDNIE POLE DO 
 	KLASY SCHEME, A TUTAJ W METODZIE CREATE WHITE SCHEME
 	NADAJEMY KOLOREK, A W ODPOWIEDNIM MIEJSCU PROGRAMU
 	POBIERAMY GO
@@ -71,6 +72,10 @@ public class SharedController
 	private JFrame frame;
 	private Importer importer;
 	private Container container;
+	
+	// -------------------------
+	// SHARED PROJECT
+	private Project project;
 	
 	// --------------------------
 	// SHARED PASKU POSTEPU
@@ -301,6 +306,16 @@ public class SharedController
 	public void setProgressBar(JProgressBar progressBar)
 	{
 		this.progressBar = progressBar;
+	}
+
+
+	public Project getProject() {
+		return project;
+	}
+
+
+	public void setProject(Project project) {
+		this.project = project;
 	}
 
 	

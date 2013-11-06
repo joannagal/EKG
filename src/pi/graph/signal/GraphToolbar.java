@@ -11,7 +11,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import pi.graph.signal.Graph;
-import pi.gui.AutoFinder.AutoFinderView;
+import pi.gui.autofinder.AutoFinderView;
 import pi.shared.SharedController;
 import pi.statistics.gui.StatisticWindowView;
 
