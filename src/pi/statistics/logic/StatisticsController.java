@@ -1,32 +1,30 @@
 package pi.statistics.logic;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Vector;
 
 import pi.inputs.Input;
 import pi.inputs.signal.Channel;
 import pi.inputs.signal.Cycle;
 import pi.inputs.signal.ECG;
-import pi.inputs.signal.Probe;
 import pi.population.Population;
 import pi.population.Specimen;
+import pi.shared.SharedController;
 import pi.statistics.functions.Duration;
 import pi.utilities.Range;
 
 public class StatisticsController {
     private ProjectResult finalResult;
     private ArrayList<Function> functions;
+    private ArrayList<String>  wavesNames;
     private Population popul1;
     private Population popul2;
 
     public void loadPopulation() {
 	Population popul1 = null;
 	Population popul2 = null;
-	// TODO wczytanie danych zaimportowanych przez sax (popul1)
+	popul1 = SharedController.getInstance().getProject().getFirstPopulation();
 	setPopul1(popul1);
-	// TODO wczytanie danych zaimportowanych przez sax (popul2)
+	popul2 = SharedController.getInstance().getProject().getSecondPopulation();
 	setPopul2(popul2);
     }
 
@@ -40,7 +38,7 @@ public class StatisticsController {
 	    StatisticResult statResult = new StatisticResult();
 	    for (Cycle cycle : channel.getCycle()) {
 		if (cycle.getMarkered() == true) {
-		    Waves waves = new Waves(cycle);
+		    Waves waves = new Waves(cycle, wavesNames);
 
 		    waves.setJPoint();
 
@@ -51,23 +49,6 @@ public class StatisticsController {
 			duration.setName(waveName);
 			duration.countDuration(left, right,
 				channel.getInterval());
-//			Boolean calculate = false;
-//			for (Probe probe : channel.getProbe()) {
-//			    if (probe.getNumber() == left)
-//				calculate = true;
-//			    if (probe.getNumber() == right)
-//				calculate = false;
-//			    if (calculate == true) {
-//				statResult.clearValues();
-//				for (Function function : functions) {
-//				    function.iterate(probe);
-//				}
-//			    }
-//			}
-//			for (Function function : functions) {
-//			    function.countResult();
-//			}
-			//atrResult.addValue(waveName, statResult);
 		    }
 		}
 		atrResult.addValue(statResult);
@@ -107,9 +88,10 @@ public class StatisticsController {
 	return popResult;
     }
 
-    public void countStatistics(ArrayList<Function> functions) {
+    public void countStatistics(ArrayList<Function> functions, ArrayList<String> wavesNames) {
 	setFinalResult(new ProjectResult());
 	this.functions = functions;
+	this.wavesNames = wavesNames;
 	loadPopulation();
 	getFinalResult().setPopul1(countForPopulation(popul1));
 

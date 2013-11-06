@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 
 import pi.statistics.functions.*;
 import pi.statistics.logic.Function;
@@ -31,11 +33,13 @@ public class StatisticWindowController implements ActionListener{
 		    //TODO raport koñcowy ze statystyki
 	    }
 	    else {
-		//TODO show message: count statistics first!
+		JOptionPane.showMessageDialog(window, "Count statistics first!");
 	    }
 	}	
 	if (action.equals("COUNT")){
 	    ArrayList<Function> functions = new ArrayList<Function>();
+	    ArrayList<String> wavesNames = new ArrayList<String>();
+	    
 	    Function amplitude = new Amplitude();
 	    functions.add(amplitude);
 	    Function average = new Average();
@@ -53,7 +57,13 @@ public class StatisticWindowController implements ActionListener{
 	    Function variance = new Variance();
 	    functions.add(variance);
 	    
-	    stControl.countStatistics(functions);
+	    for (int i = 0; i < window.checkBoxArray.length; i++){
+		if (window.checkBoxArray[i].isSelected() == true){
+		    wavesNames.add(window.checkBoxArray[i].getName());
+		}
+	    }
+	    
+	    stControl.countStatistics(functions, wavesNames);
 	}	
     
     }

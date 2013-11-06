@@ -2,7 +2,6 @@ package pi.statistics.functions;
 
 import java.util.Vector;
 
-import pi.inputs.signal.Probe;
 import pi.statistics.logic.Function;
 import pi.statistics.logic.StatisticResult;
 

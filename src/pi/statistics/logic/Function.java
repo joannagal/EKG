@@ -1,7 +1,5 @@
 package pi.statistics.logic;
 
-import pi.inputs.signal.Probe;
-
 public abstract class Function {
 	//TODO typ zwracany
 	private final String name;

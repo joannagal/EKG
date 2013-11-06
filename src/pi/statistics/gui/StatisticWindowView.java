@@ -12,12 +12,24 @@ import javax.swing.JProgressBar;
 import java.awt.event.ActionListener;
 import javax.swing.JLabel;
 import javax.swing.JCheckBox;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 public class StatisticWindowView extends JFrame {
 
     private static final long serialVersionUID = 3655555564299592830L;
-    private JButton[] buttonArray;
     private String[] itemEvent = new String[] { "CANCEL", "REPORT", "COUNT" };
+    private JButton[] buttonArray;
+    public JCheckBox[] checkBoxArray;
+    public JCheckBox tWave;
+    public JCheckBox pWave; 
+    public JCheckBox uWave;
+    public JCheckBox prInterval;
+    public JCheckBox prSegment;
+    public JCheckBox stSegment;
+    public JCheckBox stInterval;
+    public JCheckBox qtInterval;
+    public JCheckBox qrsComplex;
 
     public StatisticWindowView() {
 	this.setTitle("Analysis");
@@ -54,83 +66,100 @@ public class StatisticWindowView extends JFrame {
 	panel_2.add(panel_3, gbc_panel_3);
 	GridBagLayout gbl_panel_3 = new GridBagLayout();
 	gbl_panel_3.columnWidths = new int[] { 0, 0, 0 };
-	gbl_panel_3.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+	gbl_panel_3.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 	gbl_panel_3.columnWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
 	gbl_panel_3.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0,
-		0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 	panel_3.setLayout(gbl_panel_3);
 	panel_3.setBorder(BorderFactory.createTitledBorder("Waves"));
 
-	JCheckBox chckbxTwave = new JCheckBox("T-wave");
-	GridBagConstraints gbc_chckbxTwave = new GridBagConstraints();
-	gbc_chckbxTwave.anchor = GridBagConstraints.WEST;
-	gbc_chckbxTwave.insets = new Insets(0, 0, 5, 0);
-	gbc_chckbxTwave.gridx = 1;
-	gbc_chckbxTwave.gridy = 0;
-	panel_3.add(chckbxTwave, gbc_chckbxTwave);
+	tWave = new JCheckBox("T-wave");
+	GridBagConstraints gbc_tWave = new GridBagConstraints();
+	gbc_tWave.anchor = GridBagConstraints.WEST;
+	gbc_tWave.insets = new Insets(0, 0, 5, 0);
+	gbc_tWave.gridx = 1;
+	gbc_tWave.gridy = 0;
+	panel_3.add(tWave, gbc_tWave);
 
-	JCheckBox chckbxPwave = new JCheckBox("P-wave");
-	GridBagConstraints gbc_chckbxPwave = new GridBagConstraints();
-	gbc_chckbxPwave.anchor = GridBagConstraints.WEST;
-	gbc_chckbxPwave.insets = new Insets(0, 0, 5, 0);
-	gbc_chckbxPwave.gridx = 1;
-	gbc_chckbxPwave.gridy = 1;
-	panel_3.add(chckbxPwave, gbc_chckbxPwave);
+	pWave = new JCheckBox("P-wave");
+	GridBagConstraints gbc_pWave = new GridBagConstraints();
+	gbc_pWave.anchor = GridBagConstraints.WEST;
+	gbc_pWave.insets = new Insets(0, 0, 5, 0);
+	gbc_pWave.gridx = 1;
+	gbc_pWave.gridy = 1;
+	panel_3.add(pWave, gbc_pWave);
 
-	JCheckBox chckbxUwave = new JCheckBox("U-wave");
-	GridBagConstraints gbc_chckbxUwave = new GridBagConstraints();
-	gbc_chckbxUwave.anchor = GridBagConstraints.WEST;
-	gbc_chckbxUwave.insets = new Insets(0, 0, 5, 0);
-	gbc_chckbxUwave.gridx = 1;
-	gbc_chckbxUwave.gridy = 2;
-	panel_3.add(chckbxUwave, gbc_chckbxUwave);
+	uWave = new JCheckBox("U-wave");
+	GridBagConstraints gbc_uWave = new GridBagConstraints();
+	gbc_uWave.anchor = GridBagConstraints.WEST;
+	gbc_uWave.insets = new Insets(0, 0, 5, 0);
+	gbc_uWave.gridx = 1;
+	gbc_uWave.gridy = 2;
+	panel_3.add(uWave, gbc_uWave);
 
-	JCheckBox chckbxPrInterval = new JCheckBox("PR interval");
-	GridBagConstraints gbc_chckbxPrInterval = new GridBagConstraints();
-	gbc_chckbxPrInterval.anchor = GridBagConstraints.WEST;
-	gbc_chckbxPrInterval.insets = new Insets(0, 0, 5, 0);
-	gbc_chckbxPrInterval.gridx = 1;
-	gbc_chckbxPrInterval.gridy = 3;
-	panel_3.add(chckbxPrInterval, gbc_chckbxPrInterval);
+	prInterval = new JCheckBox("PR interval");
+	GridBagConstraints gbc_prInterval = new GridBagConstraints();
+	gbc_prInterval.anchor = GridBagConstraints.WEST;
+	gbc_prInterval.insets = new Insets(0, 0, 5, 0);
+	gbc_prInterval.gridx = 1;
+	gbc_prInterval.gridy = 3;
+	panel_3.add(prInterval, gbc_prInterval);
 
-	JCheckBox chckbxNewCheckBox = new JCheckBox("PR segment");
-	GridBagConstraints gbc_chckbxNewCheckBox = new GridBagConstraints();
-	gbc_chckbxNewCheckBox.anchor = GridBagConstraints.WEST;
-	gbc_chckbxNewCheckBox.insets = new Insets(0, 0, 5, 0);
-	gbc_chckbxNewCheckBox.gridx = 1;
-	gbc_chckbxNewCheckBox.gridy = 4;
-	panel_3.add(chckbxNewCheckBox, gbc_chckbxNewCheckBox);
+	prSegment = new JCheckBox("PR segment");
+	GridBagConstraints gbc_prSegment = new GridBagConstraints();
+	gbc_prSegment.anchor = GridBagConstraints.WEST;
+	gbc_prSegment.insets = new Insets(0, 0, 5, 0);
+	gbc_prSegment.gridx = 1;
+	gbc_prSegment.gridy = 4;
+	panel_3.add(prSegment, gbc_prSegment);
 
-	JCheckBox chckbxStSegment = new JCheckBox("ST segment");
-	GridBagConstraints gbc_chckbxStSegment = new GridBagConstraints();
-	gbc_chckbxStSegment.anchor = GridBagConstraints.WEST;
-	gbc_chckbxStSegment.insets = new Insets(0, 0, 5, 0);
-	gbc_chckbxStSegment.gridx = 1;
-	gbc_chckbxStSegment.gridy = 5;
-	panel_3.add(chckbxStSegment, gbc_chckbxStSegment);
+	stSegment = new JCheckBox("ST segment");
+	GridBagConstraints gbc_stSegment = new GridBagConstraints();
+	gbc_stSegment.anchor = GridBagConstraints.WEST;
+	gbc_stSegment.insets = new Insets(0, 0, 5, 0);
+	gbc_stSegment.gridx = 1;
+	gbc_stSegment.gridy = 5;
+	panel_3.add(stSegment, gbc_stSegment);
 
-	JCheckBox chckbxStInterval = new JCheckBox("ST interval");
-	GridBagConstraints gbc_chckbxStInterval = new GridBagConstraints();
-	gbc_chckbxStInterval.anchor = GridBagConstraints.WEST;
-	gbc_chckbxStInterval.insets = new Insets(0, 0, 5, 0);
-	gbc_chckbxStInterval.gridx = 1;
-	gbc_chckbxStInterval.gridy = 6;
-	panel_3.add(chckbxStInterval, gbc_chckbxStInterval);
+	stInterval = new JCheckBox("ST interval");
+	GridBagConstraints gbc_stInterval = new GridBagConstraints();
+	gbc_stInterval.anchor = GridBagConstraints.WEST;
+	gbc_stInterval.insets = new Insets(0, 0, 5, 0);
+	gbc_stInterval.gridx = 1;
+	gbc_stInterval.gridy = 6;
+	panel_3.add(stInterval, gbc_stInterval);
 
-	JCheckBox chckbxQtInterval = new JCheckBox("QT interval");
-	GridBagConstraints gbc_chckbxQtInterval = new GridBagConstraints();
-	gbc_chckbxQtInterval.anchor = GridBagConstraints.WEST;
-	gbc_chckbxQtInterval.insets = new Insets(0, 0, 5, 0);
-	gbc_chckbxQtInterval.gridx = 1;
-	gbc_chckbxQtInterval.gridy = 7;
-	panel_3.add(chckbxQtInterval, gbc_chckbxQtInterval);
+	qtInterval = new JCheckBox("QT interval");
+	GridBagConstraints gbc_qtInterval = new GridBagConstraints();
+	gbc_qtInterval.anchor = GridBagConstraints.WEST;
+	gbc_qtInterval.insets = new Insets(0, 0, 5, 0);
+	gbc_qtInterval.gridx = 1;
+	gbc_qtInterval.gridy = 7;
+	panel_3.add(qtInterval, gbc_qtInterval);
 
-	JCheckBox chckbxQrsSegment = new JCheckBox("QRS complex");
-	GridBagConstraints gbc_chckbxQrsSegment = new GridBagConstraints();
-	gbc_chckbxQrsSegment.anchor = GridBagConstraints.WEST;
-	gbc_chckbxQrsSegment.gridx = 1;
-	gbc_chckbxQrsSegment.gridy = 8;
-	panel_3.add(chckbxQrsSegment, gbc_chckbxQrsSegment);
+	qrsComplex = new JCheckBox("QRS complex");
+	GridBagConstraints gbc_qrsComplex = new GridBagConstraints();
+	gbc_qrsComplex.insets = new Insets(0, 0, 5, 0);
+	gbc_qrsComplex.anchor = GridBagConstraints.WEST;
+	gbc_qrsComplex.gridx = 1;
+	gbc_qrsComplex.gridy = 8;
+	panel_3.add(qrsComplex, gbc_qrsComplex);
+	
+	JCheckBox checkAll = new JCheckBox("Check/uncheck all");
+	checkAll.addChangeListener(new ChangeListener() {
+		public void stateChanged(ChangeEvent changeEvent) {
+		    JCheckBox checkBox = (JCheckBox) changeEvent.getSource();
+		    boolean state = checkBox.isSelected();
+		    checkAll(state);
+		}
+	});
+
+
+	GridBagConstraints gbc_checkAll = new GridBagConstraints();
+	gbc_checkAll.anchor = GridBagConstraints.WEST;
+	gbc_checkAll.gridx = 1;
+	gbc_checkAll.gridy = 9;
+	panel_3.add(checkAll, gbc_checkAll);
 
 	JPanel panel_4 = new JPanel();
 	GridBagConstraints gbc_panel_4 = new GridBagConstraints();
@@ -152,7 +181,6 @@ public class StatisticWindowView extends JFrame {
 	gbc_lblParameters.gridx = 0;
 	gbc_lblParameters.gridy = 0;
 	panel_4.add(lblParameters, gbc_lblParameters);
-	//panel_4.setBorder(BorderFactory.createTitledBorder("Parameters"));
 	
 	JPanel panel_5 = new JPanel();
 	GridBagConstraints gbc_panel_5 = new GridBagConstraints();
@@ -213,6 +241,8 @@ public class StatisticWindowView extends JFrame {
 	panel.add(progressBar, gbc_progressBar);
 
 	buttonArray = new JButton[] { cancelButton, reportButton, countButton };
+	checkBoxArray = new JCheckBox[] { tWave, pWave, uWave, prInterval, prSegment, stSegment, stInterval, qtInterval, qrsComplex };
+
     }
 
     public void setButtonsListener(ActionListener al) {
@@ -224,6 +254,12 @@ public class StatisticWindowView extends JFrame {
 
     public void showWindow() {
 	this.setVisible(true);
+    }
+    
+    public void checkAll(boolean state){
+	for (int i = 0; i < checkBoxArray.length; i++){
+	    checkBoxArray[i].setSelected(state);
+	}
     }
 
 }
