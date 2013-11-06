@@ -30,6 +30,7 @@ public class GraphController implements ActionListener {
 		}
 		if (action.equals("ANALYSIS")){
 			this.view.getStView().showWindow();
+			this.view.getStControl();
 		}
 		if (action.equals("RESULTS")){
 			
