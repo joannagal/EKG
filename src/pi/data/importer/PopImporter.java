@@ -11,6 +11,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import pi.inputs.signal.Channel;
 import pi.inputs.signal.Cycle;
 import pi.inputs.signal.ECG;
+import pi.inputs.signal.Probe;
 import pi.population.Population;
 import pi.population.Specimen;
 import pi.project.Project;
@@ -32,7 +33,6 @@ public class PopImporter extends DefaultHandler {
 	private int channelIndex = 0;
 
 	boolean rawDataNode = false;
-	boolean cycleNode = false;
 
 	@Override
 	public void startDocument() {
@@ -63,14 +63,12 @@ public class PopImporter extends DefaultHandler {
 		} else if (qName.equalsIgnoreCase("CYCLES")) {
 			initCycles(attributes);
 		} else if (qName.equalsIgnoreCase("CYCLE")) {
-			cycleNode = true;
 			initCycle(attributes);
 		}
 	}
 
 	@Override
 	public void endElement(String uri, String localName,
-	// submitPopul();
 			String qName) throws SAXException {
 		System.out.println("End Element :" + qName);
 	}
@@ -82,9 +80,6 @@ public class PopImporter extends DefaultHandler {
 		if (rawDataNode) {
 			getRawData(ch, start, length);
 			rawDataNode = false;
-		} else if (cycleNode) {
-			getCycle(ch, start, length);
-			cycleNode = false;
 		}
 	}
 
@@ -100,9 +95,9 @@ public class PopImporter extends DefaultHandler {
 		project = new Project();
 		project.setName(attributes.getValue("name"));
 		project.setPath(attributes.getValue("path"));
-		Date date = new Date();// TODO parse string to date = new
-								// Date(attributes.getValue("date"));
-		//project.setDate(date);
+		// TODO:
+		// Date date = new Date(attributes.getValue("date"));
+		// project.setDate(date);
 		String type = attributes.getValue("type");
 		if (type != "")
 			project.setType(Integer.parseInt(type));
@@ -128,7 +123,8 @@ public class PopImporter extends DefaultHandler {
 		spec = new Specimen();
 		spec.setName(attributes.getValue("name"));
 		spec.setSurname(attributes.getValue("surname"));
-		Date d = new Date();// TODO attributes.getValue("birth_date")
+		Date d = new Date();
+		// TODO attributes.getValue("birth_date")
 		// spec.setBirth((java.sql.Date) d);
 
 		String age = attributes.getValue("age");
@@ -163,9 +159,6 @@ public class PopImporter extends DefaultHandler {
 		if (gmd != "")
 			spec.setGoodMoodDuration(Integer.parseInt(gmd));
 
-		String in = attributes.getValue("inputs_numer");
-		// TODO Jak siê ma inputsNumber do after i before???
-
 		popul.getSpecimen().add(specimenIndex, spec);
 		specimenIndex++;
 	}
@@ -184,9 +177,6 @@ public class PopImporter extends DefaultHandler {
 		} else if (spec.getAfter() == null) {
 			spec.setAfter(input);
 		}
-
-		// TODO !!! ZagnieŸdziæ input w Specimenie
-
 	}
 
 	public void initChannel(Attributes attributes) {
@@ -196,6 +186,12 @@ public class PopImporter extends DefaultHandler {
 		String translation = attributes.getValue("translations");
 		if (translation != "")
 			channel.setTranslation(Double.valueOf(translation));
+		
+		String interval = attributes.getValue("interval");
+		if(interval!= "")
+			channel.setInterval(Double.valueOf(interval));
+		
+		//TODO Nie wiem czy atrybuyt samples jest w ogóle potrzebny
 
 		channelList.add(channelIndex, channel);
 		channelIndex++;
@@ -203,7 +199,15 @@ public class PopImporter extends DefaultHandler {
 	}
 
 	public void getRawData(char ch[], int start, int length) {
-		// TODO Co bêdzie dok³adnie w raw data?
+		String data[] = (new String(ch, start, length)).split(" ");
+		ArrayList<Probe> probes = new ArrayList<>(data.length);
+		for (int i = 0; i < data.length; i++) {
+			System.out.println(data[i]);
+			Probe p = new Probe(i, Integer.parseInt(data[i]));
+			probes.add(i, p);
+		}
+		channel.setProbe(probes);
+
 	}
 
 	public void initCycles(Attributes attributes) {
@@ -214,9 +218,41 @@ public class PopImporter extends DefaultHandler {
 	}
 
 	public void initCycle(Attributes attributes) {
-		String range = attributes.getValue("range");
-		// TODO Czym jest range, left i right? I jak s¹ reprezentowane w xmlu?
 		cycle = new Cycle();
+
+		// TODO Zast¹piæ try-catch ifami
+		try {
+			String r[] = attributes.getValue("range").split(" ");
+			Range range = new Range(Integer.parseInt(r[0]),
+					Integer.parseInt(r[1]));
+			cycle.setRange(range);
+
+			String u[] = attributes.getValue("u_wave").split(" ");
+			Range u_wave = new Range(Integer.parseInt(u[0]),
+					Integer.parseInt(u[1]));
+			cycle.setU_wave(u_wave);
+
+			String t[] = attributes.getValue("t_wave").split(" ");
+			Range t_wave = new Range(Integer.parseInt(t[0]),
+					Integer.parseInt(t[1]));
+			cycle.setT_wave(t_wave);
+
+			String pr[] = attributes.getValue("pr_segment").split(" ");
+			Range pr_seg = new Range(Integer.parseInt(pr[0]),
+					Integer.parseInt(pr[1]));
+			cycle.setPr_segment(pr_seg);
+
+			String p[] = attributes.getValue("p_wave").split(" ");
+			Range p_wave = new Range(Integer.parseInt(p[0]),
+					Integer.parseInt(p[1]));
+			cycle.setP_wave(p_wave);
+
+			String qrs[] = attributes.getValue("qrs_complex").split(" ");
+			Range qrs_complex = new Range(Integer.parseInt(qrs[0]),
+					Integer.parseInt(qrs[1]));
+			cycle.setQrs_complex(qrs_complex);
+		} catch (Exception e) {
+		}
 
 		Boolean markered = Boolean
 				.parseBoolean(attributes.getValue("markered"));
@@ -225,13 +261,8 @@ public class PopImporter extends DefaultHandler {
 		cyclesList.add(cycle);
 	}
 
-	public void getCycle(char ch[], int start, int length) {
-		// TODO parsowanie zawartoœci cyklu
-		Cycle current = cyclesList.getLast();
 
-	}
-	
-	public Project getProject(){
+	public Project getProject() {
 		return project;
 	}
 }

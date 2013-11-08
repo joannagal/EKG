@@ -27,7 +27,7 @@ public class Project
 	private String path;
 
 	// DATA UTWORZENIA PROJEKTU
-	private Date date;
+	private java.util.Date date;
 	
 	// PIERWSZA POPULACJA
 	// ONA TWORZONA JEST OBOWIAZKOWO
@@ -96,14 +96,14 @@ public class Project
 		this.path = path;
 	}
 
-	public Date getDate()
+	public java.util.Date getDate()
 	{
 		return date;
 	}
 
-	public void setDate(Date date)
+	public void setDate(java.util.Date date2)
 	{
-		this.date = date;
+		this.date = date2;
 	}
 
 	public Population getFirstPopulation()
