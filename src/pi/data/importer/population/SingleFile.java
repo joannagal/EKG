@@ -18,12 +18,13 @@ public class SingleFile extends JPanel {
 	private JButton downButton;
 	private JButton deleteButton;
 	private JLabel fileLabel;
-	private String number;
+	private String path;
 	private ImportPopulation importPopulation;
 	private JPanel container;
 	
-	public SingleFile(ImportPopulation pop, final JPanel container){
+	public SingleFile(ImportPopulation pop, final JPanel container, String path){
 		
+		this.path = path;
 		this.importPopulation = pop;
 		this.container = container;
 		this.setVisible(true);
@@ -32,7 +33,8 @@ public class SingleFile extends JPanel {
 		upButton = new JButton("up");
 		downButton = new JButton("down");
 		deleteButton = new JButton("delete");
-		fileLabel = new JLabel();
+		fileLabel = new JLabel(shortPath(path));
+		this.add(fileLabel);
 		fileLabel.setVisible(true);
 		fileLabel.setSize(75, 15);
 		this.setPreferredSize(new Dimension(400,38));
@@ -43,8 +45,7 @@ public class SingleFile extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				int tmp = importPopulation.getIndex(number);
-				System.out.println("Na Array jestem: " + tmp);
+				int tmp = importPopulation.getIndex(getString());
 				importPopulation.up(tmp);
 			}
 		});
@@ -55,8 +56,7 @@ public class SingleFile extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int tmp = importPopulation.getIndex(number);
-				System.out.println("Na array jestem: " + tmp);
+				int tmp = importPopulation.getIndex(getString());
 				importPopulation.down(tmp);
 			}
 		});
@@ -66,14 +66,13 @@ public class SingleFile extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int tmp = importPopulation.getIndex(number);
-				System.out.println("Na array jestem: " + tmp);
+				int tmp = importPopulation.getIndex(getString());
 				importPopulation.delete(tmp);
-				//importPopulation.pack();
 				
 				container.remove(((JButton)(e.getSource())).getParent());
-				importPopulation.pack();
-				//container = (JPanel)((JButton)(e.getSource())).getParent().getParent().remove(comp);//setVisible(false);
+				importPopulation.setGridy(importPopulation.getGridy() - 1);
+				importPopulation.validate();
+				importPopulation.repaint();
 			}
 		});
 		
@@ -83,15 +82,18 @@ public class SingleFile extends JPanel {
 	
 	public void setFileLabelText(String string){
 		fileLabel.setText(string);
-		fileLabel.repaint();
 	}
 
-	public String getNumber() {
-		return number;
+	public String getString() {
+		return path;
 	}
 
-	public void setNumber(String number) {
-		this.number = number;
+	public void setString(String path) {
+		this.path = path;
+	}
+	
+	public String shortPath(String str){
+		return str.substring(str.length() - 30);
 	}
 
 }
