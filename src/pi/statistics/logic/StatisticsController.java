@@ -15,16 +15,18 @@ import pi.utilities.Range;
 public class StatisticsController {
     private ProjectResult finalResult;
     private ArrayList<Function> functions;
-    private ArrayList<String>  wavesNames;
+    private ArrayList<String> wavesNames;
     private Population popul1;
     private Population popul2;
 
     public void loadPopulation() {
 	Population popul1 = null;
 	Population popul2 = null;
-	popul1 = SharedController.getInstance().getProject().getFirstPopulation();
+	popul1 = SharedController.getInstance().getProject()
+		.getFirstPopulation();
 	setPopul1(popul1);
-	popul2 = SharedController.getInstance().getProject().getSecondPopulation();
+	popul2 = SharedController.getInstance().getProject()
+		.getSecondPopulation();
 	setPopul2(popul2);
     }
 
@@ -53,21 +55,26 @@ public class StatisticsController {
 		}
 		atrResult.addValue(statResult);
 	    }
-	    
-	    statResult.clearValues();
-	    for (StatisticResult stat : atrResult.getValue()){
-		for (String name : stat.getValue().keySet()){
-		    for (Function function : functions){
-			function.iterate(stat.getValue().get(name).firstElement());
+
+	    WavesResult result = new WavesResult();
+
+	    for (StatisticResult stat : atrResult.getValue()) {
+		for (String name : stat.getValue().keySet()) {
+		    statResult.clearValues();
+		    for (Function function : functions) {
+			function.iterate(stat.getValue().get(name)
+				.firstElement());
+			// TODO puls i korekcja
 		    }
+		    for (Function function : functions) {
+			function.countResult();
+		    }
+		    result.addValue(name, statResult);
 		}
 	    }
-	    for (Function function : functions){
-		function.countResult();
-	    }
-	    
-	    atrResult.addValue(statResult);
-	    channelResult.addValue(channel.getName(), atrResult);
+	    // TODO czy na wy¿szym poziomie interesuj¹ nas wszystkie d³ugoœci
+	    // czy tylko wyniki min, max, avg? tymczasowo tylko wyniki
+	    channelResult.addValue(channel.getName(), result);
 	}
 	return channelResult;
     }
@@ -81,14 +88,15 @@ public class StatisticsController {
 	    Input after = man.getAfter();
 	    if (after != null) {
 		specResult.setAfter(count(after));
-		// TODO compare();
+		specResult.compareResult();
 	    }
 	    popResult.addResult(specResult);
 	}
 	return popResult;
     }
 
-    public void countStatistics(ArrayList<Function> functions, ArrayList<String> wavesNames) {
+    public void countStatistics(ArrayList<Function> functions,
+	    ArrayList<String> wavesNames) {
 	setFinalResult(new ProjectResult());
 	this.functions = functions;
 	this.wavesNames = wavesNames;
@@ -100,7 +108,7 @@ public class StatisticsController {
 	    // TODO porównaj populacje?
 	}
 
-	// TODO zwróæ wynik - jakas metoda w ProjectResult?
+	// TODO generowanie raportu koñcowego - motoda w ProjectResult?
     }
 
     public Population getPopul1() {
