@@ -21,7 +21,7 @@ public class ImportPopulation extends JPanel {
 	private JPanel panelWithPanels;
 	private JButton add;
 	private int gridy;
-	private ArrayList<String> list;
+	private ArrayList<SingleFile> list;
 	private ImportPopulationFrame parent;
 	
 	
@@ -79,7 +79,7 @@ public class ImportPopulation extends JPanel {
 					panelWithPanels.add(test, testCons);
 					
 					test.setString(path);
-					list.add(path);
+					list.add(test);
 		        		
 	        	}
 	        	
@@ -105,12 +105,13 @@ public class ImportPopulation extends JPanel {
 		this.gridy = gridy;
 	}
 	
+
+	
 	public int getIndex(String string){
-				
-		int tmp = 0;
 		
-		for (int i = 1; i <= list.size(); i ++){
-			if(list.get(i).equals(string)){
+		int tmp = 0;
+		for (int i = 0; i <= list.size(); i++){
+			if (list.get(i).getString().equals(string)){
 				tmp = i;
 				break;
 			}
@@ -120,23 +121,34 @@ public class ImportPopulation extends JPanel {
 	}
 	
 	public void up(int tmp){
-			
 		if (tmp > 0){
-			String a = list.get(tmp);
-			String b = list.get(tmp - 1);
-			list.set(tmp, b);
-			list.set(tmp-1, a);
-		}
+			String a = list.get(tmp).getString();
+			String b = list.get(tmp-1).getString();
 		
+			list.get(tmp).setString(b);
+			list.get(tmp).setFileLabelText(b.substring(b.length() - 30));
+		
+			list.get(tmp - 1).setString(a);
+			list.get(tmp - 1).setFileLabelText(a.substring(a.length() - 30));
+		
+			this.validate();
+			this.repaint();
+		}
 	}
-	
+		
 	public void down(int tmp){
 		
-		if (tmp < list.size()){
-			String a = list.get(tmp);
-			String b = list.get(tmp + 1);
-			list.set(tmp, b);
-			list.set(tmp + 1, a);
+		if (tmp < list.size() - 1){
+			String a = list.get(tmp).getString();
+			String b = list.get(tmp + 1).getString();
+			list.get(tmp).setString(b);
+			list.get(tmp).setFileLabelText(b.substring(b.length() - 30));
+
+			list.get(tmp + 1).setString(a);
+			list.get(tmp + 1).setFileLabelText(a.substring(a.length() - 30));
+			
+			this.validate();
+			this.repaint();
 		}
 	}
 	

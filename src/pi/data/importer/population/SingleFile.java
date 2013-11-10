@@ -95,5 +95,6 @@ public class SingleFile extends JPanel {
 	public String shortPath(String str){
 		return str.substring(str.length() - 30);
 	}
+	
 
 }

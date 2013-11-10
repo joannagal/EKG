@@ -27,8 +27,7 @@ public class Application {
 	public static void main(String[] args) {
 		
 		//ImportPopulationFrame pop = new ImportPopulationFrame();
-	
-		
+			
 		JFrame frame = new JFrame("ECG Analyzer"); 
 		frame.setLocation(100, 0);
 		frame.setLayout(null);
@@ -53,7 +52,6 @@ public class Application {
 		}
 	 
 	
-		
 		
 	}
 		
