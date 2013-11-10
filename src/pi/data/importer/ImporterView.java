@@ -19,7 +19,6 @@ import org.dom4j.DocumentException;
 import pi.graph.signal.Graph;
 import pi.graph.signal.GraphToolbar;
 import pi.graph.signal.GraphView;
-import pi.gui.project.ProjectView;
 import pi.inputs.signal.Channel;
 import pi.inputs.signal.ECG;
 import pi.population.Population;
@@ -92,19 +91,12 @@ public class ImporterView extends JDialog{
 						project.setType(1);
 						SharedController.getInstance().setProject(project);
 						
-						ProjectView view = new ProjectView();
-						
-						view.setBounds(80, 80, 1000, 800);
-						//view.setSize(new Dimension(500,500));
-						//view.setLocation(100, 100);
-						SharedController.getInstance().getFrame().add(view);
-
+						GraphView view = new GraphView(path);
 		        			        		
 					} catch (DocumentException e) {
 						e.printStackTrace();
 					}
 	        		dispose();
-	        		
 	        		
 	        	}
 	        }

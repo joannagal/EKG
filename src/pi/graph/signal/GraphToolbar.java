@@ -1,5 +1,6 @@
 package pi.graph.signal;
 
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 
@@ -31,19 +32,19 @@ public class GraphToolbar extends JPanel {
 	private JButton deleteDegmentButton;
 	private JSlider segmentHeightSlider;
 	private JSlider heightSlider;
-	//private JSlider widthSlider;
 	private Graph graph;
+	private GraphView graphView;
 
 	private JPanel segmentHeightSliderPanel;
 	private JPanel panelHeightSliderPanel;
-	//private JPanel panelWidthSliderPanel;
 	
 	private JButton[] buttonArray;
 	private JSlider[] sliderArray;
 	private String[] itemEvent = new String[]{"INFO", "ANALYSIS", "RESULTS", "AUTOFINDER", "ADD", "DELETE"};
 
 	
-	public GraphToolbar(final Graph graph){
+	public GraphToolbar(final Graph graph, GraphView view){
+		this.graphView = view;
 		this.graph = graph;
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
 		this.setBounds(10, 10, 1100, 100);
@@ -88,6 +89,11 @@ public class GraphToolbar extends JPanel {
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
 				graph.setHeight(segmentHeightSlider.getValue());
+				graphView.setSize(1100, 120 + segmentHeightSlider.getValue());
+				
+				graphView.validate();
+				graphView.repaint();
+				
 			}
 			
 		});

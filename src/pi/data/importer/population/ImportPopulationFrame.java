@@ -2,6 +2,8 @@ package pi.data.importer.population;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -12,12 +14,15 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 
+
 public class ImportPopulationFrame extends JFrame{
 
 	private ImportPopulation import1;
 	private ImportPopulation import2;
 	private JButton nextButton;
-
+	private JButton[] buttons;
+	private String[] buttonsEvent = new String[]{"NEXT"};
+	
 	
 	public ImportPopulationFrame(){
 		
@@ -46,8 +51,16 @@ public class ImportPopulationFrame extends JFrame{
 		this.add(import1);
 		this.add(import2);
 		this.add(nextButton);
+		buttons = new JButton[]{nextButton};
 		
 		pack();
-
 	}
+	
+	public void setButtonListener(ActionListener al) {
+		for (int i = 0; i < buttons.length; i++){
+			buttons[i].setActionCommand(buttonsEvent[i]);
+			buttons[i].addActionListener(al);
+		}
+	}			
+	
 }

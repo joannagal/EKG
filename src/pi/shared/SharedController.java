@@ -294,6 +294,7 @@ public class SharedController
 		panel.setVisible(true);
 	}
 	
+	
 	public void packFrame(){
 		this.frame.pack();
 	}
@@ -317,6 +318,8 @@ public class SharedController
 	public void setProject(Project project) {
 		this.project = project;
 	}
+
+
 
 	
 }

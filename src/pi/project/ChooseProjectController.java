@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import pi.data.importer.Importer;
 import pi.data.importer.ImporterView;
+import pi.data.importer.population.ImportPopulationFrame;
 
 
 public class ChooseProjectController implements ActionListener{
@@ -32,6 +33,18 @@ public class ChooseProjectController implements ActionListener{
 				
 				ImporterView importerView = new ImporterView();
 				importerView.setBounds(400, 200, 400, 100);
+			}
+			
+			if (selected.equals("TWO_SIGNALS")){
+				
+			}
+			if (selected.equals("TWO_POPULATIONS")){
+				view.dispose();
+				ImportPopulationFrame importFrame = new ImportPopulationFrame();
+			}
+			if (selected.equals("POPULATION_DIFFERENCE")){
+				view.dispose();
+				ImportPopulationFrame importFrame = new ImportPopulationFrame();
 			}
 		}
 

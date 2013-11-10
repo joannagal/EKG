@@ -1,4 +1,4 @@
-package pi.gui;
+package pi.gui.menu;
 
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import pi.gui.login.LoginDialog;
 import pi.project.ChooseProjectController;
 import pi.project.ChooseProjectView;
 import pi.project.Project;
@@ -35,7 +36,7 @@ public class MenuController implements ActionListener{
 		String action = ae.getActionCommand();	
 		if (action.equals("LOG")){
 			if (!SharedController.getInstance().isLogged()){
-				LoginDialog login = new LoginDialog();
+				pi.gui.login.LoginDialog login = new pi.gui.login.LoginDialog();
 				login.setLocation(400,300);
 			}
 			else {

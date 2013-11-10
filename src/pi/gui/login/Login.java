@@ -1,4 +1,4 @@
-package pi.gui;
+package pi.gui.login;
 
 public class Login {
 	

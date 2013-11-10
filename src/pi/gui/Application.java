@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import org.dom4j.DocumentException;
 
@@ -17,6 +18,8 @@ import pi.data.importer.Importer;
 import pi.data.importer.population.ImportPopulation;
 import pi.data.importer.population.ImportPopulationFrame;
 import pi.data.importer.population.SingleFile;
+import pi.gui.menu.MenuController;
+import pi.gui.menu.MenuView;
 import pi.inputs.signal.ECG;
 import pi.shared.SharedController;
 
@@ -27,7 +30,7 @@ public class Application {
 	public static void main(String[] args) {
 		
 		//ImportPopulationFrame pop = new ImportPopulationFrame();
-			
+		
 		JFrame frame = new JFrame("ECG Analyzer"); 
 		frame.setLocation(100, 0);
 		frame.setLayout(null);
