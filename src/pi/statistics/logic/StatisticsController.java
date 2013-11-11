@@ -31,45 +31,58 @@ public class StatisticsController {
     }
 
     @SuppressWarnings("static-access")
-    private ChannelResult count(Input input) {
-	ECG signal = (ECG) input;
+    private ChannelResult count(ECG input) {
+	System.out.println("count");
+	ECG signal = input;
 	ChannelResult channelResult = new ChannelResult();
 	Duration duration = new Duration();
 	for (Channel channel : signal.getChannel()) {
+	    System.out.println("petla po channelach");
 	    AttributeResult atrResult = new AttributeResult();
 	    StatisticResult statResult = new StatisticResult();
+	    DurationResult dResult = new DurationResult();
 	    for (Cycle cycle : channel.getCycle()) {
-		if (cycle.getMarkered() == true) {
+		System.out.println("petla po cycle");
+		System.out.println(cycle.getMarkered().toString());
+
+		if (cycle.getMarkered() == false) {
+		    dResult.clearValues();
 		    Waves waves = new Waves(cycle, wavesNames);
-
 		    waves.setJPoint();
-
+		    System.out.println("jPiont");
 		    for (Range wave : waves.getWaves().keySet()) {
+			System.out.println("zakres");
 			int left = wave.getLeft();
 			int right = wave.getRight();
 			String waveName = waves.getWaves().get(wave);
+			System.out.println(waveName);
 			duration.setName(waveName);
 			duration.countDuration(left, right,
 				channel.getInterval());
 		    }
+		    atrResult.addValue(dResult);
 		}
-		atrResult.addValue(statResult);
+		System.out.println("add atr result");
 	    }
 
 	    WavesResult result = new WavesResult();
-
-	    for (StatisticResult stat : atrResult.getValue()) {
-		for (String name : stat.getValue().keySet()) {
-		    statResult.clearValues();
+	    // StatisticResult stResTEMP = new StatisticResult();
+	    for (DurationResult dur : atrResult.getValue()) {
+		System.out.println("obliczanie statystyk");
+		for (String name : dur.getValue().keySet()) {
+		    System.out.println("obliczanie " + name);
+		    // statResult.clearValues();
 		    for (Function function : functions) {
-			function.iterate(stat.getValue().get(name)
-				.firstElement());
+			System.out.println("obliczanie funkcji");
+			function.iterate(dur.getValue().get(name));
 			// TODO puls i korekcja
 		    }
 		    for (Function function : functions) {
 			function.countResult();
+			System.out.println("obliczanie wyniku funkcji");
 		    }
 		    result.addValue(name, statResult);
+		    System.out.println("dodanie wynikow funkcji");
 		}
 	    }
 	    // TODO czy na wy¿szym poziomie interesuj¹ nas wszystkie d³ugoœci
@@ -80,15 +93,24 @@ public class StatisticsController {
     }
 
     public PopulationResult countForPopulation(Population popul) {
+	System.out.println("count for population");
 	PopulationResult popResult = new PopulationResult();
 	SpecimenResult specResult = new SpecimenResult();
+	VectorsToTests vectorsBefore = new VectorsToTests();
+	VectorsToTests vectorsAfter = new VectorsToTests();
 	for (Specimen man : popul.getSpecimen()) {
-	    Input before = man.getBefore();
+	    ECG before = man.getBefore();
+	    System.out.println("pobrane before");
 	    specResult.setBefore(count(before));
-	    Input after = man.getAfter();
+	    specResult.addToVectors(vectorsBefore, specResult.getBefore());
+	    System.out.println("koniec before");
+	    ECG after = man.getAfter();
+	    System.out.println("pobrane after");
 	    if (after != null) {
+		System.out.println("count after");
 		specResult.setAfter(count(after));
 		specResult.compareResult();
+		specResult.addToVectors(vectorsAfter, specResult.getAfter());
 	    }
 	    popResult.addResult(specResult);
 	}
@@ -101,13 +123,15 @@ public class StatisticsController {
 	this.functions = functions;
 	this.wavesNames = wavesNames;
 	loadPopulation();
+	System.out.println("zaladowane populacje");
 	getFinalResult().setPopul1(countForPopulation(popul1));
-
+	System.out.println("koniec populacji 1");
 	if (popul2 != null) {
 	    getFinalResult().setPopul2(countForPopulation(popul2));
+	    System.out.println("koniec populacji2");
 	    // TODO porównaj populacje?
 	}
-
+	System.out.println("raport");
 	// TODO generowanie raportu koñcowego - motoda w ProjectResult?
     }
 

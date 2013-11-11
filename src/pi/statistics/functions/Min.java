@@ -1,7 +1,5 @@
 package pi.statistics.functions;
 
-import java.util.Vector;
-
 import pi.statistics.logic.Function;
 import pi.statistics.logic.StatisticResult;
 
@@ -15,9 +13,7 @@ public class Min extends Function {
 
     @Override
     public void countResult() {
-	Vector<Double> result = new Vector<Double>();
-	result.add(min);
-	StatisticResult.addValue(this.getName(), result);
+	StatisticResult.addValue(this.getName(), min);
     }
 
     @Override

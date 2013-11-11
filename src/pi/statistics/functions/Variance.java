@@ -1,7 +1,5 @@
 package pi.statistics.functions;
 
-import java.util.Vector;
-
 import pi.statistics.logic.Function;
 import pi.statistics.logic.StatisticResult;
 
@@ -17,28 +15,27 @@ public class Variance extends Function {
 
     @Override
     public void countResult() {
-	Vector<Double> result = new Vector<Double>();
-
-	if (n != 0) {
-	    var = y / n;
-	    result.add(var);
-	} else {
-	    // TODO Co jeœli mianownik (liczba próbek) jest zerem
-	}
-	StatisticResult.addValue(this.getName(), result);
+//
+//	if (n != 0) {
+//	    var = y / n;
+//	} else {
+//	    // TODO Co jeœli mianownik (liczba próbek) jest zerem
+//	}
+//	StatisticResult.addValue(this.getName(), var);
 
     }
 
     @Override
     public void iterate(double value) {
-	double avg = StatisticResult.getValue().get("Average").firstElement();
-	// TODO co z nullami?
-
-	if (avg != 0) {
-	    x = Math.pow((value - avg), 2);
-	    y += x;
-	    n++;
-	}
+	//TODO ZMIENIÆ!!
+//	double avg = StatisticResult.getValue().get("Average");
+//	// TODO co z nullami?
+//
+//	if (avg != 0) {
+//	    x = Math.pow((value - avg), 2);
+//	    y += x;
+//	    n++;
+//	}
 
     }
 

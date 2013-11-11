@@ -40,8 +40,7 @@ public class StatisticWindowController implements ActionListener{
 	    ArrayList<Function> functions = new ArrayList<Function>();
 	    ArrayList<String> wavesNames = new ArrayList<String>();
 	    
-	    Function amplitude = new Amplitude();
-	    functions.add(amplitude);
+
 	    Function average = new Average();
 	    functions.add(average);
 	    //Function avgSignal = new AverageSignal();
@@ -52,6 +51,8 @@ public class StatisticWindowController implements ActionListener{
 	    //functions.add(median);
 	    Function min = new Min();
 	    functions.add(min);
+	    Function amplitude = new Amplitude();
+	    functions.add(amplitude);
 	    Function sd = new SD();
 	    functions.add(sd);
 	    Function variance = new Variance();
@@ -62,7 +63,7 @@ public class StatisticWindowController implements ActionListener{
 		    wavesNames.add(window.checkBoxArray[i].getName());
 		}
 	    }
-	    
+
 	    stControl.countStatistics(functions, wavesNames);
 	}	
     
