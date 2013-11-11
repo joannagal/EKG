@@ -20,6 +20,8 @@ import pi.data.importer.population.ImportPopulationFrame;
 import pi.data.importer.population.SingleFile;
 import pi.gui.menu.MenuController;
 import pi.gui.menu.MenuView;
+import pi.gui.toolbar.ProjectToolbar;
+import pi.gui.toolbar.ProjectToolbarController;
 import pi.inputs.signal.ECG;
 import pi.shared.SharedController;
 

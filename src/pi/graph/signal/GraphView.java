@@ -11,6 +11,7 @@ import org.dom4j.DocumentException;
 import pi.data.importer.Importer;
 import pi.graph.signal.Graph;
 import pi.gui.toolbar.ProjectToolbar;
+import pi.gui.toolbar.ProjectToolbarController;
 import pi.inputs.signal.Channel;
 import pi.inputs.signal.ECG;
 import pi.population.Specimen;
@@ -25,7 +26,7 @@ public class GraphView extends JPanel{
     private ECG ecg;
 	private Channel signal1;
 	private Graph graph;
-	private GraphController controller;
+	private GraphToolbarController controller;
 	private GraphToolbar toolbar;
 	private Specimen specimen;
 	private String[] attributes = new String[4];
@@ -34,15 +35,9 @@ public class GraphView extends JPanel{
        
 		
 		try {        
-				
-			this.setBounds(10, 10, 1250, 600);
+			
 			this.setVisible(true);
 			this.setLayout(null);
-			
-			ProjectToolbar tool = new ProjectToolbar();
-			tool.setVisible(true);
-			tool.setBounds(15, 15, 1100, 100);
-			this.add(tool);
 			
             Importer imp = new Importer(path);
             attributes = imp.getAttributes();
@@ -56,10 +51,10 @@ public class GraphView extends JPanel{
             
             graph = new Graph(new Dimension(1100, 190), signal1);
             toolbar = new GraphToolbar(graph, this);
-            toolbar.setLocation(10, 120);
+            toolbar.setLocation(10, 90);
             
-    		controller = new GraphController(toolbar, graph);
-            graph.setLocation(10, 230);
+    		controller = new GraphToolbarController(toolbar, graph);
+            graph.setLocation(10, 200);
             
             graph.recalculate();
     		graph.setVisible(true);

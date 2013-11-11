@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
 import pi.data.importer.Importer;
+import pi.gui.toolbar.ProjectToolbar;
+import pi.gui.toolbar.ProjectToolbarController;
 import pi.project.Project;
 import pi.shared.schemes.Scheme;
 import pi.shared.schemes.signal.SignalScheme;
@@ -319,7 +321,13 @@ public class SharedController
 		this.project = project;
 	}
 
-
-
+	public void createProjectToolbar(){
+		ProjectToolbar tool= new ProjectToolbar();
+		ProjectToolbarController toolConroller = new ProjectToolbarController(tool);
+		tool.setVisible(true);
+		tool.setBounds(10, 10, 1100, 65);
+		SharedController.getInstance().getFrame().add(tool);
+	}
+	
 	
 }

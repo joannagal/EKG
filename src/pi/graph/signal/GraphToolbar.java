@@ -20,9 +20,6 @@ import pi.statistics.gui.StatisticWindowView;
 public class GraphToolbar extends JPanel {
 	
 	private AutoFinderView afView = new AutoFinderView();
-	private StatisticWindowView stView = new StatisticWindowView();
-	private StatisticWindowController stControl = new StatisticWindowController(stView);
-	
 	private JButton informationButton;
 	private JButton analysisButton;
 	private JButton resultsButton;
@@ -37,11 +34,13 @@ public class GraphToolbar extends JPanel {
 
 	private JPanel segmentHeightSliderPanel;
 	private JPanel panelHeightSliderPanel;
+	private JPanel changeChannelPanel;
 	
 	private JButton[] buttonArray;
-	private JSlider[] sliderArray;
-	private String[] itemEvent = new String[]{"INFO", "ANALYSIS", "RESULTS", "AUTOFINDER", "ADD", "DELETE"};
-
+	private String[] itemEvent = new String[]{"INFO", "AUTOFINDER", "ADD", "DELETE"};
+	private String[] descriptions = new String[]{"Chanel 1","Chanel 2","Chanel 3","Chanel 4",
+			"Chanel 5", "Chanel 6", "Chanel 7", "Chanel 8", "Chanel 9"};
+	
 	
 	public GraphToolbar(final Graph graph, GraphView view){
 		this.graphView = view;
@@ -53,10 +52,6 @@ public class GraphToolbar extends JPanel {
 		
 		informationButton = new JButton("Information");
 		informationButton.setVisible(true);
-		analysisButton = new JButton("Analysis");
-		analysisButton.setVisible(true);
-		resultsButton = new JButton("Results");
-		resultsButton.setVisible(true);
 		
 		autofinderButton = new JButton("AutoFinder");
 		autofinderButton.setVisible(true);
@@ -71,8 +66,16 @@ public class GraphToolbar extends JPanel {
 		deleteDegmentButton.setVisible(true);
 		segmentPanel.add(deleteDegmentButton);
 		
-		buttonArray = new JButton[]{informationButton, analysisButton, resultsButton, autofinderButton,
+		changeChannelPanel = new JPanel();
+		changeChannelPanel.setBorder(BorderFactory.createTitledBorder("Change channel"));
+		
+		
+		
+		
+		buttonArray = new JButton[]{informationButton,autofinderButton,
 				addSegmentButton, deleteDegmentButton};
+		
+		
 		
 		/* setting panel with segment height slider */
 		segmentHeightSliderPanel = new JPanel();
@@ -100,11 +103,6 @@ public class GraphToolbar extends JPanel {
 		segmentHeightSliderPanel.add(segmentHeightSlider);
 	
         
-        
-        /* setting panel with panel width slider*/
-        
-        
-        
         /* setting panel with panel height slider*/
 		panelHeightSliderPanel = new JPanel();
 		panelHeightSliderPanel.setBorder(BorderFactory.createTitledBorder("Segment Height"));
@@ -121,13 +119,11 @@ public class GraphToolbar extends JPanel {
 				graph.setSegmentHeight(heightSlider.getValue());			
 			}
 		});
-        panelHeightSliderPanel.add(heightSlider);
+        panelHeightSliderPanel.add(heightSlider);       
         
-        sliderArray = new JSlider[]{segmentHeightSlider, heightSlider};
         
+        //add configured elements
 		this.add(informationButton);
-		this.add(analysisButton);
-		this.add(resultsButton);
 		this.add(autofinderButton);
 		this.add(segmentPanel);
 		this.add(segmentHeightSliderPanel);
@@ -149,22 +145,5 @@ public class GraphToolbar extends JPanel {
 	public void setAfView(AutoFinderView afView) {
 		this.afView = afView;
 	}
-
-	public StatisticWindowView getStView() {
-	    return stView;
-	}
-
-	public void setStView(StatisticWindowView stView) {
-	    this.stView = stView;
-	}
-
-	public StatisticWindowController getStControl() {
-	    return stControl;
-	}
-
-	public void setStControl(StatisticWindowController stControl) {
-	    this.stControl = stControl;
-	}
-	
 	
 }

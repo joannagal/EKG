@@ -22,7 +22,8 @@ public class ProjectToolbarController implements ActionListener {
 		}
 		
 		if (action.equals("CALCULATE")){
-
+			this.tool.getStView().showWindow();
+			this.tool.getStControl();
 		}
 		
 		if (action.equals("REPORT")){

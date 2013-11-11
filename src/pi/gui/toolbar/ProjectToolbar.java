@@ -12,6 +12,9 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
+import pi.statistics.gui.StatisticWindowController;
+import pi.statistics.gui.StatisticWindowView;
+
 public class ProjectToolbar extends JPanel {
 
 	private JButton projectButton = new JButton("Project Info");
@@ -19,6 +22,8 @@ public class ProjectToolbar extends JPanel {
 	private JButton raportButton = new JButton("Display report");
 	private JButton[] buttons;
 	private String[] buttonsEvent = new String[]{"PROJECT_INFO", "CALCULATE", "REPORT"};
+	private StatisticWindowView stView = new StatisticWindowView();
+	private StatisticWindowController stControl = new StatisticWindowController(stView);
 
 	public ProjectToolbar() {
 
@@ -40,6 +45,22 @@ public class ProjectToolbar extends JPanel {
 			buttons[i].setActionCommand(buttonsEvent[i]);
 			buttons[i].addActionListener(al);
 		}
+	}
+	
+	public StatisticWindowView getStView() {
+	    return stView;
+	}
+
+	public void setStView(StatisticWindowView stView) {
+	    this.stView = stView;
+	}
+
+	public StatisticWindowController getStControl() {
+	    return stControl;
+	}
+
+	public void setStControl(StatisticWindowController stControl) {
+	    this.stControl = stControl;
 	}
 
 }

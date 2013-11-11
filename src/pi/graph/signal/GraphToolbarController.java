@@ -10,12 +10,12 @@ import javax.swing.event.ChangeListener;
 import pi.shared.SharedController;
 
 
-public class GraphController implements ActionListener {
+public class GraphToolbarController implements ActionListener {
 
 	private GraphToolbar view;
 	private Graph model; 
 	
-	public GraphController(GraphToolbar view, Graph model){
+	public GraphToolbarController(GraphToolbar view, Graph model){
 		this.view = view;
 		this.model = model;
 		
@@ -27,13 +27,6 @@ public class GraphController implements ActionListener {
 		String action = ae.getActionCommand();	
 		if (action.equals("INFO")){
 
-		}
-		if (action.equals("ANALYSIS")){
-			this.view.getStView().showWindow();
-			this.view.getStControl();
-		}
-		if (action.equals("RESULTS")){
-			
 		}
 		if (action.equals("AUTOFINDER")){
 			this.view.getAfView().showWithSignal(model);

@@ -4,8 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import pi.data.importer.Importer;
-import pi.data.importer.ImporterView;
 import pi.data.importer.population.ImportPopulationFrame;
+import pi.data.importer.signal.ImportController;
+import pi.data.importer.signal.ImporterView;
+import pi.shared.SharedController;
 
 
 public class ChooseProjectController implements ActionListener{
@@ -31,11 +33,27 @@ public class ChooseProjectController implements ActionListener{
 			if (selected.equals("SINGLE_SIGNAL")){
 				view.dispose();
 				
+				Project project = new Project();
+				project.setType(1);
+				SharedController.getInstance().setProject(project);
+				
 				ImporterView importerView = new ImporterView();
-				importerView.setBounds(400, 200, 400, 100);
+				ImportController controller = new ImportController(importerView);
+
+				importerView.setBounds(400, 200, 400, 300);
 			}
 			
 			if (selected.equals("TWO_SIGNALS")){
+				view.dispose();
+				
+				Project project = new Project();
+				project.setType(2);
+				SharedController.getInstance().setProject(project);
+				
+				ImporterView importerView = new ImporterView();
+				ImportController controller = new ImportController(importerView);
+					
+				importerView.setBounds(400, 200, 400, 300);
 				
 			}
 			if (selected.equals("TWO_POPULATIONS")){
