@@ -51,10 +51,10 @@ public class Project
 	// PO WCZYTANIU USTALAMY TYP PROJEKTU
 	// KOLEJNOSC JAK W TYM PLIKU Z ZALOZENIAMI
 	private int type;
-	public static final int SPECIMEN_SINGLE = 0;
-	public static final int SPECIMEN_PAIR = 1;
-	public static final int POPULATION_SINGLE = 2;
-	public static final int POPULATION_PAIR = 3;
+	public static final int SPECIMEN_SINGLE = 1;
+	public static final int SPECIMEN_PAIR = 2;
+	public static final int POPULATION_SINGLE = 3;
+	public static final int POPULATION_PAIR = 4;
 	
 	public Project()
 	{

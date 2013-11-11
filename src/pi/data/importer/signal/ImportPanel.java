@@ -32,9 +32,7 @@ public class ImportPanel extends JPanel{
 	private String path;
 	
 	public ImportPanel(){	
-		
-		fileChooser = new JFileChooser();
-	
+			
 		JLabel fileLabel = new JLabel("File");
 		fileLabel.setVisible(true);
 		this.add(fileLabel);

@@ -1,11 +1,13 @@
 package pi.data.importer.signal;
 
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.lang.invoke.ConstantCallSite;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -39,8 +41,10 @@ public class ImporterView extends JDialog{
 	private JFileChooser fileChooser;
 	ImportPanel[] importPanels;
 	private JButton nextButton;
+	private JButton backButton;
 	private JButton[] buttons;
-	private String[] buttonEvents = new String[]{"NEXT"};
+	private JPanel buttonPanel;
+	private String[] buttonEvents = new String[]{"NEXT", "PREVIOUS"};
 	ArrayList<String> paths = new ArrayList<String>(2);
 	
 	public ImporterView() {
@@ -59,14 +63,25 @@ public class ImporterView extends JDialog{
 		this.getImportPanels()[0] = new ImportPanel();
 		this.add(getImportPanels()[0], constraints);
 		
+		buttonPanel = new JPanel();
+		buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+		buttonPanel.setVisible(true);
+		
+		nextButton = new JButton("NEXT");
+		nextButton.setVisible(true);
+		
+		backButton = new JButton("BACK");
+		backButton.setVisible(true);
+		
+		buttonPanel.add(backButton);
+		buttonPanel.add(nextButton);
+			
 		if (SharedController.getInstance().getProject().getType() == 1){
 			
-			nextButton = new JButton("NEXT");
-			nextButton.setVisible(true);
 			constraints.gridx = 0;
 			constraints.gridy = 1;
 			constraints.gridwidth = 1;
-			this.add(nextButton, constraints);
+			this.add(buttonPanel, constraints);
 			
 			
 		} else if (SharedController.getInstance().getProject().getType() == 2){
@@ -77,12 +92,11 @@ public class ImporterView extends JDialog{
 			this.getImportPanels()[1] = new ImportPanel();
 			this.add(getImportPanels()[1], constraints);
 			
-			nextButton = new JButton("NEXT");
-			nextButton.setVisible(true);
+
 			constraints.gridx = 0;
 			constraints.gridy = 2;
 			constraints.gridwidth = 1;
-			this.add(nextButton, constraints);
+			this.add(buttonPanel, constraints);
 						
 		}
 		

@@ -31,7 +31,6 @@ public class Importer {
 	public Importer(String filePath) throws DocumentException {
 		this.filePath = filePath;
 		document = loadDocument(filePath);
-		System.out.println("Nowy specimen utorzony");
 	}
 
 	public String[] getAttributes() throws DocumentException {

@@ -18,7 +18,7 @@ public class ProjectToolbarController implements ActionListener {
 		String action = e.getActionCommand();	
 		
 		if (action.equals("PROJECT_INFO")){
-
+			
 		}
 		
 		if (action.equals("CALCULATE")){

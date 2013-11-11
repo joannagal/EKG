@@ -327,6 +327,7 @@ public class SharedController
 		tool.setVisible(true);
 		tool.setBounds(10, 10, 1100, 65);
 		SharedController.getInstance().getFrame().add(tool);
+		SharedController.getInstance().getFrame().pack();
 	}
 	
 	

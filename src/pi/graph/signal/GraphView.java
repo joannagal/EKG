@@ -14,6 +14,7 @@ import pi.gui.toolbar.ProjectToolbar;
 import pi.gui.toolbar.ProjectToolbarController;
 import pi.inputs.signal.Channel;
 import pi.inputs.signal.ECG;
+import pi.population.Population;
 import pi.population.Specimen;
 import pi.project.ChooseProjectController;
 import pi.project.ChooseProjectView;
@@ -30,9 +31,11 @@ public class GraphView extends JPanel{
 	private GraphToolbar toolbar;
 	private Specimen specimen;
 	private String[] attributes = new String[4];
+	private Population population;
 	
-	public GraphView(String path) {
+	public GraphView(String path, Population population) {
        
+		this.setPopulation(population);
 		
 		try {        
 			
@@ -72,5 +75,13 @@ public class GraphView extends JPanel{
 		}
 		
 		
+	}
+
+	public Population getPopulation() {
+		return population;
+	}
+
+	public void setPopulation(Population population) {
+		this.population = population;
 	}
 }
