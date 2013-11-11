@@ -1,7 +1,5 @@
 package pi.statistics.functions;
 
-import java.util.Vector;
-
 import pi.statistics.logic.Function;
 import pi.statistics.logic.StatisticResult;
 
@@ -15,7 +13,6 @@ public class Average extends Function {
     private int denominator = 0;
 
     public void countResult() {
-	Vector<Double> result = new Vector<Double>();
 	double avg;
 	if (denominator != 0) {
 	   avg = (sum / denominator);
@@ -23,8 +20,7 @@ public class Average extends Function {
 	    avg = 0;
 	    // TODO Co jeœli mianownik (liczba próbek) jest zerem
 	}
-	result.add(avg);
-	StatisticResult.addValue(this.getName(), result);
+	StatisticResult.addValue(this.getName(), avg);
     }
 
     public void iterate(double value) {

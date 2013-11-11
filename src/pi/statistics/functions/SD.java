@@ -1,7 +1,5 @@
 package pi.statistics.functions;
 
-import java.util.Vector;
-
 import pi.statistics.logic.Function;
 import pi.statistics.logic.StatisticResult;
 
@@ -14,16 +12,14 @@ public class SD extends Function {
 
     @Override
     public void countResult() {
-	Vector<Double> result = new Vector<Double>();
-
-	double var = StatisticResult.getValue().get("Variance").firstElement();
-	// TODO co z mullami?
-	if (var != 0) {
-	    double sd = Math.sqrt(var);
-	    result.add(sd);
-	}
-
-	StatisticResult.addValue(this.getName(), result);
+//	double sd = 0;
+//	double var = StatisticResult.getValue().get("Variance").doubleValue();
+//	// TODO co z mullami?
+//	if (var != 0) {
+//	    sd = Math.sqrt(var);
+//	}
+//
+//	StatisticResult.addValue(this.getName(), sd);
     }
 
     @Override

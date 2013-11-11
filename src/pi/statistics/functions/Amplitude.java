@@ -1,7 +1,5 @@
 package pi.statistics.functions;
 
-import java.util.Vector;
-
 import pi.statistics.logic.Function;
 import pi.statistics.logic.StatisticResult;
 
@@ -13,15 +11,13 @@ public class Amplitude extends Function {
 
     @Override
     public void countResult() {
-	Vector<Double> result = new Vector<Double>();
-	
 	//TODO null?
-	double min = StatisticResult.getValue().get("Min").firstElement();
-	double max = StatisticResult.getValue().get("Max").firstElement();
+	System.out.println("obliczanie amplitudy");
+	double min = StatisticResult.getValue().get("Min").doubleValue();
+	double max = StatisticResult.getValue().get("Max").doubleValue();
 	double amplitude = max - min;
 	
-	result.add(amplitude);
-	StatisticResult.addValue(this.getName(), result);
+	StatisticResult.addValue(this.getName(), amplitude);
     }
 
     @Override

@@ -74,6 +74,7 @@ public class StatisticWindowView extends JFrame {
 	panel_3.setBorder(BorderFactory.createTitledBorder("Waves"));
 
 	tWave = new JCheckBox("T-wave");
+	tWave.setName("tWave");
 	GridBagConstraints gbc_tWave = new GridBagConstraints();
 	gbc_tWave.anchor = GridBagConstraints.WEST;
 	gbc_tWave.insets = new Insets(0, 0, 5, 0);
@@ -82,6 +83,7 @@ public class StatisticWindowView extends JFrame {
 	panel_3.add(tWave, gbc_tWave);
 
 	pWave = new JCheckBox("P-wave");
+	pWave.setName("pWave");
 	GridBagConstraints gbc_pWave = new GridBagConstraints();
 	gbc_pWave.anchor = GridBagConstraints.WEST;
 	gbc_pWave.insets = new Insets(0, 0, 5, 0);
@@ -90,6 +92,7 @@ public class StatisticWindowView extends JFrame {
 	panel_3.add(pWave, gbc_pWave);
 
 	uWave = new JCheckBox("U-wave");
+	uWave.setName("uWave");
 	GridBagConstraints gbc_uWave = new GridBagConstraints();
 	gbc_uWave.anchor = GridBagConstraints.WEST;
 	gbc_uWave.insets = new Insets(0, 0, 5, 0);
@@ -98,6 +101,7 @@ public class StatisticWindowView extends JFrame {
 	panel_3.add(uWave, gbc_uWave);
 
 	prInterval = new JCheckBox("PR interval");
+	prInterval.setName("prInterval");
 	GridBagConstraints gbc_prInterval = new GridBagConstraints();
 	gbc_prInterval.anchor = GridBagConstraints.WEST;
 	gbc_prInterval.insets = new Insets(0, 0, 5, 0);
@@ -106,6 +110,7 @@ public class StatisticWindowView extends JFrame {
 	panel_3.add(prInterval, gbc_prInterval);
 
 	prSegment = new JCheckBox("PR segment");
+	prSegment.setName("prSegment");
 	GridBagConstraints gbc_prSegment = new GridBagConstraints();
 	gbc_prSegment.anchor = GridBagConstraints.WEST;
 	gbc_prSegment.insets = new Insets(0, 0, 5, 0);
@@ -114,6 +119,7 @@ public class StatisticWindowView extends JFrame {
 	panel_3.add(prSegment, gbc_prSegment);
 
 	stSegment = new JCheckBox("ST segment");
+	stSegment.setName("stSegment");
 	GridBagConstraints gbc_stSegment = new GridBagConstraints();
 	gbc_stSegment.anchor = GridBagConstraints.WEST;
 	gbc_stSegment.insets = new Insets(0, 0, 5, 0);
@@ -122,6 +128,7 @@ public class StatisticWindowView extends JFrame {
 	panel_3.add(stSegment, gbc_stSegment);
 
 	stInterval = new JCheckBox("ST interval");
+	stInterval.setName("stInterval");
 	GridBagConstraints gbc_stInterval = new GridBagConstraints();
 	gbc_stInterval.anchor = GridBagConstraints.WEST;
 	gbc_stInterval.insets = new Insets(0, 0, 5, 0);
@@ -130,6 +137,7 @@ public class StatisticWindowView extends JFrame {
 	panel_3.add(stInterval, gbc_stInterval);
 
 	qtInterval = new JCheckBox("QT interval");
+	qtInterval.setName("qtInterval");
 	GridBagConstraints gbc_qtInterval = new GridBagConstraints();
 	gbc_qtInterval.anchor = GridBagConstraints.WEST;
 	gbc_qtInterval.insets = new Insets(0, 0, 5, 0);
@@ -138,6 +146,7 @@ public class StatisticWindowView extends JFrame {
 	panel_3.add(qtInterval, gbc_qtInterval);
 
 	qrsComplex = new JCheckBox("QRS complex");
+	qrsComplex.setName("qrsComplex");
 	GridBagConstraints gbc_qrsComplex = new GridBagConstraints();
 	gbc_qrsComplex.insets = new Insets(0, 0, 5, 0);
 	gbc_qrsComplex.anchor = GridBagConstraints.WEST;

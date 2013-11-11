@@ -3,14 +3,14 @@ package pi.statistics.logic;
 import java.util.ArrayList;
 
 public class AttributeResult {
-        private ArrayList<StatisticResult> value = new ArrayList<>();
+        private ArrayList<DurationResult> value = new ArrayList<>();
 
         
-        public ArrayList<StatisticResult> getValue() {
+        public ArrayList<DurationResult> getValue() {
                 return value;
         }
 
-        public void addValue(StatisticResult value) {
+        public void addValue(DurationResult value) {
                 this.value.add(value);
         }
 }
