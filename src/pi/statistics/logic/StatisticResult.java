@@ -5,18 +5,27 @@ import java.util.Map;
 
 public class StatisticResult {
 	
-		private static Map<String, Double> value = new HashMap<String, Double>();
+		private Map<String, Double> value = new HashMap<String, Double>();
 
-		public static Map<String, Double> getValue() {
+		public Map<String, Double> getValue() {
 			return value;
 		}
 
-		public static void addValue(String name, Double result ) {
+		public void addValue(String name, Double result ) {
 			value.put(name, result);
 		}
 		
-		public static void clearValues(){
+		public void clearValues(){
 			value.clear();
+		}
+		
+		public void printValues(String waveName){
+		    System.out.println(waveName + "\n");
+		    for (String string : value.keySet()){
+			System.out.println(string + ": \n");
+			System.out.println(value.get(string) + "\n");
+			
+		    }
 		}
 		
 }

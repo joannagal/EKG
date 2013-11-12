@@ -10,19 +10,24 @@ public class Amplitude extends Function {
     }
 
     @Override
-    public void countResult() {
+    public void countResult(StatisticResult statResult) {
 	//TODO null?
-	System.out.println("obliczanie amplitudy");
-	double min = StatisticResult.getValue().get("Min").doubleValue();
-	double max = StatisticResult.getValue().get("Max").doubleValue();
+	double min = statResult.getValue().get("Min").doubleValue();
+	double max = statResult.getValue().get("Max").doubleValue();
 	double amplitude = max - min;
 	
-	StatisticResult.addValue(this.getName(), amplitude);
+	statResult.addValue(this.getName(), amplitude);
     }
 
     @Override
     public void iterate(double value) {
 
+    }
+
+    @Override
+    public void backToBegin() {
+	
+	
     }
 
 }

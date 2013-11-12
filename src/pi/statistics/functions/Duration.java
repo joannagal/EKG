@@ -1,17 +1,16 @@
 package pi.statistics.functions;
 
 import pi.statistics.logic.DurationResult;
-import pi.statistics.logic.StatisticResult;
 
 public class Duration {
     
     private String name;
     
-    public void countDuration(int left, int right, Double interval){
+    public void countDuration(int left, int right, Double interval, DurationResult dResult){
 	System.out.println("obliczanie duration");
 	double dur = (right - (left+1)) * interval;
 	
-	DurationResult.addValue(this.getName(), dur);
+	dResult.addValue(this.getName(), dur);
     }
     
     public String getName(){

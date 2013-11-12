@@ -11,20 +11,25 @@ public class SD extends Function {
     }
 
     @Override
-    public void countResult() {
-//	double sd = 0;
-//	double var = StatisticResult.getValue().get("Variance").doubleValue();
-//	// TODO co z mullami?
-//	if (var != 0) {
-//	    sd = Math.sqrt(var);
-//	}
-//
-//	StatisticResult.addValue(this.getName(), sd);
+    public void countResult(StatisticResult statResult) {
+	double sd = 0;
+	double var = statResult.getValue().get("Variance").doubleValue();
+	// TODO co z mullami?
+	if (var != 0) {
+	    sd = Math.sqrt(var);
+	}
+
+	statResult.addValue(this.getName(), sd);
     }
 
     @Override
     public void iterate(double value) {
 
+    }
+
+    @Override
+    public void backToBegin() {
+	
     }
 
 }

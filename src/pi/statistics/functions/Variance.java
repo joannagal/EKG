@@ -7,6 +7,7 @@ public class Variance extends Function {
     private double x = 0;
     private double y = 0;
     private double var = 0;
+    private double avg;
     private int n = 0;
 
     public Variance() {
@@ -14,29 +15,40 @@ public class Variance extends Function {
     }
 
     @Override
-    public void countResult() {
-//
-//	if (n != 0) {
-//	    var = y / n;
-//	} else {
-//	    // TODO Co jeœli mianownik (liczba próbek) jest zerem
-//	}
-//	StatisticResult.addValue(this.getName(), var);
+    public void countResult(StatisticResult statResult) {
+
+	if (n != 0) {
+	    var = y / n;
+	} else {
+	    // TODO Co jeœli mianownik (liczba próbek) jest zerem
+	}
+	statResult.addValue(this.getName(), var);
+
 
     }
 
     @Override
     public void iterate(double value) {
-	//TODO ZMIENIÆ!!
-//	double avg = StatisticResult.getValue().get("Average");
-//	// TODO co z nullami?
-//
-//	if (avg != 0) {
-//	    x = Math.pow((value - avg), 2);
-//	    y += x;
-//	    n++;
-//	}
+	if (avg != 0) {
+	    x = Math.pow((value - avg), 2);
+	    y += x;
+	    n++;
+	}
 
+    }
+    
+    public void setAverage(StatisticResult statResult){
+	this.avg = statResult.getValue().get("Average").doubleValue();
+	
+    }
+
+    @Override
+    public void backToBegin() {
+	    x = 0;
+	    y = 0;
+	    var = 0;
+	    n = 0;
+	
     }
 
 }

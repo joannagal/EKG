@@ -2,20 +2,36 @@ package pi.statistics.logic;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Vector;
 
 public class DurationResult {
-	private static Map<String, Double> value = new HashMap<String, Double>();
+	private  Map<String, Vector<Double>> value = new HashMap<String, Vector<Double>>();
 
-	public static Map<String, Double> getValue() {
+	public  Map<String, Vector<Double>> getValue() {
 		return value;
 	}
 
-	public static void addValue(String name, Double result ) {
-		value.put(name, result);
+	public  void addValue(String name, Double result ) {
+		if (value.containsKey(name)){
+		    value.get(name).add(result);
+		}
+		else {
+		Vector<Double> vec = new Vector<Double>();
+		vec.add(result);
+	    	value.put(name, vec);
+		}
 	}
 	
-	public static void clearValues(){
+	public  void clearValues(){
 		value.clear();
+	}
+	
+	public  void printDurations(){
+	    for (String string : value.keySet()){
+		System.out.println(string + ": \n");
+		System.out.println(value.get(string) + "\n");
+		
+	    }
 	}
 
 }

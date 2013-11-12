@@ -8,7 +8,7 @@ public abstract class Function {
 		this.name = name;
 	}
 	
-	public abstract void countResult();	
+	public abstract void countResult(StatisticResult statResult);	
 	
 	public abstract void iterate(double value);
 	
@@ -16,6 +16,6 @@ public abstract class Function {
 		return name;
 	}
 
-
+	public abstract void backToBegin();
 	
 }

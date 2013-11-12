@@ -52,10 +52,10 @@ public class Waves {
 	}
     }
     
-    public void setJPoint(){
+    public void setJPoint(DurationResult dResult){
 	double res = (double) cycle.getQrs_complex().getRight();
 	System.out.println("setting j point");
-	DurationResult.addValue("J-point", res);
+	dResult.addValue("J-point", res);
     }
 
     public Map<Range, String> getWaves() {

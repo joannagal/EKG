@@ -1,6 +1,7 @@
 package pi.statistics.functions;
 
 import pi.statistics.logic.Function;
+import pi.statistics.logic.StatisticResult;
 
 public class Median extends Function {
 
@@ -10,7 +11,7 @@ public class Median extends Function {
     }
 
     @Override
-    public void countResult() {
+    public void countResult(StatisticResult statResult) {
 	// TODO Auto-generated method stub
 
     }
@@ -19,6 +20,12 @@ public class Median extends Function {
     public void iterate(double value) {
 	// TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public void backToBegin() {
+	// TODO Auto-generated method stub
+	
     }
 
 }

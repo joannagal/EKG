@@ -10,6 +10,7 @@ import pi.population.Population;
 import pi.population.Specimen;
 import pi.shared.SharedController;
 import pi.statistics.functions.Duration;
+import pi.statistics.functions.Variance;
 import pi.utilities.Range;
 
 public class StatisticsController {
@@ -30,7 +31,6 @@ public class StatisticsController {
 	setPopul2(popul2);
     }
 
-    @SuppressWarnings("static-access")
     private ChannelResult count(ECG input) {
 	System.out.println("count");
 	ECG signal = input;
@@ -39,16 +39,17 @@ public class StatisticsController {
 	for (Channel channel : signal.getChannel()) {
 	    System.out.println("petla po channelach");
 	    AttributeResult atrResult = new AttributeResult();
-	    StatisticResult statResult = new StatisticResult();
 	    DurationResult dResult = new DurationResult();
+	    dResult.clearValues();
 	    for (Cycle cycle : channel.getCycle()) {
+
 		System.out.println("petla po cycle");
 		System.out.println(cycle.getMarkered().toString());
 
 		if (cycle.getMarkered() == false) {
-		    dResult.clearValues();
+
 		    Waves waves = new Waves(cycle, wavesNames);
-		    waves.setJPoint();
+		    waves.setJPoint(dResult);
 		    System.out.println("jPiont");
 		    for (Range wave : waves.getWaves().keySet()) {
 			System.out.println("zakres");
@@ -58,31 +59,69 @@ public class StatisticsController {
 			System.out.println(waveName);
 			duration.setName(waveName);
 			duration.countDuration(left, right,
-				channel.getInterval());
+				channel.getInterval(), dResult);
 		    }
-		    atrResult.addValue(dResult);
+
 		}
 		System.out.println("add atr result");
 	    }
+	    atrResult.addValue(dResult);
+	    for (DurationResult dur : atrResult.getValue()) {
+		dur.printDurations();
+	    }
 
 	    WavesResult result = new WavesResult();
-	    // StatisticResult stResTEMP = new StatisticResult();
+	    // nie liczy statystyk z wszystkich czasow
 	    for (DurationResult dur : atrResult.getValue()) {
 		System.out.println("obliczanie statystyk");
 		for (String name : dur.getValue().keySet()) {
-		    System.out.println("obliczanie " + name);
-		    // statResult.clearValues();
-		    for (Function function : functions) {
-			System.out.println("obliczanie funkcji");
-			function.iterate(dur.getValue().get(name));
-			// TODO puls i korekcja
+		    StatisticResult statResult = new StatisticResult();
+
+		    statResult.clearValues();
+		    for (Double number : dur.getValue().get(name)) {
+			for (Function function : functions) {
+			    if (function.getName() != "Variance"
+				    && function.getName() != "SD") {
+				function.iterate(number);
+			    }
+			    // TODO puls i korekcja
+			}
+			for (Function function : functions) {
+			    if (function.getName() != "Variance"
+				    && function.getName() != "SD") {
+				function.countResult(statResult);
+			    }
+			}
+			for (Function function : functions) {
+			    if (function.getName() == "Variance") {
+				Variance func = (Variance) function;
+				func.setAverage(statResult);
+				func.iterate(number);
+			    }
+			}
+			for (Function function : functions) {
+			    if (function.getName() == "Variance") {
+				function.countResult(statResult);
+			    }
+			}
+			for (Function function : functions) {
+			    if (function.getName() == "SD") {
+				function.iterate(number);
+			    }
+			}
+			for (Function function : functions) {
+			    if (function.getName() == "SD") {
+				function.countResult(statResult);
+			    }
+			}
 		    }
 		    for (Function function : functions) {
-			function.countResult();
-			System.out.println("obliczanie wyniku funkcji");
+			function.backToBegin();
 		    }
+
+		    statResult.printValues(name);
 		    result.addValue(name, statResult);
-		    System.out.println("dodanie wynikow funkcji");
+
 		}
 	    }
 	    // TODO czy na wy¿szym poziomie interesuj¹ nas wszystkie d³ugoœci
