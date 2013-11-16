@@ -8,7 +8,7 @@ public class Variance extends Function {
     private double y = 0;
     private double var = 0;
     private double avg;
-    private int n = 0;
+    private double n = 0;
 
     public Variance() {
 	super("Variance");
@@ -18,7 +18,7 @@ public class Variance extends Function {
     public void countResult(StatisticResult statResult) {
 
 	if (n != 0) {
-	    var = y / n;
+	    var = y / (n-1);
 	} else {
 	    // TODO Co jeœli mianownik (liczba próbek) jest zerem
 	}

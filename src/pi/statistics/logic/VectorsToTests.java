@@ -9,22 +9,30 @@ public class VectorsToTests {
     private Map<String, Vector<Double>> values;
     private Map<String, Map<String, Vector<Double>>> vectors = new HashMap<String, Map<String, Vector<Double>>>();
 
+    public void printVectors(){
+	for (String vectName : vectors.keySet()){
+	    System.out.println(vectName);
+	    for (String statName : vectors.get(vectName).keySet()){
+		    System.out.println(statName);
+		    System.out.println(vectors.get(vectName).get(statName));
+
+	    }
+	}
+    }
+    
     public Map<String, Map<String, Vector<Double>>> getValue() {
 	return vectors;
     }
 
     public void addVector(String name, String statName, double value) {
-	if (vectors.containsKey(name) != true) {
-	    if (values == null) {
-		values = new HashMap<String, Vector<Double>>();
-	    } else if (values.get(statName) == null) {
-		addValue(statName, value);
-	    } else
-		values.get(statName).add(value);
+	
+	if (vectors.containsKey(name) == false) {
+	    values = new HashMap<String, Vector<Double>>();
+	    addValue(statName, value);
 	    vectors.put(name, values);
 	} else {
 	    if (vectors.get(name).get(statName) == null) {
-		addValue(statName, value);//TODO czy ten warunek jest potrzebny?
+		addValue(statName, value);
 	    } else {
 		vectors.get(name).get(statName).add(value);
 	    }

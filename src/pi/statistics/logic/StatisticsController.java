@@ -92,6 +92,8 @@ public class StatisticsController {
 				function.countResult(statResult);
 			    }
 			}
+		    }
+		    for (Double number : dur.getValue().get(name)) {
 			for (Function function : functions) {
 			    if (function.getName() == "Variance") {
 				Variance func = (Variance) function;
@@ -119,7 +121,7 @@ public class StatisticsController {
 			function.backToBegin();
 		    }
 
-		    statResult.printValues(name);
+		    //statResult.printValues(name);
 		    result.addValue(name, statResult);
 
 		}
@@ -148,9 +150,13 @@ public class StatisticsController {
 	    if (after != null) {
 		System.out.println("count after");
 		specResult.setAfter(count(after));
+		System.out.println("porownywarka");
 		specResult.compareResult();
+		System.out.println("koniec porownan");
 		specResult.addToVectors(vectorsAfter, specResult.getAfter());
 	    }
+	    //vectorsBefore.printVectors();
+	    //vectorsAfter.printVectors();
 	    popResult.addResult(specResult);
 	}
 	return popResult;
