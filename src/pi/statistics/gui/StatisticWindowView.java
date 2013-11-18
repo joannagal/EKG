@@ -14,6 +14,11 @@ import javax.swing.JLabel;
 import javax.swing.JCheckBox;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
+import javax.swing.JTextField;
+import javax.swing.JComboBox;
+
+import pi.population.Specimen;
+import pi.shared.SharedController;
 
 public class StatisticWindowView extends JFrame {
 
@@ -22,7 +27,7 @@ public class StatisticWindowView extends JFrame {
     private JButton[] buttonArray;
     public JCheckBox[] checkBoxArray;
     public JCheckBox tWave;
-    public JCheckBox pWave; 
+    public JCheckBox pWave;
     public JCheckBox uWave;
     public JCheckBox prInterval;
     public JCheckBox prSegment;
@@ -30,6 +35,8 @@ public class StatisticWindowView extends JFrame {
     public JCheckBox stInterval;
     public JCheckBox qtInterval;
     public JCheckBox qrsComplex;
+    public JTextField alphaTextField;
+    public JComboBox<String> comboBox;
 
     public StatisticWindowView() {
 	this.setTitle("Analysis");
@@ -37,8 +44,7 @@ public class StatisticWindowView extends JFrame {
 	GridBagLayout gridBagLayout = new GridBagLayout();
 	gridBagLayout.columnWidths = new int[] { 184, 0 };
 	gridBagLayout.rowHeights = new int[] { 0, 240, 14, 0 };
-	gridBagLayout.columnWeights = new double[] { 1.0,
-		Double.MIN_VALUE };
+	gridBagLayout.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
 	gridBagLayout.rowWeights = new double[] { 0.0, 1.0, 1.0,
 		Double.MIN_VALUE };
 	getContentPane().setLayout(gridBagLayout);
@@ -68,8 +74,8 @@ public class StatisticWindowView extends JFrame {
 	gbl_panel_3.columnWidths = new int[] { 0, 0, 0 };
 	gbl_panel_3.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 	gbl_panel_3.columnWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
-	gbl_panel_3.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0,
-		0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+	gbl_panel_3.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+		0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 	panel_3.setLayout(gbl_panel_3);
 	panel_3.setBorder(BorderFactory.createTitledBorder("Waves"));
 
@@ -153,16 +159,15 @@ public class StatisticWindowView extends JFrame {
 	gbc_qrsComplex.gridx = 1;
 	gbc_qrsComplex.gridy = 8;
 	panel_3.add(qrsComplex, gbc_qrsComplex);
-	
+
 	JCheckBox checkAll = new JCheckBox("Check/uncheck all");
 	checkAll.addChangeListener(new ChangeListener() {
-		public void stateChanged(ChangeEvent changeEvent) {
-		    JCheckBox checkBox = (JCheckBox) changeEvent.getSource();
-		    boolean state = checkBox.isSelected();
-		    checkAll(state);
-		}
+	    public void stateChanged(ChangeEvent changeEvent) {
+		JCheckBox checkBox = (JCheckBox) changeEvent.getSource();
+		boolean state = checkBox.isSelected();
+		checkAll(state);
+	    }
 	});
-
 
 	GridBagConstraints gbc_checkAll = new GridBagConstraints();
 	gbc_checkAll.anchor = GridBagConstraints.WEST;
@@ -178,36 +183,95 @@ public class StatisticWindowView extends JFrame {
 	panel_2.add(panel_4, gbc_panel_4);
 	GridBagLayout gbl_panel_4 = new GridBagLayout();
 	gbl_panel_4.columnWidths = new int[] { 0, 0 };
-	gbl_panel_4.rowHeights = new int[] { 0, 0, 0, 0 };
+	gbl_panel_4.rowHeights = new int[] { 47, 0, 105, 111, 0 };
 	gbl_panel_4.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-	gbl_panel_4.rowWeights = new double[] { 0.0, 1.0, 1.0, Double.MIN_VALUE };
+	gbl_panel_4.rowWeights = new double[] { 1.0, 0.0, 1.0, 1.0,
+		Double.MIN_VALUE };
 	panel_4.setLayout(gbl_panel_4);
-	
-	JLabel lblParameters = new JLabel("Additional parameters");
+
+	JPanel panel_1 = new JPanel();
+	GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+	gbc_panel_1.insets = new Insets(0, 0, 5, 0);
+	gbc_panel_1.fill = GridBagConstraints.BOTH;
+	gbc_panel_1.gridx = 0;
+	gbc_panel_1.gridy = 0;
+	panel_4.add(panel_1, gbc_panel_1);
+	GridBagLayout gbl_panel_1 = new GridBagLayout();
+	gbl_panel_1.columnWidths = new int[] { 49, 138, 112, 0 };
+	gbl_panel_1.rowHeights = new int[] { 0, 0 };
+	gbl_panel_1.columnWeights = new double[] { 0.0, 1.0, 0.0,
+		Double.MIN_VALUE };
+	gbl_panel_1.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
+	panel_1.setLayout(gbl_panel_1);
+
+	JLabel lblCountFor = new JLabel("Count for:");
+	GridBagConstraints gbc_lblCountFor = new GridBagConstraints();
+	gbc_lblCountFor.insets = new Insets(0, 0, 0, 5);
+	gbc_lblCountFor.anchor = GridBagConstraints.EAST;
+	gbc_lblCountFor.gridx = 0;
+	gbc_lblCountFor.gridy = 0;
+	panel_1.add(lblCountFor, gbc_lblCountFor);
+
+	comboBox = new JComboBox<String>();
+	GridBagConstraints gbc_comboBox = new GridBagConstraints();
+	gbc_comboBox.insets = new Insets(0, 0, 0, 5);
+	gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
+	gbc_comboBox.gridx = 1;
+	gbc_comboBox.gridy = 0;
+	panel_1.add(comboBox, gbc_comboBox);
+	fillCombo();
+	if (SharedController.getInstance().getProject().getType() == 1
+		|| SharedController.getInstance().getProject().getType() == 2) {
+	    comboBox.setEnabled(false);
+	}
+
+	JLabel lblParameters = new JLabel("Additional parameters:");
 	GridBagConstraints gbc_lblParameters = new GridBagConstraints();
 	gbc_lblParameters.anchor = GridBagConstraints.WEST;
 	gbc_lblParameters.insets = new Insets(0, 0, 5, 0);
 	gbc_lblParameters.gridx = 0;
-	gbc_lblParameters.gridy = 0;
+	gbc_lblParameters.gridy = 1;
 	panel_4.add(lblParameters, gbc_lblParameters);
-	
+
 	JPanel panel_5 = new JPanel();
 	GridBagConstraints gbc_panel_5 = new GridBagConstraints();
 	gbc_panel_5.insets = new Insets(0, 0, 5, 0);
 	gbc_panel_5.fill = GridBagConstraints.BOTH;
 	gbc_panel_5.gridx = 0;
-	gbc_panel_5.gridy = 1;
+	gbc_panel_5.gridy = 2;
 	panel_4.add(panel_5, gbc_panel_5);
 	panel_5.setBorder(BorderFactory.createTitledBorder("T-student:"));
-	
+	GridBagLayout gbl_panel_5 = new GridBagLayout();
+	gbl_panel_5.columnWidths = new int[] { 0, 0, 0 };
+	gbl_panel_5.rowHeights = new int[] { 0, 0 };
+	gbl_panel_5.columnWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
+	gbl_panel_5.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
+	panel_5.setLayout(gbl_panel_5);
+
+	JLabel lblAlpha = new JLabel("Alpha:");
+	GridBagConstraints gbc_lblAlpha = new GridBagConstraints();
+	gbc_lblAlpha.insets = new Insets(0, 0, 0, 5);
+	gbc_lblAlpha.anchor = GridBagConstraints.EAST;
+	gbc_lblAlpha.gridx = 0;
+	gbc_lblAlpha.gridy = 0;
+	panel_5.add(lblAlpha, gbc_lblAlpha);
+
+	alphaTextField = new JTextField();
+	GridBagConstraints gbc_alphaTextField = new GridBagConstraints();
+	gbc_alphaTextField.fill = GridBagConstraints.HORIZONTAL;
+	gbc_alphaTextField.gridx = 1;
+	gbc_alphaTextField.gridy = 0;
+	panel_5.add(alphaTextField, gbc_alphaTextField);
+	alphaTextField.setColumns(10);
+
 	JPanel panel_6 = new JPanel();
 	GridBagConstraints gbc_panel_6 = new GridBagConstraints();
 	gbc_panel_6.fill = GridBagConstraints.BOTH;
 	gbc_panel_6.gridx = 0;
-	gbc_panel_6.gridy = 2;
+	gbc_panel_6.gridy = 3;
 	panel_4.add(panel_6, gbc_panel_6);
 	panel_6.setBorder(BorderFactory.createTitledBorder("Wilcoxon:"));
-	
+
 	JPanel panel = new JPanel();
 	GridBagConstraints gbc_panel = new GridBagConstraints();
 	gbc_panel.fill = GridBagConstraints.BOTH;
@@ -242,7 +306,7 @@ public class StatisticWindowView extends JFrame {
 	gbc_countButton.gridx = 2;
 	gbc_countButton.gridy = 0;
 	panel.add(countButton, gbc_countButton);
-	
+
 	JProgressBar progressBar = new JProgressBar();
 	GridBagConstraints gbc_progressBar = new GridBagConstraints();
 	gbc_progressBar.gridx = 3;
@@ -250,7 +314,8 @@ public class StatisticWindowView extends JFrame {
 	panel.add(progressBar, gbc_progressBar);
 
 	buttonArray = new JButton[] { cancelButton, reportButton, countButton };
-	checkBoxArray = new JCheckBox[] { tWave, pWave, uWave, prInterval, prSegment, stSegment, stInterval, qtInterval, qrsComplex };
+	checkBoxArray = new JCheckBox[] { tWave, pWave, uWave, prInterval,
+		prSegment, stSegment, stInterval, qtInterval, qrsComplex };
 
     }
 
@@ -264,11 +329,37 @@ public class StatisticWindowView extends JFrame {
     public void showWindow() {
 	this.setVisible(true);
     }
-    
-    public void checkAll(boolean state){
-	for (int i = 0; i < checkBoxArray.length; i++){
+
+    public void checkAll(boolean state) {
+	for (int i = 0; i < checkBoxArray.length; i++) {
 	    checkBoxArray[i].setSelected(state);
 	}
+    }
+
+    public void fillCombo() {
+	this.comboBox.addItem("Count for all");
+	for (Specimen man : SharedController.getInstance().getProject()
+		.getFirstPopulation().getSpecimen()) {
+	    int tmp = SharedController.getInstance().getProject()
+		    .getFirstPopulation().getSpecimen().size();
+
+	    for (int i = 0; i < tmp; i++) {
+		this.comboBox.addItem(man.getName() + " " + man.getSurname());
+	    }
+	}
+	if (SharedController.getInstance().getProject().getSecondPopulation() != null) {
+	    for (Specimen man : SharedController.getInstance().getProject()
+		    .getSecondPopulation().getSpecimen()) {
+		int tmp = SharedController.getInstance().getProject()
+			.getSecondPopulation().getSpecimen().size();
+
+		for (int i = 0; i < tmp; i++) {
+		    this.comboBox.addItem(man.getName() + " "
+			    + man.getSurname());
+		}
+	    }
+	}
+	
     }
 
 }

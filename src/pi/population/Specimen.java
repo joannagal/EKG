@@ -5,6 +5,7 @@ import java.sql.Date;
 
 import pi.inputs.Input;
 import pi.inputs.signal.ECG;
+import pi.statistics.logic.SpecimenResult;
 
 
 //-------------------------------------------
@@ -21,6 +22,7 @@ public class Specimen
 	private String birth = null;
 	private String id = "";
 	
+	private SpecimenResult statisticResults = null;
 	
 	private int age = -1;
 	
@@ -196,5 +198,11 @@ public class Specimen
 	
 	public int getWeight(){
 		return weight;
+	}
+	public SpecimenResult getStatisticResults() {
+	    return statisticResults;
+	}
+	public void setStatisticResults(SpecimenResult statisticResults) {
+	    this.statisticResults = statisticResults;
 	}
 }

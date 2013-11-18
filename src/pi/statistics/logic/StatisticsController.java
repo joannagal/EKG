@@ -2,7 +2,6 @@ package pi.statistics.logic;
 
 import java.util.ArrayList;
 
-import pi.inputs.Input;
 import pi.inputs.signal.Channel;
 import pi.inputs.signal.Cycle;
 import pi.inputs.signal.ECG;
@@ -19,6 +18,7 @@ public class StatisticsController {
     private ArrayList<String> wavesNames;
     private Population popul1;
     private Population popul2;
+    private String specimenId;
 
     public void loadPopulation() {
 	Population popul1 = null;
@@ -71,7 +71,6 @@ public class StatisticsController {
 	    }
 
 	    WavesResult result = new WavesResult();
-	    // nie liczy statystyk z wszystkich czasow
 	    for (DurationResult dur : atrResult.getValue()) {
 		System.out.println("obliczanie statystyk");
 		for (String name : dur.getValue().keySet()) {
@@ -120,14 +119,11 @@ public class StatisticsController {
 		    for (Function function : functions) {
 			function.backToBegin();
 		    }
-
-		    //statResult.printValues(name);
+		    // statResult.printValues(name);
 		    result.addValue(name, statResult);
 
 		}
 	    }
-	    // TODO czy na wy¿szym poziomie interesuj¹ nas wszystkie d³ugoœci
-	    // czy tylko wyniki min, max, avg? tymczasowo tylko wyniki
 	    channelResult.addValue(channel.getName(), result);
 	}
 	return channelResult;
@@ -139,32 +135,66 @@ public class StatisticsController {
 	SpecimenResult specResult = new SpecimenResult();
 	VectorsToTests vectorsBefore = new VectorsToTests();
 	VectorsToTests vectorsAfter = new VectorsToTests();
-	for (Specimen man : popul.getSpecimen()) {
-	    ECG before = man.getBefore();
-	    System.out.println("pobrane before");
-	    specResult.setBefore(count(before));
-	    specResult.addToVectors(vectorsBefore, specResult.getBefore());
-	    System.out.println("koniec before");
-	    ECG after = man.getAfter();
-	    System.out.println("pobrane after");
-	    if (after != null) {
-		System.out.println("count after");
-		specResult.setAfter(count(after));
-		System.out.println("porownywarka");
-		specResult.compareResult();
-		System.out.println("koniec porownan");
-		specResult.addToVectors(vectorsAfter, specResult.getAfter());
+	if (specimenId == null) {
+	    for (Specimen man : popul.getSpecimen()) {
+		ECG before = man.getBefore();
+		System.out.println("pobrane before");
+		specResult.setBefore(count(before));
+		specResult.addToVectors(vectorsBefore, specResult.getBefore());
+		System.out.println("koniec before");
+		ECG after = man.getAfter();
+		System.out.println("pobrane after");
+		if (after != null) {
+		    System.out.println("count after");
+		    specResult.setAfter(count(after));
+		    System.out.println("porownywarka");
+		    specResult.compareResult();
+		    System.out.println("koniec porownan");
+		    specResult
+			    .addToVectors(vectorsAfter, specResult.getAfter());
+		}
+		vectorsBefore.printVectors();
+		vectorsAfter.printVectors();
+		popResult.addResult(specResult);
+		man.setStatisticResults(specResult);
 	    }
-	    //vectorsBefore.printVectors();
-	    //vectorsAfter.printVectors();
-	    popResult.addResult(specResult);
+	} else {
+	    for (Specimen man : popul.getSpecimen()) {
+		if (man.getId() == specimenId) {
+		    ECG before = man.getBefore();
+		    System.out.println("pobrane before");
+		    specResult.setBefore(count(before));
+		    specResult.addToVectors(vectorsBefore,
+			    specResult.getBefore());
+		    System.out.println("koniec before");
+		    ECG after = man.getAfter();
+		    System.out.println("pobrane after");
+		    if (after != null) {
+			System.out.println("count after");
+			specResult.setAfter(count(after));
+			System.out.println("porownywarka");
+			specResult.compareResult();
+			System.out.println("koniec porownan");
+			specResult.addToVectors(vectorsAfter,
+				specResult.getAfter());
+		    }
+		    vectorsBefore.printVectors();
+		    vectorsAfter.printVectors();
+		    popResult.addResult(specResult);
+		    man.setStatisticResults(specResult);
+		}
+	    }
 	}
+	popResult.setVectorsBefore(vectorsBefore.getVectors());
+	popResult.setVectorsAfter(vectorsAfter.getVectors());
 	return popResult;
     }
 
     public void countStatistics(ArrayList<Function> functions,
-	    ArrayList<String> wavesNames) {
+	    ArrayList<String> wavesNames, double alpha, String id) {
+	this.specimenId = id;
 	setFinalResult(new ProjectResult());
+	getFinalResult().setAlpha(alpha);
 	this.functions = functions;
 	this.wavesNames = wavesNames;
 	loadPopulation();
@@ -173,6 +203,7 @@ public class StatisticsController {
 	System.out.println("koniec populacji 1");
 	if (popul2 != null) {
 	    getFinalResult().setPopul2(countForPopulation(popul2));
+	    getFinalResult().tStudentTest();
 	    System.out.println("koniec populacji2");
 	    // TODO porównaj populacje?
 	}

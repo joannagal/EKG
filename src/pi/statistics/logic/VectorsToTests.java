@@ -8,7 +8,7 @@ public class VectorsToTests {
     private Vector<Double> numbers;
     private Map<String, Vector<Double>> values;
     private Map<String, Map<String, Vector<Double>>> vectors = new HashMap<String, Map<String, Vector<Double>>>();
-
+    
     public void printVectors(){
 	for (String vectName : vectors.keySet()){
 	    System.out.println(vectName);
@@ -20,7 +20,7 @@ public class VectorsToTests {
 	}
     }
     
-    public Map<String, Map<String, Vector<Double>>> getValue() {
+    public Map<String, Map<String, Vector<Double>>> getVectors() {
 	return vectors;
     }
 
