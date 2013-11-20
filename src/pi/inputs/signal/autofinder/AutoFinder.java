@@ -98,6 +98,7 @@ public class AutoFinder
 		this.getCandidatesQRS(candidateQRS);
 
 		double pulse = this.getPulse(candidateQRS);
+		SharedController.getInstance().setPulse(pulse);
 		int left = this.getProbesFromTime(pulse * this.params.T_LEFT_PROP);
 		int right = this.getProbesFromTime(pulse * this.params.T_RIGHT_PROP);
 		LinkedList<Range> candidateT = this.getCandidatesT(candidateQRS, left,

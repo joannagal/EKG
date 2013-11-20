@@ -83,6 +83,9 @@ public class SharedController
 	// SHARED PASKU POSTEPU
 	private JProgressBar progressBar = null;
 	
+	//SHARED PULS
+	private double pulse;
+	
 	public void updateProgressBar()
 	{
 		if (this.progressBar != null)
@@ -328,6 +331,16 @@ public class SharedController
 		tool.setBounds(10, 10, 1100, 65);
 		SharedController.getInstance().getFrame().add(tool);
 		SharedController.getInstance().getFrame().pack();
+	}
+
+
+	public double getPulse() {
+	    return pulse;
+	}
+
+
+	public void setPulse(double pulse) {
+	    this.pulse = pulse;
 	}
 	
 	

@@ -19,6 +19,7 @@ public class StatisticsController {
     private Population popul1;
     private Population popul2;
     private String specimenId;
+    private double pulse;
 
     public void loadPopulation() {
 	Population popul1 = null;
@@ -75,15 +76,23 @@ public class StatisticsController {
 		System.out.println("obliczanie statystyk");
 		for (String name : dur.getValue().keySet()) {
 		    StatisticResult statResult = new StatisticResult();
-
 		    statResult.clearValues();
+		    // PULS I KOREKCJA 
+//		    if (name.equals("Qt_interval")) {
+//			double QTc = 0;
+//			pulse = SharedController.getInstance().getPulse();
+//			for (Double val : dur.getValue().get(name)) {
+//			    QTc = val + (1.75 * (pulse - 60));
+//			}
+//			statResult.addValue("QTc", QTc);
+//		    }
+
 		    for (Double number : dur.getValue().get(name)) {
 			for (Function function : functions) {
 			    if (function.getName() != "Variance"
 				    && function.getName() != "SD") {
 				function.iterate(number);
 			    }
-			    // TODO puls i korekcja
 			}
 			for (Function function : functions) {
 			    if (function.getName() != "Variance"
@@ -119,7 +128,7 @@ public class StatisticsController {
 		    for (Function function : functions) {
 			function.backToBegin();
 		    }
-		    // statResult.printValues(name);
+		    //statResult.printValues(name);
 		    result.addValue(name, statResult);
 
 		}
@@ -203,12 +212,17 @@ public class StatisticsController {
 	System.out.println("koniec populacji 1");
 	if (popul2 != null) {
 	    getFinalResult().setPopul2(countForPopulation(popul2));
-	    getFinalResult().tStudentTest();
+	    // TODO SPRAWDZIC TESTY!!
+	    if (SharedController.getInstance().getProject().getType() == 3) {
+		getFinalResult().performPairedTest();
+	    } else if (SharedController.getInstance().getProject().getType() == 4) {
+		getFinalResult().performUnpairedTest();
+	    }
+	    getFinalResult().summarize();
 	    System.out.println("koniec populacji2");
-	    // TODO porównaj populacje?
 	}
 	System.out.println("raport");
-	// TODO generowanie raportu koñcowego - motoda w ProjectResult?
+	// TODO generowanie raportu koñcowego
     }
 
     public Population getPopul1() {
