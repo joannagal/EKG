@@ -89,11 +89,39 @@ public class GraphToolbar extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				Channel signal = getGraphView().getPopulation().getSpecimen().get(comboBoxSpecimen.getSelectedIndex())
-						.getBefore().getChannel().get(comboBoxChannel.getSelectedIndex());
-				graph.setSignal(signal);
-				graph.recalculate();
-				graph.draw();
+				
+				if (SharedController.getInstance().getProject().getType() <= 2){
+					
+					if (getGraphView().getType() == 1){
+						Channel signal = getGraphView().getPopulation().getSpecimen().get(comboBoxSpecimen.getSelectedIndex())
+								.getBefore().getChannel().get(comboBoxChannel.getSelectedIndex());
+						graph.setSignal(signal);
+						graph.recalculate();
+						graph.draw();
+					}
+					
+					if (getGraphView().getType() == 2){
+						Channel signal = getGraphView().getPopulation().getSpecimen().get(comboBoxSpecimen.getSelectedIndex())
+								.getAfter().getChannel().get(comboBoxChannel.getSelectedIndex());
+						graph.setSignal(signal);
+						graph.recalculate();
+						graph.draw();
+					}
+					
+				if (SharedController.getInstance().getProject().getType() == 3){
+					
+					if(getGraphView().getType() == 1){
+						Channel signal = getGraphView().getPopulation().getSpecimen().get(comboBoxSpecimen.getSelectedIndex())
+								.getBefore().getChannel().get(comboBoxChannel.getSelectedIndex());
+						graph.setSignal(signal);
+						graph.recalculate();
+						graph.draw();
+					}
+				}
+					
+					
+					
+				}
 			}
 		});
 		

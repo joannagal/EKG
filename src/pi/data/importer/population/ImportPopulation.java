@@ -21,7 +21,7 @@ public class ImportPopulation extends JPanel {
 	private JPanel panelWithPanels;
 	private JButton add;
 	private int gridy;
-	private ArrayList<SingleFile> list;
+	public ArrayList<SingleFile> list;
 	private ImportPopulationFrame parent;
 	
 	

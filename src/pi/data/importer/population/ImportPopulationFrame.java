@@ -30,26 +30,26 @@ public class ImportPopulationFrame extends JFrame{
 		this.setLayout(null);
 		this.setVisible(true);
 		
-		import1 = new ImportPopulation(this);
-		import1.setBounds(50,50, 500, 600);
+		setImport1(new ImportPopulation(this));
+		getImport1().setBounds(50,50, 500, 600);
 		TitledBorder title;
 		title = BorderFactory.createTitledBorder("POPULATION 1");
-		import1.setBorder(title);
-		import1.setVisible(true);
+		getImport1().setBorder(title);
+		getImport1().setVisible(true);
 		
 		
-		import2 = new ImportPopulation(this);
+		setImport2(new ImportPopulation(this));
 		title = BorderFactory.createTitledBorder("POPULATION 2");
-		import2.setBorder(title);
-		import2.setBounds(600,50, 500, 600);
-		import2.setVisible(true);
+		getImport2().setBorder(title);
+		getImport2().setBounds(600,50, 500, 600);
+		getImport2().setVisible(true);
 		
 		nextButton = new JButton("NEXT");
 		nextButton.setVisible(true);
 		nextButton.setBounds(1000, 675, 100, 30 );
 				
-		this.add(import1);
-		this.add(import2);
+		this.add(getImport1());
+		this.add(getImport2());
 		this.add(nextButton);
 		buttons = new JButton[]{nextButton};
 		
@@ -61,6 +61,22 @@ public class ImportPopulationFrame extends JFrame{
 			buttons[i].setActionCommand(buttonsEvent[i]);
 			buttons[i].addActionListener(al);
 		}
+	}
+
+	public ImportPopulation getImport1() {
+		return import1;
+	}
+
+	private void setImport1(ImportPopulation import1) {
+		this.import1 = import1;
+	}
+
+	public ImportPopulation getImport2() {
+		return import2;
+	}
+
+	public void setImport2(ImportPopulation import2) {
+		this.import2 = import2;
 	}			
 	
 }

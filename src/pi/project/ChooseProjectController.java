@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import pi.data.importer.Importer;
+import pi.data.importer.population.ImportPopulationController;
 import pi.data.importer.population.ImportPopulationFrame;
 import pi.data.importer.signal.ImportController;
 import pi.data.importer.signal.ImporterView;
@@ -14,6 +15,7 @@ public class ChooseProjectController implements ActionListener{
 	
 	Project model;
 	ChooseProjectView view;
+	private Project project;
 	
 	public ChooseProjectController(Project model, ChooseProjectView view){
 		this.model = model;
@@ -33,7 +35,7 @@ public class ChooseProjectController implements ActionListener{
 			if (selected.equals("SINGLE_SIGNAL")){
 				view.setVisible(false);
 				
-				Project project = new Project();
+				project = new Project();
 				project.setType(1);
 				SharedController.getInstance().setProject(project);
 				
@@ -45,7 +47,7 @@ public class ChooseProjectController implements ActionListener{
 			if (selected.equals("TWO_SIGNALS")){
 				view.setVisible(false);
 				
-				Project project = new Project();
+				project = new Project();
 				project.setType(2);
 				SharedController.getInstance().setProject(project);
 				
@@ -56,12 +58,24 @@ public class ChooseProjectController implements ActionListener{
 				
 			}
 			if (selected.equals("TWO_POPULATIONS")){
-				view.dispose();
+				view.setVisible(false);
+				
+				project = new Project();
+				project.setType(3);
+				SharedController.getInstance().setProject(project);
+				
 				ImportPopulationFrame importFrame = new ImportPopulationFrame();
+				ImportPopulationController controller = new ImportPopulationController(importFrame);
 			}
 			if (selected.equals("POPULATION_DIFFERENCE")){
-				view.dispose();
+				view.setVisible(false);
+				
+				project = new Project();
+				project.setType(4);
+				SharedController.getInstance().setProject(project);
+				
 				ImportPopulationFrame importFrame = new ImportPopulationFrame();
+				ImportPopulationController controller = new ImportPopulationController(importFrame);
 			}
 		}
 

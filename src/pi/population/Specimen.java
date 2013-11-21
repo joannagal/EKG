@@ -21,6 +21,7 @@ public class Specimen
 	private String surname = "";
 	private String birth = null;
 	private String id = "";
+	private String path = "";
 	
 	private SpecimenResult statisticResults = null;
 	
@@ -204,5 +205,11 @@ public class Specimen
 	}
 	public void setStatisticResults(SpecimenResult statisticResults) {
 	    this.statisticResults = statisticResults;
+	}
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
 	}
 }

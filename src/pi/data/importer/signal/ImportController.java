@@ -20,6 +20,8 @@ public class ImportController implements ActionListener{
 	private Population population;
 	private Specimen specimen;
 	private Importer importer;
+	private Importer importer2;
+	
 	
 	public ImportController(ImporterView panel){
 		this.view = panel;
@@ -51,27 +53,25 @@ public class ImportController implements ActionListener{
         		
 				SharedController.getInstance().getProject().setFirstPopulation(population);
 				SharedController.getInstance().createProjectToolbar();
+				
+				GraphView view = new GraphView(path, population, 1);
         			        		
 			} catch (DocumentException ae) {
 				ae.printStackTrace();
 			}
-			if (SharedController.getInstance().getProject().getType() == 1){
-				GraphView view = new GraphView(path, population);
-				view.setBounds(0, 0, 1250, 600);
-			}		
+				
 			if (SharedController.getInstance().getProject().getType() == 2){
 				
 				String path2 = this.view.getPath(1);
 				
 				try {
 					
-					importer = new Importer(path2);
-					ArrayList<ECG> temp2 = importer.importSignals();
+					importer2 = new Importer(path2);
+					ArrayList<ECG> temp2 = importer2.importSignals();
 					
 	        		specimen.setAfter(temp2.get(0));
 	        			        		
-					GraphView view = new GraphView(path2, population);
-					view.setBounds(0, 1000, 800, 200);
+					GraphView view2 = new GraphView(path2, population, 2);
 	        			        		
 				} catch (DocumentException ae) {
 					ae.printStackTrace();

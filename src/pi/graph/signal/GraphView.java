@@ -21,10 +21,10 @@ import pi.project.ChooseProjectView;
 import pi.project.Project;
 import pi.shared.SharedController;
 
-public class GraphView extends JPanel{
+public class GraphView extends JPanel {
 
 	private String path;
-    private ECG ecg;
+	private ECG ecg;
 	private Channel signal1;
 	private Graph graph;
 	private GraphToolbarController controller;
@@ -32,49 +32,48 @@ public class GraphView extends JPanel{
 	private Specimen specimen;
 	private String[] attributes = new String[4];
 	private Population population;
-	
-	public GraphView(String path, Population population) {
-       
+	private int type;
+
+	public GraphView(String path, Population population, int type) {
+
 		this.setPopulation(population);
-		
-		try {        
-			
-			this.setVisible(true);
-			this.setLayout(null);
-			
-            Importer imp = new Importer(path);
-            attributes = imp.getAttributes();
-            
-            specimen = new Specimen();
-            specimen.setDetails(attributes);
-            
-            ArrayList <ECG> temp = imp.importSignals();
-            this.ecg = temp.get(0);
-            this.signal1 = ecg.getChannel().get(0);
-            
-            graph = new Graph(new Dimension(1100, 190), signal1);
-            toolbar = new GraphToolbar(graph, this);
-            toolbar.setLocation(10, 90);
-            
-    		controller = new GraphToolbarController(toolbar, graph);
-            graph.setLocation(10, 200);
-            
-            graph.recalculate();
-    		graph.setVisible(true);
-    		
-    		this.add(graph);
-    		this.add(toolbar);
-    		
-    		this.validate();
-    		this.repaint();
-            
-            SharedController.getInstance().addPanel(this);    
-    		SharedController.getInstance().packFrame();
-		} catch (DocumentException e){
-            e.printStackTrace();
+
+		this.setVisible(true);
+		this.setLayout(null);
+		this.setType(type);
+
+		if (this.getType() == 1) {
+
+			this.setBounds(10, 80, 1250, 600);
+
+			signal1 = this.getPopulation().getSpecimen().get(0).getBefore()
+					.getChannel().get(0);
+
 		}
-		
-		
+
+		if (this.getType() == 2) {
+
+			this.setBounds(10, 400, 1250, 600);
+
+			signal1 = this.getPopulation().getSpecimen().get(0).getAfter()
+					.getChannel().get(0);
+
+		}
+
+		graph = new Graph(new Dimension(1100, 190), signal1);
+		graph.setLocation(0, 105);
+		graph.recalculate();
+
+		toolbar = new GraphToolbar(graph, this);
+		toolbar.setLocation(0, 5);
+
+		controller = new GraphToolbarController(toolbar, graph);
+
+		this.add(graph);
+		this.add(toolbar);
+
+		SharedController.getInstance().addPanel(this);
+
 	}
 
 	public Population getPopulation() {
@@ -83,5 +82,13 @@ public class GraphView extends JPanel{
 
 	public void setPopulation(Population population) {
 		this.population = population;
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
 	}
 }
