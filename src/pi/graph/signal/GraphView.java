@@ -1,8 +1,10 @@
 package pi.graph.signal;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -41,23 +43,31 @@ public class GraphView extends JPanel {
 		this.setVisible(true);
 		this.setLayout(null);
 		this.setType(type);
-
+		SharedController sharedController = SharedController.getInstance();
+		
 		if (this.getType() == 1) {
 
-			this.setBounds(10, 80, 1250, 600);
+			//this.setBorder(BorderFactory.createLineBorder(Color.red));
+			this.setBounds(sharedController.getFirstPanelX(), sharedController.getFirstPanelY(),
+							sharedController.getFirstPanelWidth(), sharedController.getFirstPanelHeight());
 
 			signal1 = this.getPopulation().getSpecimen().get(0).getBefore()
 					.getChannel().get(0);
+			
+			sharedController.setFirstGraphView(this);
 
 		}
 
 		if (this.getType() == 2) {
-
-			this.setBounds(10, 400, 1250, 600);
+			
+			//this.setBorder(BorderFactory.createLineBorder(Color.blue));
+			this.setBounds(sharedController.getFirstPanelX(), sharedController.getFirstPanelHeight() + 40 + sharedController.getFirstPanelY(), 
+					sharedController.getFirstPanelWidth(), sharedController.getFirstPanelHeight());
 
 			signal1 = this.getPopulation().getSpecimen().get(0).getAfter()
 					.getChannel().get(0);
 
+			sharedController.setSecondGraphView(this);
 		}
 
 		graph = new Graph(new Dimension(1100, 190), signal1);

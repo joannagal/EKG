@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
 import pi.data.importer.Importer;
+import pi.graph.signal.GraphView;
 import pi.gui.toolbar.ProjectToolbar;
 import pi.gui.toolbar.ProjectToolbarController;
 import pi.project.Project;
@@ -74,6 +75,14 @@ public class SharedController
 	private JFrame frame;
 	private Importer importer;
 	private Container container;
+	
+	private int firstPanelWidth = 1100;
+	private int firstPanelHeight = 300;
+	private int firstPanelX = 10;
+	private int firstPanelY = 80;
+	
+	private GraphView firstGraphView;
+	private GraphView secondGraphView;
 	
 	// -------------------------
 	// SHARED PROJECT
@@ -342,6 +351,67 @@ public class SharedController
 	public void setPulse(double pulse) {
 	    this.pulse = pulse;
 	}
-	
+
+
+	public int getFirstPanelWidth() {
+		return firstPanelWidth;
+	}
+
+
+	public void setFirstPanelWidth(int firstPanelWidth) {
+		this.firstPanelWidth = firstPanelWidth;
+	}
+
+
+	public int getFirstPanelHeight() {
+		return firstPanelHeight;
+	}
+
+
+	public void setFirstPanelHeight(int firstPanelHeight) {
+		this.firstPanelHeight = firstPanelHeight;
+	}
+
+
+	public int getFirstPanelX() {
+		return firstPanelX;
+	}
+
+
+	public void setFirstPanelX(int firstPanelX) {
+		this.firstPanelX = firstPanelX;
+	}
+
+
+	public int getFirstPanelY() {
+		return firstPanelY;
+	}
+
+
+	public void setFirstPanelY(int firstPanelY) {
+		this.firstPanelY = firstPanelY;
+	}
+
+
+	public GraphView getFirstGraphView() {
+		return firstGraphView;
+	}
+
+
+	public void setFirstGraphView(GraphView firstGraphView) {
+		this.firstGraphView = firstGraphView;
+	}
+
+
+	public GraphView getSecondGraphView() {
+		return secondGraphView;
+	}
+
+
+	public void setSecondGraphView(GraphView secondGraphView) {
+		this.secondGraphView = secondGraphView;
+	}
+
+
 	
 }

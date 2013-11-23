@@ -41,9 +41,7 @@ public class ImportPopulationController implements ActionListener {
 		if (action.equals("NEXT")){
 
 			if (SharedController.getInstance().getProject().getType() == 4){
-				
-					
-				
+						
 					population = new Population();
 				
 					int length1 = frame.getImport1().list.size();
@@ -104,9 +102,8 @@ public class ImportPopulationController implements ActionListener {
 					SharedController.getInstance().getProject().setSecondPopulation(population2);
 					SharedController.getInstance().createProjectToolbar();
 					
-					GraphView view2 = new GraphView(frame.getImport1().list.get(0).getString(), this.population2, 1);
-					
-					
+					GraphView view2 = new GraphView(frame.getImport2().list.get(0).getString(), this.population2, 2);
+				
 					
 			}
 			

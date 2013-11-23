@@ -52,7 +52,7 @@ public class GraphToolbar extends JPanel {
 		this.setGraphView(view);
 		this.setGraph(graph);
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
-		this.setBounds(10, 10, 1100, 100);
+		this.setSize(new Dimension(1100, 100));
 		this.setBorder(BorderFactory.createTitledBorder("Settings"));
 		this.setVisible(true);
 		
@@ -148,12 +148,20 @@ public class GraphToolbar extends JPanel {
 
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
-				graph.setHeight(segmentHeightSlider.getValue());
-				getGraphView().setSize(1250, 100 + segmentHeightSlider.getValue());
 				
-				//graphView.validate();
-				//graphView.repaint();
-				SharedController.getInstance().getFrame().pack();
+				if (getGraphView().getType() == 1){
+					
+					SharedController controller = SharedController.getInstance();
+					
+					graph.setHeight(segmentHeightSlider.getValue());
+					getGraphView().setSize(controller.getFirstPanelWidth(), 100 + segmentHeightSlider.getValue());
+					controller.setFirstPanelHeight(100 + segmentHeightSlider.getValue());
+					
+					controller.getSecondGraphView().setLocation(controller.getFirstPanelX(), controller.getFirstPanelHeight() + controller.getFirstPanelY() + 40);
+					
+					
+					SharedController.getInstance().getFrame().pack();
+				}
 				
 			}
 			
