@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import pi.data.importer.Importer;
+import pi.shared.SharedController;
 
 public class ImportPopulation extends JPanel {
 	
@@ -57,6 +58,7 @@ public class ImportPopulation extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				
 				JFileChooser fileChooser = new JFileChooser();
+	        	fileChooser.setCurrentDirectory(SharedController.getInstance().getLastDirectory());
 	        	FileNameExtensionFilter filter = new FileNameExtensionFilter("XML (*.xml)","xml");
 	        	fileChooser.addChoosableFileFilter(filter);
 	        	fileChooser.setFileFilter(filter);
@@ -80,6 +82,8 @@ public class ImportPopulation extends JPanel {
 					
 					test.setString(path);
 					list.add(test);
+					
+	        		SharedController.getInstance().setLastDirectory(fileChooser.getSelectedFile());
 		        		
 	        	}
 	        	

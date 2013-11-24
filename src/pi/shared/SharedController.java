@@ -6,6 +6,7 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.io.File;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -84,6 +85,8 @@ public class SharedController
 	
 	private GraphView firstGraphView;
 	private GraphView secondGraphView;
+	private File lastDirectory;
+
 	
 	// -------------------------
 	// SHARED PROJECT
@@ -411,6 +414,16 @@ public class SharedController
 
 	public void setSecondGraphView(GraphView secondGraphView) {
 		this.secondGraphView = secondGraphView;
+	}
+
+
+	public File getLastDirectory() {
+		return lastDirectory;
+	}
+
+
+	public void setLastDirectory(File lastDirectory) {
+		this.lastDirectory = lastDirectory;
 	}
 
 

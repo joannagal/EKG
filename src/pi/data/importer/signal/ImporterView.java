@@ -136,4 +136,6 @@ public class ImporterView extends JDialog{
 	public String getPath(int tmp){
 		return this.importPanels[tmp].getPath();
 	}
+
+
 }

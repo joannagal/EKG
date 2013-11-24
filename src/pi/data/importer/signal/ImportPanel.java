@@ -30,7 +30,6 @@ public class ImportPanel extends JPanel{
 	private JLabel fileLabel;
 	final JTextField pathField;
 	private String path;
-	private File lastDirectory;
 	
 	public ImportPanel(){	
 			
@@ -54,7 +53,7 @@ public class ImportPanel extends JPanel{
 			
 			public void actionPerformed(ActionEvent ae) {
 	        	JFileChooser fileChooser = new JFileChooser();
-	        	fileChooser.setCurrentDirectory(lastDirectory);
+	        	fileChooser.setCurrentDirectory(SharedController.getInstance().getLastDirectory());
 	        	FileNameExtensionFilter filter = new FileNameExtensionFilter("XML (*.xml)","xml");
 	        	fileChooser.addChoosableFileFilter(filter);
 	        	fileChooser.setFileFilter(filter);
@@ -63,7 +62,7 @@ public class ImportPanel extends JPanel{
 	        	if (returnValue == JFileChooser.APPROVE_OPTION) {
 	        		File selectedFile = fileChooser.getSelectedFile();
 	        		String path = selectedFile.getAbsolutePath();
-	        		lastDirectory = fileChooser.getSelectedFile();
+	        		SharedController.getInstance().setLastDirectory(fileChooser.getSelectedFile());
 	        		System.out.println(path);
 	        		setPath(path);
 	        	}
