@@ -60,14 +60,25 @@ public class GraphView extends JPanel {
 
 		if (this.getType() == 2) {
 			
-			//this.setBorder(BorderFactory.createLineBorder(Color.blue));
-			this.setBounds(sharedController.getFirstPanelX(), sharedController.getFirstPanelHeight() + 40 + sharedController.getFirstPanelY(), 
+			if (sharedController.getProject().getType() == 2){
+				this.setBounds(sharedController.getFirstPanelX(), sharedController.getFirstPanelHeight() + 40 + sharedController.getFirstPanelY(), 
 					sharedController.getFirstPanelWidth(), sharedController.getFirstPanelHeight());
 
-			signal1 = this.getPopulation().getSpecimen().get(0).getAfter()
+				signal1 = this.getPopulation().getSpecimen().get(0).getAfter()
 					.getChannel().get(0);
 
-			sharedController.setSecondGraphView(this);
+				sharedController.setSecondGraphView(this);
+			}
+			else if (sharedController.getProject().getType() == 4){
+				this.setBounds(sharedController.getFirstPanelX(), sharedController.getFirstPanelHeight() + 40 + sharedController.getFirstPanelY(), 
+						sharedController.getFirstPanelWidth(), sharedController.getFirstPanelHeight());
+
+					signal1 = this.getPopulation().getSpecimen().get(0).getBefore()
+						.getChannel().get(0);
+
+					sharedController.setSecondGraphView(this);
+			}
+			
 		}
 
 		graph = new Graph(new Dimension(1100, 190), signal1);

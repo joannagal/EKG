@@ -70,7 +70,7 @@ public class ImportPopulationController implements ActionListener {
 					SharedController.getInstance().getProject().setFirstPopulation(population);
 					SharedController.getInstance().createProjectToolbar();
 					
-					GraphView view = new GraphView(frame.getImport2().list.get(0).getString(), this.population, 1);
+					GraphView view = new GraphView(frame.getImport1().list.get(0).getString(), this.population, 1);
 					
 					//second population
 					
@@ -111,6 +111,7 @@ public class ImportPopulationController implements ActionListener {
 				
 			}
 			
+			frame.setVisible(false);
 		}
 	}
 

@@ -13,6 +13,7 @@ import javax.swing.JProgressBar;
 
 import pi.data.importer.Importer;
 import pi.graph.signal.GraphView;
+import pi.gui.OurFrame;
 import pi.gui.toolbar.ProjectToolbar;
 import pi.gui.toolbar.ProjectToolbarController;
 import pi.project.Project;
@@ -72,7 +73,7 @@ public class SharedController
 	
 	private boolean logged  = false;
 	
-	private JFrame frame;
+	private OurFrame frame;
 	private Importer importer;
 	private Container container;
 	
@@ -279,11 +280,11 @@ public class SharedController
 		this.logged = logged;
 	}
 
-	public JFrame getFrame() {
+	public OurFrame getFrame() {
 		return frame;
 	}
 
-	public void setFrame(JFrame frame) {
+	public void setFrame(OurFrame frame) {
 		this.frame = frame;
 	}
 
@@ -304,7 +305,7 @@ public class SharedController
 	}
 
 	public void addPanel(JPanel panel){
-		this.frame.add(panel);
+		getFrame().add(panel);
 		panel.setVisible(true);
 	}
 	

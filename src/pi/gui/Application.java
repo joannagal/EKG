@@ -11,6 +11,10 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
 
 import org.dom4j.DocumentException;
 
@@ -31,31 +35,18 @@ public class Application {
 
 	public static void main(String[] args) {
 		
-		//ImportPopulationFrame pop = new ImportPopulationFrame();
-		
-		JFrame frame = new JFrame("ECG Analyzer"); 
-		frame.setLocation(100, 0);
-		frame.setLayout(null);
-		
-		SharedController.getInstance().setFrame(frame);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-        frame.setVisible(true); 
-        
-        MenuView menubar = new MenuView(frame);
-		frame.setJMenuBar(menubar);
-		MenuController menuController = new MenuController(menubar);
-		frame.setMinimumSize(new Dimension(1140,1000));
+		OurFrame ourFrame = new OurFrame();
 		
 		while(true){
-			menubar.setLogItemText();
+			ourFrame.getMenubar().setLogItemText();
 			
 			if (!SharedController.getInstance().isLogged()){
-				menubar.setEditable(true);
+				ourFrame.getMenubar().setEditable(true);
 			} else {
-				menubar.setEditable(true);
+				ourFrame.getMenubar().setEditable(true);
 			}
 		}
-	 
+		 
 	
 		
 	}
