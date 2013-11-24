@@ -1,4 +1,4 @@
-package pi.data.importer;
+package pi.data.importer.open;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -188,7 +188,7 @@ public class PopImporter extends DefaultHandler {
 			channel.setTranslation(Double.valueOf(translation));
 		
 		String interval = attributes.getValue("interval");
-		if(interval!= "")
+		if((interval!= null) && (interval != ""))
 			channel.setInterval(Double.valueOf(interval));
 		
 		//TODO Nie wiem czy atrybuyt samples jest w ogóle potrzebny

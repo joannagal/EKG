@@ -1,4 +1,4 @@
-package pi.data.importer;
+package pi.data.importer.save;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -39,8 +39,10 @@ public class PopSaver {
 
 		out.writeStartDocument();
 		out.writeStartElement("PROJECT");
-		out.writeAttribute("name", project.getName());
-		out.writeAttribute("path", project.getPath());
+		if (project.getName() != null)
+			out.writeAttribute("name", project.getName());
+		if (project.getPath() != null)
+			out.writeAttribute("path", project.getPath());
 		if (project.getDate() != null) {
 			out.writeAttribute("date", project.getDate().toString());
 		} else {
@@ -81,7 +83,8 @@ public class PopSaver {
 
 	private void saveSpecimen(Specimen s) throws XMLStreamException {
 		out.writeStartElement("SPECIMEN");
-		out.writeAttribute("name", s.getName());
+		if (s.getName() != null)
+			out.writeAttribute("name", s.getName());
 		out.writeAttribute("surname", s.getSurname());
 		if (s.getBirth() != null) {
 			out.writeAttribute("birth_date", s.getBirth());
@@ -117,7 +120,8 @@ public class PopSaver {
 
 	private void saveECG(ECG ecg) throws XMLStreamException {
 		out.writeStartElement("INPUT");
-		out.writeAttribute("id", ecg.getName());
+		if (ecg.getName() != null)
+			out.writeAttribute("id", ecg.getName());
 		out.writeAttribute("channels", String.valueOf(ecg.getChannel().size()));
 
 		for (Channel ch : ecg.getChannel()) {
@@ -130,8 +134,9 @@ public class PopSaver {
 
 	private void saveChannel(Channel ch) throws XMLStreamException {
 		out.writeStartElement("CHANNEL");
-		out.writeAttribute("name", ch.getName());
-		if(ch.getInterval()!= null){
+		if (ch.getName() != null)
+			out.writeAttribute("name", ch.getName());
+		if (ch.getInterval() != null) {
 			out.writeAttribute("interval", String.valueOf(ch.getInterval()));
 		} else {
 			out.writeAttribute("interval", "");
@@ -184,7 +189,7 @@ public class PopSaver {
 		} else {
 			out.writeAttribute("qrs_complex", "");
 		}
-		
+
 		if (c.getT_wave() != null) {
 			out.writeAttribute("t_wave", c.getT_wave().toString());
 		} else {
@@ -200,7 +205,7 @@ public class PopSaver {
 		} else {
 			out.writeAttribute("markered", Boolean.FALSE.toString());
 		}
-		
+
 		out.writeEndElement();
 	}
 }

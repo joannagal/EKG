@@ -9,6 +9,8 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
 
+import pi.data.importer.open.PopImporter;
+import pi.data.importer.save.PopSaver;
 import pi.project.Project;
 
 public class tester {

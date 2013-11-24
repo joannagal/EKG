@@ -11,6 +11,8 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -28,8 +30,9 @@ public class ImportPanel extends JPanel{
 
 	private JFileChooser fileChooser;
 	private JLabel fileLabel;
-	final JTextField pathField;
+	//final JTextField pathField;
 	private String path;
+	private JTextArea area;
 	
 	public ImportPanel(){	
 			
@@ -37,14 +40,13 @@ public class ImportPanel extends JPanel{
 		fileLabel.setVisible(true);
 		this.add(fileLabel);
     
-		pathField = new JTextField();
-		pathField.setVisible(true);
-		pathField.setPreferredSize(new Dimension(150,20));
-    	pathField.setEditable(false);
-    	pathField.setEnabled(true);
-    	this.add(pathField);
-    	
-    	
+		area = new JTextArea();
+		area.setPreferredSize(new Dimension(150,20));
+		area.setEditable(false);
+		JScrollPane jsp = new JScrollPane(area);
+
+		this.add(jsp);		
+		
     	JButton button = new JButton("Select File");
  		this.add(button);
  		
@@ -63,6 +65,7 @@ public class ImportPanel extends JPanel{
 	        		File selectedFile = fileChooser.getSelectedFile();
 	        		String path = selectedFile.getAbsolutePath();
 	        		SharedController.getInstance().setLastDirectory(fileChooser.getSelectedFile());
+	        		setText(path, area);
 	        		System.out.println(path);
 	        		setPath(path);
 	        	}
@@ -71,8 +74,8 @@ public class ImportPanel extends JPanel{
 
 	}
 	
-	public void setText(String text, JTextField field){
-    	field.setText(text);
+	public void setText(String text, JTextArea area){
+    	area.setText(text);
 	}
 
 	public String getPath() {
@@ -81,6 +84,14 @@ public class ImportPanel extends JPanel{
 
 	public void setPath(String path) {
 		this.path = path;
+	}
+
+	public JTextArea getArea() {
+		return area;
+	}
+
+	public void setArea(JTextArea area) {
+		this.area = area;
 	}
 	
 	

@@ -54,7 +54,9 @@ public class ImportController implements ActionListener{
 				SharedController.getInstance().getProject().setFirstPopulation(population);
 				SharedController.getInstance().createProjectToolbar();
 				
-				GraphView view = new GraphView(path, population, 1);
+				GraphView view = new GraphView(population, 1);
+
+				//GraphView view = new GraphView(path, population, 1);
         			        		
 			} catch (DocumentException ae) {
 				ae.printStackTrace();
@@ -70,8 +72,10 @@ public class ImportController implements ActionListener{
 					ArrayList<ECG> temp2 = importer2.importSignals();
 					
 	        		specimen.setAfter(temp2.get(0));
-	        			        		
-					GraphView view2 = new GraphView(path2, population, 2);
+	        			        
+					GraphView view2 = new GraphView(population, 2);
+
+				//	GraphView view2 = new GraphView(path2, population, 2);
 	        			        		
 				} catch (DocumentException ae) {
 					ae.printStackTrace();

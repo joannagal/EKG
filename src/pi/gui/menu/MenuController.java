@@ -5,7 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
@@ -14,7 +16,12 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.xml.stream.FactoryConfigurationError;
+import javax.xml.stream.XMLStreamException;
 
+import pi.data.importer.open.OpenPopulationController;
+import pi.data.importer.open.OpenPopulationView;
+import pi.data.importer.save.SavePopulationView;
 import pi.gui.login.LoginDialog;
 import pi.project.ChooseProjectController;
 import pi.project.ChooseProjectView;
@@ -71,6 +78,20 @@ public class MenuController implements ActionListener{
 				ChooseProjectView projectView = new ChooseProjectView();
 				ChooseProjectController projectController = new ChooseProjectController(project, projectView);
 				projectView.setLocation(400, 200);
+		}
+		
+		if (action.equals("OPEN_PROJECT")){
+			OpenPopulationView openPopulation = new OpenPopulationView();
+			OpenPopulationController controller = new OpenPopulationController(openPopulation);
+		}
+		if (action.equals("SAVE_PROJECT")){
+			try {
+				SavePopulationView save = new SavePopulationView();
+			} catch (FileNotFoundException | UnsupportedEncodingException
+					| XMLStreamException | FactoryConfigurationError e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 }
