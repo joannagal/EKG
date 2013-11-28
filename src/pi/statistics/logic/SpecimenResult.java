@@ -7,28 +7,28 @@ public class SpecimenResult {
     public void compareResult() {
 	System.out.println("START");
 	for (String name : before.getValue().keySet()) {// PO CHANNELACH
-	    for (String waveName : before.getValue().get(name).getValue()
+	    for (String waveName : before.getValue().get(name).getWavesResult()
 		    .keySet()) {// PO WAVE
-		for (String statName : before.getValue().get(name).getValue()
+		for (String statName : before.getValue().get(name).getWavesResult()
 			.get(waveName).getValue().keySet()) {// PO STATYSTYKACH
-		    double varBefore = before.getValue().get(name).getValue()
+		    double varBefore = before.getValue().get(name).getWavesResult()
 			    .get(waveName).getValue().get(statName);
 
 		    for (String nameAfter : after.getValue().keySet()) {
 
 			if (name.equals(nameAfter)) {
 			    for (String waveNameAfter : after.getValue()
-				    .get(nameAfter).getValue().keySet()) {
+				    .get(nameAfter).getWavesResult().keySet()) {
 				if (waveName.equals(waveNameAfter)) {
 				    for (String statNameAfter : after
 					    .getValue().get(nameAfter)
-					    .getValue().get(waveNameAfter)
+					    .getWavesResult().get(waveNameAfter)
 					    .getValue().keySet()) {
 					if (statName.equals(statNameAfter)) {
 
 					    
 					    double varAfter = after.getValue()
-						    .get(nameAfter).getValue()
+						    .get(nameAfter).getWavesResult()
 						    .get(waveNameAfter)
 						    .getValue()
 						    .get(statNameAfter);
@@ -57,11 +57,11 @@ public class SpecimenResult {
     public void addToVectors(VectorsToTests vectors, ChannelResult result){
 
 	for (String name : result.getValue().keySet()) {// PO CHANNELACH
-	    for (String waveName : result.getValue().get(name).getValue()
+	    for (String waveName : result.getValue().get(name).getWavesResult()
 		    .keySet()) {// PO WAVE
-		for (String statName : result.getValue().get(name).getValue()
+		for (String statName : result.getValue().get(name).getWavesResult()
 			.get(waveName).getValue().keySet()) {// PO STATYSTYKACH
-		    double value = result.getValue().get(name).getValue()
+		    double value = result.getValue().get(name).getWavesResult()
 			    .get(waveName).getValue().get(statName);
 		    vectors.addVector(waveName, statName, value);
 		}
