@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+/*
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -13,6 +14,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
+*/
 
 public class Tester {
 
@@ -26,7 +28,7 @@ public class Tester {
 		//http://sourceforge.net/projects/jasperreports/files/jasperreports/JasperReports%205.5.0/
 		//http://stackoverflow.com/questions/12178615/eclipse-jasper-report-not-compiling-java-lang-noclassdeffounderror-org-apach
 		try {
-			JasperReport jasperReport = null;
+			/*JasperReport jasperReport = null;
 			JasperPrint jasperPrint = null;
 			JasperDesign jasperDesign = null;
 			Map parameters = new HashMap();
@@ -40,7 +42,7 @@ public class Tester {
 							.getChannelStatistics()));
 			JasperExportManager.exportReportToPdfFile(jasperPrint,
 					"FirstSpecimenReport.pdf");
-			JasperViewer.viewReport(jasperPrint);
+			JasperViewer.viewReport(jasperPrint);*/
 		} catch (Exception ex) {
 			System.out.println("EXCEPTION: " + ex);
 		}

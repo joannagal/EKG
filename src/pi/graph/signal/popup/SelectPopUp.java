@@ -2,6 +2,7 @@ package pi.graph.signal.popup;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
@@ -11,6 +12,7 @@ import javax.swing.JPopupMenu;
 import pi.graph.signal.Graph;
 import pi.graph.signal.Segment;
 import pi.graph.signal.Segment.SelectionFlyWeight;
+import pi.inputs.signal.Probe;
 import pi.utilities.Range;
 
 public class SelectPopUp extends JPopupMenu
@@ -112,20 +114,47 @@ public class SelectPopUp extends JPopupMenu
 		{
 			public void actionPerformed(ActionEvent evt)
 			{
+				
+				int lP = -1;
+				int rP = -1;
 				if (adapter.type == Segment.selection)
 				{
 					if (getGraph().isSelectionPossible())
 					{
 						adapter.cycle.setQrs_complex(adapter.range);
 						getGraph().getToolBox().setSelectionExists(false);
+						
+						lP = adapter.leftPoint;
+						rP = adapter.rightPoint;
 					}
 				}
 				else 
 				{
+					lP = adapter.range.getLeft();
+					rP = adapter.range.getRight();
 					removePrevious();
 					adapter.cycle.setQrs_complex(adapter.range);
 				}
 				getGraph().getToolBox().setSelectionExists(false);
+				
+				// R point --------------------
+				if (lP != -1)
+				{
+					ArrayList <Probe> probe = getGraph().getSignal().getProbe();
+					double max = -1000000.0d;
+					int where = 0;
+					for (int i = lP; i <= rP; i++)
+					{
+						if (probe.get(i).getNormalized() > max)
+						{
+							max = probe.get(i).getNormalized();
+							where = i;
+						}
+					}
+					
+					adapter.cycle.setR(where);
+				}
+				// ----------------------------
 				
 				getGraph().recalculate();
 				getGraph().draw();

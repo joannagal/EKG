@@ -123,6 +123,8 @@ public class AutoFinder
 		Iterator<Range> itT = candidateT.iterator();
 		Iterator<Range> itP = candidateP.iterator();
 		
+		ArrayList <Probe> probe = baseSignal.getProbe();
+		
 		Range rQRS, rT, rP;
 		Cycle cycle;
 		left = 0;
@@ -142,6 +144,21 @@ public class AutoFinder
 			cycle = new Cycle(new Range(left, right));
 			cycle.setQrs_complex(rQRS);
 			
+			
+			double max = -1000000.0d;
+			int where = 0;
+			for (int i = rQRS.getLeft(); i <= rQRS.getRight(); i++)
+			{
+				if (probe.get(i).getNormalized() > max)
+				{
+					max = probe.get(i).getNormalized();
+					where = i;
+				}
+			}
+			
+			cycle.setR(where);
+			
+			
 			if ((rT != null) && (rT.getLeft() > rQRS.getRight() + 3))
 			{
 				cycle.setSt_segment(new Range(rQRS.getRight(), rT.getLeft()));
@@ -152,6 +169,7 @@ public class AutoFinder
 				cycle.setPr_segment(new Range(rP.getRight(), rQRS.getLeft()));
 				cycle.setP_wave(rP);	
 			}
+			
 			baseSignal.getCycle().add(cycle);
 		}
 		

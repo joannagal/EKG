@@ -60,6 +60,7 @@ public class Segment
 		public int rightPoint;
 		public double left;
 		public double right;
+		public double rPos;
 		public Color color;
 		public int type;
 		public Range range;
@@ -384,7 +385,7 @@ public class Segment
 		if (range == null)
 			return;
 
-		double left, right;
+		double left, right, rPos = -1;
 
 		left = this.signal.getTranslation() + (double) range.getLeft()
 				* this.signal.getInterval();
@@ -392,6 +393,15 @@ public class Segment
 				* this.signal.getInterval();
 		left = this.signalAdapter.getXFromTime(left);
 		right = this.signalAdapter.getXFromTime(right);
+		
+		if (cycle.getQrs_complex() != null)
+		{
+			rPos = this.signal.getTranslation() + (double) cycle.getR()
+					* this.signal.getInterval();
+			
+			rPos = this.signalAdapter.getXFromTime(rPos);
+		}
+		
 
 		if ((left < this.scheme.getMargin().getLeft())
 				&& (right >= this.scheme.getMargin().getLeft()))
@@ -409,6 +419,7 @@ public class Segment
 		SelectionFlyWeight adapter = new SelectionFlyWeight();
 		adapter.left = left;
 		adapter.right = right;
+		adapter.rPos = rPos;
 		adapter.type = type;
 		adapter.color = color;
 		adapter.range = range;
@@ -469,12 +480,12 @@ public class Segment
 				continue;
 
 	
-			this.drawSelection(temp.type, temp.left, temp.right, temp.color,
+			this.drawSelection(temp.type, temp.left, temp.right, temp.rPos, temp.color,
 					graphics);
 		}
 	}
 
-	public void drawSelection(int type, double left, double right, Color color,
+	public void drawSelection(int type, double left, double right, double rPos, Color color,
 			Graphics graphics)
 	{
 		if (right < scheme.getMargin().getLeft())
@@ -525,6 +536,12 @@ public class Segment
 			graphics.setColor(this.scheme.getFontColor());
 			graphics.drawString(label, (int) (center - stringWidth / 2.0d),
 					(int) yBottom);
+			
+			if (type == Segment.qrs_complex)
+			{
+				graphics.drawLine((int)rPos, (int)(yBottom + 10), (int)rPos,
+						(int)(yBottom + 10 + this.grid.getHeight()));
+			}
 		}
 	}
 
