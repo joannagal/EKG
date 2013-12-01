@@ -43,14 +43,19 @@ public class StatisticsController {
 	    DurationResult dResult = new DurationResult();
 	    dResult.clearValues();
 	    for (Cycle cycle : channel.getCycle()) {
-		//TODO RR
+
 		int leftRR = 0;
 		int rightRR = 0;
 		int index = channel.getCycle().indexOf(cycle);
-		//leftRR = cycle.getR();
-		Cycle nextCycle = channel.getCycle().get(index + 1);
-		//rightRR = nextCycle.getR();
+		leftRR = cycle.getR();
+		try {
+		    Cycle nextCycle = channel.getCycle().get(index + 1);
+		    rightRR = nextCycle.getR();
+		} catch (Exception e) {
+		    rightRR = leftRR;
+		}
 		Range RR = new Range(leftRR, rightRR);
+		// TODO sprawdzic co z markered
 		if (cycle.getMarkered() == false) {
 		    Waves waves = new Waves(cycle, wavesNames);
 		    waves.addWaves(RR, "RR_interval");
@@ -66,6 +71,8 @@ public class StatisticsController {
 
 		}
 	    }
+
+	    dResult.checkRR();
 	    atrResult.addValue(dResult);
 	    for (DurationResult dur : atrResult.getValue()) {
 		dur.printDurations();
@@ -77,16 +84,6 @@ public class StatisticsController {
 		for (String name : dur.getValue().keySet()) {
 		    StatisticResult statResult = new StatisticResult();
 		    statResult.clearValues();
-		     //PULS I KOREKCJA
-		     if (name.equals("Qt_interval")) {
-		     double QTc = 0;
-		     //TODO sprawdzic puls (wzorki z RR?)
-		     pulse = SharedController.getInstance().getPulse()*100;
-		     for (Double val : dur.getValue().get(name)) {
-		     QTc = val + (1.75 * (pulse - 60));
-		     }
-		     statResult.addValue("QTc", QTc);
-		     }
 
 		    for (Double number : dur.getValue().get(name)) {
 			for (Function function : functions) {
@@ -102,6 +99,61 @@ public class StatisticsController {
 			    }
 			}
 		    }
+		    if (name.equals("RR_interval")) {
+			pulse = 1 / statResult.getValue().get("Average")
+				.doubleValue();
+			System.out.println("PULS na sekunde");
+			System.out.println(pulse);
+			System.out.println("PULS na minute");
+			System.out.println(pulse * 60);
+		    }
+		    // PULS I KOREKCJA
+		    if (name.equals("Qt_interval")) {
+			double QTcB = 0;
+			// TODO pierwiastek szescienny?
+			double QTcF = 0;
+			double QTcR = 0;
+			// PODEJSCIE Z POROWNYWANIEM KAZDEJ WARTOSCI
+			// for (Double val : dur.getValue().get(name)) {
+			// int index = dur.getValue().get(name).indexOf(val);
+			// QTcB =
+			// val/(Math.sqrt(dur.getValue().get("RR_interval").get(index)));
+			// System.out.println("QTcB");
+			// System.out.println(QTcB);
+			// QTcR = val + 0.154*(1 -
+			// dur.getValue().get("RR_interval").get(index));
+			// System.out.println("QTcR");
+			// System.out.println(QTcR);
+			// }
+
+			// PODEJSCIE Z POROWNYWANIEM SREDNICH
+			QTcB = statResult.getValue().get("Average")
+				.doubleValue()
+				/ (Math.sqrt(result.getWavesResult()
+					.get("RR_interval").getValue()
+					.get("Average").doubleValue()));
+			System.out.println("QTcB");
+			System.out.println(QTcB);
+			QTcF = statResult.getValue().get("Average")
+				.doubleValue()
+				/ (Math.pow(result.getWavesResult()
+					.get("RR_interval").getValue()
+					.get("Average").doubleValue(), 1/3));
+			System.out.println("QTcF");
+			System.out.println(QTcF);
+			QTcR = statResult.getValue().get("Average")
+				.doubleValue()
+				+ 0.154
+				* (1 - result.getWavesResult()
+					.get("RR_interval").getValue()
+					.get("Average").doubleValue());
+			System.out.println("QTcR");
+			System.out.println(QTcR);
+			statResult.addValue("QTcB", QTcB);
+			statResult.addValue("QTcF", QTcF);
+			statResult.addValue("QTcR", QTcR);
+		    }
+
 		    for (Double number : dur.getValue().get(name)) {
 			for (Function function : functions) {
 			    if (function.getName() == "Variance") {
@@ -129,7 +181,7 @@ public class StatisticsController {
 		    for (Function function : functions) {
 			function.backToBegin();
 		    }
-		    // statResult.printValues(name);
+		    statResult.printValues(name);
 		    result.addValue(name, statResult);
 
 		}
