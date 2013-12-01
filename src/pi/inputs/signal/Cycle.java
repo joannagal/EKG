@@ -26,6 +26,8 @@ public class Cycle
 	private Range t_wave;
 	private Range u_wave;
 	
+	private Integer R = 0;
+	
 	private Boolean markered = false;
 	
 	public Cycle(Range range)
@@ -134,6 +136,16 @@ public class Cycle
 	public void setMarkered(Boolean markered)
 	{
 		this.markered = markered;
+	}
+
+	public Integer getR()
+	{
+		return R;
+	}
+
+	public void setR(Integer r)
+	{
+		R = r;
 	}
 	
 	

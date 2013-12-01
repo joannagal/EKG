@@ -36,7 +36,7 @@ public class StatisticsController {
     private ChannelResult count(ECG input) {
 	ECG signal = input;
 	ChannelResult channelResult = new ChannelResult();
-	channelResult.clearValues();
+	//channelResult.clearValues();
 	Duration duration = new Duration();
 	for (Channel channel : signal.getChannel()) {
 	    AttributeResult atrResult = new AttributeResult();
@@ -145,7 +145,7 @@ public class StatisticsController {
 	SpecimenResult specResult = new SpecimenResult();
 	VectorsToTests vectorsBefore = new VectorsToTests();
 	VectorsToTests vectorsAfter = new VectorsToTests();
-	specResult.clear();
+	//specResult.clear();
 	vectorsBefore.clearVectors();
 	vectorsAfter.clearVectors();
 	if (specimenId == null) {
