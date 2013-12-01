@@ -7,7 +7,6 @@ public class Duration {
     private String name;
     
     public void countDuration(int left, int right, Double interval, DurationResult dResult){
-	System.out.println("obliczanie duration");
 	double dur = (right - (left+1)) * interval;
 	
 	dResult.addValue(this.getName(), dur);

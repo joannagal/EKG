@@ -54,7 +54,6 @@ public class Waves {
     
     public void setJPoint(DurationResult dResult){
 	double res = (double) cycle.getQrs_complex().getRight();
-	System.out.println("setting j point");
 	dResult.addValue("J-point", res);
     }
 

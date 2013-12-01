@@ -3,6 +3,11 @@ package pi.statistics.logic;
 public class SpecimenResult {
     private ChannelResult after;
     private ChannelResult before;
+    
+    public void clear(){
+	after = null;
+	before = null;
+    }
 
     public void compareResult() {
 	System.out.println("START");
@@ -54,6 +59,7 @@ public class SpecimenResult {
 	}
     }
     
+    //TODO wektory osobne dla ka¿dego kana³u
     public void addToVectors(VectorsToTests vectors, ChannelResult result){
 
 	for (String name : result.getValue().keySet()) {// PO CHANNELACH
@@ -63,7 +69,7 @@ public class SpecimenResult {
 			.get(waveName).getValue().keySet()) {// PO STATYSTYKACH
 		    double value = result.getValue().get(name).getValue()
 			    .get(waveName).getValue().get(statName);
-		    vectors.addVector(waveName, statName, value);
+		    vectors.addVector(name, waveName, statName, value);
 		}
 	    }
 	}

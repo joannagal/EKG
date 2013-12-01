@@ -40,11 +40,11 @@ public class StatisticWindowController implements ActionListener {
 	    ArrayList<Function> functions = new ArrayList<Function>();
 	    ArrayList<String> wavesNames = new ArrayList<String>();
 	    double alpha;
-	    try {
-		alpha = Double.parseDouble(window.alphaTextField.getText());
-	    } catch (Exception ex) {
-		alpha = 0;
-	    }
+    	    try {
+    		alpha = Double.parseDouble(window.alphaTextField.getText());
+    	    } catch (Exception ex) {
+    	       	alpha = 0;
+    	    }
 
 	    int index = window.comboBox.getSelectedIndex();
 	    String specimen = window.comboBox.getItemAt(index);
@@ -96,7 +96,7 @@ public class StatisticWindowController implements ActionListener {
 		}
 	    }
 
-	    if (alpha > 0 && alpha < 0.05) {
+	    if (alpha > 0 && alpha <= 0.05) {
 		stControl.countStatistics(functions, wavesNames, alpha, id);
 	    } else
 		stControl.countStatistics(functions, wavesNames, 0, id);

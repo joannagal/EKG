@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import pi.inputs.signal.Channel;
 import pi.inputs.signal.Cycle;
 import pi.inputs.signal.ECG;
+import pi.inputs.signal.Probe;
 import pi.population.Population;
 import pi.population.Specimen;
 import pi.shared.SharedController;
@@ -33,38 +34,37 @@ public class StatisticsController {
     }
 
     private ChannelResult count(ECG input) {
-	System.out.println("count");
 	ECG signal = input;
 	ChannelResult channelResult = new ChannelResult();
+	channelResult.clearValues();
 	Duration duration = new Duration();
 	for (Channel channel : signal.getChannel()) {
-	    System.out.println("petla po channelach");
 	    AttributeResult atrResult = new AttributeResult();
 	    DurationResult dResult = new DurationResult();
 	    dResult.clearValues();
 	    for (Cycle cycle : channel.getCycle()) {
-
-		System.out.println("petla po cycle");
-		System.out.println(cycle.getMarkered().toString());
-
+		//TODO RR
+		int leftRR = 0;
+		int rightRR = 0;
+		int index = channel.getCycle().indexOf(cycle);
+		//leftRR = cycle.getR();
+		Cycle nextCycle = channel.getCycle().get(index + 1);
+		//rightRR = nextCycle.getR();
+		Range RR = new Range(leftRR, rightRR);
 		if (cycle.getMarkered() == false) {
-
 		    Waves waves = new Waves(cycle, wavesNames);
+		    waves.addWaves(RR, "RR_interval");
 		    waves.setJPoint(dResult);
-		    System.out.println("jPiont");
 		    for (Range wave : waves.getWaves().keySet()) {
-			System.out.println("zakres");
 			int left = wave.getLeft();
 			int right = wave.getRight();
 			String waveName = waves.getWaves().get(wave);
-			System.out.println(waveName);
 			duration.setName(waveName);
 			duration.countDuration(left, right,
 				channel.getInterval(), dResult);
 		    }
 
 		}
-		System.out.println("add atr result");
 	    }
 	    atrResult.addValue(dResult);
 	    for (DurationResult dur : atrResult.getValue()) {
@@ -77,15 +77,16 @@ public class StatisticsController {
 		for (String name : dur.getValue().keySet()) {
 		    StatisticResult statResult = new StatisticResult();
 		    statResult.clearValues();
-		    // PULS I KOREKCJA 
-//		    if (name.equals("Qt_interval")) {
-//			double QTc = 0;
-//			pulse = SharedController.getInstance().getPulse();
-//			for (Double val : dur.getValue().get(name)) {
-//			    QTc = val + (1.75 * (pulse - 60));
-//			}
-//			statResult.addValue("QTc", QTc);
-//		    }
+		     //PULS I KOREKCJA
+		     if (name.equals("Qt_interval")) {
+		     double QTc = 0;
+		     //TODO sprawdzic puls (wzorki z RR?)
+		     pulse = SharedController.getInstance().getPulse()*100;
+		     for (Double val : dur.getValue().get(name)) {
+		     QTc = val + (1.75 * (pulse - 60));
+		     }
+		     statResult.addValue("QTc", QTc);
+		     }
 
 		    for (Double number : dur.getValue().get(name)) {
 			for (Function function : functions) {
@@ -128,7 +129,7 @@ public class StatisticsController {
 		    for (Function function : functions) {
 			function.backToBegin();
 		    }
-		    //statResult.printValues(name);
+		    // statResult.printValues(name);
 		    result.addValue(name, statResult);
 
 		}
@@ -144,6 +145,9 @@ public class StatisticsController {
 	SpecimenResult specResult = new SpecimenResult();
 	VectorsToTests vectorsBefore = new VectorsToTests();
 	VectorsToTests vectorsAfter = new VectorsToTests();
+	specResult.clear();
+	vectorsBefore.clearVectors();
+	vectorsAfter.clearVectors();
 	if (specimenId == null) {
 	    for (Specimen man : popul.getSpecimen()) {
 		ECG before = man.getBefore();
@@ -162,7 +166,9 @@ public class StatisticsController {
 		    specResult
 			    .addToVectors(vectorsAfter, specResult.getAfter());
 		}
+		System.out.println("Wektory przed:");
 		vectorsBefore.printVectors();
+		System.out.println("Wektory po:");
 		vectorsAfter.printVectors();
 		popResult.addResult(specResult);
 		man.setStatisticResults(specResult);
@@ -187,7 +193,9 @@ public class StatisticsController {
 			specResult.addToVectors(vectorsAfter,
 				specResult.getAfter());
 		    }
+		    System.out.println("Wektory przed:");
 		    vectorsBefore.printVectors();
+		    System.out.println("Wektory po:");
 		    vectorsAfter.printVectors();
 		    popResult.addResult(specResult);
 		    man.setStatisticResults(specResult);
@@ -209,14 +217,22 @@ public class StatisticsController {
 	loadPopulation();
 	System.out.println("zaladowane populacje");
 	getFinalResult().setPopul1(countForPopulation(popul1));
+	if (SharedController.getInstance().getProject().getType() == 3) {
+	    System.out.println("niezalezne (3)");
+	    getFinalResult().perform3TypeTest(1);
+	}
 	System.out.println("koniec populacji 1");
 	if (popul2 != null) {
 	    getFinalResult().setPopul2(countForPopulation(popul2));
 	    // TODO SPRAWDZIC TESTY!!
 	    if (SharedController.getInstance().getProject().getType() == 3) {
-		getFinalResult().performPairedTest();
+		System.out.println("niezalezne (3)");
+		getFinalResult().perform3TypeTest(2);
 	    } else if (SharedController.getInstance().getProject().getType() == 4) {
-		getFinalResult().performUnpairedTest();
+		System.out.println("zalezne (4)");
+		getFinalResult().perform3TypeTest(1);
+		getFinalResult().perform3TypeTest(2);
+		getFinalResult().perform4TypeTest();
 	    }
 	    getFinalResult().summarize();
 	    System.out.println("koniec populacji2");

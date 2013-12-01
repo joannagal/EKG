@@ -96,7 +96,7 @@ public class SharedController
 	// SHARED PASKU POSTEPU
 	private JProgressBar progressBar = null;
 	
-	//SHARED PULS
+	//SHARED PULSE
 	private double pulse;
 	
 	public void updateProgressBar()
