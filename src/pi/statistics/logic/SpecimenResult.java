@@ -3,7 +3,7 @@ package pi.statistics.logic;
 public class SpecimenResult {
     private ChannelResult after;
     private ChannelResult before;
-
+  
     public void compareResult() {
 	System.out.println("START");
 	for (String name : before.getValue().keySet()) {// PO CHANNELACH

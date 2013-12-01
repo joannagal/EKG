@@ -15,6 +15,8 @@ public class ChannelResult {
                 channelResult.put(name, result);
         }
         
-
+        public void clearValues(){
+            channelResult.clear();
+        }
 
 }
