@@ -3,19 +3,19 @@ package pi.statistics.logic;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
-import jdistlib.disttest.NormalityTest;
 
 import org.apache.commons.math3.stat.inference.MannWhitneyUTest;
 import org.apache.commons.math3.stat.inference.TestUtils;
 import org.apache.commons.math3.stat.inference.WilcoxonSignedRankTest;
+
+import pi.statistics.tests.LillieforsNormality;
 
 public class ProjectResult {
     private PopulationResult popul1Result;
     private PopulationResult popul2Result;
     private Map<String, Double> testResult = new HashMap<String, Double>();
     private double alpha;
-    private double lilieforsP1;
-    private double lilieforsP2;
+
 
     public void summarize() { // TODO sprawdzic czy taki jest wlasciwy wniosek?
 	for (String name : testResult.keySet()) {
@@ -41,7 +41,6 @@ public class ProjectResult {
 	}
     }
 
-    // TODO dodaæ kana³y
     public void perform4TypeTest() { // przed, po roznych populacji i
 				     // roznice po-przed
 	// ROZNICE PRZED
@@ -66,20 +65,21 @@ public class ProjectResult {
 			for (int i = 0; i < vector2.size(); i++) {
 			    ar2[i] = vector2.get(i);
 			}
-			lilieforsP1 = NormalityTest
-				.kolmogorov_lilliefors_statistic(ar1);
-			lilieforsP2 = NormalityTest
-				.kolmogorov_lilliefors_statistic(ar2);
-
-			if (lilieforsP1 > 0 && lilieforsP2 > 0) {
-			    // TODO wartoœæ potwierdzaj¹ca rozklad normalny
-			    // dla liliefors'a
-			    tStudentUnpairedTest(waveName + " before",
+			LillieforsNormality.compute( ar1, 5);
+			if (LillieforsNormality.isTrueForAlpha(0.05) == true) {
+			    LillieforsNormality.compute( ar2, 5);
+			if (LillieforsNormality.isTrueForAlpha(0.05) == true) {
+			   tStudentUnpairedTest(waveName + " before",
 				    statName, ar1, ar2);
 			} else {
 			    mannWhitneyUTest(waveName + " before", statName,
 				    ar1, ar2);
 			}
+			} else {
+			    mannWhitneyUTest(waveName + " before", statName,
+				    ar1, ar2);
+			}
+			
 		    }
 		}
 	    }
@@ -105,20 +105,22 @@ public class ProjectResult {
 			for (int i = 0; i < vector2.size(); i++) {
 			    ar2[i] = vector2.get(i);
 			}
-			lilieforsP1 = NormalityTest
-				.kolmogorov_lilliefors_statistic(ar1);
-			lilieforsP2 = NormalityTest
-				.kolmogorov_lilliefors_statistic(ar2);
+			LillieforsNormality.compute( ar1, 5);
+			if (LillieforsNormality.isTrueForAlpha(0.05) == true) {
+			    LillieforsNormality.compute( ar2, 5);
+			if (LillieforsNormality.isTrueForAlpha(0.05) == true) {
 
-			if (lilieforsP1 > 0 && lilieforsP2 > 0) {
-			    // TODO wartoœæ potwierdzaj¹ca rozklad normalny
-			    // dla liliefors'a
-			    tStudentUnpairedTest(waveName + " after", statName,
-				    ar1, ar2);
+			    tStudentUnpairedTest(waveName + " after",
+				    statName, ar1, ar2);
 			} else {
 			    mannWhitneyUTest(waveName + " after", statName,
 				    ar1, ar2);
 			}
+			} else {
+			    mannWhitneyUTest(waveName + " after", statName,
+				    ar1, ar2);
+			}
+			
 		    }
 		}
 	    }
@@ -168,20 +170,19 @@ public class ProjectResult {
 						    - vector1P2.get(i);
 					}
 
-					lilieforsP1 = NormalityTest
-						.kolmogorov_lilliefors_statistic(ar1);
-					lilieforsP2 = NormalityTest
-						.kolmogorov_lilliefors_statistic(ar2);
-
-					if (lilieforsP1 > 0 && lilieforsP2 > 0) {
-					    // TODO wartoœæ
-					    // potwierdzaj¹ca rozklad
-					    // normalny
-					    // dla liliefors'a
+					LillieforsNormality.compute( ar1, 5);
+					if (LillieforsNormality.isTrueForAlpha(0.05) == true) {
+					    LillieforsNormality.compute( ar2, 5);
+					if (LillieforsNormality.isTrueForAlpha(0.05) == true) {
 					    tStudentPairedTest("po-przed "
 						    + waveName, statName, ar1,
 						    ar2);
 					} else {
+					    wilcoxonTest(
+						    "po-przed " + waveName,
+						    statName, ar1, ar2);
+					}
+					}  else {
 					    wilcoxonTest(
 						    "po-przed " + waveName,
 						    statName, ar1, ar2);
@@ -220,21 +221,23 @@ public class ProjectResult {
 			    for (int i = 0; i < vector2.size(); i++) {
 				ar2[i] = vector2.get(i);
 			    }
-			    lilieforsP1 = NormalityTest
-				    .kolmogorov_lilliefors_statistic(ar1);
-			    lilieforsP2 = NormalityTest
-				    .kolmogorov_lilliefors_statistic(ar2);
-
-			    if (lilieforsP1 > 0 && lilieforsP2 > 0) {
-				// TODO wartoœæ potwierdzaj¹ca rozklad
-				// normalny
-				// dla liliefors'a
-				tStudentPairedTest("pop1 " + waveName,
-					statName, ar1, ar2);
-			    } else {
-				wilcoxonTest("pop1 " + waveName, statName, ar1,
-					ar2);
-			    }
+				LillieforsNormality.compute( ar1, 5);
+				if (LillieforsNormality.isTrueForAlpha(0.05) == true) {
+				    LillieforsNormality.compute( ar2, 5);
+				if (LillieforsNormality.isTrueForAlpha(0.05) == true) {
+				    tStudentPairedTest("pop1 "
+					    + waveName, statName, ar1,
+					    ar2);
+				} else {
+				    wilcoxonTest(
+					    "pop1 " + waveName,
+					    statName, ar1, ar2);
+				}
+				}  else {
+				    wilcoxonTest(
+					    "pop1 " + waveName,
+					    statName, ar1, ar2);
+				}
 			}
 		    }
 		}
@@ -262,21 +265,23 @@ public class ProjectResult {
 			    for (int i = 0; i < vector2.size(); i++) {
 				ar2[i] = vector2.get(i);
 			    }
-			    lilieforsP1 = NormalityTest
-				    .kolmogorov_lilliefors_statistic(ar1);
-			    lilieforsP2 = NormalityTest
-				    .kolmogorov_lilliefors_statistic(ar2);
-
-			    if (lilieforsP1 > 0 && lilieforsP2 > 0) {
-				// TODO wartoœæ potwierdzaj¹ca rozklad
-				// normalny
-				// dla liliefors'a
-				tStudentPairedTest("pop2 " + waveName,
-					statName, ar1, ar2);
-			    } else {
-				wilcoxonTest("pop2 " + waveName, statName, ar1,
-					ar2);
-			    }
+				LillieforsNormality.compute( ar1, 5);
+				if (LillieforsNormality.isTrueForAlpha(0.05) == true) {
+				    LillieforsNormality.compute( ar2, 5);
+				if (LillieforsNormality.isTrueForAlpha(0.05) == true) {
+				    tStudentPairedTest("pop2 "
+					    + waveName, statName, ar1,
+					    ar2);
+				} else {
+				    wilcoxonTest(
+					    "pop2 " + waveName,
+					    statName, ar1, ar2);
+				}
+				}  else {
+				    wilcoxonTest(
+					    "pop2 " + waveName,
+					    statName, ar1, ar2);
+				}
 			}
 		    }
 		}
