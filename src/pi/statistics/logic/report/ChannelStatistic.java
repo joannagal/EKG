@@ -4,9 +4,27 @@ import java.util.Collection;
 import java.util.Random;
 import java.util.Vector;
 
+import pi.inputs.signal.ECG;
+
 public class ChannelStatistic {
 
-	
+	private String name;
+	private String surname;
+	private String birth;
+	private String weight;
+	// CZAS TRWANIA UZALEZNIENIA/UPRAWIANIA SPORTU (W LATACH)
+	private int activityDuration = -1;
+	// -1 = BRAK, 0 - DODATNI 1 - UJEMNY
+	private int hiv = -1;
+	// DAWKA METADONU W ML
+	private int metadon = -1;
+	// CZAS W MIESIACACH APLIKOWANIA METADONU
+	private int metadonTimeApplication = -1;
+	// CZAS PO JAKIM PACJENT ODCZUWA DOBRE SAMOPOCZUCIE (W GODZ.)
+	private int timeToGoodMood = -1;
+	// CZAS TRWANIA DOBREGO SAMOPOCZUCIA
+	private int goodMoodDuration = -1;
+
 	private String examination;
 	private String channelName;
 	private int channelId;
@@ -178,6 +196,86 @@ public class ChannelStatistic {
 
 	public void setExamination(String examination) {
 		this.examination = examination;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
+	public String getBirth() {
+		return birth;
+	}
+
+	public void setBirth(String birth) {
+		this.birth = birth;
+	}
+
+	public String getWeight() {
+		return weight;
+	}
+
+	public void setWeight(String weight) {
+		this.weight = weight;
+	}
+
+	public int getActivityDuration() {
+		return activityDuration;
+	}
+
+	public void setActivityDuration(int activityDuration) {
+		this.activityDuration = activityDuration;
+	}
+
+	public int getHiv() {
+		return hiv;
+	}
+
+	public void setHiv(int hiv) {
+		this.hiv = hiv;
+	}
+
+	public int getMetadon() {
+		return metadon;
+	}
+
+	public void setMetadon(int metadon) {
+		this.metadon = metadon;
+	}
+
+	public int getMetadonTimeApplication() {
+		return metadonTimeApplication;
+	}
+
+	public void setMetadonTimeApplication(int metadonTimeApplication) {
+		this.metadonTimeApplication = metadonTimeApplication;
+	}
+
+	public int getTimeToGoodMood() {
+		return timeToGoodMood;
+	}
+
+	public void setTimeToGoodMood(int timeToGoodMood) {
+		this.timeToGoodMood = timeToGoodMood;
+	}
+
+	public int getGoodMoodDuration() {
+		return goodMoodDuration;
+	}
+
+	public void setGoodMoodDuration(int goodMoodDuration) {
+		this.goodMoodDuration = goodMoodDuration;
 	}
 
 }
