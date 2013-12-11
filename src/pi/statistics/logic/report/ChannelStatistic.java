@@ -5,6 +5,11 @@ import java.util.Random;
 import java.util.Vector;
 
 import pi.inputs.signal.ECG;
+import pi.population.Population;
+import pi.population.Specimen;
+import pi.project.Project;
+import pi.shared.SharedController;
+import pi.statistics.logic.ChannelResult;
 
 public class ChannelStatistic {
 
@@ -44,8 +49,19 @@ public class ChannelStatistic {
 	public static Collection getChannelStatistics() {
 		Vector statistics = new Vector();
 
+//		Project project = SharedController.getInstance().getProject();
+//		Specimen firstSpec = project.getFirstPopulation().getSpecimen().get(0);
+//
+//		if (firstSpec.getStatisticResults().getBefore() != null) {
+//			ChannelResult cr = firstSpec.getStatisticResults().getBefore();
+//			if(cr.getValue()!= null){
+//				
+//			}
+//		}
+
 		// TODO
 		// Temp:
+
 		try {
 			for (int i = 0; i < 10; i++) {
 				ChannelStatistic cs = new ChannelStatistic();
