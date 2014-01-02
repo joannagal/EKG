@@ -19,6 +19,7 @@ public class SavePopulationView extends JDialog {
 			UnsupportedEncodingException, XMLStreamException,
 			FactoryConfigurationError {
 
+		this.setAlwaysOnTop(true);
 		PopSaver ps = new PopSaver(SharedController.getInstance().getProject());
 		JFileChooser fileChooser = new JFileChooser();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter(

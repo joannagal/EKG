@@ -19,7 +19,7 @@ public class OpenPopulationView extends JDialog {
 	private GridBagConstraints constraints;
 	
 	public OpenPopulationView(){
-		
+		this.setAlwaysOnTop(true);
 		this.setLayout(new GridBagLayout());
 		constraints = new GridBagConstraints();
 		constraints.fill = GridBagConstraints.HORIZONTAL;

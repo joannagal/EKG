@@ -31,6 +31,7 @@ public class ChooseProjectController implements ActionListener{
 			view.dispose();
 		}
 		if (action.equals("NEXT")){
+			SharedController.getInstance().getFrame().getContent().removeAll();
 			String selected = view.findSelectedRadio();
 			if (selected.equals("SINGLE_SIGNAL")){
 				view.setVisible(false);
@@ -42,6 +43,7 @@ public class ChooseProjectController implements ActionListener{
 				ImporterView importerView = new ImporterView();
 				ImportController controller = new ImportController(importerView);
 				importerView.setBounds(400, 200, 350, 200);
+				
 			}
 			
 			if (selected.equals("TWO_SIGNALS")){

@@ -8,6 +8,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -35,7 +36,7 @@ public class ImportPanel extends JPanel{
 	private JTextArea area;
 	
 	public ImportPanel(){	
-			
+		
 		JLabel fileLabel = new JLabel("File");
 		fileLabel.setVisible(true);
 		this.add(fileLabel);
@@ -59,7 +60,7 @@ public class ImportPanel extends JPanel{
 	        	FileNameExtensionFilter filter = new FileNameExtensionFilter("XML (*.xml)","xml");
 	        	fileChooser.addChoosableFileFilter(filter);
 	        	fileChooser.setFileFilter(filter);
-	        	int returnValue = fileChooser.showDialog(null, "Open file");
+	        	int returnValue = fileChooser.showDialog(getContext(), "Open file");
 	          
 	        	if (returnValue == JFileChooser.APPROVE_OPTION) {
 	        		File selectedFile = fileChooser.getSelectedFile();
@@ -92,6 +93,10 @@ public class ImportPanel extends JPanel{
 
 	public void setArea(JTextArea area) {
 		this.area = area;
+	}
+	
+	public ImportPanel getContext(){
+		return this;
 	}
 	
 	

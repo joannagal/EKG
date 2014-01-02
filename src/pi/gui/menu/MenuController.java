@@ -22,6 +22,7 @@ import javax.xml.stream.XMLStreamException;
 import pi.data.importer.open.OpenPopulationController;
 import pi.data.importer.open.OpenPopulationView;
 import pi.data.importer.save.SavePopulationView;
+import pi.gui.OurFrame;
 import pi.gui.login.LoginDialog;
 import pi.project.ChooseProjectController;
 import pi.project.ChooseProjectView;
@@ -74,6 +75,9 @@ public class MenuController implements ActionListener{
 			    } 
 			}
 		if (action.equals("CREATE_PROJECT")){
+				//SharedController.getInstance().getFrame().setVisible(false);
+				
+				
 				Project project = new Project();
 				ChooseProjectView projectView = new ChooseProjectView();
 				ChooseProjectController projectController = new ChooseProjectController(project, projectView);

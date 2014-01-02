@@ -47,6 +47,7 @@ public class ChannelStatistic {
 	private Double j_point;
 
 	public static Collection getChannelStatistics() {
+		//TODO wydajnoœæ dodawania do wektora
 		Vector statistics = new Vector();
 
 //		Project project = SharedController.getInstance().getProject();

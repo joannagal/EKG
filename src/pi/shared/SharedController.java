@@ -1,6 +1,7 @@
 package pi.shared;
 
 import java.awt.BasicStroke;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
@@ -24,92 +25,86 @@ import pi.utilities.Margin;
 
 //-------------------------------------------
 /*
-	SINGLETONIK - KLASA SHARED, WSPOLDZIELONA 
-	PRZEZ WSZYSTKIE
-	
-	OGOLNIE WRZUCILEM TU JAKIES PIERDY POKI CO
-	DO RYSOWANIA ECG
-	
-	NP MIN-SCALE , MAX-SCALE TO SA PRZEDZIALY 
-	DOPUSZCZALNYCH SKAL WIDOKU
-	
-	SMIALO TU MOZNA SWOJE RZECZY WRZUCAC, KTORE 
-	BEDA MUSIALY BYC WIDOCZNE W WIELU MIEJSCACH
-	W PROGRAMIE
-	
-	TRZEBA PAMIETAC O INICIE TYCH ZMIENNYCH W
-	PRYWATNYM KONSTRUKTORZE
-	
-	NO A INSTANCJE KLASY POBIERAMY PRZEZ 
-	= SharedController.getInstance();
-	
-	TUTAJ TWORZY SIE DOMYSLNY SCHAMAT KOLORYSTYCZNY
-	- TYLKO JEDEN BEDZIEMY WYKORZYSTYWAC JEDNAK
-	WIEC NIE TRZEBA TWORZYC NOWYCH
-	
-	NO ALE W RAZIE WSZYSTKICH WATPLIWOSCI NATURY STYLISTYCZNEJ
-	NP. KOLOR CZEGO�-TAM, TO WRZUCAMY ODPOWIEDNIE POLE DO 
-	KLASY SCHEME, A TUTAJ W METODZIE CREATE WHITE SCHEME
-	NADAJEMY KOLOREK, A W ODPOWIEDNIM MIEJSCU PROGRAMU
-	POBIERAMY GO
-*/
+ SINGLETONIK - KLASA SHARED, WSPOLDZIELONA 
+ PRZEZ WSZYSTKIE
+
+ OGOLNIE WRZUCILEM TU JAKIES PIERDY POKI CO
+ DO RYSOWANIA ECG
+
+ NP MIN-SCALE , MAX-SCALE TO SA PRZEDZIALY 
+ DOPUSZCZALNYCH SKAL WIDOKU
+
+ SMIALO TU MOZNA SWOJE RZECZY WRZUCAC, KTORE 
+ BEDA MUSIALY BYC WIDOCZNE W WIELU MIEJSCACH
+ W PROGRAMIE
+
+ TRZEBA PAMIETAC O INICIE TYCH ZMIENNYCH W
+ PRYWATNYM KONSTRUKTORZE
+
+ NO A INSTANCJE KLASY POBIERAMY PRZEZ 
+ = SharedController.getInstance();
+
+ TUTAJ TWORZY SIE DOMYSLNY SCHAMAT KOLORYSTYCZNY
+ - TYLKO JEDEN BEDZIEMY WYKORZYSTYWAC JEDNAK
+ WIEC NIE TRZEBA TWORZYC NOWYCH
+
+ NO ALE W RAZIE WSZYSTKICH WATPLIWOSCI NATURY STYLISTYCZNEJ
+ NP. KOLOR CZEGO�-TAM, TO WRZUCAMY ODPOWIEDNIE POLE DO 
+ KLASY SCHEME, A TUTAJ W METODZIE CREATE WHITE SCHEME
+ NADAJEMY KOLOREK, A W ODPOWIEDNIM MIEJSCU PROGRAMU
+ POBIERAMY GO
+ */
 //-------------------------------------------
 
-public class SharedController
-{
+public class SharedController {
 	private static SharedController instance = null;
-	
+
 	private Scheme whiteScheme;
 	private Scheme blackScheme;
 	private Scheme currentScheme;
-	
+
 	private int maxSegments;
 	private double pixelsForScale;
-	
+
 	private double minScale;
 	private double maxScale;
-	
+
 	private double minInterval;
 	private double maxInterval;
-	
-	private boolean logged  = false;
-	
+
+	private boolean logged = false;
+
 	private OurFrame frame;
 	private Importer importer;
 	private Container container;
-	
+
 	private int firstPanelWidth = 1100;
 	private int firstPanelHeight = 300;
 	private int firstPanelX = 10;
 	private int firstPanelY = 80;
-	
+
 	private GraphView firstGraphView;
 	private GraphView secondGraphView;
 	private File lastDirectory;
 
-	
 	// -------------------------
 	// SHARED PROJECT
 	private Project project;
-	
+
 	// --------------------------
 	// SHARED PASKU POSTEPU
 	private JProgressBar progressBar = null;
-	
-	//SHARED PULSE
+
+	// SHARED PULSE
 	private double pulse;
-	
-	public void updateProgressBar()
-	{
-		if (this.progressBar != null)
-		{
+
+	public void updateProgressBar() {
+		if (this.progressBar != null) {
 			this.progressBar.setValue(this.progressBar.getValue() + 1);
 		}
 	}
 
-	
-	private SharedController()
-	{
+	private SharedController() {
 		this.pixelsForScale = 100;
 		this.maxSegments = 3;
 		this.createWhiteScheme();
@@ -120,17 +115,16 @@ public class SharedController
 		this.minInterval = 0.001d;
 		this.maxInterval = 0.02d;
 	}
-	
-	public static  SharedController getInstance()
-	{
-		if (instance == null) instance = new SharedController();
+
+	public static SharedController getInstance() {
+		if (instance == null)
+			instance = new SharedController();
 		return instance;
 	}
-	
-	public void createWhiteScheme()
-	{
+
+	public void createWhiteScheme() {
 		whiteScheme = new Scheme();
-		
+
 		SignalScheme signal = whiteScheme.getSignalScheme();
 		signal.setBackgroundColor(new Color(255, 255, 255));
 		signal.setBorderColor(new Color(0, 0, 0));
@@ -138,16 +132,16 @@ public class SharedController
 		signal.setSubGridColor(new Color(230, 230, 230));
 		signal.setGridColor(new Color(255, 255, 255));
 		signal.setMargin(new Margin(60, 25, 35, 35));
-		
+
 		signal.setFontSize(12);
 		signal.setFont(new Font("Serif", Font.PLAIN, signal.getFontSize()));
 		signal.setFontColor(new Color(0, 0, 0));
-		
+
 		signal.setSignalColor(new Color(255, 0, 0));
 		signal.setProbeColor(new Color(0, 0, 0));
-		
+
 		signal.setSelectColor(new Color(100, 100, 255, 123));
-	
+
 		signal.setP_WaveColor(new Color(145, 200, 0, 123));
 		signal.setPr_SegmentColor(new Color(0, 40, 200, 123));
 		signal.setQrs_SegmentColor(new Color(160, 200, 60, 123));
@@ -160,15 +154,14 @@ public class SharedController
 
 		signal.setMainDivider(4);
 		signal.setSubDivider(3);
-		
+
 		signal.setSignalStroke(new BasicStroke(1));
 		signal.setProbeStroke(new BasicStroke(1));
 	}
-	
-	public void createBlackScheme()
-	{
+
+	public void createBlackScheme() {
 		blackScheme = new Scheme();
-		
+
 		SignalScheme signal = blackScheme.getSignalScheme();
 		signal.setBackgroundColor(new Color(0, 0, 0));
 		signal.setBorderColor(new Color(255, 255, 255));
@@ -176,102 +169,84 @@ public class SharedController
 		signal.setSubGridColor(new Color(30, 30, 30));
 		signal.setGridColor(new Color(0, 0, 0));
 		signal.setMargin(new Margin(60, 25, 15, 30));
-		
+
 		signal.setFontSize(12);
 		signal.setFont(new Font("Serif", Font.PLAIN, signal.getFontSize()));
 		signal.setFontColor(new Color(255, 255, 255));
-		
+
 		signal.setSignalColor(new Color(0, 255, 0));
 		signal.setProbeColor(new Color(255, 255, 0));
-		
+
 		signal.setSelectColor(new Color(80, 80, 255, 123));
 
 		signal.setMainDivider(4);
 		signal.setSubDivider(3);
-		
+
 		signal.setSignalStroke(new BasicStroke(1));
 		signal.setProbeStroke(new BasicStroke(1));
 	}
-	
-	
-	public Scheme getWhiteScheme()
-	{
+
+	public Scheme getWhiteScheme() {
 		return whiteScheme;
 	}
-	
-	public Scheme getBlackScheme()
-	{
+
+	public Scheme getBlackScheme() {
 		return blackScheme;
 	}
 
-
-	public int getMaxSegments()
-	{
+	public int getMaxSegments() {
 		return maxSegments;
 	}
 
-	public void setMaxSegments(int maxSegments)
-	{
+	public void setMaxSegments(int maxSegments) {
 		this.maxSegments = maxSegments;
 	}
 
-	public Scheme getCurrentScheme()
-	{
+	public Scheme getCurrentScheme() {
 		return currentScheme;
 	}
 
-	public void setCurrentScheme(Scheme currentScheme)
-	{
+	public void setCurrentScheme(Scheme currentScheme) {
 		this.currentScheme = currentScheme;
 	}
 
-	public double getPixelsForScale()
-	{
+	public double getPixelsForScale() {
 		return pixelsForScale;
 	}
 
-	public void setPixelsForScale(double pixelsForScale)
-	{
+	public void setPixelsForScale(double pixelsForScale) {
 		this.pixelsForScale = pixelsForScale;
 	}
 
-	public double getMinScale()
-	{
+	public double getMinScale() {
 		return minScale;
 	}
 
-	public void setMinScale(double minScale)
-	{
+	public void setMinScale(double minScale) {
 		this.minScale = minScale;
 	}
 
-	public double getMaxScale()
-	{
+	public double getMaxScale() {
 		return maxScale;
 	}
 
-	public void setMaxScale(double maxScale)
-	{
+	public void setMaxScale(double maxScale) {
 		this.maxScale = maxScale;
 	}
 
-	public double getMinInterval()
-	{
+	public double getMinInterval() {
 		return minInterval;
 	}
 
-	public void setMinInterval(double minInterval)
-	{
+	public void setMinInterval(double minInterval) {
 		this.minInterval = minInterval;
 	}
 
-	public double getMaxInterval()
-	{
+	public double getMaxInterval() {
 		return maxInterval;
 	}
 
-	public void setMaxInterval(double maxInterval)
-	{
+	public void setMaxInterval(double maxInterval) {
 		this.maxInterval = maxInterval;
 	}
 
@@ -298,134 +273,113 @@ public class SharedController
 	public void setImporter(Importer importer) {
 		this.importer = importer;
 	}
-	
-	public Container getContainer(){
+
+	public Container getContainer() {
 		return container;
 	}
-	
-	public void setContainer(Container container){
+
+	public void setContainer(Container container) {
 		this.container = container;
 	}
 
-	public void addPanel(JPanel panel){
-		getFrame().add(panel);
+	public void addPanel(JPanel panel) {
+		getFrame().getContent().add(panel);
 		panel.setVisible(true);
 	}
-	
-	
-	public void packFrame(){
+
+	public void packFrame() {
 		this.frame.pack();
 	}
-	
-	public JProgressBar getProgressBar()
-	{
+
+	public JProgressBar getProgressBar() {
 		return progressBar;
 	}
 
-	public void setProgressBar(JProgressBar progressBar)
-	{
+	public void setProgressBar(JProgressBar progressBar) {
 		this.progressBar = progressBar;
 	}
-
 
 	public Project getProject() {
 		return project;
 	}
 
-
 	public void setProject(Project project) {
 		this.project = project;
 	}
 
-	public void createProjectToolbar(){
-		ProjectToolbar tool= new ProjectToolbar();
-		ProjectToolbarController toolConroller = new ProjectToolbarController(tool);
+	public void createProjectToolbar() {
+		ProjectToolbar tool = new ProjectToolbar();
+		ProjectToolbarController toolConroller = new ProjectToolbarController(
+				tool);
 		tool.setVisible(true);
-		tool.setBounds(10, 10, 1100, 65);
-		SharedController.getInstance().getFrame().add(tool);
+		// tool.setBounds(10, 10, frame.getWidth()-40, 65);
+		SharedController.getInstance().getFrame().getContentPane()
+				.add(tool, BorderLayout.NORTH);
 		SharedController.getInstance().getFrame().pack();
 	}
 
-
 	public double getPulse() {
-	    return pulse;
+		return pulse;
 	}
-
 
 	public void setPulse(double pulse) {
-	    this.pulse = pulse;
+		this.pulse = pulse;
 	}
-
 
 	public int getFirstPanelWidth() {
 		return firstPanelWidth;
 	}
 
-
 	public void setFirstPanelWidth(int firstPanelWidth) {
 		this.firstPanelWidth = firstPanelWidth;
 	}
-
 
 	public int getFirstPanelHeight() {
 		return firstPanelHeight;
 	}
 
-
 	public void setFirstPanelHeight(int firstPanelHeight) {
 		this.firstPanelHeight = firstPanelHeight;
 	}
-
 
 	public int getFirstPanelX() {
 		return firstPanelX;
 	}
 
-
 	public void setFirstPanelX(int firstPanelX) {
 		this.firstPanelX = firstPanelX;
 	}
-
 
 	public int getFirstPanelY() {
 		return firstPanelY;
 	}
 
-
 	public void setFirstPanelY(int firstPanelY) {
 		this.firstPanelY = firstPanelY;
 	}
-
 
 	public GraphView getFirstGraphView() {
 		return firstGraphView;
 	}
 
-
 	public void setFirstGraphView(GraphView firstGraphView) {
 		this.firstGraphView = firstGraphView;
 	}
-
 
 	public GraphView getSecondGraphView() {
 		return secondGraphView;
 	}
 
-
 	public void setSecondGraphView(GraphView secondGraphView) {
 		this.secondGraphView = secondGraphView;
 	}
-
 
 	public File getLastDirectory() {
 		return lastDirectory;
 	}
 
-
 	public void setLastDirectory(File lastDirectory) {
 		this.lastDirectory = lastDirectory;
 	}
 
-
-	
 }

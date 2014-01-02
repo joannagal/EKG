@@ -1,16 +1,11 @@
 package pi.data.importer.population;
 
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 
@@ -25,7 +20,7 @@ public class ImportPopulationFrame extends JFrame{
 	
 	
 	public ImportPopulationFrame(){
-		
+		this.setAlwaysOnTop(true);
 		this.setMinimumSize(new Dimension(1175, 775));
 		this.setLayout(null);
 		this.setVisible(true);
