@@ -16,6 +16,11 @@ public class StatisticWindowController implements ActionListener {
 
     private StatisticWindowView window;
     StatisticsController stControl = new StatisticsController();
+    public static String[] wavesList;
+    public static String[] channelsList = { "1", "2", "3", "4", "5", "6", "7",
+	    "8", "9" };
+    public static String[] statsList = { "Average", "Max", "Min", "Amplitude",
+	    "Variance", "SD" };
 
     public StatisticWindowController(StatisticWindowView window) {
 	this.window = window;
@@ -40,19 +45,24 @@ public class StatisticWindowController implements ActionListener {
 	    ArrayList<Function> functions = new ArrayList<Function>();
 	    ArrayList<String> wavesNames = new ArrayList<String>();
 	    double alpha;
-    	    try {
-    		alpha = Double.parseDouble(window.alphaTextField.getText());
-    	    } catch (Exception ex) {
-    	       	alpha = 0;
-    	    }
+	    try {
+		alpha = Double.parseDouble(window.alphaTextField.getText());
+	    } catch (Exception ex) {
+		alpha = 0;
+	    }
 
 	    int index = window.comboBox.getSelectedIndex();
 	    String specimen = window.comboBox.getItemAt(index);
 	    String id = null;
-
+	    String specimanStr = null;
+	    
 	    if (specimen.equals("Count for all")) {
 		id = null;
+		specimanStr = SharedController.getInstance().getProject()
+			.getFirstPopulation().getSpecimen().get(0).getName() + " " + SharedController.getInstance().getProject()
+			.getFirstPopulation().getSpecimen().get(0).getSurname();
 	    } else {
+		specimanStr = specimen;
 		String[] ids = specimen.split(" ");
 		for (Specimen man : SharedController.getInstance().getProject()
 			.getFirstPopulation().getSpecimen()) {
@@ -96,10 +106,30 @@ public class StatisticWindowController implements ActionListener {
 		}
 	    }
 
+	    wavesList = new String[wavesNames.size()+2];
+	    int i;
+	    for (i = 0; i < wavesNames.size(); i++) {
+		wavesList[i] = wavesNames.get(i);
+	    }
+	    wavesList[i] = "J-point";
+	    i++;
+	    wavesList[i] = "RR_interval";
+
 	    if (alpha > 0 && alpha <= 0.05) {
 		stControl.countStatistics(functions, wavesNames, alpha, id);
 	    } else
 		stControl.countStatistics(functions, wavesNames, 0, id);
+
+	    // TODO wyswietl okienko statystyczne z wynikami
+	    StatisticsComparatorView view = new StatisticsComparatorView();
+
+	    view.setSpecimanStr(specimanStr);
+	    view.prepare(view.getSpecimanStr(), view.getChannelStr(), view.getWaveStr());
+	    //view.prepare(view.getChannelStr(), view.getWaveStr());
+
+	    //view.getReport().changeSelection(0, 1, false, false);
+
+	    view.setVisible(true);
 	}
 
     }

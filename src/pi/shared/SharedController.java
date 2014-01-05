@@ -21,6 +21,7 @@ import pi.gui.toolbar.ProjectToolbarController;
 import pi.project.Project;
 import pi.shared.schemes.Scheme;
 import pi.shared.schemes.signal.SignalScheme;
+import pi.statistics.logic.ProjectResult;
 import pi.utilities.Margin;
 
 //-------------------------------------------
@@ -90,6 +91,9 @@ public class SharedController {
 	// -------------------------
 	// SHARED PROJECT
 	private Project project;
+	
+	//SHARED PROJECT RESULT
+	private ProjectResult projectRes;
 
 	// --------------------------
 	// SHARED PASKU POSTEPU
@@ -380,6 +384,14 @@ public class SharedController {
 
 	public void setLastDirectory(File lastDirectory) {
 		this.lastDirectory = lastDirectory;
+	}
+
+	public ProjectResult getProjectRes() {
+	    return projectRes;
+	}
+
+	public void setProjectRes(ProjectResult projectRes) {
+	    this.projectRes = projectRes;
 	}
 
 }

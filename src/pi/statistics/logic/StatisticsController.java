@@ -106,25 +106,14 @@ public class StatisticsController {
 			System.out.println(pulse);
 			System.out.println("PULS na minute");
 			System.out.println(pulse * 60);
+			statResult.addValue("Pulse(s)", pulse);
+			statResult.addValue("Pulse(min)", pulse*60);
 		    }
 		    // PULS I KOREKCJA
-		    if (name.equals("Qt_interval")) {
+		    if (name.equals("qtInterval")) {
 			double QTcB = 0;
-			// TODO pierwiastek szescienny?
 			double QTcF = 0;
 			double QTcR = 0;
-			// PODEJSCIE Z POROWNYWANIEM KAZDEJ WARTOSCI
-			// for (Double val : dur.getValue().get(name)) {
-			// int index = dur.getValue().get(name).indexOf(val);
-			// QTcB =
-			// val/(Math.sqrt(dur.getValue().get("RR_interval").get(index)));
-			// System.out.println("QTcB");
-			// System.out.println(QTcB);
-			// QTcR = val + 0.154*(1 -
-			// dur.getValue().get("RR_interval").get(index));
-			// System.out.println("QTcR");
-			// System.out.println(QTcR);
-			// }
 
 			// PODEJSCIE Z POROWNYWANIEM SREDNICH
 			QTcB = statResult.getValue().get("Average")
@@ -288,6 +277,7 @@ public class StatisticsController {
 	    getFinalResult().summarize();
 	    System.out.println("koniec populacji2");
 	}
+	SharedController.getInstance().setProjectRes(getFinalResult());
 	System.out.println("raport");
 	// TODO generowanie raportu koñcowego
     }

@@ -19,11 +19,12 @@ import javax.swing.JComboBox;
 
 import pi.population.Specimen;
 import pi.shared.SharedController;
+import java.awt.event.ActionEvent;
 
 public class StatisticWindowView extends JFrame {
 
     private static final long serialVersionUID = 3655555564299592830L;
-    private String[] itemEvent = new String[] { "CANCEL", "REPORT", "COUNT" };
+    private String[] itemEvent = new String[] { "CANCEL", "COUNT" };
     private JButton[] buttonArray;
     public JCheckBox[] checkBoxArray;
     public JCheckBox tWave;
@@ -279,7 +280,7 @@ public class StatisticWindowView extends JFrame {
 	gbc_panel.gridy = 2;
 	getContentPane().add(panel, gbc_panel);
 	GridBagLayout gbl_panel = new GridBagLayout();
-	gbl_panel.columnWidths = new int[] { 82, 103, 74, 0, 0 };
+	gbl_panel.columnWidths = new int[] { 82, 76, 74, 0, 0 };
 	gbl_panel.rowHeights = new int[] { 0, 0 };
 	gbl_panel.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0,
 		Double.MIN_VALUE };
@@ -292,28 +293,22 @@ public class StatisticWindowView extends JFrame {
 	gbc_cancelButton.gridx = 0;
 	gbc_cancelButton.gridy = 0;
 	panel.add(cancelButton, gbc_cancelButton);
+	
+		JButton countButton = new JButton("Count");
+		GridBagConstraints gbc_countButton = new GridBagConstraints();
+		gbc_countButton.insets = new Insets(0, 0, 0, 5);
+		gbc_countButton.gridx = 1;
+		gbc_countButton.gridy = 0;
+		panel.add(countButton, gbc_countButton);
+	
+		JProgressBar progressBar = new JProgressBar();
+		GridBagConstraints gbc_progressBar = new GridBagConstraints();
+		gbc_progressBar.insets = new Insets(0, 0, 0, 5);
+		gbc_progressBar.gridx = 2;
+		gbc_progressBar.gridy = 0;
+		panel.add(progressBar, gbc_progressBar);
 
-	JButton reportButton = new JButton("Show report");
-	GridBagConstraints gbc_reportButton = new GridBagConstraints();
-	gbc_reportButton.insets = new Insets(0, 0, 0, 5);
-	gbc_reportButton.gridx = 1;
-	gbc_reportButton.gridy = 0;
-	panel.add(reportButton, gbc_reportButton);
-
-	JButton countButton = new JButton("Count");
-	GridBagConstraints gbc_countButton = new GridBagConstraints();
-	gbc_countButton.insets = new Insets(0, 0, 0, 5);
-	gbc_countButton.gridx = 2;
-	gbc_countButton.gridy = 0;
-	panel.add(countButton, gbc_countButton);
-
-	JProgressBar progressBar = new JProgressBar();
-	GridBagConstraints gbc_progressBar = new GridBagConstraints();
-	gbc_progressBar.gridx = 3;
-	gbc_progressBar.gridy = 0;
-	panel.add(progressBar, gbc_progressBar);
-
-	buttonArray = new JButton[] { cancelButton, reportButton, countButton };
+	buttonArray = new JButton[] { cancelButton, countButton };
 	checkBoxArray = new JCheckBox[] { tWave, pWave, uWave, prInterval,
 		prSegment, stSegment, stInterval, qtInterval, qrsComplex };
 

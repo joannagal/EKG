@@ -31,23 +31,23 @@ public class Waves {
 
 	for (String name : wavesNames){
 	    if (name == "pWave" && cycle.getP_wave() != null){
-		addWaves(cycle.getP_wave(), "P_wave");
+		addWaves(cycle.getP_wave(), "pWave");
 	    } else if (name == "tWave" && cycle.getT_wave() != null){
-		addWaves(cycle.getT_wave(), "T_wave");
+		addWaves(cycle.getT_wave(), "tWave");
 	    } else if (name == "uWave" && cycle.getU_wave() != null){
-		addWaves(cycle.getU_wave(), "U_wave");
+		addWaves(cycle.getU_wave(), "uWave");
 	    } else if (name == "prInterval" && pr_interval != null){
-		addWaves(pr_interval, "Pr_interval");
+		addWaves(pr_interval, "prInterval");
 	    } else if (name == "prSegment" && cycle.getPr_segment() != null){
-		addWaves(cycle.getPr_segment(), "Pr_segment");
+		addWaves(cycle.getPr_segment(), "prSegment");
 	    } else if (name == "stSegment" && cycle.getSt_segment() != null){
-		addWaves(cycle.getSt_segment(), "St_segment");
+		addWaves(cycle.getSt_segment(), "stSegment");
 	    } else if (name == "stInterval" && st_interval != null){
-		addWaves(st_interval, "St_interval");
+		addWaves(st_interval, "stInterval");
 	    } else if (name == "qtInterval" && qt_interval != null){
-		addWaves(qt_interval, "Qt_interval");
+		addWaves(qt_interval, "qtInterval");
 	    } else if (name == "qrsComplex" && cycle.getQrs_complex() != null){
-		addWaves(cycle.getQrs_complex(), "Qrs_complex");
+		addWaves(cycle.getQrs_complex(), "qrsComplex");
 	    }   
 	}
     }
