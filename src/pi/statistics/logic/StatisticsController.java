@@ -1,14 +1,13 @@
 package pi.statistics.logic;
 
 import java.util.ArrayList;
-
 import pi.inputs.signal.Channel;
 import pi.inputs.signal.Cycle;
 import pi.inputs.signal.ECG;
-import pi.inputs.signal.Probe;
 import pi.population.Population;
 import pi.population.Specimen;
 import pi.shared.SharedController;
+import pi.statistics.functions.Collector;
 import pi.statistics.functions.Duration;
 import pi.statistics.functions.Variance;
 import pi.utilities.Range;
@@ -79,8 +78,10 @@ public class StatisticsController {
 	    }
 
 	    WavesResult result = new WavesResult();
+	    
 	    for (DurationResult dur : atrResult.getValue()) {
 		System.out.println("obliczanie statystyk");
+		Collector collector = new Collector();
 		for (String name : dur.getValue().keySet()) {
 		    StatisticResult statResult = new StatisticResult();
 		    statResult.clearValues();
@@ -102,12 +103,9 @@ public class StatisticsController {
 		    if (name.equals("RR_interval")) {
 			pulse = 1 / statResult.getValue().get("Average")
 				.doubleValue();
-			System.out.println("PULS na sekunde");
-			System.out.println(pulse);
-			System.out.println("PULS na minute");
-			System.out.println(pulse * 60);
+
 			statResult.addValue("Pulse(s)", pulse);
-			statResult.addValue("Pulse(min)", pulse*60);
+			statResult.addValue("Pulse(min)",pulse*60);
 		    }
 		    // PULS I KOREKCJA
 		    if (name.equals("qtInterval")) {
@@ -116,34 +114,31 @@ public class StatisticsController {
 			double QTcR = 0;
 
 			// PODEJSCIE Z POROWNYWANIEM SREDNICH
-			QTcB = statResult.getValue().get("Average")
-				.doubleValue()
+			QTcB = statResult.getValue().get("Average").doubleValue()
 				/ (Math.sqrt(result.getWavesResult()
 					.get("RR_interval").getValue()
 					.get("Average").doubleValue()));
-			System.out.println("QTcB");
-			System.out.println(QTcB);
+
 			QTcF = statResult.getValue().get("Average")
 				.doubleValue()
 				/ (Math.pow(result.getWavesResult()
 					.get("RR_interval").getValue()
 					.get("Average").doubleValue(), 1/3));
-			System.out.println("QTcF");
-			System.out.println(QTcF);
+
 			QTcR = statResult.getValue().get("Average")
 				.doubleValue()
 				+ 0.154
 				* (1 - result.getWavesResult()
 					.get("RR_interval").getValue()
 					.get("Average").doubleValue());
-			System.out.println("QTcR");
-			System.out.println(QTcR);
+
 			statResult.addValue("QTcB", QTcB);
 			statResult.addValue("QTcF", QTcF);
 			statResult.addValue("QTcR", QTcR);
 		    }
 
 		    for (Double number : dur.getValue().get(name)) {
+			collector.iterate(number);
 			for (Function function : functions) {
 			    if (function.getName() == "Variance") {
 				Variance func = (Variance) function;
@@ -167,14 +162,20 @@ public class StatisticsController {
 			    }
 			}
 		    }
+		    ArrayList<Double> tmp = new ArrayList<Double>(collector.getResult());
+		    collector.backToBegin();
+		    result.addCollector(name, tmp);
 		    for (Function function : functions) {
 			function.backToBegin();
 		    }
+		    
 		    statResult.printValues(name);
 		    result.addValue(name, statResult);
 
 		}
+
 	    }
+
 	    channelResult.addValue(channel.getName(), result);
 	}
 	return channelResult;

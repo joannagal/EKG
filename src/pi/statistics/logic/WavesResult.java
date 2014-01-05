@@ -1,14 +1,15 @@
 package pi.statistics.logic;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Vector;
+
 
 public class WavesResult {
 	
 	private Map<String, StatisticResult> wavesResult = new HashMap<String, StatisticResult>();
-
+	private Map<String, ArrayList<Double>> wavesCollector = new HashMap<String, ArrayList<Double>>(); 
+	
 	public Map<String, StatisticResult> getWavesResult() {
 		return wavesResult;
 	}
@@ -17,8 +18,13 @@ public class WavesResult {
 		wavesResult.put(name, result);
 	}
 
+	public Map<String, ArrayList<Double>> getWavesCollector() {
+	    return wavesCollector;
+	}
 
+	public void addCollector(String name, ArrayList<Double> collector) {
+	    wavesCollector.put(name, collector);
+	}
+	
 
-	// Set, List, Map, SortedSet, SortedMap, HashSet, TreeSet, ArrayList,
-	// LinkedList, Vector, Collections, Arrays, AbstractCollection
 }

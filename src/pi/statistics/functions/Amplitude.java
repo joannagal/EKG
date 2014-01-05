@@ -4,18 +4,20 @@ import pi.statistics.logic.Function;
 import pi.statistics.logic.StatisticResult;
 
 public class Amplitude extends Function {
-    
+
     public Amplitude() {
 	super("Amplitude");
     }
 
     @Override
     public void countResult(StatisticResult statResult) {
-	//TODO null?
-	double min = statResult.getValue().get("Min").doubleValue();
-	double max = statResult.getValue().get("Max").doubleValue();
+	// TODO null?
+	double min = statResult.getValue().get("Min")
+		.doubleValue();
+	double max = statResult.getValue().get("Max")
+		.doubleValue();
 	double amplitude = max - min;
-	
+
 	statResult.addValue(this.getName(), amplitude);
     }
 
@@ -26,8 +28,7 @@ public class Amplitude extends Function {
 
     @Override
     public void backToBegin() {
-	
-	
+
     }
 
 }

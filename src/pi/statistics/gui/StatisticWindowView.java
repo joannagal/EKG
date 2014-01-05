@@ -19,7 +19,6 @@ import javax.swing.JComboBox;
 
 import pi.population.Specimen;
 import pi.shared.SharedController;
-import java.awt.event.ActionEvent;
 
 public class StatisticWindowView extends JFrame {
 

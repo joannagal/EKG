@@ -1,5 +1,6 @@
 package pi.statistics.functions;
 
+
 import pi.statistics.logic.Function;
 import pi.statistics.logic.StatisticResult;
 
@@ -21,7 +22,6 @@ public class Average extends Function {
 	    // TODO Co jeœli mianownik (liczba próbek) jest zerem
 	}
 	statResult.addValue(this.getName(), avg);
-
     }
 
     public void iterate(double value) {

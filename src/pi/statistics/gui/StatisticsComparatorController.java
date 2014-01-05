@@ -3,10 +3,11 @@ package pi.statistics.gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Vector;
 
 import pi.population.Specimen;
-import pi.statistics.logic.AttributeResult;
 import pi.statistics.logic.ChannelResult;
 import pi.statistics.logic.SpecimenResult;
 import pi.statistics.logic.StatisticResult;
@@ -23,7 +24,6 @@ public class StatisticsComparatorController implements ActionListener
 
 	private ArrayList<ArrayList<Double>> toHist;
 	private ArrayList<ArrayList<Double>> toDepend;
-	private ArrayList<ArrayList<Double>> toFFT;
 
 	public void set(Specimen spec, String channel, String wave, int columns)
 	{
@@ -40,8 +40,8 @@ public class StatisticsComparatorController implements ActionListener
 
 		int pntr = 0;
 
-		this.toHist = new ArrayList<ArrayList<Double>>(4);
-		this.toDepend = new ArrayList<ArrayList<Double>>(4);
+		this.toHist = new ArrayList<ArrayList<Double>>(2);
+		this.toDepend = new ArrayList<ArrayList<Double>>(2);
 
 		ChannelResult channelResult = specResult.getBefore();
 		
@@ -97,17 +97,18 @@ public class StatisticsComparatorController implements ActionListener
 
 			// --------------
 
+			ArrayList<Double> collector = wavesResult.getWavesCollector().get(wave);
+			if (collector != null)
+			{
+				this.toHist.add(collector);
+			}
+			
 			StatisticResult statisticResult = wavesResult.getWavesResult().get(wave);
 			if (statisticResult != null)
 			{
 
 				Map<String, Double> statResult = statisticResult.getValue();
-				Double result = statResult.get("Collector");
-//				if (result != null)
-//				{
-//					ArrayList<Double> value = result.getValue();
-//					this.toHist.add(value);
-//				}
+
 //
 //				result = statResult.get("Dependency Collector");
 //				if (result != null)
@@ -118,7 +119,7 @@ public class StatisticsComparatorController implements ActionListener
 
 
 				int pos = 0;
-			    	result = statResult.get("Pulse(s)");
+				Double result = statResult.get("Pulse(s)");
 			    	if (result != null){
 					this.view.getModel().setValueAt(Double.toString(result),
 						pos, column);
@@ -180,6 +181,21 @@ public class StatisticsComparatorController implements ActionListener
 
 			}
 		}
+	}
+	
+	public ArrayList <Double> getArrayFromVector(Vector<Double> input)
+	{
+		
+		ArrayList <Double> output = new ArrayList <Double> (input.size());
+		Iterator <Double> it = input.iterator();
+		
+		Double value;
+		while (it.hasNext())
+		{
+			value = it.next();
+			output.add(value);
+		}		
+		return output;
 	}
 
 	@Override

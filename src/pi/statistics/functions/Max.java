@@ -13,8 +13,8 @@ public class Max extends Function {
 
     @Override
     public void countResult(StatisticResult statResult) {
-	statResult.addValue(this.getName(), max);
 	
+	statResult.addValue(this.getName(), max);	
     }
 
     @Override

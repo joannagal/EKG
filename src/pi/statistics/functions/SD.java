@@ -18,7 +18,6 @@ public class SD extends Function {
 	if (var != 0) {
 	    sd = Math.sqrt(var);
 	}
-
 	statResult.addValue(this.getName(), sd);
     }
 
