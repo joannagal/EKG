@@ -163,7 +163,7 @@
 		<band height="104" splitType="Stretch">
 			<image>
 				<reportElement x="0" y="0" width="102" height="104" uuid="489b9cde-a6d5-44eb-8527-86aaa4c2e948"/>
-				<imageExpression><![CDATA["C:\\Users\\nadam_000\\git\\EKG\\img\\Logo.png"]]></imageExpression>
+				<imageExpression><![CDATA["img\\Logo.png"]]></imageExpression>
 			</image>
 			<frame>
 				<reportElement x="123" y="0" width="433" height="104" uuid="7008f3a0-a081-428a-95ad-a6793f4aadc7"/>

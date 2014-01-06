@@ -71,14 +71,14 @@ public class StatisticsComparatorView extends JFrame {
 	
 	getContentPane().add(this.specimanCombo);
 
-	JLabel specimanLabel = new JLabel("Speciman");
-	specimanLabel.setBounds(15, 0, 46, 14);
+	JLabel specimanLabel = new JLabel("Person");
+	specimanLabel.setBounds(10, 2, 46, 14);
 	getContentPane().add(specimanLabel);
 	
 	this.channelCombo.setActionCommand("CHANGE_FIGURE");
 	this.channelCombo.addActionListener(controller);
 
-	this.channelLabel.setBounds(15, 20, 100, 15);
+	this.channelLabel.setBounds(5, 22, 100, 15);
 	getContentPane().add(this.channelLabel);
 	
 	

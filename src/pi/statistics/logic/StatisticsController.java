@@ -1,6 +1,8 @@
 package pi.statistics.logic;
 
 import java.util.ArrayList;
+
+import net.sf.jasperreports.engine.JRException;
 import pi.inputs.signal.Channel;
 import pi.inputs.signal.Cycle;
 import pi.inputs.signal.ECG;
@@ -10,6 +12,7 @@ import pi.shared.SharedController;
 import pi.statistics.functions.Collector;
 import pi.statistics.functions.Duration;
 import pi.statistics.functions.Variance;
+import pi.statistics.logic.report.ReportManager;
 import pi.utilities.Range;
 
 public class StatisticsController {
@@ -281,6 +284,15 @@ public class StatisticsController {
 	SharedController.getInstance().setProjectRes(getFinalResult());
 	System.out.println("raport");
 	// TODO generowanie raportu koñcowego
+	try {
+		ReportManager rm = new ReportManager();
+		//rm.viewRaport();
+		rm.saveRaportAsPdf(null);
+		rm.saveReportAsHtml(null);
+	} catch (JRException e) {
+		System.out.println("Report exception");
+		e.printStackTrace();
+	}
     }
 
     public Population getPopul1() {
