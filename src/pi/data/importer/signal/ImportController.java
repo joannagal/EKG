@@ -44,6 +44,7 @@ public class ImportController implements ActionListener{
 				
         		specimen = new Specimen();
         		specimen.setBefore(temp.get(0));
+        		specimen.setPath(path);
         		ArrayList <Specimen> pop = new ArrayList<>(1);
         		pop.add(specimen);
         		specimen.setDetails(importer.getAttributes());
@@ -72,6 +73,7 @@ public class ImportController implements ActionListener{
 					ArrayList<ECG> temp2 = importer2.importSignals();
 					
 	        		specimen.setAfter(temp2.get(0));
+	        		specimen.setPathAfter(path2);
 	        			        
 					GraphView view2 = new GraphView(population, 2);
 

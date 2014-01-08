@@ -140,6 +140,27 @@ public class GraphToolbar extends JPanel {
 					}
 
 				}
+				
+				if (SharedController.getInstance().getProject().getType() == 3){
+					if (getGraphView().getType() == 1){
+						signal = SharedController.getInstance().getProject()
+								.getFirstPopulation().getSpecimen()
+								.get(comboBoxSpecimen.getSelectedIndex())
+								.getBefore().getChannel()
+								.get(comboBoxChannel.getSelectedIndex());
+						graph.setSignal(signal);
+						clear();
+					}
+					else if (getGraphView().getType() == 2){
+						signal = SharedController.getInstance().getProject()
+								.getFirstPopulation().getSpecimen()
+								.get(comboBoxSpecimen.getSelectedIndex())
+								.getAfter().getChannel()
+								.get(comboBoxChannel.getSelectedIndex());
+						graph.setSignal(signal);
+						clear();
+					}
+				}
 
 			}
 		});
@@ -275,6 +296,16 @@ public class GraphToolbar extends JPanel {
 			}
 
 			else if (projectType == 3) {
+				int tmp = this.graphView.getPopulation().getSpecimen().size();
+
+				for (int i = 0; i < tmp; i++) {
+					this.comboBoxSpecimen.addItem(this.graphView
+							.getPopulation().getSpecimen().get(i).getName()
+							+ " "
+							+ this.graphView.getPopulation().getSpecimen()
+									.get(i).getSurname());
+				}
+				
 
 			}
 
@@ -286,7 +317,15 @@ public class GraphToolbar extends JPanel {
 						+ controller.getProject().getFirstPopulation()
 								.getSpecimen().get(0).getSurname());
 			} else if (projectType == 3) {
+				int tmp = this.graphView.getPopulation().getSpecimen().size();
 
+				for (int i = 0; i < tmp; i++) {
+					this.comboBoxSpecimen.addItem(this.graphView
+							.getPopulation().getSpecimen().get(i).getName()
+							+ " "
+							+ this.graphView.getPopulation().getSpecimen()
+									.get(i).getSurname());
+				}
 			} else if (projectType == 4) {
 				int tmp = this.graphView.getPopulation().getSpecimen().size();
 

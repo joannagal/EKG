@@ -46,7 +46,7 @@ public class GraphView extends JPanel {
 		SharedController sharedController = SharedController.getInstance();
 		
 		if (this.getType() == 1) {
-
+			
 			//this.setBorder(BorderFactory.createLineBorder(Color.red));
 			this.setBounds(sharedController.getFirstPanelX(), sharedController.getFirstPanelY(),
 							sharedController.getFirstPanelWidth(), sharedController.getFirstPanelHeight());
@@ -60,24 +60,24 @@ public class GraphView extends JPanel {
 
 		if (this.getType() == 2) {
 			
-			if (sharedController.getProject().getType() == 2){
-				this.setBounds(sharedController.getFirstPanelX(), sharedController.getFirstPanelHeight() + 40 + sharedController.getFirstPanelY(), 
+			int projectType = sharedController.getProject().getType();
+			
+			this.setBounds(sharedController.getFirstPanelX(), sharedController.getFirstPanelHeight() + 20 + sharedController.getFirstPanelY(), 
 					sharedController.getFirstPanelWidth(), sharedController.getFirstPanelHeight());
 
+			
+			if (projectType == 2 || projectType == 3){
+	
 				signal1 = this.getPopulation().getSpecimen().get(0).getAfter()
 					.getChannel().get(0);
-
-				sharedController.setSecondGraphView(this);
 			}
-			else if (sharedController.getProject().getType() == 4){
-				this.setBounds(sharedController.getFirstPanelX(), sharedController.getFirstPanelHeight() + 40 + sharedController.getFirstPanelY(), 
-						sharedController.getFirstPanelWidth(), sharedController.getFirstPanelHeight());
-
-					signal1 = this.getPopulation().getSpecimen().get(0).getBefore()
+			else if (projectType == 4){
+		
+				signal1 = this.getPopulation().getSpecimen().get(0).getBefore()
 						.getChannel().get(0);
-
-					sharedController.setSecondGraphView(this);
 			}
+			
+			sharedController.setSecondGraphView(this);
 			
 		}
 

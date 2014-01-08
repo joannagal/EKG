@@ -219,7 +219,7 @@ public class StatisticWindowView extends JFrame {
 	gbc_comboBox.gridx = 1;
 	gbc_comboBox.gridy = 0;
 	panel_1.add(comboBox, gbc_comboBox);
-	fillCombo();
+	//fillCombo();
 	if (SharedController.getInstance().getProject().getType() == 1
 		|| SharedController.getInstance().getProject().getType() == 2) {
 	    comboBox.setEnabled(false);
@@ -330,6 +330,7 @@ public class StatisticWindowView extends JFrame {
 	}
     }
 
+    /*
     public void fillCombo() {
 	this.comboBox.addItem("Count for all");
 	for (Specimen man : SharedController.getInstance().getProject()
@@ -354,6 +355,7 @@ public class StatisticWindowView extends JFrame {
 	    }
 	}
 	
+	
     }
-
+*/
 }

@@ -18,17 +18,16 @@ import pi.project.Project;
 
 public class ImportPopulationController implements ActionListener {
 
-	ImportPopulationFrame frame;
+	private ImportPopulationFrame frame;
 	private ArrayList<Specimen> specimens;
 	private ArrayList<Specimen> specimens2;
-	private Importer importer;
 	private Population population;
 	private Population population2;
-
+	private Importer importer;
 	private Specimen specimen;
 	
 	public ImportPopulationController(ImportPopulationFrame frame){
-		this.frame = frame;
+		this.setFrame(frame);
 		frame.setButtonListener(this);
 	}
 
@@ -42,15 +41,15 @@ public class ImportPopulationController implements ActionListener {
 						
 					population = new Population();
 				
-					int length1 = frame.getImport1().list.size();
+					int length1 = getFrame().getImport1().list.size();
 					specimens = new ArrayList<Specimen>();
 					
 					for (int i = 0; i < length1; i++){
 						
 						try {
-							setImporter(new Importer(frame.getImport1().list.get(i).getString()));
+							setImporter(new Importer(getFrame().getImport1().list.get(i).getString()));
 							
-							String path = frame.getImport1().list.get(i).getString();
+							String path = getFrame().getImport1().list.get(i).getString();
 							ArrayList<ECG> temp = importer.importSignals();
 						
 							specimen = new Specimen();
@@ -74,15 +73,15 @@ public class ImportPopulationController implements ActionListener {
 					
 					population2 = new Population();
 					
-					int length2 = frame.getImport2().list.size();
+					int length2 = getFrame().getImport2().list.size();
 					specimens2 = new ArrayList<Specimen>();
 					
 					for (int i = 0; i < length2; i++){
 						
 						try {
-							setImporter(new Importer(frame.getImport2().list.get(i).getString()));
+							setImporter(new Importer(getFrame().getImport2().list.get(i).getString()));
 							
-							String path = frame.getImport2().list.get(i).getString();
+							String path = getFrame().getImport2().list.get(i).getString();
 							ArrayList<ECG> temp = importer.importSignals();
 						
 							specimen = new Specimen();
@@ -106,9 +105,65 @@ public class ImportPopulationController implements ActionListener {
 			
 			if (SharedController.getInstance().getProject().getType() == 3){
 				
+				population = new Population();
+				
+				int length1 = getFrame().getImport1().list.size();
+				specimens = new ArrayList<Specimen>();
+				
+				for (int i = 0; i < length1; i++){
+					
+					try {
+						setImporter(new Importer(getFrame().getImport1().list.get(i).getString()));
+						
+						String path = getFrame().getImport1().list.get(i).getString();
+						ArrayList<ECG> temp = importer.importSignals();
+					
+						specimen = new Specimen();
+						specimen.setBefore(temp.get(0));
+						specimen.setPath(path);
+						specimens.add(specimen);
+						specimen.setDetails(importer.getAttributes());
+					
+					} catch (DocumentException e1) {
+						e1.printStackTrace();
+					}		
+				}
+				
+				population.setSpecimen(specimens);
+				SharedController.getInstance().createProjectToolbar();
+				
+				GraphView view = new GraphView(this.population, 1);
+				
+				for (int i = 0; i < length1; i++){
+					
+					try {
+						setImporter(new Importer(getFrame().getImport2().list.get(i).getString()));
+						
+						String pathAfter = getFrame().getImport2().list.get(i).getString();
+						ArrayList<ECG> temp = importer.importSignals();
+					
+						Specimen specimen = getPopulation().getSpecimen().get(i);
+						specimen.setAfter(temp.get(0));
+						specimen.setPathAfter(pathAfter);					
+					} catch (DocumentException e1) {
+						e1.printStackTrace();
+					}		
+				}
+				
+				SharedController.getInstance().getProject().setFirstPopulation(population);
+				SharedController.getInstance().createProjectToolbar();
+				
+				GraphView view2 = new GraphView(this.population, 2);				
+				
+				
 			}
 			
-			frame.setVisible(false);
+			
+			System.out.println(this.getPopulation().getSpecimen().get(0).getPath());
+			System.out.println(this.getPopulation().getSpecimen().get(0).getPathAfter());
+			System.out.println(this.getPopulation().getSpecimen().get(0).getName());
+
+			getFrame().setVisible(false);
 		}
 	}
 
@@ -126,6 +181,15 @@ public class ImportPopulationController implements ActionListener {
 
 	private void setPopulation(Population population) {
 		this.population = population;
+	}
+	
+	
+	private ImportPopulationFrame getFrame() {
+		return frame;
+	}
+
+	private void setFrame(ImportPopulationFrame frame) {
+		this.frame = frame;
 	}
 
 

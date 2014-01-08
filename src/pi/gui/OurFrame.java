@@ -27,7 +27,7 @@ public class OurFrame extends JFrame {
 				//new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
 
 		setContent(new JScrollPane());
-		getContent().setBackground(Color.white);
+		//getContent().setBackground(Color.white);
 		getContent().setVisible(true);
 		//getContent().setLayout(new BoxLayout(getContent(), BoxLayout.PAGE_AXIS));
 		

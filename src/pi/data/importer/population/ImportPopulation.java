@@ -14,6 +14,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import org.dom4j.DocumentException;
+
 import pi.data.importer.Importer;
 import pi.shared.SharedController;
 
@@ -68,10 +70,22 @@ public class ImportPopulation extends JPanel {
 	        	if (returnValue == JFileChooser.APPROVE_OPTION) {
 	        		File selectedFile = fileChooser.getSelectedFile();
 	        		String path = selectedFile.getAbsolutePath();
+	        		Importer importer;
+	        		String[] temp = null;
+	        		
+					try {
+						importer = new Importer(path);
+						temp = new String[4];
+		        		temp = importer.getAttributes();
+
+					} catch (DocumentException e1) {
+						e1.printStackTrace();
+					}
 	        		System.out.println(path);
+	        		String name = temp[0] + " " + temp[1];
 	        		
 	        		gridy++;
-	        		SingleFile test = new SingleFile(getParent(), panelWithPanels, path);
+	        		SingleFile test = new SingleFile(getParent(), panelWithPanels, name);
 					GridBagConstraints testCons = new GridBagConstraints();
 					testCons.fill = GridBagConstraints.HORIZONTAL;
 					testCons.gridx = 0;
@@ -168,10 +182,14 @@ public class ImportPopulation extends JPanel {
 	}
 	
 	public void delete(int tmp){
-
 		list.remove(tmp);
-
 	}
+	
+	public void add(int tmp){
+		this.add(tmp);
+	}
+	
+	
 	
 	 public ImportPopulation getContext(){
 		 return this;

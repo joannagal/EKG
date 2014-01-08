@@ -17,12 +17,13 @@ public class SingleFile extends JPanel {
 	private JButton upButton;
 	private JButton downButton;
 	private JButton deleteButton;
+	private JButton addButton;
 	private JLabel fileLabel;
 	private String path;
 	private ImportPopulation importPopulation;
 	private JPanel container;
 	
-	public SingleFile(ImportPopulation pop, final JPanel container, String path){
+	public SingleFile(ImportPopulation pop, final JPanel container, String name){
 		
 		this.path = path;
 		this.importPopulation = pop;
@@ -33,11 +34,12 @@ public class SingleFile extends JPanel {
 		upButton = new JButton("up");
 		downButton = new JButton("down");
 		deleteButton = new JButton("delete");
-		fileLabel = new JLabel(shortPath(path));
+		addButton = new JButton("+");
+		fileLabel = new JLabel(name);
 		this.add(fileLabel);
 		fileLabel.setVisible(true);
 		fileLabel.setSize(75, 15);
-		this.setPreferredSize(new Dimension(400,38));
+		this.setPreferredSize(new Dimension(500,38));
 		this.setBorder(new LineBorder(Color.GREEN, 1));
 		
 		this.add(upButton);	
@@ -76,6 +78,18 @@ public class SingleFile extends JPanel {
 			}
 		});
 		
+		this.add(addButton);
+		addButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			
+				importPopulation.validate();
+				importPopulation.repaint();
+				
+				
+			}
+		});
 		
 	}
 	

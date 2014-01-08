@@ -22,6 +22,7 @@ public class Specimen
 	private String birth = null;
 	private String id = "";
 	private String path = "";
+	private String pathAfter = ""; //needed for project 3
 	
 	private SpecimenResult statisticResults = null;
 	
@@ -211,5 +212,11 @@ public class Specimen
 	}
 	public void setPath(String path) {
 		this.path = path;
+	}
+	public String getPathAfter() {
+		return pathAfter;
+	}
+	public void setPathAfter(String pathAfter) {
+		this.pathAfter = pathAfter;
 	}
 }

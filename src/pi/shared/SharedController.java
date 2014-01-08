@@ -82,7 +82,7 @@ public class SharedController {
 	private int firstPanelWidth = 1100;
 	private int firstPanelHeight = 300;
 	private int firstPanelX = 10;
-	private int firstPanelY = 80;
+	private int firstPanelY = 5;
 
 	private GraphView firstGraphView;
 	private GraphView secondGraphView;
