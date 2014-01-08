@@ -3,6 +3,7 @@ package pi.statistics.logic.report;
 import java.util.Collection;
 import java.util.Vector;
 
+import pi.population.Specimen;
 import pi.shared.SharedController;
 import pi.statistics.gui.StatisticWindowController;
 import pi.statistics.logic.ChannelResult;
@@ -12,7 +13,7 @@ public class ChannelStatistic {
     private String name;
     private String surname;
     private String birth;
-    private String weight;
+    private int weight;
     // CZAS TRWANIA UZALEZNIENIA/UPRAWIANIA SPORTU (W LATACH)
     private int activityDuration = -1;
     // -1 = BRAK, 0 - DODATNI 1 - UJEMNY
@@ -31,6 +32,9 @@ public class ChannelStatistic {
     private int channelId;
     private String statisticName;
 
+    // PULS bêdzie pobierany od razu w wartoœci na minutê
+    private Double pulse;
+
     private Double p_waveResult;
     private Double t_waveResult;
     private Double u_waveResult;
@@ -41,12 +45,24 @@ public class ChannelStatistic {
     private Double st_intervalResult;
     private Double qt_intervalResult;
     private Double j_point;
+    private Double rr_interval;
+    private Double QTcR;
+    private Double QTcF;
+    private Double QTcB;
 
     public static Collection getChannelStatistics() {
 	// TODO wydajnoœæ dodawania do wektora
 	Vector<ChannelStatistic> statistics = new Vector<ChannelStatistic>();
-	ChannelResult before = SharedController.getInstance().getProjectRes()
-		.getPopul1().getResult().get(0).getBefore();
+	// ChannelResult before = SharedController.getInstance().getProjectRes()
+	// .getPopul1().getResult().get(0).getBefore();
+
+	ChannelResult before = SharedController.getInstance().getProject()
+		.getFirstPopulation().getSpecimen().get(0)
+		.getStatisticResults().getBefore();
+
+	Specimen specimen = SharedController.getInstance().getProject()
+		.getFirstPopulation().getSpecimen().get(0);
+
 	// Project project = SharedController.getInstance().getProject();
 	// Specimen firstSpec =
 	// project.getFirstPopulation().getSpecimen().get(0);
@@ -58,13 +74,22 @@ public class ChannelStatistic {
 	// }
 	// }
 
-	// TODO s¹ jeszcze RR_interval, QTcB, QTcF, QTcR i pulse, przyda³yby sie kolejne kolumny na to 
-
 	try {
 	    for (String name : before.getValue().keySet()) {// PO CHANNELACH
 		for (String statName : StatisticWindowController.statsList) {
 		    ChannelStatistic cs = new ChannelStatistic();
 		    cs.setExamination("Before");
+		    cs.setActivityDuration(specimen.getActivityDuration());
+		    cs.setBirth(specimen.getBirth());
+		    cs.setGoodMoodDuration(specimen.getGoodMoodDuration());
+		    cs.setHiv(specimen.getHiv());
+		    cs.setMetadon(specimen.getMetadon());
+		    cs.setMetadonTimeApplication(specimen
+			    .getMetadonTimeApplication());
+		    cs.setName(specimen.getName());
+		    cs.setSurname(specimen.getSurname());
+		    cs.setTimeToGoodMood(specimen.getTimeToGoodMood());
+		    cs.setWeight(specimen.getWeight());
 		    for (String waveName : before.getValue().get(name)
 			    .getWavesResult().keySet()) {// PO WAVE
 			double value = before.getValue().get(name)
@@ -111,6 +136,15 @@ public class ChannelStatistic {
 			    cs.setChannelName(name);
 			    cs.setQt_intervalResult(value);
 			    cs.setStatisticName(statName);
+			    cs.setQTcB(before.getValue().get(name)
+				    .getWavesResult().get(waveName).getValue()
+				    .get("QTcB").doubleValue());
+			    cs.setQTcF(before.getValue().get(name)
+				    .getWavesResult().get(waveName).getValue()
+				    .get("QTcF").doubleValue());
+			    cs.setQTcR(before.getValue().get(name)
+				    .getWavesResult().get(waveName).getValue()
+				    .get("QTcR").doubleValue());
 			}
 			if (waveName.equals("qrsComplex")) {
 			    cs.setChannelName(name);
@@ -122,6 +156,14 @@ public class ChannelStatistic {
 			    cs.setJ_point(value);
 			    cs.setStatisticName(statName);
 			}
+			if (waveName.equals("RR_interval")) {
+			    cs.setChannelName(name);
+			    cs.setRr_interval(value);
+			    cs.setStatisticName(statName);
+			    cs.setPulse(before.getValue().get(name)
+				    .getWavesResult().get(waveName).getValue()
+				    .get("Pulse(min)").doubleValue());
+			}
 
 		    }
 		    statistics.add(cs);
@@ -129,8 +171,9 @@ public class ChannelStatistic {
 
 	    }
 
-	    ChannelResult after = SharedController.getInstance()
-		    .getProjectRes().getPopul1().getResult().get(0).getAfter();
+	    ChannelResult after = SharedController.getInstance().getProject()
+		    .getFirstPopulation().getSpecimen().get(0)
+		    .getStatisticResults().getAfter();
 	    if (after != null) {
 		for (String name : after.getValue().keySet()) {// PO CHANNELACH
 		    for (String statName : StatisticWindowController.statsList) {
@@ -182,6 +225,15 @@ public class ChannelStatistic {
 				cs.setChannelName(name);
 				cs.setQt_intervalResult(value);
 				cs.setStatisticName(statName);
+				cs.setQTcB(before.getValue().get(name)
+					.getWavesResult().get(waveName)
+					.getValue().get("QTcB").doubleValue());
+				cs.setQTcF(before.getValue().get(name)
+					.getWavesResult().get(waveName)
+					.getValue().get("QTcF").doubleValue());
+				cs.setQTcR(before.getValue().get(name)
+					.getWavesResult().get(waveName)
+					.getValue().get("QTcR").doubleValue());
 			    }
 			    if (waveName.equals("qrsComplex")) {
 				cs.setChannelName(name);
@@ -193,7 +245,15 @@ public class ChannelStatistic {
 				cs.setJ_point(value);
 				cs.setStatisticName(statName);
 			    }
-
+			    if (waveName.equals("RR_interval")) {
+				cs.setChannelName(name);
+				cs.setRr_interval(value);
+				cs.setStatisticName(statName);
+				cs.setPulse(before.getValue().get(name)
+					.getWavesResult().get(waveName)
+					.getValue().get("Pulse(min)")
+					.doubleValue());
+			    }
 			}
 			statistics.add(cs);
 		    }
@@ -377,11 +437,11 @@ public class ChannelStatistic {
 	this.birth = birth;
     }
 
-    public String getWeight() {
+    public int getWeight() {
 	return weight;
     }
 
-    public void setWeight(String weight) {
+    public void setWeight(int weight) {
 	this.weight = weight;
     }
 
@@ -431,6 +491,46 @@ public class ChannelStatistic {
 
     public void setGoodMoodDuration(int goodMoodDuration) {
 	this.goodMoodDuration = goodMoodDuration;
+    }
+
+    public Double getRr_interval() {
+	return rr_interval;
+    }
+
+    public void setRr_interval(Double rr_interval) {
+	this.rr_interval = rr_interval;
+    }
+
+    public Double getQTcR() {
+	return QTcR;
+    }
+
+    public void setQTcR(Double qTcR) {
+	QTcR = qTcR;
+    }
+
+    public Double getQTcF() {
+	return QTcF;
+    }
+
+    public void setQTcF(Double qTcF) {
+	QTcF = qTcF;
+    }
+
+    public Double getQTcB() {
+	return QTcB;
+    }
+
+    public void setQTcB(Double qTcB) {
+	QTcB = qTcB;
+    }
+
+    public Double getPulse() {
+	return pulse;
+    }
+
+    public void setPulse(Double pulse) {
+	this.pulse = pulse;
     }
 
 }
