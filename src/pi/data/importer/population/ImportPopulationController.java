@@ -29,8 +29,6 @@ public class ImportPopulationController implements ActionListener {
 	
 	public ImportPopulationController(ImportPopulationFrame frame){
 		this.frame = frame;
-		//this.setPopulation(population);
-		
 		frame.setButtonListener(this);
 	}
 

@@ -51,10 +51,10 @@ public class ImportPopulation extends JPanel {
 			
 			public MyActionListener(ImportPopulation parent)
 			{
-				this.parent = parent;
+				this.setParent(parent);
 			}
 
-			@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				
 				JFileChooser fileChooser = new JFileChooser();
@@ -62,7 +62,8 @@ public class ImportPopulation extends JPanel {
 	        	FileNameExtensionFilter filter = new FileNameExtensionFilter("XML (*.xml)","xml");
 	        	fileChooser.addChoosableFileFilter(filter);
 	        	fileChooser.setFileFilter(filter);
-	        	int returnValue = fileChooser.showDialog(null, "Open file");
+	        	int returnValue = fileChooser.showDialog(getContext(), "Open file");
+	        	
 	          
 	        	if (returnValue == JFileChooser.APPROVE_OPTION) {
 	        		File selectedFile = fileChooser.getSelectedFile();
@@ -70,7 +71,7 @@ public class ImportPopulation extends JPanel {
 	        		System.out.println(path);
 	        		
 	        		gridy++;
-	        		SingleFile test = new SingleFile(parent, panelWithPanels, path);
+	        		SingleFile test = new SingleFile(getParent(), panelWithPanels, path);
 					GridBagConstraints testCons = new GridBagConstraints();
 					testCons.fill = GridBagConstraints.HORIZONTAL;
 					testCons.gridx = 0;
@@ -87,8 +88,18 @@ public class ImportPopulation extends JPanel {
 		        		
 	        	}
 	        	
-	        	parent.validate();
+	        	getParent().validate();
 			}
+
+			public ImportPopulation getParent() {
+				return parent;
+			}
+
+			public void setParent(ImportPopulation parent) {
+				this.parent = parent;
+			}
+
+
 					
 		}
 		
@@ -162,5 +173,8 @@ public class ImportPopulation extends JPanel {
 
 	}
 	
+	 public ImportPopulation getContext(){
+		 return this;
+	 }
 	
 }
