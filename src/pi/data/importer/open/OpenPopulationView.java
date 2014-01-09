@@ -9,6 +9,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 
 import pi.data.importer.signal.ImportPanel;
+import pi.data.importer.signal.ImporterView;
 
 public class OpenPopulationView extends JDialog {
 	
@@ -27,7 +28,7 @@ public class OpenPopulationView extends JDialog {
 		this.setTitle("Open Project...");	
 		this.setBounds(400, 200, 350, 200);
 		
-		setImportPanel(new ImportPanel());
+		setImportPanel(new ImportPanel(new ImporterView()));
 		constraints.gridx = 0;
 		constraints.gridy = 0;
 		constraints.gridwidth = 1;		

@@ -129,10 +129,11 @@ public class ImportPopulationController implements ActionListener {
 					}		
 				}
 				
-				population.setSpecimen(specimens);
-				SharedController.getInstance().createProjectToolbar();
-				
+				population.setSpecimen(specimens);				
+				SharedController.getInstance().getProject().setFirstPopulation(population);
 				GraphView view = new GraphView(this.population, 1);
+				SharedController.getInstance().createProjectToolbar();
+
 				
 				for (int i = 0; i < length1; i++){
 					
@@ -149,10 +150,7 @@ public class ImportPopulationController implements ActionListener {
 						e1.printStackTrace();
 					}		
 				}
-				
-				SharedController.getInstance().getProject().setFirstPopulation(population);
 				SharedController.getInstance().createProjectToolbar();
-				
 				GraphView view2 = new GraphView(this.population, 2);				
 				
 				

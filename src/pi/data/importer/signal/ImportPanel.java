@@ -31,13 +31,14 @@ public class ImportPanel extends JPanel{
 
 	private JFileChooser fileChooser;
 	private JLabel fileLabel;
-	//final JTextField pathField;
 	private String path;
 	private JTextArea area;
+	private JButton button;
+	private ImporterView importView;
 	
-	public ImportPanel(){	
+	public ImportPanel(final ImporterView importView){	
 		
-		JLabel fileLabel = new JLabel("File");
+		JLabel fileLabel = new JLabel("Specimen");
 		fileLabel.setVisible(true);
 		this.add(fileLabel);
     
@@ -48,31 +49,47 @@ public class ImportPanel extends JPanel{
 
 		this.add(jsp);		
 		
-    	JButton button = new JButton("Select File");
+    	button = new JButton("Choose");
  		this.add(button);
  		
 	    button.addActionListener(new ActionListener() {
-
-			
+		
 			public void actionPerformed(ActionEvent ae) {
 	        	JFileChooser fileChooser = new JFileChooser();
 	        	fileChooser.setCurrentDirectory(SharedController.getInstance().getLastDirectory());
 	        	FileNameExtensionFilter filter = new FileNameExtensionFilter("XML (*.xml)","xml");
 	        	fileChooser.addChoosableFileFilter(filter);
 	        	fileChooser.setFileFilter(filter);
-	        	int returnValue = fileChooser.showDialog(getContext(), "Open file");
+	        	int returnValue = fileChooser.showDialog(getContext(), "Choose specimen...");
 	          
 	        	if (returnValue == JFileChooser.APPROVE_OPTION) {
 	        		File selectedFile = fileChooser.getSelectedFile();
 	        		String path = selectedFile.getAbsolutePath();
 	        		SharedController.getInstance().setLastDirectory(fileChooser.getSelectedFile());
-	        		setText(path, area);
+	        		Importer importer;
+					try {
+						importer = new Importer(path);
+		        		String name = importer.getName();
+		        		setText(name, area);
+
+					} catch (DocumentException e) {
+						e.printStackTrace();
+					}
 	        		System.out.println(path);
 	        		setPath(path);
+	        		
+	        		int type = SharedController.getInstance().getProject().getType();
+	        		if (type == 1){
+		        		importView.getNextButton().setEnabled(true);
+	        		} else if (type == 2){
+	        			if (importView.checkPaths() == true){
+			        		importView.getNextButton().setEnabled(true);
+	        			}
+	        		}
+	        		
 	        	}
 	        }
 	      });
-
 	}
 	
 	public void setText(String text, JTextArea area){
@@ -99,6 +116,7 @@ public class ImportPanel extends JPanel{
 		return this;
 	}
 	
+
 	
 	
 	

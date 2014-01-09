@@ -4,9 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import pi.data.importer.Importer;
+import pi.data.importer.population.ImportPopulation;
 import pi.data.importer.population.ImportPopulationController;
 import pi.data.importer.population.ImportPopulationFrame;
 import pi.data.importer.signal.ImportController;
+import pi.data.importer.signal.ImportPanel;
 import pi.data.importer.signal.ImporterView;
 import pi.shared.SharedController;
 
@@ -42,7 +44,7 @@ public class ChooseProjectController implements ActionListener{
 				
 				ImporterView importerView = new ImporterView();
 				ImportController controller = new ImportController(importerView);
-				importerView.setBounds(400, 200, 350, 200);
+				importerView.setBounds(400, 200, 400, 200);
 				
 			}
 			

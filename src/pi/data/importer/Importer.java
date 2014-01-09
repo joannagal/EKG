@@ -48,6 +48,22 @@ public class Importer {
 		return test;
 	}
 
+	public String getName() throws DocumentException {
+		String[] test = new String[4];
+		String xPath = "//patient";
+		List<?> nodes = document.selectNodes(xPath);
+		String name = null;
+
+		if (nodes.iterator().hasNext()) {
+			Node node = (Node) nodes.iterator().next();
+			test[0] = node.valueOf("@surname");
+			test[1] = node.valueOf("@firstName");
+		}
+		
+		name = test[0] + " " + test[1];
+		return name;
+	}
+	
 	public Specimen importSpecimen() throws DocumentException {
 		Specimen spec = new Specimen();
 		

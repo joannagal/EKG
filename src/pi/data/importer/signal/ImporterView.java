@@ -32,7 +32,7 @@ public class ImporterView extends JDialog{
 		constraints = new GridBagConstraints();
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 
-		this.setTitle("Choose file...");
+		this.setTitle("Choose specimen...");
 		this.setVisible(true);
 		
 		setImportPanels(new ImportPanel[2]);
@@ -40,21 +40,22 @@ public class ImporterView extends JDialog{
 		constraints.gridx = 0;
 		constraints.gridy = 0;
 		constraints.gridwidth = 1;
-		this.getImportPanels()[0] = new ImportPanel();
+		this.getImportPanels()[0] = new ImportPanel(this);
 		this.add(getImportPanels()[0], constraints);
 		
 		buttonPanel = new JPanel();
 		buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 		buttonPanel.setVisible(true);
 		
-		nextButton = new JButton("NEXT");
-		nextButton.setVisible(true);
+		setNextButton(new JButton("NEXT"));
+		getNextButton().setVisible(true);
+		getNextButton().setEnabled(false);
 		
 		backButton = new JButton("BACK");
 		backButton.setVisible(true);
 		
 		buttonPanel.add(backButton);
-		buttonPanel.add(nextButton);
+		buttonPanel.add(getNextButton());
 			
 		if (SharedController.getInstance().getProject().getType() == 1){
 			
@@ -69,7 +70,7 @@ public class ImporterView extends JDialog{
 			constraints.gridx = 0;
 			constraints.gridy = 1;
 			constraints.gridwidth = 1;
-			this.getImportPanels()[1] = new ImportPanel();
+			this.getImportPanels()[1] = new ImportPanel(this);
 			this.add(getImportPanels()[1], constraints);
 			
 
@@ -80,7 +81,7 @@ public class ImporterView extends JDialog{
 						
 		}
 		
-		buttons = new JButton[]{nextButton};
+		buttons = new JButton[]{getNextButton()};
 		
 		this.pack();
 		this.setAlwaysOnTop(true);
@@ -113,8 +114,35 @@ public class ImporterView extends JDialog{
 		return this.importPanels[tmp].toString();
 	}
 	
+	public ImportPanel getSingleImportPanel(int tmp){	
+		return importPanels[tmp];
+	}
+	
 	public String getPath(int tmp){
 		return this.importPanels[tmp].getPath();
+	}
+
+	public JButton getNextButton() {
+		return nextButton;
+	}
+
+	public void setNextButton(JButton nextButton) {
+		this.nextButton = nextButton;
+	}
+	
+	public boolean checkPaths(){
+
+		boolean temp = false;	
+		
+		try {
+			if (this.getSingleImportPanel(0).getPath().toString() != null 
+					&& this.getSingleImportPanel(1).getPath().toString() != null){
+				temp = true;
+			}
+		}
+		catch (NullPointerException npe) {temp = false;}
+		
+		return temp;
 	}
 
 
