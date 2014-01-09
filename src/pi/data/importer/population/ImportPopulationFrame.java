@@ -41,7 +41,7 @@ public class ImportPopulationFrame extends JFrame{
 		
 		nextButton = new JButton("NEXT");
 		nextButton.setVisible(true);
-		nextButton.setEnabled(false);
+		//nextButton.setEnabled(false);
 		nextButton.setBounds(1000, 675, 100, 30 );
 				
 		this.add(getImport1());
