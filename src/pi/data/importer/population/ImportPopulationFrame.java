@@ -41,6 +41,7 @@ public class ImportPopulationFrame extends JFrame{
 		
 		nextButton = new JButton("NEXT");
 		nextButton.setVisible(true);
+		nextButton.setEnabled(false);
 		nextButton.setBounds(1000, 675, 100, 30 );
 				
 		this.add(getImport1());
@@ -74,4 +75,16 @@ public class ImportPopulationFrame extends JFrame{
 		this.import2 = import2;
 	}			
 	
+	private boolean checkIfEmpty(){
+		
+		boolean temp = false;
+		
+		if (this.getImport1().getList().isEmpty() == true || this.getImport1().getList().isEmpty() == true){
+			return true;
+		}
+		else
+			return false;
+	}
+	
+		
 }

@@ -41,15 +41,15 @@ public class ImportPopulationController implements ActionListener {
 						
 					population = new Population();
 				
-					int length1 = getFrame().getImport1().list.size();
+					int length1 = getFrame().getImport1().getList().size();
 					specimens = new ArrayList<Specimen>();
 					
 					for (int i = 0; i < length1; i++){
 						
 						try {
-							setImporter(new Importer(getFrame().getImport1().list.get(i).getString()));
+							setImporter(new Importer(getFrame().getImport1().getList().get(i).getString()));
 							
-							String path = getFrame().getImport1().list.get(i).getString();
+							String path = getFrame().getImport1().getList().get(i).getString();
 							ArrayList<ECG> temp = importer.importSignals();
 						
 							specimen = new Specimen();
@@ -73,15 +73,15 @@ public class ImportPopulationController implements ActionListener {
 					
 					population2 = new Population();
 					
-					int length2 = getFrame().getImport2().list.size();
+					int length2 = getFrame().getImport2().getList().size();
 					specimens2 = new ArrayList<Specimen>();
 					
 					for (int i = 0; i < length2; i++){
 						
 						try {
-							setImporter(new Importer(getFrame().getImport2().list.get(i).getString()));
+							setImporter(new Importer(getFrame().getImport2().getList().get(i).getString()));
 							
-							String path = getFrame().getImport2().list.get(i).getString();
+							String path = getFrame().getImport2().getList().get(i).getString();
 							ArrayList<ECG> temp = importer.importSignals();
 						
 							specimen = new Specimen();
@@ -107,15 +107,15 @@ public class ImportPopulationController implements ActionListener {
 				
 				population = new Population();
 				
-				int length1 = getFrame().getImport1().list.size();
+				int length1 = getFrame().getImport1().getList().size();
 				specimens = new ArrayList<Specimen>();
 				
 				for (int i = 0; i < length1; i++){
 					
 					try {
-						setImporter(new Importer(getFrame().getImport1().list.get(i).getString()));
+						setImporter(new Importer(getFrame().getImport1().getList().get(i).getString()));
 						
-						String path = getFrame().getImport1().list.get(i).getString();
+						String path = getFrame().getImport1().getList().get(i).getString();
 						ArrayList<ECG> temp = importer.importSignals();
 					
 						specimen = new Specimen();
@@ -138,9 +138,9 @@ public class ImportPopulationController implements ActionListener {
 				for (int i = 0; i < length1; i++){
 					
 					try {
-						setImporter(new Importer(getFrame().getImport2().list.get(i).getString()));
+						setImporter(new Importer(getFrame().getImport2().getList().get(i).getString()));
 						
-						String pathAfter = getFrame().getImport2().list.get(i).getString();
+						String pathAfter = getFrame().getImport2().getList().get(i).getString();
 						ArrayList<ECG> temp = importer.importSignals();
 					
 						Specimen specimen = getPopulation().getSpecimen().get(i);
