@@ -101,6 +101,7 @@ public class SharedController {
 
 	// SHARED PULSE
 	private double pulse;
+	private boolean isFirstPopulationSet;
 
 	public void updateProgressBar() {
 		if (this.progressBar != null) {
@@ -392,6 +393,14 @@ public class SharedController {
 
 	public void setProjectRes(ProjectResult projectRes) {
 	    this.projectRes = projectRes;
+	}
+
+	public boolean isFirstPopulationSet() {
+		return isFirstPopulationSet;
+	}
+
+	public void setFirstPopulationSet(boolean isFirstPopulationSet) {
+		this.isFirstPopulationSet = isFirstPopulationSet;
 	}
 
 }
