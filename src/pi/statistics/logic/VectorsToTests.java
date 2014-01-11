@@ -73,11 +73,13 @@ public class VectorsToTests {
 	return vectors;
     }
 
+    //TODO do poprawki
     public void addVector(String name, String waveName, String statName,
 	    double value) {
 	if (vectors.containsKey(name) == false) {
 	    waves = new HashMap<String, Map<String, Vector<Double>>>();
 	    addWave(waveName, statName, value);
+	    vectors.put(name, waves);
 	} else {
 	    if (vectors.get(name).get(waveName) == null) {
 		addWave(waveName, statName, value);

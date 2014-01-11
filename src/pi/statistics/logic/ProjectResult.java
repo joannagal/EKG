@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Vector;
 
 import org.apache.commons.math3.stat.inference.MannWhitneyUTest;
-import org.apache.commons.math3.stat.inference.TestUtils;
+import org.apache.commons.math3.stat.inference.TTest;
 import org.apache.commons.math3.stat.inference.WilcoxonSignedRankTest;
 
 import pi.statistics.tests.LillieforsNormality;
@@ -16,12 +16,9 @@ public class ProjectResult {
     private Map<String, Double> testResult = new HashMap<String, Double>();
     private double alpha;
 
-
     public void summarize() { // TODO sprawdzic czy taki jest wlasciwy wniosek?
 	for (String name : testResult.keySet()) {
 	    System.out.println(name);
-	    System.out.println("alpha:");
-	    System.out.println(alpha);
 	    System.out.println("wynik:");
 	    System.out.println(testResult.get(name));
 
@@ -40,10 +37,73 @@ public class ProjectResult {
 	    // }
 	}
     }
-
-    public void perform4TypeTest() { // przed, po roznych populacji i
+    public void performUnpairedTest(){
+	beforeUnpaired();
+    }
+    
+    public void performDifferencesTest() { // przed, po roznych populacji i
 				     // roznice po-przed
+	
 	// ROZNICE PRZED
+	beforeUnpaired();
+
+	// ROZNICE PO
+	afterUnpaired();
+
+	// ROZNICA po - przed
+	afterBeforeDeffierences();
+    }
+
+    public void performPairedTest(int populNo) { // zalezne, roznice miedzy przed
+						// i po dla tej samej populacji
+	PopulationResult popResult = null;
+	if (populNo == 1) {
+	    popResult = popul1Result;
+	} else if (populNo == 2)
+	    popResult = popul2Result;
+
+	for (String channelName : popResult.getVectorsBefore().keySet()) {
+	    for (String waveName : popResult.getVectorsBefore()
+		    .get(channelName).keySet()) {
+		for (String statName : popResult.getVectorsBefore()
+			.get(channelName).get(waveName).keySet()) {
+		    if (popResult.getVectorsAfter().get(channelName)
+			    .get(waveName).get(statName) != null) {
+			Vector<Double> vector1 = popResult.getVectorsBefore()
+				.get(channelName).get(waveName).get(statName);
+			double[] ar1 = new double[vector1.size()];
+			for (int i = 0; i < vector1.size(); i++) {
+			    ar1[i] = vector1.get(i);
+			}
+			Vector<Double> vector2 = popResult.getVectorsAfter()
+				.get(channelName).get(waveName).get(statName);
+			double[] ar2 = new double[vector2.size()];
+			for (int i = 0; i < vector2.size(); i++) {
+			    ar2[i] = vector2.get(i);
+			}
+			LillieforsNormality.compute(ar1, 5, false);
+			boolean normal = LillieforsNormality
+				.isTrueForAlpha(0.05);
+			if (normal == true) {
+			    LillieforsNormality.compute(ar2, 5, false);
+			    normal = LillieforsNormality.isTrueForAlpha(0.05);
+			}
+			if (normal == true) {
+			    tStudentPairedTest("3rd type" + populNo + " "
+				    + channelName + " " + waveName, statName,
+				    ar1, ar2);
+			} else {
+			    wilcoxonTest("3rd type" + populNo + " "
+				    + channelName + " " + waveName, statName,
+				    ar1, ar2);
+			}
+		    }
+		}
+	    }
+	}
+    }
+    
+    public void beforeUnpaired(){
 	for (String channelName : popul1Result.getVectorsBefore().keySet()) {
 	    for (String waveName : popul1Result.getVectorsBefore()
 		    .get(channelName).keySet()) {
@@ -65,27 +125,29 @@ public class ProjectResult {
 			for (int i = 0; i < vector2.size(); i++) {
 			    ar2[i] = vector2.get(i);
 			}
-			LillieforsNormality.compute( ar1, 5);
-			if (LillieforsNormality.isTrueForAlpha(0.05) == true) {
-			    LillieforsNormality.compute( ar2, 5);
-			if (LillieforsNormality.isTrueForAlpha(0.05) == true) {
-			   tStudentUnpairedTest(waveName + " before",
-				    statName, ar1, ar2);
-			} else {
-			    mannWhitneyUTest(waveName + " before", statName,
-				    ar1, ar2);
+
+			LillieforsNormality.compute(ar1, 5, false);
+			boolean normal = LillieforsNormality
+				.isTrueForAlpha(0.05);
+			if (normal == true) {
+			    LillieforsNormality.compute(ar2, 5, false);
+			    normal = LillieforsNormality.isTrueForAlpha(0.05);
 			}
+			if (normal == true) {
+			    tStudentUnpairedTest("before " + channelName + " "
+				    + waveName, statName, ar1, ar2);
 			} else {
-			    mannWhitneyUTest(waveName + " before", statName,
-				    ar1, ar2);
+			    mannWhitneyUTest("before " + channelName + " "
+				    + waveName, statName, ar1, ar2);
 			}
-			
+
 		    }
 		}
 	    }
 	}
-
-	// ROZNICE PO
+    }
+    
+    public void afterUnpaired(){
 	for (String channelName : popul1Result.getVectorsAfter().keySet()) {
 	    for (String waveName : popul1Result.getVectorsAfter()
 		    .get(channelName).keySet()) {
@@ -105,28 +167,29 @@ public class ProjectResult {
 			for (int i = 0; i < vector2.size(); i++) {
 			    ar2[i] = vector2.get(i);
 			}
-			LillieforsNormality.compute( ar1, 5);
-			if (LillieforsNormality.isTrueForAlpha(0.05) == true) {
-			    LillieforsNormality.compute( ar2, 5);
-			if (LillieforsNormality.isTrueForAlpha(0.05) == true) {
 
-			    tStudentUnpairedTest(waveName + " after",
-				    statName, ar1, ar2);
-			} else {
-			    mannWhitneyUTest(waveName + " after", statName,
-				    ar1, ar2);
+			LillieforsNormality.compute(ar1, 5, false);
+			boolean normal = LillieforsNormality
+				.isTrueForAlpha(0.05);
+			if (normal == true) {
+			    LillieforsNormality.compute(ar2, 5, false);
+			    normal = LillieforsNormality.isTrueForAlpha(0.05);
 			}
+			if (normal == true) {
+			    tStudentUnpairedTest("after " + channelName + " "
+				    + waveName, statName, ar1, ar2);
 			} else {
-			    mannWhitneyUTest(waveName + " after", statName,
-				    ar1, ar2);
+			    mannWhitneyUTest("after " + channelName + " "
+				    + waveName, statName, ar1, ar2);
 			}
-			
+
 		    }
 		}
 	    }
 	}
-
-	// ROZNICA po - przed
+    }
+    
+    public void afterBeforeDeffierences() {
 	for (String channelName : popul1Result.getVectorsBefore().keySet()) {
 	    for (String waveName : popul1Result.getVectorsBefore()
 		    .get(channelName).keySet()) {
@@ -169,23 +232,26 @@ public class ProjectResult {
 					    ar2[i] = vector2P2.get(i)
 						    - vector1P2.get(i);
 					}
-
-					LillieforsNormality.compute( ar1, 5);
-					if (LillieforsNormality.isTrueForAlpha(0.05) == true) {
-					    LillieforsNormality.compute( ar2, 5);
-					if (LillieforsNormality.isTrueForAlpha(0.05) == true) {
+					LillieforsNormality.compute(ar1, 5,
+						false);
+					boolean normal = LillieforsNormality
+						.isTrueForAlpha(0.05);
+					if (normal == true) {
+					    LillieforsNormality.compute(ar2, 5,
+						    false);
+					    normal = LillieforsNormality
+						    .isTrueForAlpha(0.05);
+					}
+					if (normal == true) {
 					    tStudentPairedTest("po-przed "
+						    + channelName + " "
 						    + waveName, statName, ar1,
 						    ar2);
 					} else {
-					    wilcoxonTest(
-						    "po-przed " + waveName,
-						    statName, ar1, ar2);
-					}
-					}  else {
-					    wilcoxonTest(
-						    "po-przed " + waveName,
-						    statName, ar1, ar2);
+					    wilcoxonTest("po-przed "
+						    + channelName + " "
+						    + waveName, statName, ar1,
+						    ar2);
 					}
 				    }
 				}
@@ -197,126 +263,41 @@ public class ProjectResult {
 	}
     }
 
-    public void perform3TypeTest(int populNo) { // zalezne, roznice miedzy przed
-						// i po dla tej samej populacji
-	if (populNo == 1) {
-	    for (String channelName : popul1Result.getVectorsBefore().keySet()) {
-		for (String waveName : popul1Result.getVectorsBefore()
-			.get(channelName).keySet()) {
-		    for (String statName : popul1Result.getVectorsBefore()
-			    .get(channelName).get(waveName).keySet()) {
-			if (popul1Result.getVectorsAfter().get(channelName)
-				.get(waveName).get(statName) != null) {
-			    Vector<Double> vector1 = popul1Result
-				    .getVectorsBefore().get(channelName)
-				    .get(waveName).get(statName);
-			    double[] ar1 = new double[vector1.size()];
-			    for (int i = 0; i < vector1.size(); i++) {
-				ar1[i] = vector1.get(i);
-			    }
-			    Vector<Double> vector2 = popul1Result
-				    .getVectorsAfter().get(channelName)
-				    .get(waveName).get(statName);
-			    double[] ar2 = new double[vector2.size()];
-			    for (int i = 0; i < vector2.size(); i++) {
-				ar2[i] = vector2.get(i);
-			    }
-				LillieforsNormality.compute( ar1, 5);
-				if (LillieforsNormality.isTrueForAlpha(0.05) == true) {
-				    LillieforsNormality.compute( ar2, 5);
-				if (LillieforsNormality.isTrueForAlpha(0.05) == true) {
-				    tStudentPairedTest("pop1 "
-					    + waveName, statName, ar1,
-					    ar2);
-				} else {
-				    wilcoxonTest(
-					    "pop1 " + waveName,
-					    statName, ar1, ar2);
-				}
-				}  else {
-				    wilcoxonTest(
-					    "pop1 " + waveName,
-					    statName, ar1, ar2);
-				}
-			}
-		    }
-		}
-	    }
-
-	} else if (populNo == 2) {
-	    for (String channelName : popul2Result.getVectorsBefore().keySet()) {
-		for (String waveName : popul2Result.getVectorsBefore()
-			.get(channelName).keySet()) {
-		    for (String statName : popul2Result.getVectorsBefore()
-			    .get(channelName).get(waveName).keySet()) {
-			if (popul2Result.getVectorsAfter().get(channelName)
-				.get(waveName).get(statName) != null) {
-			    Vector<Double> vector1 = popul2Result
-				    .getVectorsBefore().get(channelName)
-				    .get(waveName).get(statName);
-			    double[] ar1 = new double[vector1.size()];
-			    for (int i = 0; i < vector1.size(); i++) {
-				ar1[i] = vector1.get(i);
-			    }
-			    Vector<Double> vector2 = popul2Result
-				    .getVectorsAfter().get(channelName)
-				    .get(waveName).get(statName);
-			    double[] ar2 = new double[vector2.size()];
-			    for (int i = 0; i < vector2.size(); i++) {
-				ar2[i] = vector2.get(i);
-			    }
-				LillieforsNormality.compute( ar1, 5);
-				if (LillieforsNormality.isTrueForAlpha(0.05) == true) {
-				    LillieforsNormality.compute( ar2, 5);
-				if (LillieforsNormality.isTrueForAlpha(0.05) == true) {
-				    tStudentPairedTest("pop2 "
-					    + waveName, statName, ar1,
-					    ar2);
-				} else {
-				    wilcoxonTest(
-					    "pop2 " + waveName,
-					    statName, ar1, ar2);
-				}
-				}  else {
-				    wilcoxonTest(
-					    "pop2 " + waveName,
-					    statName, ar1, ar2);
-				}
-			}
-		    }
-		}
-	    }
-	}
-    }
-
     public void tStudentPairedTest(String waveName, String statName,
 	    double[] ar1, double[] ar2) { // t Student dla zaleznych
-	addTestResult(waveName + " " + statName,
-		TestUtils.pairedTTest(ar1, ar2));
+	TTest test = new TTest();
+	double pval = 0.0d;
+	pval = test.pairedTTest(ar1, ar2);
+	addTestResult(waveName + " " + statName, pval);
     }
 
     public void tStudentUnpairedTest(String waveName, String statName,
 	    double[] ar1, double[] ar2) { // t Student dla niezaleznych
-	addTestResult(waveName + " " + statName, TestUtils.tTest(ar1, ar2));
+	TTest test = new TTest();
+	double pval = 0.0d;
+	pval = test.tTest(ar1, ar2);
+	addTestResult(waveName + " " + statName, pval);
     }
 
     public void wilcoxonTest(String waveName, String statName, double[] ar1,
 	    double[] ar2) { // zalezne
 	WilcoxonSignedRankTest wilcoxTest = new WilcoxonSignedRankTest();
+	double pval = 0.0d;
 	if (ar1.length <= 30 && ar2.length <= 30) {
-	    addTestResult(waveName + " " + statName,
-		    wilcoxTest.wilcoxonSignedRankTest(ar1, ar2, true));
+	    pval = wilcoxTest.wilcoxonSignedRankTest(ar1, ar2, true);
+	    addTestResult(waveName + " " + statName, pval);
 	} else {
-	    addTestResult(waveName + " " + statName,
-		    wilcoxTest.wilcoxonSignedRankTest(ar1, ar2, false));
+	    pval = wilcoxTest.wilcoxonSignedRankTest(ar1, ar2, false);
+	    addTestResult(waveName + " " + statName, pval);
 	}
     }
 
     public void mannWhitneyUTest(String waveName, String statName,
 	    double[] ar1, double[] ar2) { // niezalezne
 	MannWhitneyUTest mannWhitneyUTest = new MannWhitneyUTest();
-	addTestResult(waveName + " " + statName,
-		mannWhitneyUTest.mannWhitneyUTest(ar1, ar2));
+	double pval = 0.0d;
+	pval = mannWhitneyUTest.mannWhitneyUTest(ar1, ar2);
+	addTestResult(waveName + " " + statName, pval);
     }
 
     public PopulationResult getPopul1() {

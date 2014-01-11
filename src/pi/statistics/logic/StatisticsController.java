@@ -83,7 +83,6 @@ public class StatisticsController {
 	    WavesResult result = new WavesResult();
 	    
 	    for (DurationResult dur : atrResult.getValue()) {
-		System.out.println("obliczanie statystyk");
 		Collector collector = new Collector();
 		for (String name : dur.getValue().keySet()) {
 		    StatisticResult statResult = new StatisticResult();
@@ -104,11 +103,15 @@ public class StatisticsController {
 			}
 		    }
 		    if (name.equals("RR_interval")) {
-			pulse = 1 / statResult.getValue().get("Average")
+			if (statResult.getValue().get("Average") != null) {
+			double avg = statResult.getValue().get("Average")
 				.doubleValue();
+			
+			pulse = 1 / avg;
 
 			statResult.addValue("Pulse(s)", pulse);
 			statResult.addValue("Pulse(min)",pulse*60);
+			}
 		    }
 		    // PULS I KOREKCJA
 		    if (name.equals("qtInterval")) {
@@ -117,23 +120,25 @@ public class StatisticsController {
 			double QTcR = 0;
 
 			// PODEJSCIE Z POROWNYWANIEM SREDNICH
-			QTcB = statResult.getValue().get("Average").doubleValue()
-				/ (Math.sqrt(result.getWavesResult()
+			if (result.getWavesResult()
 					.get("RR_interval").getValue()
-					.get("Average").doubleValue()));
+					.get("Average") != null){
+			double avg = result.getWavesResult()
+				.get("RR_interval").getValue()
+				.get("Average").doubleValue();
+			
+			QTcB = statResult.getValue().get("Average").doubleValue()
+				/ (Math.sqrt(avg));
 
 			QTcF = statResult.getValue().get("Average")
 				.doubleValue()
-				/ (Math.pow(result.getWavesResult()
-					.get("RR_interval").getValue()
-					.get("Average").doubleValue(), 1/3));
+				/ (Math.pow(avg, 1/3));
 
 			QTcR = statResult.getValue().get("Average")
 				.doubleValue()
 				+ 0.154
-				* (1 - result.getWavesResult()
-					.get("RR_interval").getValue()
-					.get("Average").doubleValue());
+				* (1 - avg);
+			}
 
 			statResult.addValue("QTcB", QTcB);
 			statResult.addValue("QTcF", QTcF);
@@ -172,7 +177,6 @@ public class StatisticsController {
 			function.backToBegin();
 		    }
 		    
-		    statResult.printValues(name);
 		    result.addValue(name, statResult);
 
 		}
@@ -185,7 +189,6 @@ public class StatisticsController {
     }
 
     public PopulationResult countForPopulation(Population popul) {
-	System.out.println("count for population");
 	PopulationResult popResult = new PopulationResult();
 	SpecimenResult specResult = new SpecimenResult();
 	VectorsToTests vectorsBefore = new VectorsToTests();
@@ -195,25 +198,17 @@ public class StatisticsController {
 	if (specimenId == null) {
 	    for (Specimen man : popul.getSpecimen()) {
 		ECG before = man.getBefore();
-		System.out.println("pobrane before");
 		specResult.setBefore(count(before));
 		specResult.addToVectors(vectorsBefore, specResult.getBefore());
-		System.out.println("koniec before");
 		ECG after = man.getAfter();
-		System.out.println("pobrane after");
 		if (after != null) {
-		    System.out.println("count after");
 		    specResult.setAfter(count(after));
-		    System.out.println("porownywarka");
 		    specResult.compareResult();
-		    System.out.println("koniec porownan");
 		    specResult
 			    .addToVectors(vectorsAfter, specResult.getAfter());
 		}
-		System.out.println("Wektory przed:");
-		vectorsBefore.printVectors();
-		System.out.println("Wektory po:");
-		vectorsAfter.printVectors();
+		//vectorsBefore.printVectors();
+		//vectorsAfter.printVectors();
 		popResult.addResult(specResult);
 		man.setStatisticResults(specResult);
 	    }
@@ -221,26 +216,18 @@ public class StatisticsController {
 	    for (Specimen man : popul.getSpecimen()) {
 		if (man.getId() == specimenId) {
 		    ECG before = man.getBefore();
-		    System.out.println("pobrane before");
 		    specResult.setBefore(count(before));
 		    specResult.addToVectors(vectorsBefore,
 			    specResult.getBefore());
-		    System.out.println("koniec before");
 		    ECG after = man.getAfter();
-		    System.out.println("pobrane after");
 		    if (after != null) {
-			System.out.println("count after");
 			specResult.setAfter(count(after));
-			System.out.println("porownywarka");
 			specResult.compareResult();
-			System.out.println("koniec porownan");
 			specResult.addToVectors(vectorsAfter,
 				specResult.getAfter());
 		    }
-		    System.out.println("Wektory przed:");
-		    vectorsBefore.printVectors();
-		    System.out.println("Wektory po:");
-		    vectorsAfter.printVectors();
+		    //vectorsBefore.printVectors();
+		    //vectorsAfter.printVectors();
 		    popResult.addResult(specResult);
 		    man.setStatisticResults(specResult);
 		}
@@ -259,40 +246,35 @@ public class StatisticsController {
 	this.functions = functions;
 	this.wavesNames = wavesNames;
 	loadPopulation();
-	System.out.println("zaladowane populacje");
 	getFinalResult().setPopul1(countForPopulation(popul1));
-	if (SharedController.getInstance().getProject().getType() == 3) {
-	    System.out.println("niezalezne (3)");
-	    getFinalResult().perform3TypeTest(1);
-	}
-	System.out.println("koniec populacji 1");
+//	if (SharedController.getInstance().getProject().getType() == 3) {
+//	    System.out.println("niezalezne (3)");
+//	    getFinalResult().performUnpairedTest();
+//	}
 	if (popul2 != null) {
 	    getFinalResult().setPopul2(countForPopulation(popul2));
-	    // TODO SPRAWDZIC TESTY!!
 	    if (SharedController.getInstance().getProject().getType() == 3) {
 		System.out.println("niezalezne (3)");
-		getFinalResult().perform3TypeTest(2);
+		getFinalResult().performUnpairedTest();
 	    } else if (SharedController.getInstance().getProject().getType() == 4) {
 		System.out.println("zalezne (4)");
-		getFinalResult().perform3TypeTest(1);
-		getFinalResult().perform3TypeTest(2);
-		getFinalResult().perform4TypeTest();
+		getFinalResult().performPairedTest(1);
+		getFinalResult().performPairedTest(2);
+		getFinalResult().performDifferencesTest();
 	    }
-	    getFinalResult().summarize();
-	    System.out.println("koniec populacji2");
 	}
+	getFinalResult().summarize();
 	SharedController.getInstance().setProjectRes(getFinalResult());
-	System.out.println("raport");
 	// TODO generowanie raportu koñcowego
-	try {
-		ReportManager rm = new ReportManager();
-		//rm.viewRaport();
-		rm.saveRaportAsPdf(null);
-		rm.saveReportAsHtml(null);
-	} catch (JRException e) {
-		System.out.println("Report exception");
-		e.printStackTrace();
-	}
+//	try {
+//		ReportManager rm = new ReportManager();
+//		//rm.viewRaport();
+//		rm.saveRaportAsPdf(null);
+//		rm.saveReportAsHtml(null);
+//	} catch (JRException e) {
+//		System.out.println("Report exception");
+//		e.printStackTrace();
+//	}
     }
 
     public Population getPopul1() {
