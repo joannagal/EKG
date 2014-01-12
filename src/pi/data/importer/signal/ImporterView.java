@@ -81,6 +81,14 @@ public class ImporterView extends JDialog{
 						
 		}
 		
+		TestPanel test = new TestPanel();
+		constraints.gridx = 0;
+		constraints.gridy = 3;
+		constraints.gridwidth = 1;
+		this.add(test, constraints);
+		
+		
+		
 		buttons = new JButton[]{getNextButton()};
 		
 		this.pack();

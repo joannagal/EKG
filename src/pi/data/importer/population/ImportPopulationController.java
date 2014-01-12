@@ -4,6 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
+import javax.swing.border.TitledBorder;
+
 import org.apache.commons.math3.stat.correlation.SpearmansCorrelation;
 import org.dom4j.DocumentException;
 
@@ -169,7 +172,14 @@ public class ImportPopulationController implements ActionListener {
 					ImportPopulationController controller = new ImportPopulationController(
 							importFrame);
 
+					TitledBorder title = BorderFactory.createTitledBorder("POPULATION 2 - BEFORE");
+					importFrame.getImport1().setBorder(title);
+					title =  BorderFactory.createTitledBorder("POPULATION 2 - AFTER");
+					importFrame.getImport2().setBorder(title);
+
 				}
+			}
+
 
 				if (SharedController.getInstance().getProject().getType() == 3) {
 
@@ -203,8 +213,12 @@ public class ImportPopulationController implements ActionListener {
 					population.setSpecimen(specimens);
 					SharedController.getInstance().getProject()
 							.setFirstPopulation(population);
-					GraphView view = new GraphView(this.population, 1);
+
+					
 					SharedController.getInstance().createProjectToolbar();
+					GraphView view = new GraphView(SharedController.getInstance().getProject().getFirstPopulation(), 1);
+					
+
 
 					for (int i = 0; i < length1; i++) {
 
@@ -225,17 +239,17 @@ public class ImportPopulationController implements ActionListener {
 							e1.printStackTrace();
 						}
 					}
-					SharedController.getInstance().createProjectToolbar();
-					GraphView view2 = new GraphView(this.population, 2);
 
-		
+					
+					GraphView view2 = new GraphView(SharedController.getInstance().getProject().getFirstPopulation(), 2);
+	
 				}
 
 			}
 
 			getFrame().setVisible(false);
 		}
-	}
+	
 
 	private Importer getImporter() {
 		return importer;

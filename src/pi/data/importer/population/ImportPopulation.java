@@ -99,8 +99,7 @@ public class ImportPopulation extends JPanel {
 					list.add(test);
 					
 	        		SharedController.getInstance().setLastDirectory(fileChooser.getSelectedFile());
-	        		
-		        	
+		        		
 	        	}
 	        	
 	        	getParent().validate();
@@ -124,7 +123,6 @@ public class ImportPopulation extends JPanel {
 		this.revalidate();
 		this.repaint();
 	}
-
 
 
 	public int getGridy() {
@@ -196,14 +194,5 @@ public class ImportPopulation extends JPanel {
 	 public ImportPopulation getContext(){
 		 return this;
 	 }
-	 
-	public ArrayList<SingleFile> getList() {
-		return list;
-	}
-
-
-	public void setList(ArrayList<SingleFile> list) {
-		this.list = list;
-	}
 	
 }

@@ -41,6 +41,8 @@ public class GraphToolbar extends JPanel {
 	private JComboBox comboBoxChannel;
 	private JComboBox comboBoxSpecimen;
 	private JButton comboBoxButton;
+	private JComboBox comboBoxTreatment;
+	
 
 	private JButton[] buttonArray;
 	private String[] itemEvent = new String[] { "INFO", "AUTOFINDER", "ADD",
@@ -53,6 +55,7 @@ public class GraphToolbar extends JPanel {
 		this.setGraphView(view);
 		this.setGraph(graph);
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
+
 		this.setSize(new Dimension(1300, 100));
 		this.setBorder(BorderFactory.createTitledBorder("Settings"));
 		this.setVisible(true);
@@ -86,6 +89,12 @@ public class GraphToolbar extends JPanel {
 		comboBoxSpecimen.setVisible(true);
 		initComboBoxSpecimen();
 
+		if (SharedController.getInstance().getProject().getType() == 4){
+			comboBoxTreatment = new JComboBox();
+			comboBoxTreatment.setVisible(true);
+			initComboBoxTreatmenr();			
+		}
+		
 		comboBoxButton = new JButton("Change");
 		comboBoxButton.addActionListener(new ActionListener() {
 
@@ -167,6 +176,9 @@ public class GraphToolbar extends JPanel {
 
 		changeChannelPanel.add(comboBoxSpecimen);
 		changeChannelPanel.add(comboBoxChannel);
+		if (SharedController.getInstance().getProject().getType() == 4){
+			changeChannelPanel.add(comboBoxTreatment);
+		}
 		changeChannelPanel.add(comboBoxButton);
 
 		buttonArray = new JButton[] { informationButton, autofinderButton,
@@ -351,6 +363,12 @@ public class GraphToolbar extends JPanel {
 		}
 	}
 
+	public void initComboBoxTreatmenr(){
+		comboBoxTreatment.addItem("BEFORE");
+		comboBoxTreatment.addItem("AFTER");
+
+	}
+	
 	private Graph getGraph() {
 		return graph;
 	}

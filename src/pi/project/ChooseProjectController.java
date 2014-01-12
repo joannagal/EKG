@@ -3,6 +3,9 @@ package pi.project;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
+import javax.swing.border.TitledBorder;
+
 import pi.data.importer.Importer;
 import pi.data.importer.population.ImportPopulation;
 import pi.data.importer.population.ImportPopulationController;
@@ -71,6 +74,10 @@ public class ChooseProjectController implements ActionListener{
 				
 				ImportPopulationFrame importFrame = new ImportPopulationFrame();
 				ImportPopulationController controller = new ImportPopulationController(importFrame);
+				TitledBorder title = BorderFactory.createTitledBorder("POPULATION");
+				importFrame.getImport1().setBorder(title);
+				title =  BorderFactory.createTitledBorder("POPULATION 2");
+				importFrame.getImport2().setBorder(title);
 			}
 			if (selected.equals("POPULATION_DIFFERENCE")){
 				view.setVisible(false);
@@ -81,6 +88,10 @@ public class ChooseProjectController implements ActionListener{
 				
 				ImportPopulationFrame importFrame = new ImportPopulationFrame();
 				ImportPopulationController controller = new ImportPopulationController(importFrame);
+				TitledBorder title = BorderFactory.createTitledBorder("POPULATION 1 - BEFORE");
+				importFrame.getImport1().setBorder(title);
+				title =  BorderFactory.createTitledBorder("POPULATION 1 - AFTER");
+				importFrame.getImport2().setBorder(title);
 			}
 		}
 

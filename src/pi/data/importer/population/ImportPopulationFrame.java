@@ -17,6 +17,8 @@ public class ImportPopulationFrame extends JFrame{
 	private JButton nextButton;
 	private JButton[] buttons;
 	private String[] buttonsEvent = new String[]{"NEXT"};
+	private TitledBorder title1;
+	private TitledBorder title2;
 	
 	
 	public ImportPopulationFrame(){
@@ -27,21 +29,19 @@ public class ImportPopulationFrame extends JFrame{
 		
 		setImport1(new ImportPopulation(this));
 		getImport1().setBounds(50,50, 500, 600);
-		TitledBorder title;
-		title = BorderFactory.createTitledBorder("POPULATION 1");
-		getImport1().setBorder(title);
+		//title1 = BorderFactory.createTitledBorder("POPULATION 1");
+		//getImport1().setBorder(title1);
 		getImport1().setVisible(true);
 		
 		
 		setImport2(new ImportPopulation(this));
-		title = BorderFactory.createTitledBorder("POPULATION 2");
-		getImport2().setBorder(title);
+		//title2 = BorderFactory.createTitledBorder("POPULATION 2");
+		//getImport2().setBorder(title2);
 		getImport2().setBounds(600,50, 500, 600);
 		getImport2().setVisible(true);
 		
 		nextButton = new JButton("NEXT");
 		nextButton.setVisible(true);
-		//nextButton.setEnabled(false);
 		nextButton.setBounds(1000, 675, 100, 30 );
 				
 		this.add(getImport1());
@@ -75,16 +75,11 @@ public class ImportPopulationFrame extends JFrame{
 		this.import2 = import2;
 	}			
 	
-	private boolean checkIfEmpty(){
-		
-		boolean temp = false;
-		
-		if (this.getImport1().getList().isEmpty() == true || this.getImport1().getList().isEmpty() == true){
-			return true;
+	public void setTitleBorder(String string, int number){
+		if (number == 1){
+			this.title1 = BorderFactory.createTitledBorder(string);
+		} else {
+			this.title2 = BorderFactory.createTitledBorder(string);
 		}
-		else
-			return false;
 	}
-	
-		
 }
