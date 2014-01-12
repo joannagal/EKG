@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-
 import org.apache.commons.math3.stat.correlation.SpearmansCorrelation;
 import org.dom4j.DocumentException;
 
@@ -25,141 +24,214 @@ public class ImportPopulationController implements ActionListener {
 	private Population population2;
 	private Importer importer;
 	private Specimen specimen;
-	
-	public ImportPopulationController(ImportPopulationFrame frame){
+
+	public ImportPopulationController(ImportPopulationFrame frame) {
 		this.setFrame(frame);
 		frame.setButtonListener(this);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String action = e.getActionCommand();	
-		
-		if (action.equals("NEXT")){
+		String action = e.getActionCommand();
 
-			if (SharedController.getInstance().getProject().getType() == 4){
-						
-					population = new Population();
-				
-					int length1 = getFrame().getImport1().getList().size();
-					specimens = new ArrayList<Specimen>();
-					
-					for (int i = 0; i < length1; i++){
-						
-						try {
-							setImporter(new Importer(getFrame().getImport1().getList().get(i).getString()));
-							
-							String path = getFrame().getImport1().getList().get(i).getString();
-							ArrayList<ECG> temp = importer.importSignals();
-						
-							specimen = new Specimen();
-							specimen.setBefore(temp.get(0));
-							specimen.setPath(path);
-							specimens.add(specimen);
-							specimen.setDetails(importer.getAttributes());
-						
-						} catch (DocumentException e1) {
-							e1.printStackTrace();
-						}		
-					}
-					
-					population.setSpecimen(specimens);
-					SharedController.getInstance().getProject().setFirstPopulation(population);
-					SharedController.getInstance().createProjectToolbar();
-					
-					GraphView view = new GraphView(this.population, 1);
-					
-					//second population
-					
+		if (action.equals("NEXT")) {
+
+			if (SharedController.getInstance().getProject().getType() == 4) {
+
+				// second population - before
+				if (SharedController.getInstance().isFirstPopulationSet() == true) {
 					population2 = new Population();
-					
-					int length2 = getFrame().getImport2().getList().size();
+
+					int length2 = getFrame().getImport1().list.size();
 					specimens2 = new ArrayList<Specimen>();
-					
-					for (int i = 0; i < length2; i++){
-						
+
+					for (int i = 0; i < length2; i++) {
+
 						try {
-							setImporter(new Importer(getFrame().getImport2().getList().get(i).getString()));
-							
-							String path = getFrame().getImport2().getList().get(i).getString();
+							setImporter(new Importer(
+									getFrame().getImport1().list.get(i)
+											.getString()));
+
+							String path = getFrame().getImport1().list.get(i)
+									.getString();
 							ArrayList<ECG> temp = importer.importSignals();
-						
+
 							specimen = new Specimen();
 							specimen.setBefore(temp.get(0));
 							specimen.setPath(path);
 							specimens2.add(specimen);
 							specimen.setDetails(importer.getAttributes());
-						
+
+						} catch (DocumentException e1) {
+
+							e1.printStackTrace();
+						}
+					}
+
+					population2.setSpecimen(specimens2);
+					SharedController.getInstance().getProject()
+							.setSecondPopulation(population2);
+					SharedController.getInstance().createProjectToolbar();
+
+					// GraphView view = new GraphView(this.population2, 1);
+					// second population - after
+
+					for (int i = 0; i < length2; i++) {
+
+						try {
+							setImporter(new Importer(
+									getFrame().getImport2().list.get(i)
+											.getString()));
+
+							String pathAfter = getFrame().getImport2().list
+									.get(i).getString();
+							ArrayList<ECG> temp = importer.importSignals();
+
+							Specimen specimen = SharedController.getInstance()
+									.getProject().getSecondPopulation()
+									.getSpecimen().get(i);
+							specimen.setAfter(temp.get(0));
+							specimen.setPathAfter(pathAfter);
 						} catch (DocumentException e1) {
 							e1.printStackTrace();
-						}		
+						}
 					}
 					
-					population2.setSpecimen(specimens2);
-					SharedController.getInstance().getProject().setSecondPopulation(population2);
-					SharedController.getInstance().createProjectToolbar();
-					
-					GraphView view2 = new GraphView(this.population2, 2);				
-					
-			}
-			
-			if (SharedController.getInstance().getProject().getType() == 3){
-				
-				population = new Population();
-				
-				int length1 = getFrame().getImport1().getList().size();
-				specimens = new ArrayList<Specimen>();
-				
-				for (int i = 0; i < length1; i++){
-					
-					try {
-						setImporter(new Importer(getFrame().getImport1().getList().get(i).getString()));
-						
-						String path = getFrame().getImport1().getList().get(i).getString();
-						ArrayList<ECG> temp = importer.importSignals();
-					
-						specimen = new Specimen();
-						specimen.setBefore(temp.get(0));
-						specimen.setPath(path);
-						specimens.add(specimen);
-						specimen.setDetails(importer.getAttributes());
-					
-					} catch (DocumentException e1) {
-						e1.printStackTrace();
-					}		
-				}
-				
-				population.setSpecimen(specimens);				
-				SharedController.getInstance().getProject().setFirstPopulation(population);
-				GraphView view = new GraphView(this.population, 1);
-				SharedController.getInstance().createProjectToolbar();
+					GraphView view = new GraphView(SharedController.getInstance().getProject().getFirstPopulation(), 1);
+					GraphView view2 = new GraphView(SharedController.getInstance().getProject().getSecondPopulation(), 2);
 
-				
-				for (int i = 0; i < length1; i++){
 					
-					try {
-						setImporter(new Importer(getFrame().getImport2().getList().get(i).getString()));
-						
-						String pathAfter = getFrame().getImport2().getList().get(i).getString();
-						ArrayList<ECG> temp = importer.importSignals();
-					
-						Specimen specimen = getPopulation().getSpecimen().get(i);
-						specimen.setAfter(temp.get(0));
-						specimen.setPathAfter(pathAfter);					
-					} catch (DocumentException e1) {
-						e1.printStackTrace();
-					}		
+
 				}
-				SharedController.getInstance().createProjectToolbar();
-				GraphView view2 = new GraphView(this.population, 2);				
-				
-				
+
+				else {
+					
+					SharedController.getInstance().setFirstPopulationSet(true);
+
+					population = new Population();
+
+					int length1 = getFrame().getImport1().list.size();
+					specimens = new ArrayList<Specimen>();
+
+					for (int i = 0; i < length1; i++) {
+
+						try {
+							setImporter(new Importer(
+									getFrame().getImport1().list.get(i)
+											.getString()));
+
+							String path = getFrame().getImport1().list.get(i)
+									.getString();
+							ArrayList<ECG> temp = importer.importSignals();
+
+							specimen = new Specimen();
+							specimen.setBefore(temp.get(0));
+							specimen.setPath(path);
+							specimens.add(specimen);
+							specimen.setDetails(importer.getAttributes());
+
+						} catch (DocumentException e1) {
+
+							e1.printStackTrace();
+						}
+					}
+
+					population.setSpecimen(specimens);
+					SharedController.getInstance().getProject()
+							.setFirstPopulation(population);
+
+					// GraphView view = new GraphView(this.population2, 1);
+
+					// second population - after
+
+					for (int i = 0; i < length1; i++) {
+
+						try {
+							setImporter(new Importer(
+									getFrame().getImport2().list.get(i)
+											.getString()));
+
+							String pathAfter = getFrame().getImport2().list
+									.get(i).getString();
+							ArrayList<ECG> temp = importer.importSignals();
+
+							Specimen specimen = SharedController.getInstance()
+									.getProject().getFirstPopulation()
+									.getSpecimen().get(i);
+							specimen.setAfter(temp.get(0));
+							specimen.setPathAfter(pathAfter);
+						} catch (DocumentException e1) {
+							e1.printStackTrace();
+						}
+					}
+					
+					ImportPopulationFrame importFrame = new ImportPopulationFrame();
+					ImportPopulationController controller = new ImportPopulationController(
+							importFrame);
+
+				}
+
+				if (SharedController.getInstance().getProject().getType() == 3) {
+
+					population = new Population();
+
+					int length1 = getFrame().getImport1().list.size();
+					specimens = new ArrayList<Specimen>();
+
+					for (int i = 0; i < length1; i++) {
+
+						try {
+							setImporter(new Importer(
+									getFrame().getImport1().list.get(i)
+											.getString()));
+
+							String path = getFrame().getImport1().list.get(i)
+									.getString();
+							ArrayList<ECG> temp = importer.importSignals();
+
+							specimen = new Specimen();
+							specimen.setBefore(temp.get(0));
+							specimen.setPath(path);
+							specimens.add(specimen);
+							specimen.setDetails(importer.getAttributes());
+
+						} catch (DocumentException e1) {
+							e1.printStackTrace();
+						}
+					}
+
+					population.setSpecimen(specimens);
+					SharedController.getInstance().getProject()
+							.setFirstPopulation(population);
+					GraphView view = new GraphView(this.population, 1);
+					SharedController.getInstance().createProjectToolbar();
+
+					for (int i = 0; i < length1; i++) {
+
+						try {
+							setImporter(new Importer(
+									getFrame().getImport2().list.get(i)
+											.getString()));
+
+							String pathAfter = getFrame().getImport2().list
+									.get(i).getString();
+							ArrayList<ECG> temp = importer.importSignals();
+
+							Specimen specimen = getPopulation().getSpecimen()
+									.get(i);
+							specimen.setAfter(temp.get(0));
+							specimen.setPathAfter(pathAfter);
+						} catch (DocumentException e1) {
+							e1.printStackTrace();
+						}
+					}
+					SharedController.getInstance().createProjectToolbar();
+					GraphView view2 = new GraphView(this.population, 2);
+
+		
+				}
+
 			}
-			
-			
-			System.out.println(this.getPopulation().getSpecimen().get(0).getPath());
-			System.out.println(this.getPopulation().getSpecimen().get(0).getPathAfter());
-			System.out.println(this.getPopulation().getSpecimen().get(0).getName());
 
 			getFrame().setVisible(false);
 		}
@@ -180,8 +252,7 @@ public class ImportPopulationController implements ActionListener {
 	private void setPopulation(Population population) {
 		this.population = population;
 	}
-	
-	
+
 	private ImportPopulationFrame getFrame() {
 		return frame;
 	}
@@ -189,8 +260,5 @@ public class ImportPopulationController implements ActionListener {
 	private void setFrame(ImportPopulationFrame frame) {
 		this.frame = frame;
 	}
-
-
-	
 
 }

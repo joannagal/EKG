@@ -203,7 +203,8 @@ public class GraphToolbar extends JPanel {
 								controller.getFirstPanelHeight()
 										+ controller.getFirstPanelY() + 40);
 					}
-					SharedController.getInstance().getFrame().pack();
+					
+					//SharedController.getInstance().getFrame().pack();
 				}
 
 				if (getGraphView().getType() == 2) {

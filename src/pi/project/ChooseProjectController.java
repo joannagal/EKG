@@ -35,6 +35,7 @@ public class ChooseProjectController implements ActionListener{
 		if (action.equals("NEXT")){
 			SharedController.getInstance().getFrame().getContent().removeAll();
 			String selected = view.findSelectedRadio();
+			SharedController.getInstance().setFirstPopulationSet(false);
 			if (selected.equals("SINGLE_SIGNAL")){
 				view.setVisible(false);
 				
