@@ -35,7 +35,7 @@ public class StatisticsComparatorView extends JFrame {
 
     private String specimanStr = "";
     private String channelStr = "I";
-    private String waveStr = "P_wave";
+    private String waveStr = "pWave";
 
     private JButton closeButton = new JButton("Close");
     private JButton saveButton = new JButton("Save");

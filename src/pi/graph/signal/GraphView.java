@@ -66,7 +66,7 @@ public class GraphView extends JPanel {
 					sharedController.getFirstPanelWidth(), sharedController.getFirstPanelHeight());
 
 			
-			if (projectType == 2 || projectType == 3){
+			if (projectType == 2){
 	
 				signal1 = this.getPopulation().getSpecimen().get(0).getAfter()
 					.getChannel().get(0);
@@ -75,6 +75,12 @@ public class GraphView extends JPanel {
 		
 				signal1 = this.getPopulation().getSpecimen().get(0).getBefore()
 						.getChannel().get(0);
+			}
+			else if (projectType == 3){
+
+				signal1 = this.getPopulation().getSpecimen().get(0).getBefore()
+						.getChannel().get(0);
+				
 			}
 			
 			sharedController.setSecondGraphView(this);
