@@ -3,7 +3,9 @@ package pi.shared;
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -12,6 +14,10 @@ import java.io.File;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
+
+import net.sf.jasperreports.engine.export.tabulator.SplitCell;
 
 import pi.data.importer.Importer;
 import pi.graph.signal.GraphView;
@@ -288,8 +294,36 @@ public class SharedController {
 	}
 
 	public void addPanel(JPanel panel) {
-		getFrame().getContent().add(panel);
-		panel.setVisible(true);
+		JScrollPane sp = new JScrollPane(panel);
+		panel.setPreferredSize(new Dimension(500,500));
+		
+		//panel.setVisible(true);
+		
+		if(getFrame().getContent().getComponentCount()>0){
+			Component temp =  getFrame().getContent().getComponent(0);
+			JSplitPane split = new JSplitPane(JSplitPane.VERTICAL_SPLIT, temp, sp);
+			getFrame().getContent().removeAll();
+			getFrame().getContent().add(split);
+			split.setDividerLocation(0.5);
+			split.setContinuousLayout(true);
+			split.setResizeWeight(0.5);
+			
+			
+			int width = sp.getWidth();
+			int height = split.getDividerLocation();
+			sp.setPreferredSize(new Dimension(5, 5));
+			
+		} else {
+			getFrame().getContent().add(sp);
+			
+			int width = sp.getWidth();
+			int height = panel.getHeight();
+			sp.setPreferredSize(new Dimension(5, 5));
+		}
+		
+		frame.setSize(800, 800);
+		
+		
 	}
 
 	public void packFrame() {
@@ -320,7 +354,7 @@ public class SharedController {
 		// tool.setBounds(10, 10, frame.getWidth()-40, 65);
 		SharedController.getInstance().getFrame().getContentPane()
 				.add(tool, BorderLayout.NORTH);
-		SharedController.getInstance().getFrame().pack();
+		//SharedController.getInstance().getFrame().pack();
 	}
 
 	public double getPulse() {

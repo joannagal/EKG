@@ -3,11 +3,12 @@ package pi.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JScrollPane;
+import javax.swing.JPanel;
 
 import pi.gui.menu.MenuController;
 import pi.gui.menu.MenuView;
@@ -17,22 +18,22 @@ public class OurFrame extends JFrame {
 
 	private MenuView menubar;
 	private MenuController menuController;
-	private JScrollPane content;
+	private JPanel content;
 
 	public OurFrame() {
 
 		this.setLocation(100, 0);
 		//this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		getContentPane().setLayout(new BorderLayout(5,5));
+		getContentPane().setLayout(new BorderLayout());
 				//new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
 
-		setContent(new JScrollPane());
-		//getContent().setBackground(Color.white);
-		getContent().setVisible(true);
-		//getContent().setLayout(new BoxLayout(getContent(), BoxLayout.PAGE_AXIS));
+		content = new JPanel();
+		content.setBackground(Color.white);
+		content.setVisible(true);
+		//content.setComponentOrientation()
+		content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
 		
-		JScrollPane scrollPane = new JScrollPane(getContent());
-		getContentPane().add(scrollPane, BorderLayout.CENTER);
+		getContentPane().add(content, BorderLayout.CENTER);
 		
 		SharedController.getInstance().setFrame(this);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -46,8 +47,36 @@ public class OurFrame extends JFrame {
 		// JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 		// JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		// this.setContentPane(pane);
-		// this.setSize(new Dimension(1140,1000));
-		this.setMinimumSize(new Dimension(1300, 1000));
+		this.setSize(new Dimension(800,800));
+		// this.setMinimumSize(new Dimension(1140, 1000));
+		
+		this.addComponentListener(new ComponentListener() {
+			
+			@Override
+			public void componentShown(ComponentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void componentResized(ComponentEvent e) {
+				// TODO Auto-generated method stub
+				content.revalidate();
+			}
+			
+			@Override
+			public void componentMoved(ComponentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void componentHidden(ComponentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+
 
 	}
 
@@ -67,11 +96,11 @@ public class OurFrame extends JFrame {
 		this.menuController = menuController;
 	}
 
-	public JScrollPane getContent() {
+	public JPanel getContent() {
 		return content;
 	}
 
-	public void setContent(JScrollPane content) {
+	public void setContent(JPanel content) {
 		this.content = content;
 	}
 }

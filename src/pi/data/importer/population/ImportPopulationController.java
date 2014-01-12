@@ -172,8 +172,9 @@ public class ImportPopulationController implements ActionListener {
 					ImportPopulationFrame importFrame = new ImportPopulationFrame();
 					ImportPopulationController controller = new ImportPopulationController(
 							importFrame);
-					TitledBorder title = BorderFactory
-							.createTitledBorder("POPULATION 2 - BEFORE");
+
+					TitledBorder title = BorderFactory.createTitledBorder("POPULATION 2 - BEFORE");
+
 					importFrame.getImport1().setBorder(title);
 					title = BorderFactory
 							.createTitledBorder("POPULATION 2 - AFTER");
@@ -181,6 +182,7 @@ public class ImportPopulationController implements ActionListener {
 
 				}
 			}
+
 
 			if (SharedController.getInstance().getProject().getType() == 3) {
 
@@ -210,9 +212,11 @@ public class ImportPopulationController implements ActionListener {
 					}
 				}
 
+
 				population.setSpecimen(specimens);
 				SharedController.getInstance().getProject()
 						.setFirstPopulation(population);
+
 
 				SharedController.getInstance().createProjectToolbar();
 				GraphView view = new GraphView(SharedController.getInstance()
@@ -244,6 +248,7 @@ public class ImportPopulationController implements ActionListener {
 
 						e1.printStackTrace();
 					}
+
 				}
 
 
