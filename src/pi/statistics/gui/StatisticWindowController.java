@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import pi.population.Specimen;
+import pi.project.Project;
 import pi.shared.SharedController;
 import pi.statistics.functions.*;
 import pi.statistics.logic.Function;
@@ -55,12 +56,15 @@ public class StatisticWindowController implements ActionListener {
 	    String specimen = window.comboBox.getItemAt(index);
 	    String id = null;
 	    String specimanStr = null;
-	    
+
 	    if (specimen.equals("Count for all")) {
 		id = null;
 		specimanStr = SharedController.getInstance().getProject()
-			.getFirstPopulation().getSpecimen().get(0).getName() + " " + SharedController.getInstance().getProject()
-			.getFirstPopulation().getSpecimen().get(0).getSurname();
+			.getFirstPopulation().getSpecimen().get(0).getName()
+			+ " "
+			+ SharedController.getInstance().getProject()
+				.getFirstPopulation().getSpecimen().get(0)
+				.getSurname();
 	    } else {
 		specimanStr = specimen;
 		String[] ids = specimen.split(" ");
@@ -106,7 +110,7 @@ public class StatisticWindowController implements ActionListener {
 		}
 	    }
 
-	    wavesList = new String[wavesNames.size()+2];
+	    wavesList = new String[wavesNames.size() + 2];
 	    int i;
 	    for (i = 0; i < wavesNames.size(); i++) {
 		wavesList[i] = wavesNames.get(i);
@@ -121,15 +125,20 @@ public class StatisticWindowController implements ActionListener {
 		stControl.countStatistics(functions, wavesNames, 0, id);
 
 	    // TODO wyswietl okienko statystyczne z wynikami
-	    StatisticsComparatorView view = new StatisticsComparatorView();
+	    int type = SharedController.getInstance().getProject().getType();
 
-	    view.setSpecimanStr(specimanStr);
-	    view.prepare(view.getSpecimanStr(), view.getChannelStr(), view.getWaveStr());
-	    //view.prepare(view.getChannelStr(), view.getWaveStr());
-
-	    //view.getReport().changeSelection(0, 1, false, false);
-
-	    view.setVisible(true);
+	    if (type == 1 || type == 2) {
+		StatisticsComparatorView view = new StatisticsComparatorView();
+		view.setSpecimanStr(specimanStr);
+		view.prepare(view.getSpecimanStr(), view.getChannelStr(),
+			view.getWaveStr());
+		view.setVisible(true);
+	    } else {
+		StatisticTestsView view = new StatisticTestsView();
+		view.prepare(view.getChannelStr(), view.getWaveStr());
+		view.getReport().changeSelection(0, 1, false, false);
+		view.setVisible(true);
+	    }
 	}
 
     }
