@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -294,6 +295,8 @@ public class SharedController {
 
 	public void addPanel(JPanel panel) {
 		JScrollPane sp = new JScrollPane(panel);
+		panel.setPreferredSize(new Dimension(500,500));
+		
 		//panel.setVisible(true);
 		
 		if(getFrame().getContent().getComponentCount()>0){
@@ -304,10 +307,23 @@ public class SharedController {
 			split.setDividerLocation(0.5);
 			split.setContinuousLayout(true);
 			split.setResizeWeight(0.5);
+			
+			
+			int width = sp.getWidth();
+			int height = split.getDividerLocation();
+			sp.setPreferredSize(new Dimension(5, 5));
+			
 		} else {
 			getFrame().getContent().add(sp);
 			
+			int width = sp.getWidth();
+			int height = panel.getHeight();
+			sp.setPreferredSize(new Dimension(5, 5));
 		}
+		
+		frame.setSize(800, 800);
+		
+		
 	}
 
 	public void packFrame() {

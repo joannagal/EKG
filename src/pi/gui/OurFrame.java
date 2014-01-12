@@ -3,6 +3,8 @@ package pi.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -45,8 +47,35 @@ public class OurFrame extends JFrame {
 		// JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 		// JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		// this.setContentPane(pane);
-		content.setPreferredSize(new Dimension(800,800));
+		this.setSize(new Dimension(800,800));
 		// this.setMinimumSize(new Dimension(1140, 1000));
+		
+		this.addComponentListener(new ComponentListener() {
+			
+			@Override
+			public void componentShown(ComponentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void componentResized(ComponentEvent e) {
+				// TODO Auto-generated method stub
+				content.revalidate();
+			}
+			
+			@Override
+			public void componentMoved(ComponentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void componentHidden(ComponentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 
 	}
 
