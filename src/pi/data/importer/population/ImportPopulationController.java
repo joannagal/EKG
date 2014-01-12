@@ -177,6 +177,7 @@ public class ImportPopulationController implements ActionListener {
 					importFrame.getImport2().setBorder(title);
 
 				}
+			}
 
 				if (SharedController.getInstance().getProject().getType() == 3) {
 
@@ -210,8 +211,9 @@ public class ImportPopulationController implements ActionListener {
 					population.setSpecimen(specimens);
 					SharedController.getInstance().getProject()
 							.setFirstPopulation(population);
-					GraphView view = new GraphView(this.population, 1);
+					
 					SharedController.getInstance().createProjectToolbar();
+					GraphView view = new GraphView(SharedController.getInstance().getProject().getFirstPopulation(), 1);
 
 					for (int i = 0; i < length1; i++) {
 
@@ -232,17 +234,16 @@ public class ImportPopulationController implements ActionListener {
 							e1.printStackTrace();
 						}
 					}
-					SharedController.getInstance().createProjectToolbar();
-					GraphView view2 = new GraphView(this.population, 2);
-
-		
+					
+					GraphView view2 = new GraphView(SharedController.getInstance().getProject().getFirstPopulation(), 2);
+	
 				}
 
 			}
 
 			getFrame().setVisible(false);
 		}
-	}
+	
 
 	private Importer getImporter() {
 		return importer;

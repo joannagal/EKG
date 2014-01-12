@@ -74,7 +74,7 @@ public class ChooseProjectController implements ActionListener{
 				
 				ImportPopulationFrame importFrame = new ImportPopulationFrame();
 				ImportPopulationController controller = new ImportPopulationController(importFrame);
-				TitledBorder title = BorderFactory.createTitledBorder("POPULATION 1");
+				TitledBorder title = BorderFactory.createTitledBorder("POPULATION");
 				importFrame.getImport1().setBorder(title);
 				title =  BorderFactory.createTitledBorder("POPULATION 2");
 				importFrame.getImport2().setBorder(title);

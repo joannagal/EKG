@@ -175,7 +175,9 @@ public class GraphToolbar extends JPanel {
 
 		changeChannelPanel.add(comboBoxSpecimen);
 		changeChannelPanel.add(comboBoxChannel);
-		changeChannelPanel.add(comboBoxTreatment);
+		if (SharedController.getInstance().getProject().getType() == 4){
+			changeChannelPanel.add(comboBoxTreatment);
+		}
 		changeChannelPanel.add(comboBoxButton);
 
 		buttonArray = new JButton[] { informationButton, autofinderButton,
