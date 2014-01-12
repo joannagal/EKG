@@ -4,6 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
+import javax.swing.border.TitledBorder;
+
 import org.apache.commons.math3.stat.correlation.SpearmansCorrelation;
 import org.dom4j.DocumentException;
 
@@ -168,6 +171,10 @@ public class ImportPopulationController implements ActionListener {
 					ImportPopulationFrame importFrame = new ImportPopulationFrame();
 					ImportPopulationController controller = new ImportPopulationController(
 							importFrame);
+					TitledBorder title = BorderFactory.createTitledBorder("POPULATION 2 - BEFORE");
+					importFrame.getImport1().setBorder(title);
+					title =  BorderFactory.createTitledBorder("POPULATION 2 - AFTER");
+					importFrame.getImport2().setBorder(title);
 
 				}
 

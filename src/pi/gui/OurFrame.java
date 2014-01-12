@@ -47,7 +47,7 @@ public class OurFrame extends JFrame {
 		// JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		// this.setContentPane(pane);
 		// this.setSize(new Dimension(1140,1000));
-		this.setMinimumSize(new Dimension(1140, 1000));
+		this.setMinimumSize(new Dimension(1300, 1000));
 
 	}
 

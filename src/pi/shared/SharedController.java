@@ -79,7 +79,7 @@ public class SharedController {
 	private Importer importer;
 	private Container container;
 
-	private int firstPanelWidth = 1100;
+	private int firstPanelWidth = 1250;
 	private int firstPanelHeight = 300;
 	private int firstPanelX = 10;
 	private int firstPanelY = 5;
