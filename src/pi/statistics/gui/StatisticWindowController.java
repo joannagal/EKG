@@ -6,12 +6,14 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import net.sf.jasperreports.engine.JRException;
+
 import pi.population.Specimen;
-import pi.project.Project;
 import pi.shared.SharedController;
 import pi.statistics.functions.*;
 import pi.statistics.logic.Function;
 import pi.statistics.logic.StatisticsController;
+import pi.statistics.logic.report.ReportManager;
 
 public class StatisticWindowController implements ActionListener {
 
@@ -36,7 +38,16 @@ public class StatisticWindowController implements ActionListener {
 	}
 	if (action.equals("REPORT")) {
 	    if (stControl.getFinalResult() != null) {
-		// TODO raport koñcowy ze statystyki
+		// TODO generowanie raportu koñcowego
+		try {
+		    ReportManager rm = new ReportManager();
+		    // rm.viewRaport();
+		    rm.saveRaportAsPdf(null);
+		    rm.saveReportAsHtml(null);
+		} catch (JRException ex) {
+		    System.out.println("Report exception");
+		    ex.printStackTrace();
+		}
 	    } else {
 		JOptionPane
 			.showMessageDialog(window, "Count statistics first!");
@@ -45,12 +56,6 @@ public class StatisticWindowController implements ActionListener {
 	if (action.equals("COUNT")) {
 	    ArrayList<Function> functions = new ArrayList<Function>();
 	    ArrayList<String> wavesNames = new ArrayList<String>();
-	    double alpha;
-	    try {
-		alpha = Double.parseDouble(window.alphaTextField.getText());
-	    } catch (Exception ex) {
-		alpha = 0;
-	    }
 
 	    int index = window.comboBox.getSelectedIndex();
 	    String specimen = window.comboBox.getItemAt(index);
@@ -89,12 +94,8 @@ public class StatisticWindowController implements ActionListener {
 
 	    Function average = new Average();
 	    functions.add(average);
-	    // Function avgSignal = new AverageSignal();
-	    // functions.add(avgSignal);
 	    Function max = new Max();
 	    functions.add(max);
-	    // Function median = new Median();
-	    // functions.add(median);
 	    Function min = new Min();
 	    functions.add(min);
 	    Function amplitude = new Amplitude();
@@ -119,12 +120,8 @@ public class StatisticWindowController implements ActionListener {
 	    i++;
 	    wavesList[i] = "RR_interval";
 
-	    if (alpha > 0 && alpha <= 0.05) {
-		stControl.countStatistics(functions, wavesNames, alpha, id);
-	    } else
-		stControl.countStatistics(functions, wavesNames, 0, id);
+	    stControl.countStatistics(functions, wavesNames, id);
 
-	    // TODO wyswietl okienko statystyczne z wynikami
 	    int type = SharedController.getInstance().getProject().getType();
 
 	    if (type == 1 || type == 2) {

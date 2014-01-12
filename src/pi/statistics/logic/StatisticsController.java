@@ -2,7 +2,6 @@ package pi.statistics.logic;
 
 import java.util.ArrayList;
 
-import net.sf.jasperreports.engine.JRException;
 import pi.inputs.signal.Channel;
 import pi.inputs.signal.Cycle;
 import pi.inputs.signal.ECG;
@@ -12,7 +11,6 @@ import pi.shared.SharedController;
 import pi.statistics.functions.Collector;
 import pi.statistics.functions.Duration;
 import pi.statistics.functions.Variance;
-import pi.statistics.logic.report.ReportManager;
 import pi.utilities.Range;
 
 public class StatisticsController {
@@ -41,6 +39,7 @@ public class StatisticsController {
 	channelResult.clearValues();
 	Duration duration = new Duration();
 	for (Channel channel : signal.getChannel()) {
+	    if (!channel.getName().equals("STATUS")){
 	    AttributeResult atrResult = new AttributeResult();
 	    DurationResult dResult = new DurationResult();
 	    dResult.clearValues();
@@ -185,6 +184,7 @@ public class StatisticsController {
 
 	    channelResult.addValue(channel.getName(), result);
 	}
+	}
 	return channelResult;
     }
 
@@ -203,12 +203,10 @@ public class StatisticsController {
 		ECG after = man.getAfter();
 		if (after != null) {
 		    specResult.setAfter(count(after));
-		    specResult.compareResult();
+		    //specResult.compareResult();
 		    specResult
 			    .addToVectors(vectorsAfter, specResult.getAfter());
 		}
-		//vectorsBefore.printVectors();
-		//vectorsAfter.printVectors();
 		popResult.addResult(specResult);
 		man.setStatisticResults(specResult);
 	    }
@@ -222,12 +220,10 @@ public class StatisticsController {
 		    ECG after = man.getAfter();
 		    if (after != null) {
 			specResult.setAfter(count(after));
-			specResult.compareResult();
+			//specResult.compareResult();
 			specResult.addToVectors(vectorsAfter,
 				specResult.getAfter());
 		    }
-		    //vectorsBefore.printVectors();
-		    //vectorsAfter.printVectors();
 		    popResult.addResult(specResult);
 		    man.setStatisticResults(specResult);
 		}
@@ -239,18 +235,13 @@ public class StatisticsController {
     }
 
     public void countStatistics(ArrayList<Function> functions,
-	    ArrayList<String> wavesNames, double alpha, String id) {
+	    ArrayList<String> wavesNames, String id) {
 	this.specimenId = id;
 	setFinalResult(new ProjectResult());
-	getFinalResult().setAlpha(alpha);
 	this.functions = functions;
 	this.wavesNames = wavesNames;
 	loadPopulation();
 	getFinalResult().setPopul1(countForPopulation(popul1));
-//	if (SharedController.getInstance().getProject().getType() == 3) {
-//	    System.out.println("niezalezne (3)");
-//	    getFinalResult().performUnpairedTest();
-//	}
 	if (popul2 != null) {
 	    getFinalResult().setPopul2(countForPopulation(popul2));
 	    if (SharedController.getInstance().getProject().getType() == 3) {
@@ -263,18 +254,7 @@ public class StatisticsController {
 		getFinalResult().performDifferencesTest();
 	    }
 	}
-	getFinalResult().summarize();
 	SharedController.getInstance().setProjectRes(getFinalResult());
-	// TODO generowanie raportu koñcowego
-//	try {
-//		ReportManager rm = new ReportManager();
-//		//rm.viewRaport();
-//		rm.saveRaportAsPdf(null);
-//		rm.saveReportAsHtml(null);
-//	} catch (JRException e) {
-//		System.out.println("Report exception");
-//		e.printStackTrace();
-//	}
     }
 
     public Population getPopul1() {

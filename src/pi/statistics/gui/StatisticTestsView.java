@@ -2,6 +2,8 @@ package pi.statistics.gui;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -59,15 +61,19 @@ public class StatisticTestsView extends JFrame {
 
     private JPanel detailPanel = new JPanel();
 
-    private JLabel hypoTestLabel = new JLabel("Test performed");
-    private JLabel hypoEqualLabel = new JLabel("P-Value");
-    private JLabel hypoRightLabel = new JLabel("Right sided test");
-    private JLabel hypoLeftLabel = new JLabel("Left sided test");
-
-    private JTextField hypoTestEdit = new JTextField();
-    private JTextField hypoEqualEdit = new JTextField();
-    private JTextField hypoRightEdit = new JTextField();
-    private JTextField hypoLeftEdit = new JTextField();
+	private JLabel hypoLeftStatLabel = new JLabel("P1 Avg+-SD");
+	private JLabel hypoRightStatLabel = new JLabel("P2 Avg+-SD");
+	private JLabel hypoTestLabel = new JLabel("Test performed");
+	private JLabel hypoEqualLabel = new JLabel("P-Value");
+	private JLabel hypoRightLabel = new JLabel("Right sided test");
+	private JLabel hypoLeftLabel = new JLabel("Left sided test");
+	
+	private JTextField hypoLeftStatEdit = new JTextField();
+	private JTextField hypoRightStatEdit = new JTextField();
+	private JTextField hypoTestEdit = new JTextField();
+	private JTextField hypoEqualEdit = new JTextField();
+	private JTextField hypoRightEdit = new JTextField();
+	private JTextField hypoLeftEdit = new JTextField();
 
     public StatisticTestsView() {
 	this.setTitle("Statistics");
@@ -83,7 +89,7 @@ public class StatisticTestsView extends JFrame {
 
 	this.controller = new StatisticTestsController(this);
 
-	this.channelLabel.setBounds(15, 20, 100, 15);
+	this.channelLabel.setBounds(5, 22, 100, 15);
 	this.add(this.channelLabel);
 
 	this.channelCombo.setBounds(55, 18, 100, 19);
@@ -125,7 +131,7 @@ public class StatisticTestsView extends JFrame {
 	    }
 	});
 
-	this.detailPanel.setBounds(165, 18, 820, 80);
+	this.detailPanel.setBounds(165, 18, 820, 100);
 	this.add(this.detailPanel);
 
 	this.detailPanel.setLayout(null);
@@ -133,32 +139,42 @@ public class StatisticTestsView extends JFrame {
 
 	this.hypoTestLabel.setBounds(10, 25, 110, 15);
 	this.detailPanel.add(this.hypoTestLabel);
-	this.hypoTestEdit.setBounds(125, 23, 150, 20);
+	this.hypoTestEdit.setBounds(110, 23, 290, 20);
 	this.detailPanel.add(this.hypoTestEdit);
+	
+	this.hypoLeftStatLabel.setBounds(10, 50, 90, 15);
+	this.detailPanel.add(this.hypoLeftStatLabel);
+	this.getHypoLeftStatEdit().setBounds(110, 48, 290, 20);
+	this.detailPanel.add(this.getHypoLeftStatEdit());
+	
+	this.hypoRightStatLabel.setBounds(10, 75, 90, 15);
+	this.detailPanel.add(this.hypoRightStatLabel);
+	this.getHypoRightStatEdit().setBounds(110, 73, 290, 20);
+	this.detailPanel.add(this.getHypoRightStatEdit());
 
-	this.hypoEqualLabel.setBounds(10, 50, 110, 15);
+	this.hypoEqualLabel.setBounds(410, 25, 110, 15);
 	this.detailPanel.add(this.hypoEqualLabel);
-	this.hypoEqualEdit.setBounds(125, 48, 150, 20);
+	this.hypoEqualEdit.setBounds(520, 23, 290, 20);
 	this.detailPanel.add(this.hypoEqualEdit);
-
-	this.hypoRightLabel.setBounds(300, 25, 110, 15);
+	
+	this.hypoRightLabel.setBounds(410, 50, 110, 15);
 	this.detailPanel.add(this.hypoRightLabel);
-	this.hypoRightEdit.setBounds(415, 23, 150, 20);
+	this.hypoRightEdit.setBounds(520, 48, 290, 20);
 	this.detailPanel.add(this.hypoRightEdit);
-
-	this.hypoLeftLabel.setBounds(300, 50, 110, 15);
+	
+	this.hypoLeftLabel.setBounds(410, 75, 110, 15);
 	this.detailPanel.add(this.hypoLeftLabel);
-	this.hypoLeftEdit.setBounds(415, 48, 150, 20);
+	this.hypoLeftEdit.setBounds(520, 73, 290, 20);
 	this.detailPanel.add(this.hypoLeftEdit);
 
-	this.reportPane.setBounds(165, 100, 820, 337);
+	this.reportPane.setBounds(165, 120, 820, 317);
 	this.report.getTableHeader().setReorderingAllowed(false);
 
-	this.histogram.setBounds(165, 100, 820, 337);
+	this.histogram.setBounds(165, 120, 820, 317);
 	this.histogram.recalculate();
 	this.histogram.draw();
 
-	this.tabbedPane.setBounds(165, 100, 820, 337);
+	this.tabbedPane.setBounds(165, 120, 820, 317);
 	this.tabbedPane.add("Results", this.reportPane);
 	this.tabbedPane.add("Histogram", this.histogram);
 	this.add(this.tabbedPane);
@@ -377,5 +393,21 @@ public class StatisticTestsView extends JFrame {
 
     public void setHypoLeftEdit(JTextField hypoLeftEdit) {
 	this.hypoLeftEdit = hypoLeftEdit;
+    }
+
+    public JTextField getHypoLeftStatEdit() {
+	return hypoLeftStatEdit;
+    }
+
+    public void setHypoLeftStatEdit(JTextField hypoLeftStatEdit) {
+	this.hypoLeftStatEdit = hypoLeftStatEdit;
+    }
+
+    public JTextField getHypoRightStatEdit() {
+	return hypoRightStatEdit;
+    }
+
+    public void setHypoRightStatEdit(JTextField hypoRightStatEdit) {
+	this.hypoRightStatEdit = hypoRightStatEdit;
     }
 }
