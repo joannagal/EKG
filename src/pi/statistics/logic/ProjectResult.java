@@ -46,6 +46,7 @@ public class ProjectResult {
 		    .get(channelName).keySet()) {
 		for (String statName : popResult.getVectorsBefore()
 			.get(channelName).get(waveName).keySet()) {
+		    if (!popResult.getVectorsAfter().equals(null)) {
 		    if (!popResult.getVectorsAfter().get(channelName)
 			    .equals(null)) {
 			if (!popResult.getVectorsAfter().get(channelName)
@@ -89,7 +90,7 @@ public class ProjectResult {
 					wilcoxonTest("P2AB", channelName,
 						waveName, statName, ar1, ar2);
 				}
-			    }
+			    }}
 			}
 		    }
 		}
@@ -103,6 +104,7 @@ public class ProjectResult {
 		    .get(channelName).keySet()) {
 		for (String statName : popul1Result.getVectorsBefore()
 			.get(channelName).get(waveName).keySet()) {
+		    if (!popul2Result.getVectorsBefore().equals(null)) {
 		    if (!popul2Result.getVectorsBefore().get(channelName)
 			    .equals(null)) {
 			if (!popul2Result.getVectorsBefore().get(channelName)
@@ -143,7 +145,7 @@ public class ProjectResult {
 				}
 			    }
 			}
-		    }
+		    }}
 		}
 	    }
 	}
@@ -155,6 +157,7 @@ public class ProjectResult {
 		    .get(channelName).keySet()) {
 		for (String statName : popul1Result.getVectorsAfter()
 			.get(channelName).get(waveName).keySet()) {
+		    if (!popul2Result.getVectorsAfter().equals(null)) {
 		    if (!popul2Result.getVectorsAfter().get(channelName)
 			    .equals(null)) {
 			if (!popul2Result.getVectorsAfter().get(channelName)
@@ -196,7 +199,7 @@ public class ProjectResult {
 			    }
 			}
 		    }
-		}
+		}}
 	    }
 	}
     }
@@ -207,6 +210,7 @@ public class ProjectResult {
 		    .get(channelName).keySet()) {
 		for (String statName : popul1Result.getVectorsBefore()
 			.get(channelName).get(waveName).keySet()) {
+		    if (!popul1Result.getVectorsAfter().equals(null)){
 		    if (!popul1Result.getVectorsAfter().get(channelName)
 			    .equals(null)) {
 			if (!popul1Result.getVectorsAfter().get(channelName)
@@ -230,6 +234,7 @@ public class ProjectResult {
 						.getVectorsBefore()
 						.get(channelName2)
 						.get(waveName2).keySet()) {
+					    if (!popul2Result.getVectorsAfter().equals(null)) {
 					    if (!popul2Result.getVectorsAfter()
 						    .get(channelName)
 						    .equals(null)) {
@@ -317,8 +322,8 @@ public class ProjectResult {
 							}
 						    }
 						}
-					    }
-					}
+					    }}
+					}}
 				    }
 				}
 			    }
