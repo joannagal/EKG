@@ -53,17 +53,34 @@ public class SpecimenResult {
 //	    }
 //	}
 //    }
-    
+    public static String[] channelsList = { "I", "II", "III", "V1", "V2", "V3", "V4",
+	    "V5", "V6" };
+public static String[] statsList = { "Average", "Max", "Min", "Amplitude",
+	    "Variance", "SD" };
+public static String[] wavesList = { "pWave", "tWave", "uWave", "prInterval",
+	    "prSegment", "stSegment", "stInterval", "qtInterval",  "qrsComplex", "J-point", "RR_interval"};
+
     public void addToVectors(VectorsToTests vectors, ChannelResult result){
 
-	for (String name : result.getValue().keySet()) {// PO CHANNELACH
-	    for (String waveName : result.getValue().get(name).getWavesResult()
-		    .keySet()) {// PO WAVE
-		for (String statName : result.getValue().get(name).getWavesResult()
-			.get(waveName).getValue().keySet()) {// PO STATYSTYKACH
-		    double value = result.getValue().get(name).getWavesResult()
-			    .get(waveName).getValue().get(statName);
-		    vectors.addVector(name, waveName, statName, value);
+	for (String channelName : channelsList) {
+	    for (String waveName : wavesList) {
+		for (String statName :statsList) {
+		    try {
+			 double value = result.getValue().get(channelName).getWavesResult()
+				    .get(waveName).getValue().get(statName);
+			    vectors.addVector(channelName, waveName, statName, value);
+		    }
+		    catch (Exception ex){
+			vectors.addVector(channelName, waveName, statName, null);
+		    }
+//	for (String name : result.getValue().keySet()) {// PO CHANNELACH
+//	    for (String waveName : result.getValue().get(name).getWavesResult()
+//		    .keySet()) {// PO WAVE
+//		for (String statName : result.getValue().get(name).getWavesResult()
+//			.get(waveName).getValue().keySet()) {// PO STATYSTYKACH
+//		    double value = result.getValue().get(name).getWavesResult()
+//			    .get(waveName).getValue().get(statName);
+//		    vectors.addVector(name, waveName, statName, value);
 		}
 	    }
 	}

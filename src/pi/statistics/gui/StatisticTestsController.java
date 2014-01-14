@@ -39,8 +39,8 @@ public class StatisticTestsController implements ActionListener
 		if (params[0] == null)
 			return;
 
-		Vector<Double> first = pResult.getPopul1().getVectorsBefore().get(channel).get(wave).get(statistics);
-		Vector<Double> second = pResult.getPopul2().getVectorsBefore().get(channel).get(wave).get(statistics);
+		Vector<Object> first = pResult.getPopul1().getVectorsBefore().get(channel).get(wave).get(statistics);
+		Vector<Object> second = pResult.getPopul2().getVectorsBefore().get(channel).get(wave).get(statistics);
 
 		if ((first == null) || (second == null))
 			return;
@@ -55,7 +55,7 @@ public class StatisticTestsController implements ActionListener
 			
 			System.out.printf("Column Name %s", columnName);
 			
-			if (map != null)
+			if (map != null && map.get(channel) != null && map.get(channel).get(wave) != null)
 			{
 				
 				
@@ -148,14 +148,16 @@ public class StatisticTestsController implements ActionListener
 		Map<String, Map<String, Map<String, Vector<Double>>>> map = pResult
 				.getTestResult().get(source);
 
-		Vector<Double> result;
+		Vector<Double> result = null;
 
 		int where = 0;
 
 		for (int i = 0; i <  StatisticWindowController.statsList.length; i++)
 		{
-			result = map.get(channel).get(wave)
+			try{
+		    	result = map.get(channel).get(wave)
 					.get(StatisticWindowController.statsList[i]);
+			} catch (Exception ex) {}
 			if (result == null) continue;
 			
 			if (result.size() < 3) {where++; continue;}
@@ -299,17 +301,22 @@ public class StatisticTestsController implements ActionListener
 		return result;
 	}
 
-	public ArrayList <Double> getArrayFromVector(Vector<Double> input)
+	public ArrayList <Double> getArrayFromVector(Vector<Object> input)
 	{
 		
 		ArrayList <Double> output = new ArrayList <Double> (input.size());
-		Iterator <Double> it = input.iterator();
+		Iterator <Object> it = input.iterator();
 		
 		Double value;
 		while (it.hasNext())
 		{
-			value = it.next();
-			output.add(value);
+		    try {
+		    value = (double)it.next();
+		    output.add(value);
+		    }
+		    catch (Exception ex){
+			continue;
+		    }
 		}		
 		return output;
 	}

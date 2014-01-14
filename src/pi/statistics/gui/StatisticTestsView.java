@@ -288,11 +288,9 @@ public class StatisticTestsView extends JFrame {
 
     public void fillChannelCombo() {
 	for (String channelName : SharedController.getInstance()
-		.getProjectRes().getPopul1().getResult().get(0).getBefore()
-		.getValue().keySet()) {
-	    int tmp = SharedController.getInstance().getProjectRes()
-		    .getPopul1().getResult().get(0).getBefore().getValue()
-		    .keySet().size();
+		.getProjectRes().getTestResult().get("BB").keySet()) {
+	    int tmp = SharedController.getInstance()
+			.getProjectRes().getTestResult().get("BB").keySet().size();
 	    ArrayList<String> names = new ArrayList<String>();
 	    for (int i = 0; i < tmp; i++) {
 		if (!names.contains(channelName)) {

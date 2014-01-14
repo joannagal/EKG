@@ -20,8 +20,8 @@ public class StatisticWindowController implements ActionListener {
     private StatisticWindowView window;
     StatisticsController stControl = new StatisticsController();
     public static String[] wavesList;
-    public static String[] channelsList = { "1", "2", "3", "4", "5", "6", "7",
-	    "8", "9" };
+    public static String[] channelsList = { "I", "II", "III", "V1", "V2", "V3", "V4",
+	    "V5", "V6" };
     public static String[] statsList = { "Average", "Max", "Min", "Amplitude",
 	    "Variance", "SD" };
 

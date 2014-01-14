@@ -46,56 +46,77 @@ public class ProjectResult {
 		    .get(channelName).keySet()) {
 		for (String statName : popResult.getVectorsBefore()
 			.get(channelName).get(waveName).keySet()) {
-		    if (!popResult.getVectorsAfter().equals(null)) {
+		    // try{
+		    // if (!popResult.getVectorsAfter().equals(null)) {
+		    // if (!popResult.getVectorsAfter().get(channelName)
+		    // .equals(null)) {
+		    // if (!popResult.getVectorsAfter().get(channelName)
+		    // .get(waveName).equals(null)) {
 		    if (!popResult.getVectorsAfter().get(channelName)
-			    .equals(null)) {
-			if (!popResult.getVectorsAfter().get(channelName)
-				.get(waveName).equals(null)) {
-			    if (!popResult.getVectorsAfter().get(channelName)
-				    .get(waveName).get(statName).equals(null)) {
-				Vector<Double> vector1 = popResult
-					.getVectorsBefore().get(channelName)
-					.get(waveName).get(statName);
-				Vector<Double> vector2 = popResult
-					.getVectorsAfter().get(channelName)
-					.get(waveName).get(statName);
-
-				double[] ar1;
-				double[] ar2;
-
-				if (vector1.size() != vector2.size()) {
-				    int length = vector1.size();
-				    if (vector2.size() < length)
-					length = vector2.size();
-
-				    ar1 = this.vectorToDouble(vector1, length);
-				    ar2 = this.vectorToDouble(vector2, length);
-				} else {
-				    ar1 = this.vectorToDouble(vector1);
-				    ar2 = this.vectorToDouble(vector2);
-				}
-				boolean normal = lillieforsTest(ar1, ar2);
-				if (normal == true) {
-				    if (populNo == 1)
-					tStudentPairedTest("P1AB", channelName,
-						waveName, statName, ar1, ar2);
-				    else if (populNo == 2)
-					tStudentPairedTest("P2AB", channelName,
-						waveName, statName, ar1, ar2);
-				} else {
-				    if (populNo == 1)
-					wilcoxonTest("P1AB", channelName,
-						waveName, statName, ar1, ar2);
-				    else if (populNo == 2)
-					wilcoxonTest("P2AB", channelName,
-						waveName, statName, ar1, ar2);
-				}
-			    }}
+			    .get(waveName).get(statName).contains(null)
+			    && !popResult.getVectorsBefore().get(channelName)
+				    .get(waveName).get(statName).contains(null)) {
+			Vector<Object> vector1 = popResult.getVectorsBefore()
+				.get(channelName).get(waveName).get(statName);
+			double[] ar1 = new double[vector1.size()];
+			for (int i = 0; i < vector1.size(); i++) {
+			    ar1[i] = (double) vector1.get(i);
+			}
+			Vector<Object> vector2 = popResult.getVectorsAfter()
+				.get(channelName).get(waveName).get(statName);
+			double[] ar2 = new double[vector2.size()];
+			for (int i = 0; i < vector2.size(); i++) {
+			    ar2[i] = (double) vector2.get(i);
+			}
+			//
+			// Vector<Object> vector1 = popResult
+			// .getVectorsBefore().get(channelName)
+			// .get(waveName).get(statName);
+			// Vector<Object> vector2 = popResult
+			// .getVectorsAfter().get(channelName)
+			// .get(waveName).get(statName);
+			//
+			// double[] ar1;
+			// double[] ar2;
+			//
+			// if (vector1.size() != vector2.size()) {
+			// int length = vector1.size();
+			// if (vector2.size() < length)
+			// length = vector2.size();
+			//
+			// ar1 = this.vectorToDouble(vector1, length);
+			// ar2 = this.vectorToDouble(vector2, length);
+			// } else {
+			// ar1 = this.vectorToDouble(vector1);
+			// ar2 = this.vectorToDouble(vector2);
+			// }
+			boolean normal = lillieforsTest(ar1, ar2);
+			if (normal == true) {
+			    if (populNo == 1)
+				tStudentPairedTest("P1AB", channelName,
+					waveName, statName, ar1, ar2);
+			    else if (populNo == 2)
+				tStudentPairedTest("P2AB", channelName,
+					waveName, statName, ar1, ar2);
+			} else {
+			    if (populNo == 1)
+				wilcoxonTest("P1AB", channelName, waveName,
+					statName, ar1, ar2);
+			    else if (populNo == 2)
+				wilcoxonTest("P2AB", channelName, waveName,
+					statName, ar1, ar2);
 			}
 		    }
 		}
 	    }
 	}
+	// }
+	// catch (Exception ex){
+	// continue;
+	// }
+	// }
+	// }
+	// }
     }
 
     public void beforeUnpaired() {
@@ -104,51 +125,73 @@ public class ProjectResult {
 		    .get(channelName).keySet()) {
 		for (String statName : popul1Result.getVectorsBefore()
 			.get(channelName).get(waveName).keySet()) {
-		    if (!popul2Result.getVectorsBefore().equals(null)) {
+		    // try {
+		    // if (!popul2Result.getVectorsBefore().equals(null)) {
+		    // if (!popul2Result.getVectorsBefore().get(channelName)
+		    // .equals(null)) {
+		    // if (!popul2Result.getVectorsBefore().get(channelName)
+		    // .get(waveName).equals(null)) {
 		    if (!popul2Result.getVectorsBefore().get(channelName)
-			    .equals(null)) {
-			if (!popul2Result.getVectorsBefore().get(channelName)
-				.get(waveName).equals(null)) {
-			    if (!popul2Result.getVectorsBefore()
+			    .get(waveName).get(statName).contains(null)
+			    && !popul1Result.getVectorsBefore()
 				    .get(channelName).get(waveName)
-				    .get(statName).equals(null)) {
-
-				Vector<Double> vector1 = popul1Result
-					.getVectorsBefore().get(channelName)
-					.get(waveName).get(statName);
-				Vector<Double> vector2 = popul2Result
-					.getVectorsBefore().get(channelName)
-					.get(waveName).get(statName);
-
-				double[] ar1;
-				double[] ar2;
-
-				if (vector1.size() != vector2.size()) {
-				    int length = vector1.size();
-				    if (vector2.size() < length)
-					length = vector2.size();
-
-				    ar1 = this.vectorToDouble(vector1, length);
-				    ar2 = this.vectorToDouble(vector2, length);
-				} else {
-				    ar1 = this.vectorToDouble(vector1);
-				    ar2 = this.vectorToDouble(vector2);
-				}
-
-				boolean normal = lillieforsTest(ar1, ar2);
-				if (normal == true) {
-				    tStudentUnpairedTest("BB", channelName,
-					    waveName, statName, ar1, ar2);
-				} else {
-				    mannWhitneyUTest("BB", channelName,
-					    waveName, statName, ar1, ar2);
-				}
-			    }
+				    .get(statName).contains(null)) {
+			Vector<Object> vector1 = popul1Result
+				.getVectorsBefore().get(channelName)
+				.get(waveName).get(statName);
+			double[] ar1 = new double[vector1.size()];
+			for (int i = 0; i < vector1.size(); i++) {
+			    ar1[i] = (double) vector1.get(i);
 			}
-		    }}
+			Vector<Object> vector2 = popul2Result
+				.getVectorsBefore().get(channelName)
+				.get(waveName).get(statName);
+			double[] ar2 = new double[vector2.size()];
+			for (int i = 0; i < vector2.size(); i++) {
+			    ar2[i] = (double) vector2.get(i);
+			}
+
+			// Vector<Object> vector1 = popul1Result
+			// .getVectorsBefore().get(channelName)
+			// .get(waveName).get(statName);
+			// Vector<Object> vector2 = popul2Result
+			// .getVectorsBefore().get(channelName)
+			// .get(waveName).get(statName);
+			//
+			// double[] ar1;
+			// double[] ar2;
+			//
+			// if (vector1.size() != vector2.size()) {
+			// int length = vector1.size();
+			// if (vector2.size() < length)
+			// length = vector2.size();
+			//
+			// ar1 = this.vectorToDouble(vector1, length);
+			// ar2 = this.vectorToDouble(vector2, length);
+			// } else {
+			// ar1 = this.vectorToDouble(vector1);
+			// ar2 = this.vectorToDouble(vector2);
+			// }
+
+			boolean normal = lillieforsTest(ar1, ar2);
+			if (normal == true) {
+			    tStudentUnpairedTest("BB", channelName, waveName,
+				    statName, ar1, ar2);
+			} else {
+			    mannWhitneyUTest("BB", channelName, waveName,
+				    statName, ar1, ar2);
+			}
+		    }
 		}
 	    }
 	}
+	// }
+	// catch (Exception ex){
+	// continue;
+	// }
+	// }
+	// }
+	// }
     }
 
     public void afterUnpaired() {
@@ -157,51 +200,70 @@ public class ProjectResult {
 		    .get(channelName).keySet()) {
 		for (String statName : popul1Result.getVectorsAfter()
 			.get(channelName).get(waveName).keySet()) {
-		    if (!popul2Result.getVectorsAfter().equals(null)) {
+		    // try{
+		    // if (!popul2Result.getVectorsAfter().equals(null)) {
+		    // if (!popul2Result.getVectorsAfter().get(channelName)
+		    // .equals(null)) {
+		    // if (!popul2Result.getVectorsAfter().get(channelName)
+		    // .get(waveName).equals(null)) {
 		    if (!popul2Result.getVectorsAfter().get(channelName)
-			    .equals(null)) {
-			if (!popul2Result.getVectorsAfter().get(channelName)
-				.get(waveName).equals(null)) {
-			    if (!popul2Result.getVectorsAfter()
-				    .get(channelName).get(waveName)
-				    .get(statName).equals(null)) {
+			    .get(waveName).get(statName).contains(null)
+			    && !popul1Result.getVectorsAfter().get(channelName)
+				    .get(waveName).get(statName).contains(null)) {
+			Vector<Object> vector1 = popul1Result.getVectorsAfter()
+				.get(channelName).get(waveName).get(statName);
+			double[] ar1 = new double[vector1.size()];
+			for (int i = 0; i < vector1.size(); i++) {
+			    ar1[i] = (double) vector1.get(i);
+			}
+			Vector<Object> vector2 = popul2Result.getVectorsAfter()
+				.get(channelName).get(waveName).get(statName);
+			double[] ar2 = new double[vector2.size()];
+			for (int i = 0; i < vector2.size(); i++) {
+			    ar2[i] = (double) vector2.get(i);
+			}
 
-				Vector<Double> vector1 = popul1Result
-					.getVectorsAfter().get(channelName)
-					.get(waveName).get(statName);
-				Vector<Double> vector2 = popul2Result
-					.getVectorsAfter().get(channelName)
-					.get(waveName).get(statName);
+			// Vector<Object> vector1 = popul1Result
+			// .getVectorsAfter().get(channelName)
+			// .get(waveName).get(statName);
+			// Vector<Object> vector2 = popul2Result
+			// .getVectorsAfter().get(channelName)
+			// .get(waveName).get(statName);
+			//
+			// double[] ar1;
+			// double[] ar2;
+			//
+			// if (vector1.size() != vector2.size()) {
+			// int length = vector1.size();
+			// if (vector2.size() < length)
+			// length = vector2.size();
+			//
+			// ar1 = this.vectorToDouble(vector1, length);
+			// ar2 = this.vectorToDouble(vector2, length);
+			// } else {
+			// ar1 = this.vectorToDouble(vector1);
+			// ar2 = this.vectorToDouble(vector2);
+			// }
 
-				double[] ar1;
-				double[] ar2;
-
-				if (vector1.size() != vector2.size()) {
-				    int length = vector1.size();
-				    if (vector2.size() < length)
-					length = vector2.size();
-
-				    ar1 = this.vectorToDouble(vector1, length);
-				    ar2 = this.vectorToDouble(vector2, length);
-				} else {
-				    ar1 = this.vectorToDouble(vector1);
-				    ar2 = this.vectorToDouble(vector2);
-				}
-
-				boolean normal = lillieforsTest(ar1, ar2);
-				if (normal == true) {
-				    tStudentUnpairedTest("AA", channelName,
-					    waveName, statName, ar1, ar2);
-				} else {
-				    mannWhitneyUTest("AA", channelName,
-					    waveName, statName, ar1, ar2);
-				}
-			    }
+			boolean normal = lillieforsTest(ar1, ar2);
+			if (normal == true) {
+			    tStudentUnpairedTest("AA", channelName, waveName,
+				    statName, ar1, ar2);
+			} else {
+			    mannWhitneyUTest("AA", channelName, waveName,
+				    statName, ar1, ar2);
 			}
 		    }
-		}}
+		}
 	    }
 	}
+	// }
+	// catch (Exception ex){
+	// continue;
+	// }
+	// }
+	// }
+	// }
     }
 
     public void afterBeforeDeffierences() {
@@ -210,120 +272,99 @@ public class ProjectResult {
 		    .get(channelName).keySet()) {
 		for (String statName : popul1Result.getVectorsBefore()
 			.get(channelName).get(waveName).keySet()) {
-		    if (!popul1Result.getVectorsAfter().equals(null)){
+		    // // try{
+		    // if (!popul1Result.getVectorsAfter().equals(null)){
+		    // if (!popul1Result.getVectorsAfter().get(channelName)
+		    // .equals(null)) {
+		    // if (!popul1Result.getVectorsAfter().get(channelName)
+		    // .get(waveName).equals(null)) {
 		    if (!popul1Result.getVectorsAfter().get(channelName)
-			    .equals(null)) {
-			if (!popul1Result.getVectorsAfter().get(channelName)
-				.get(waveName).equals(null)) {
-			    if (!popul1Result.getVectorsAfter()
+			    .get(waveName).get(statName).contains(null)
+			    && !popul1Result.getVectorsBefore()
 				    .get(channelName).get(waveName)
-				    .get(statName).equals(null)) {
-				Vector<Double> vector1 = popul1Result
-					.getVectorsBefore().get(channelName)
-					.get(waveName).get(statName);
-				Vector<Double> vector2 = popul1Result
-					.getVectorsAfter().get(channelName)
-					.get(waveName).get(statName);
+				    .get(statName).contains(null)) {
+			Vector<Object> vector1 = popul1Result
+				.getVectorsBefore().get(channelName)
+				.get(waveName).get(statName);
+			Vector<Object> vector2 = popul1Result.getVectorsAfter()
+				.get(channelName).get(waveName).get(statName);
 
-				for (String channelName2 : popul2Result
-					.getVectorsBefore().keySet()) {
-				    for (String waveName2 : popul2Result
-					    .getVectorsBefore()
-					    .get(channelName2).keySet()) {
-					for (String statName2 : popul2Result
+			for (String channelName2 : popul2Result
+				.getVectorsBefore().keySet()) {
+			    for (String waveName2 : popul2Result
+				    .getVectorsBefore().get(channelName2)
+				    .keySet()) {
+				for (String statName2 : popul2Result
+					.getVectorsBefore().get(channelName2)
+					.get(waveName2).keySet()) {
+				    // if
+				    // (!popul2Result.getVectorsAfter().equals(null))
+				    // {
+				    // if (!popul2Result.getVectorsAfter()
+				    // .get(channelName)
+				    // .equals(null)) {
+				    // if (!popul2Result
+				    // .getVectorsAfter()
+				    // .get(channelName)
+				    // .get(waveName)
+				    // .equals(null)) {
+				    if (!popul2Result.getVectorsAfter()
+					    .get(channelName2).get(waveName2)
+					    .get(statName2).contains(null)
+					    && !popul2Result.getVectorsBefore()
+						    .get(channelName2)
+						    .get(waveName2)
+						    .get(statName2)
+						    .contains(null)) {
+					Vector<Object> vector1P2 = popul2Result
 						.getVectorsBefore()
 						.get(channelName2)
-						.get(waveName2).keySet()) {
-					    if (!popul2Result.getVectorsAfter().equals(null)) {
-					    if (!popul2Result.getVectorsAfter()
-						    .get(channelName)
-						    .equals(null)) {
-						if (!popul2Result
-							.getVectorsAfter()
-							.get(channelName)
-							.get(waveName)
-							.equals(null)) {
-						    if (!popul2Result
-							    .getVectorsAfter()
-							    .get(channelName2)
-							    .get(waveName2)
-							    .get(statName2)
-							    .equals(null)) {
-							Vector<Double> vector1P2 = popul2Result
-								.getVectorsBefore()
-								.get(channelName2)
-								.get(waveName2)
-								.get(statName2);
-							Vector<Double> vector2P2 = popul2Result
-								.getVectorsAfter()
-								.get(channelName2)
-								.get(waveName2)
-								.get(statName2);
-							int length;
+						.get(waveName2).get(statName2);
+					Vector<Object> vector2P2 = popul2Result
+						.getVectorsAfter()
+						.get(channelName2)
+						.get(waveName2).get(statName2);
+					int length;
 
-							if (vector1.size() != vector2
-								.size()
-								|| vector1
-									.size() != vector1P2
-									.size()
-								|| vector1P2
-									.size() != vector2P2
-									.size()) {
-							    length = vector1
-								    .size();
-							    if (vector2.size() < length)
-								length = vector2
-									.size();
-							    if (vector1P2
-								    .size() < length)
-								length = vector1P2
-									.size();
-							    if (vector2P2
-								    .size() < length)
-								length = vector2P2
-									.size();
-							} else {
-							    length = vector1
-								    .size();
-							}
+					if (vector1.size() != vector2.size()
+						|| vector1.size() != vector1P2
+							.size()
+						|| vector1P2.size() != vector2P2
+							.size()) {
+					    length = vector1.size();
+					    if (vector2.size() < length)
+						length = vector2.size();
+					    if (vector1P2.size() < length)
+						length = vector1P2.size();
+					    if (vector2P2.size() < length)
+						length = vector2P2.size();
+					} else {
+					    length = vector1.size();
+					}
 
-							double[] ar1 = new double[length];
-							for (int i = 0; i < length; i++) {
-							    ar1[i] = vector2
-								    .get(i)
-								    - vector1
-									    .get(i);
-							}
+					double[] ar1 = new double[length];
+					for (int i = 0; i < length; i++) {
+					    ar1[i] = (double) vector2.get(i)
+						    - (double) vector1.get(i);
+					}
 
-							double[] ar2 = new double[length];
-							for (int i = 0; i < length; i++) {
-							    ar2[i] = vector2P2
-								    .get(i)
-								    - vector1P2
-									    .get(i);
-							}
+					double[] ar2 = new double[length];
+					for (int i = 0; i < length; i++) {
+					    ar2[i] = (double) vector2P2.get(i)
+						    - (double) vector1P2.get(i);
+					}
 
-							boolean normal = lillieforsTest(
-								ar1, ar2);
-							if (normal == true) {
-							    tStudentPairedTest(
-								    "dAB",
-								    channelName,
-								    waveName,
-								    statName,
-								    ar1, ar2);
-							} else {
-							    wilcoxonTest(
-								    "dAB",
-								    channelName,
-								    waveName,
-								    statName,
-								    ar1, ar2);
-							}
-						    }
-						}
-					    }}
-					}}
+					boolean normal = lillieforsTest(ar1,
+						ar2);
+					if (normal == true) {
+					    tStudentPairedTest("dAB",
+						    channelName, waveName,
+						    statName, ar1, ar2);
+					} else {
+					    mannWhitneyUTest("dAB",
+						    channelName, waveName,
+						    statName, ar1, ar2);
+					}
 				    }
 				}
 			    }
@@ -332,6 +373,16 @@ public class ProjectResult {
 		}
 	    }
 	}
+	// }
+	// }
+	// }
+	// // }
+	// catch (Exception ex){
+	// continue;
+	// }
+	// }
+	// }
+	// }
     }
 
     public boolean lillieforsTest(double[] ar1, double[] ar2) {
@@ -356,7 +407,8 @@ public class ProjectResult {
 	try {
 	    pval = test.pairedTTest(ar1, ar2);
 	} catch (Exception ex) {
-	    System.out.println("ex");
+	    // System.out.println("ex");
+	    // ex.printStackTrace();
 	}
 	result.add(pval);
 	addTestResult(testName, channelName, waveName, statName, result);
@@ -374,7 +426,9 @@ public class ProjectResult {
 	try {
 	    pval = test.tTest(ar1, ar2);
 	} catch (Exception ex) {
-	    System.out.println("ex");
+	    // System.out.println("ex");
+	    // ex.printStackTrace();
+
 	}
 	result.add(pval);
 	addTestResult(testName, channelName, waveName, statName, result);
@@ -424,15 +478,20 @@ public class ProjectResult {
 	addTestResult(testName, channelName, waveName, statName, result);
     }
 
-    public double[] vectorToDouble(Vector<Double> vector, int length) {
+    public double[] vectorToDouble(Vector<Object> vector, int length) {
 	double[] result = new double[length];
-	Iterator<Double> it = vector.iterator();
+	Iterator<Object> it = vector.iterator();
 	Double value = 0.0d;
 	int place = 0;
+
 	while (it.hasNext()) {
-	    value = it.next();
-	    result[place] = value;
-	    place++;
+	    try {
+		value = (double) it.next();
+		result[place] = value;
+		place++;
+	    } catch (Exception ex) {
+
+	    }
 	    if (place >= length)
 		break;
 	}
@@ -440,7 +499,7 @@ public class ProjectResult {
 	return result;
     }
 
-    public double[] vectorToDouble(Vector<Double> vector) {
+    public double[] vectorToDouble(Vector<Object> vector) {
 	return this.vectorToDouble(vector, vector.size());
     }
 

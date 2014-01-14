@@ -229,6 +229,7 @@ public class StatisticsController {
 		}
 	    }
 	}
+	//popResult.setVectors(vectorsBefore.getVectors(), vectorsAfter.getVectors());
 	popResult.setVectorsBefore(vectorsBefore.getVectors());
 	popResult.setVectorsAfter(vectorsAfter.getVectors());
 	return popResult;

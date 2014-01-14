@@ -5,10 +5,10 @@ import java.util.Map;
 import java.util.Vector;
 
 public class VectorsToTests {
-    private Vector<Double> numbers;
-    private Map<String, Vector<Double>> values;
-    private Map<String, Map<String, Vector<Double>>> waves = new HashMap<String, Map<String, Vector<Double>>>();
-    private Map<String, Map<String, Map<String, Vector<Double>>>> vectors = new HashMap<String, Map<String, Map<String, Vector<Double>>>>();
+    private Vector<Object> numbers;
+    private Map<String, Vector<Object>> values;
+    private Map<String, Map<String, Vector<Object>>> waves = new HashMap<String, Map<String, Vector<Object>>>();
+    private Map<String, Map<String, Map<String, Vector<Object>>>> vectors = new HashMap<String, Map<String, Map<String, Vector<Object>>>>();
 
     public void clearVectors() {
 	getVectors().clear();
@@ -17,28 +17,29 @@ public class VectorsToTests {
     }
 
     public void printVectors() {
-	for (String vectName : getVectors().keySet()) {
-	    System.out.println(vectName);
-	    for (String waveName : getVectors().get(vectName).keySet()) {
-		System.out.println(waveName);
-		for (String statName : getVectors().get(vectName).get(waveName)
-			.keySet()) {
-		    System.out.println(statName);
-		    System.out.println(getVectors().get(vectName).get(waveName)
-			    .get(statName));
-		}
-	    }
-	}
+//	for (String vectName : getVectors().keySet()) {
+//	    System.out.println(vectName);
+//	    for (String waveName : getVectors().get(vectName).keySet()) {
+//		System.out.println(waveName);
+//		for (String statName : getVectors().get(vectName).get(waveName)
+//			.keySet()) {
+//		    System.out.println(statName);
+//		    System.out.println(getVectors().get(vectName).get(waveName)
+//			    .get(statName));
+//		}
+//	    }
+//	}
+	System.out.println(vectors);
     }
 
-    public Map<String, Map<String, Vector<Double>>> getWaves() {
+    public Map<String, Map<String, Vector<Object>>> getWaves() {
 	return waves;
     }
 
-    public void addWave(String name, String statName, double value) {
+    public void addWave(String name, String statName, Object value) {
 
 	if (waves.containsKey(name) == false) {
-	    values = new HashMap<String, Vector<Double>>();
+	    values = new HashMap<String, Vector<Object>>();
 	    addValue(statName, value);
 	    waves.put(name, values);
 	} else {
@@ -51,33 +52,33 @@ public class VectorsToTests {
 
     }
 
-    public Map<String, Vector<Double>> getValues() {
+    public Map<String, Vector<Object>> getValues() {
 	return values;
     }
 
-    public void addValue(String name, double value) {
-	numbers = new Vector<Double>();
+    public void addValue(String name, Object value) {
+	numbers = new Vector<Object>();
 	addNumber(value);
 	values.put(name, numbers);
     }
 
-    public Vector<Double> getNumbers() {
+    public Vector<Object> getNumbers() {
 	return numbers;
     }
 
-    public void addNumber(double number) {
+    public void addNumber(Object number) {
 	numbers.add(number);
     }
 
-    public Map<String, Map<String, Map<String, Vector<Double>>>> getVectors() {
+    public Map<String, Map<String, Map<String, Vector<Object>>>> getVectors() {
 	return vectors;
     }
 
-    //TODO do poprawki
     public void addVector(String name, String waveName, String statName,
-	    double value) {
+	    Object value) {
+	
 	if (vectors.containsKey(name) == false) {
-	    waves = new HashMap<String, Map<String, Vector<Double>>>();
+	    waves = new HashMap<String, Map<String, Vector<Object>>>();
 	    addWave(waveName, statName, value);
 	    vectors.put(name, waves);
 	} else {
@@ -92,5 +93,7 @@ public class VectorsToTests {
 	}
 
     }
+
+
 
 }
