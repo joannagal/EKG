@@ -13,12 +13,9 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import pi.graph.signal.Graph;
 import pi.gui.autofinder.AutoFinderView;
 import pi.inputs.signal.Channel;
 import pi.shared.SharedController;
-import pi.statistics.gui.StatisticWindowController;
-import pi.statistics.gui.StatisticWindowView;
 
 public class GraphToolbar extends JPanel {
 
