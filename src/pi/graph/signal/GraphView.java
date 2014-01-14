@@ -37,7 +37,11 @@ public class GraphView extends JPanel {
 	private int type;
 
 	public GraphView(Population population, int type) {
-
+	
+		
+		
+		
+		
 		this.setPopulation(population);
 
 		this.setVisible(true);

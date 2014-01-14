@@ -34,7 +34,8 @@ public class OpenPopulationController implements ActionListener {
 			try {
 				p = XMLReaderFactory.createXMLReader();
 				p.setContentHandler(pi);
-				p.parse(view.getImportPanel().getPath());
+				System.out.println(view.getPath().toString());
+				p.parse(view.getPath());
 				Project importedProject = pi.getProject();
 				int type = importedProject.getType();
 				SharedController.getInstance().createProjectToolbar();

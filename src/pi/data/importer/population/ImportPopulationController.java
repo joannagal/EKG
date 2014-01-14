@@ -99,12 +99,26 @@ public class ImportPopulationController implements ActionListener {
 							e1.printStackTrace();
 						}
 					}
+				
 
 					GraphView view = new GraphView(SharedController
 							.getInstance().getProject().getFirstPopulation(), 1);
 					GraphView view2 = new GraphView(SharedController
 							.getInstance().getProject().getSecondPopulation(),
 							2);
+					
+					System.out.println("Population 1");
+					for (int i = 0; i <  SharedController.getInstance().getProject().getFirstPopulation().getSpecimen().size(); i++){
+						System.out.println("BEFORE: " + SharedController.getInstance().getProject().getFirstPopulation().getSpecimen().get(i).getPath().toString());
+						System.out.println("AFTER: " + SharedController.getInstance().getProject().getFirstPopulation().getSpecimen().get(i).getPathAfter().toString());
+					}
+					
+					System.out.println("Population 2");
+					for (int i = 0; i < SharedController.getInstance().getProject().getSecondPopulation().getSpecimen().size(); i++){
+						System.out.println("BEFORE: " + SharedController.getInstance().getProject().getSecondPopulation().getSpecimen().get(i).getPath().toString());
+						System.out.println("AFTER: " + SharedController.getInstance().getProject().getSecondPopulation().getSpecimen().get(i).getPathAfter().toString());
+					}
+					
 
 				}
 
@@ -258,6 +272,8 @@ public class ImportPopulationController implements ActionListener {
 
 				GraphView view2 = new GraphView(SharedController.getInstance()
 						.getProject().getSecondPopulation(), 2);
+				
+				
 
 			}
 
