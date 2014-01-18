@@ -42,6 +42,7 @@ public class PopImporter extends DefaultHandler {
 
 	@Override
 	public void endDocument() {
+		input.findAll();
 		System.out.println("Project imported");
 	}
 
@@ -197,8 +198,14 @@ public class PopImporter extends DefaultHandler {
 		if ((interval != null) && (interval != ""))
 			channel.setInterval(Double.valueOf(interval));
 
+		
+		channel.setTranslation(0.0d);
+		channel.setStartAxis(0.0d);
+		channel.setScale(0.2d);
+		channel.setParent(input);
+		
 		// TODO Nie wiem czy atrybuyt samples jest w ogóle potrzebny
-
+		
 		channelList.add(channelIndex, channel);
 		channelIndex++;
 
@@ -210,13 +217,19 @@ public class PopImporter extends DefaultHandler {
 	}
 	
 	public void importRowData(){
-		
+		int max = 0;
+		int min = 0;
 		String data[] = rawDataBuffer.toString().split(" ");
 		ArrayList<Probe> probes = new ArrayList<>(data.length);
 		for (int i = 0; i < data.length; i++) {
 			// System.out.println(data[i]);
 			try {
 				Probe p = new Probe(i, Integer.parseInt(data[i]));
+				int probeValue = p.getValue();
+				if (probeValue  > max)
+					max = probeValue;
+				if (probeValue < min)
+					min = probeValue;
 				probes.add(i, p);
 			} catch (NumberFormatException nfe) {
 				System.out.println(nfe);
@@ -225,7 +238,10 @@ public class PopImporter extends DefaultHandler {
 				System.out.println("\n\nROW DATA:\n=================\n" + rawDataBuffer.toString());
 			}
 		}
+		channel.setMaxValue((double) max / 1000.0d);
+		channel.setMinValue((double) min / 1000.0d);
 		channel.setProbe(probes);
+		channel.recalculate();
 	}
 
 	public void initCycles(Attributes attributes) {

@@ -40,6 +40,7 @@ public class OpenPopulationController implements ActionListener {
 				int type = importedProject.getType();
 				SharedController.getInstance().setProject(importedProject);
 				SharedController.getInstance().createProjectToolbar();
+				
 
 				if (type == 1){							
 					GraphView view = new GraphView(importedProject.getFirstPopulation(), 1);
