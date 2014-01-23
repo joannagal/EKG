@@ -299,7 +299,8 @@ public class SharedController {
 	public void addPanel(JPanel panel) {
 
 		JScrollPane sp = new JScrollPane(panel);
-		sp.getVerticalScrollBar().setUnitIncrement(20);
+		sp.getVerticalScrollBar().setUnitIncrement(15);
+		sp.getHorizontalScrollBar().setUnitIncrement(15);
 		
 		int w = sp.getWidth();
 		int h = ((GraphView) panel).getGraph().getHeight()
@@ -332,8 +333,8 @@ public class SharedController {
 		}
 
 
-		frame.setSize(800, 800);
-		sp.revalidate();
+		//frame.setSize(800, 800);
+		//sp.revalidate();
 
 	}
 

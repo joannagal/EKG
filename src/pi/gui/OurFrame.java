@@ -19,7 +19,25 @@ public class OurFrame extends JFrame {
 	private MenuView menubar;
 	private MenuController menuController;
 	private JPanel content;
-
+	private ComponentListener cl = new ComponentListener() {
+		
+		@Override
+		public void componentShown(ComponentEvent e) {}
+		
+		@Override
+		public void componentResized(ComponentEvent e) {
+			JPanel source = (JPanel) e.getSource();
+			source.setPreferredSize(source.getSize());
+		}
+		
+		@Override
+		public void componentMoved(ComponentEvent e) {}
+		
+		@Override
+		public void componentHidden(ComponentEvent e) {}
+	};
+	
+	
 	public OurFrame() {
 
 		this.setLocation(100, 0);
@@ -32,6 +50,8 @@ public class OurFrame extends JFrame {
 		content.setVisible(true);
 		//content.setComponentOrientation()
 		content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
+		content.addComponentListener(cl);
+
 		
 		getContentPane().add(content, BorderLayout.CENTER);
 		
