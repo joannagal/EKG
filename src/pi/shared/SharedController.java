@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.io.File;
 
@@ -307,6 +308,7 @@ public class SharedController {
 		} else {
 			getFrame().getContent().add(sp);
 		}
+		frame.revalidate();
 	}
 
 	public void packFrame() {
@@ -327,6 +329,14 @@ public class SharedController {
 
 	public void setProject(Project project) {
 		this.project = project;
+		if(project == null){
+			Dimension conSize = frame.getContent().getSize();
+			frame.getContentPane().removeAll();
+			toolbarSet = false;
+			frame.initContent();
+			frame.getContent().setPreferredSize(conSize);
+			frame.repaint();
+		}
 	}
 
 	public void createProjectToolbar() {

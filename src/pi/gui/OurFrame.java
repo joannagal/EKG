@@ -43,13 +43,7 @@ public class OurFrame extends JFrame {
 		this.setLocation(100, 0);
 		getContentPane().setLayout(new BorderLayout());
 
-		content = new JPanel();
-		content.setBackground(Color.white);
-		content.setVisible(true);
-		content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
-		content.addComponentListener(cl);
-		
-		getContentPane().add(content, BorderLayout.CENTER);
+		initContent();
 		
 		SharedController.getInstance().setFrame(this);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -62,6 +56,15 @@ public class OurFrame extends JFrame {
 		
 	}
 
+	public void initContent(){
+		content = new JPanel();
+		content.setVisible(true);
+		content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
+		content.addComponentListener(cl);
+		
+		getContentPane().add(content, BorderLayout.CENTER);
+	}
+	
 	public MenuView getMenubar() {
 		return menubar;
 	}
