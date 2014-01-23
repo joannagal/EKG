@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.plaf.basic.BasicScrollPaneUI.ViewportChangeHandler;
 
 import net.sf.jasperreports.engine.export.tabulator.SplitCell;
 
@@ -296,8 +297,15 @@ public class SharedController {
 	}
 
 	public void addPanel(JPanel panel) {
+
 		JScrollPane sp = new JScrollPane(panel);
-		panel.setPreferredSize(new Dimension(500, 500));
+		sp.getVerticalScrollBar().setUnitIncrement(20);
+		
+		int w = sp.getWidth();
+		int h = ((GraphView) panel).getGraph().getHeight()
+				+ ((GraphView) panel).getGraph().getY() + 5;
+
+		panel.setPreferredSize(new Dimension(w, h));
 
 		// panel.setVisible(true);
 
@@ -323,7 +331,9 @@ public class SharedController {
 			sp.setPreferredSize(new Dimension(5, 5));
 		}
 
+
 		frame.setSize(800, 800);
+		sp.revalidate();
 
 	}
 
@@ -348,7 +358,7 @@ public class SharedController {
 	}
 
 	public void createProjectToolbar() {
-		if (!toolbarSet ) {
+		if (!toolbarSet) {
 			ProjectToolbar tool = new ProjectToolbar();
 			ProjectToolbarController toolConroller = new ProjectToolbarController(
 					tool);
