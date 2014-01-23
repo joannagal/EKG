@@ -1,12 +1,10 @@
 package pi.graph.signal;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
-import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 import pi.inputs.signal.Channel;
@@ -120,8 +118,6 @@ public class GraphView extends JPanel {
 
 		controller = new GraphToolbarController(toolbar, graph);
 
-		// toolbar.setMinimumSize(new Dimension(minimumWidth, 0));
-		// graph.setMinimumSize(new Dimension(minimumWidth, 0));
 		this.add(toolbar);
 		this.add(graph);
 

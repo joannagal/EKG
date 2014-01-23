@@ -41,17 +41,13 @@ public class OurFrame extends JFrame {
 	public OurFrame() {
 
 		this.setLocation(100, 0);
-		//this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		getContentPane().setLayout(new BorderLayout());
-				//new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
 
 		content = new JPanel();
 		content.setBackground(Color.white);
 		content.setVisible(true);
-		//content.setComponentOrientation()
 		content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
 		content.addComponentListener(cl);
-
 		
 		getContentPane().add(content, BorderLayout.CENTER);
 		
@@ -62,42 +58,8 @@ public class OurFrame extends JFrame {
 		setMenubar(new MenuView(this));
 		this.setJMenuBar(getMenubar());
 		setMenuController(new MenuController(getMenubar()));
-		// this.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
-		// JScrollPane pane = new
-		// JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-		// JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		// this.setContentPane(pane);
-		this.setSize(new Dimension(800,800));
-		// this.setMinimumSize(new Dimension(1140, 1000));
+		this.setSize(new Dimension(1150, 800));
 		
-		this.addComponentListener(new ComponentListener() {
-			
-			@Override
-			public void componentShown(ComponentEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void componentResized(ComponentEvent e) {
-				// TODO Auto-generated method stub
-				content.revalidate();
-			}
-			
-			@Override
-			public void componentMoved(ComponentEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void componentHidden(ComponentEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-
-
 	}
 
 	public MenuView getMenubar() {

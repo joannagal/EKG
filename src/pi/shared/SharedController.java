@@ -5,20 +5,13 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.io.File;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
-import javax.swing.plaf.basic.BasicScrollPaneUI.ViewportChangeHandler;
-
-import net.sf.jasperreports.engine.export.tabulator.SplitCell;
 
 import pi.data.importer.Importer;
 import pi.graph.signal.GraphView;
@@ -302,14 +295,6 @@ public class SharedController {
 		sp.getVerticalScrollBar().setUnitIncrement(15);
 		sp.getHorizontalScrollBar().setUnitIncrement(15);
 		
-		int w = sp.getWidth();
-		int h = ((GraphView) panel).getGraph().getHeight()
-				+ ((GraphView) panel).getGraph().getY() + 5;
-
-		panel.setPreferredSize(new Dimension(w, h));
-
-		// panel.setVisible(true);
-
 		if (getFrame().getContent().getComponentCount() > 0) {
 			Component temp = getFrame().getContent().getComponent(0);
 			JSplitPane split = new JSplitPane(JSplitPane.VERTICAL_SPLIT, temp,
@@ -319,23 +304,9 @@ public class SharedController {
 			split.setDividerLocation(0.5);
 			split.setContinuousLayout(true);
 			split.setResizeWeight(0.5);
-
-			int width = sp.getWidth();
-			int height = split.getDividerLocation();
-			sp.setPreferredSize(new Dimension(5, 5));
-
 		} else {
 			getFrame().getContent().add(sp);
-
-			int width = sp.getWidth();
-			int height = panel.getHeight();
-			sp.setPreferredSize(new Dimension(5, 5));
 		}
-
-
-		//frame.setSize(800, 800);
-		//sp.revalidate();
-
 	}
 
 	public void packFrame() {
@@ -364,10 +335,8 @@ public class SharedController {
 			ProjectToolbarController toolConroller = new ProjectToolbarController(
 					tool);
 			tool.setVisible(true);
-			// tool.setBounds(10, 10, frame.getWidth()-40, 65);
 			SharedController.getInstance().getFrame().getContentPane()
 					.add(tool, BorderLayout.NORTH);
-			// SharedController.getInstance().getFrame().pack();
 			toolbarSet = true;
 		}
 	}
