@@ -113,7 +113,7 @@ public class Channel {
 
 	public void setInterval(Double interval) {
 		this.interval = interval;
-		this.recalculate();
+		//this.recalculate();
 	}
 
 	public Float getFill() {
@@ -158,7 +158,7 @@ public class Channel {
 
 	public void setTranslation(Double translation) {
 		this.translation = translation;
-		this.recalculate();
+		//this.recalculate();
 	}
 
 	public Double getStartAxis() {
