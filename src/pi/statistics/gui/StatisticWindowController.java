@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import org.apache.commons.math3.genetics.StoppingCondition;
+
 import net.sf.jasperreports.engine.JRException;
 
 import pi.population.Specimen;
@@ -37,13 +39,14 @@ public class StatisticWindowController implements ActionListener {
 	    window.setVisible(false);
 	}
 	if (action.equals("REPORT")) {
+		long start = System.currentTimeMillis();
 	    if (stControl.getFinalResult() != null) {
 		// TODO generowanie raportu koñcowego
 		try {
 		    ReportManager rm = new ReportManager();
-		    // rm.viewRaport();
-		    rm.saveRaportAsPdf(null);
-		    rm.saveReportAsHtml(null);
+		    rm.viewRaport();
+		    //rm.saveRaportAsPdf(null);
+		    //rm.saveReportAsHtml(null);
 		} catch (JRException ex) {
 		    System.out.println("Report exception");
 		    ex.printStackTrace();
@@ -52,6 +55,8 @@ public class StatisticWindowController implements ActionListener {
 		JOptionPane
 			.showMessageDialog(window, "Count statistics first!");
 	    }
+	    long time = System.currentTimeMillis() - start;
+	    System.out.println("Czas wyœwietlenia raportu: "+time);
 	}
 	if (action.equals("COUNT")) {
 	    ArrayList<Function> functions = new ArrayList<Function>();
