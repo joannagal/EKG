@@ -245,10 +245,10 @@ public class StatisticsController {
 	getFinalResult().setPopul1(countForPopulation(popul1));
 	if (popul2 != null) {
 	    getFinalResult().setPopul2(countForPopulation(popul2));
-	    if (SharedController.getInstance().getProject().getType() == 3) {
+	    if (SharedController.getInstance().getProject().getType() == 3 && specimenId == null) {
 		System.out.println("niezalezne (3)");
 		getFinalResult().performUnpairedTest();
-	    } else if (SharedController.getInstance().getProject().getType() == 4) {
+	    } else if (SharedController.getInstance().getProject().getType() == 4 && specimenId == null) {
 		System.out.println("zalezne (4)");
 		getFinalResult().performPairedTest(1);
 		getFinalResult().performPairedTest(2);

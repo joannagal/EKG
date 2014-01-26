@@ -28,6 +28,7 @@ public class StatisticsComparatorView extends JFrame {
     private StatisticsComparatorController controller;
 
     public JLabel channelLabel = new JLabel("Channel");
+    public JLabel specimanLabel = new JLabel("Person");
 
     private JComboBox<String> channelCombo = new JComboBox<String>();
     private JComboBox<String> specimanCombo = new JComboBox<String>();
@@ -71,7 +72,7 @@ public class StatisticsComparatorView extends JFrame {
 	
 	getContentPane().add(this.specimanCombo);
 
-	JLabel specimanLabel = new JLabel("Person");
+	
 	specimanLabel.setBounds(10, 2, 46, 14);
 	getContentPane().add(specimanLabel);
 	

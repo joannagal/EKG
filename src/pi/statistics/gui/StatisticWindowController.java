@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import org.apache.commons.math3.genetics.StoppingCondition;
+
 import net.sf.jasperreports.engine.JRException;
 
 import pi.population.Specimen;
@@ -37,21 +39,24 @@ public class StatisticWindowController implements ActionListener {
 	    window.setVisible(false);
 	}
 	if (action.equals("REPORT")) {
-	    if (stControl.getFinalResult() != null) {
-		// TODO generowanie raportu koñcowego
-		try {
-		    ReportManager rm = new ReportManager();
-		    // rm.viewRaport();
-		    rm.saveRaportAsPdf(null);
-		    rm.saveReportAsHtml(null);
-		} catch (JRException ex) {
-		    System.out.println("Report exception");
-		    ex.printStackTrace();
-		}
-	    } else {
-		JOptionPane
-			.showMessageDialog(window, "Count statistics first!");
-	    }
+	    long start = System.currentTimeMillis();
+	         if (stControl.getFinalResult() != null) {
+	                // TODO generowanie raportu koñcowego
+	                try {
+	                 ReportManager rm = new ReportManager();
+	                 rm.viewRaport();
+	                 //rm.saveRaportAsPdf(null);
+	                 //rm.saveReportAsHtml(null);
+	                } catch (JRException ex) {
+	                 System.out.println("Report exception");
+	                 ex.printStackTrace();
+	                }
+	         } else {
+	                JOptionPane
+	                        .showMessageDialog(window, "Count statistics first!");
+	         }
+	         long time = System.currentTimeMillis() - start;
+	         System.out.println("Czas wyœwietlenia raportu: "+time);
 	}
 	if (action.equals("COUNT")) {
 	    ArrayList<Function> functions = new ArrayList<Function>();
@@ -124,12 +129,15 @@ public class StatisticWindowController implements ActionListener {
 
 	    int type = SharedController.getInstance().getProject().getType();
 
-	    if (type == 1 || type == 2) {
+	    if (type == 1 || type == 2 || id != null) {
 		StatisticsComparatorView view = new StatisticsComparatorView();
 		view.setSpecimanStr(specimanStr);
 		view.prepare(view.getSpecimanStr(), view.getChannelStr(),
 			view.getWaveStr());
 		view.setVisible(true);
+		view.getSpecimanCombo().setEnabled(false);
+		view.getSpecimanCombo().setVisible(false);
+		view.specimanLabel.setVisible(false);
 	    } else {
 		StatisticTestsView view = new StatisticTestsView();
 		view.prepare(view.getChannelStr(), view.getWaveStr());
