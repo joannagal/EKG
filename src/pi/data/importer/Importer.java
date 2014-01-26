@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
+import org.codehaus.groovy.control.messages.Message;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Node;
@@ -29,14 +32,23 @@ public class Importer {
 	 * @throws DocumentException
 	 */
 	public Importer(String filePath) throws DocumentException {
-		this.filePath = filePath;
-		document = loadDocument(filePath);
+		try {
+			this.filePath = filePath;
+			document = loadDocument(filePath);
+		} catch (DocumentException docEx) {
+			JOptionPane.showMessageDialog(null,
+					"Something wring with given file!");
+		}
 	}
 
 	public String[] getAttributes() throws DocumentException {
+
 		String[] test = new String[4];
-		String xPath = "//patient";
-		List<?> nodes = document.selectNodes(xPath);
+		String xPath;
+		List<?> nodes;
+
+		xPath = "//patient";
+		nodes = document.selectNodes(xPath);
 
 		if (nodes.iterator().hasNext()) {
 			Node node = (Node) nodes.iterator().next();
@@ -45,6 +57,7 @@ public class Importer {
 			test[2] = node.valueOf("@birthDate");
 			test[3] = node.valueOf("@ID");
 		}
+
 		return test;
 	}
 
@@ -59,26 +72,26 @@ public class Importer {
 			test[0] = node.valueOf("@surname");
 			test[1] = node.valueOf("@firstName");
 		}
-		
+
 		name = test[0] + " " + test[1];
 		return name;
 	}
-	
+
 	public Specimen importSpecimen() throws DocumentException {
 		Specimen spec = new Specimen();
-		
-		//TODO Atrybuty specimena
-		//spec.setName(name)
-		
+
+		// TODO Atrybuty specimena
+		// spec.setName(name)
+
 		ArrayList<ECG> vectorOfSignals = importSignals();
 		// TODO wczytujemy list� a w specimenie jest tylko after i before?
 		if (vectorOfSignals.get(0) != null) {
 			// spec.loadBefore(vectorOfSignals.get(0));//TODO STRING?!
 		}
-		if (vectorOfSignals.get(1) != null){
-			//TODO
+		if (vectorOfSignals.get(1) != null) {
+			// TODO
 		}
-			
+
 		return spec;
 	}
 

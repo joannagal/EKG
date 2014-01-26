@@ -2,7 +2,11 @@ package pi.data.importer.signal;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
+
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 import org.dom4j.DocumentException;
 
@@ -14,85 +18,66 @@ import pi.population.Specimen;
 import pi.project.Project;
 import pi.shared.SharedController;
 
-public class ImportController implements ActionListener{
+public class ImportController implements ActionListener {
 
-	private ImporterView view;
-	private Population population;
-	private Specimen specimen;
+	private ImportView view;
 	private Importer importer;
-	private Importer importer2;
-	
-	
-	public ImportController(ImporterView panel){
-		this.view = panel;
-		
-		view.setButtonsListener(this);
+	private Specimen specimen;
+	private Population population;
+
+	public ImportController(ImportView view) {
+		this.view = view;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
 		String action = e.getActionCommand();
-		
-		if (action.equals("NEXT")){
-			
-			String path = this.view.getPath(0);
-			
-			try {
-				importer = new Importer(path);
-				ArrayList<ECG> temp = importer.importSignals();
-				
-        		specimen = new Specimen();
-        		specimen.setBefore(temp.get(0));
-        		specimen.setPath(path);
-        		ArrayList <Specimen> pop = new ArrayList<>(1);
-        		pop.add(specimen);
-        		specimen.setDetails(importer.getAttributes());
-        		
-        		population = new Population();
-        		population.setSpecimen(pop);
-        		
-				SharedController.getInstance().getProject().setFirstPopulation(population);
-				SharedController.getInstance().createProjectToolbar();
-				
-				GraphView view = new GraphView(population, 1);
-        			        		
-			} catch (DocumentException ae) {
-				ae.printStackTrace();
-			}
-				
-			if (SharedController.getInstance().getProject().getType() == 2){
-				
-				String path2 = this.view.getPath(1);
-				
+
+		if (action.equals("OK")) {
+			if (!this.view.getPathArea().getText().isEmpty()) {
+				String path = this.view.getPathArea().getText();
+
 				try {
-					
-					importer2 = new Importer(path2);
-					ArrayList<ECG> temp2 = importer2.importSignals();
-					
-	        		specimen.setAfter(temp2.get(0));
-	        		specimen.setPathAfter(path2);
-	        			        
-					GraphView view2 = new GraphView(population, 2);
-	        		
+					importer = new Importer(path);
+					ArrayList<ECG> temp = importer.importSignals();
+
+					specimen = new Specimen();
+					specimen.setBefore(temp.get(0));
+					specimen.setPath(path);
+					ArrayList<Specimen> pop = new ArrayList<>(1);
+					pop.add(specimen);
+					specimen.setDetails(importer.getAttributes());
+
+					population = new Population();
+					population.setSpecimen(pop);
+
+					SharedController.getInstance().getProject()
+							.setFirstPopulation(population);
+					SharedController.getInstance().createProjectToolbar();
+
+					GraphView view = new GraphView(population, 1);
 				} catch (DocumentException ae) {
 					ae.printStackTrace();
 				}
 				
+				this.view.setVisible(false);
+			} else {
+				JOptionPane.showMessageDialog(null, "Please fill in path!");
 			}
 			
-			view.dispose();
-		}
-		
-		if (action.equals("BACK")){
+		} else if (action.equals("CANCEL")) {
+			this.view.setVisible(false);
+		} else if (action.equals("CHOOSE")) {
+			int returnValue = this.view.getFileChooser().showDialog(view.getContext(), "Choose specimen...");
 			
-		}
-		
-		
-	}
-	
-	public void validate(){
-		if (this.view.getPath(0) == null){
+			if (returnValue == JFileChooser.APPROVE_OPTION)
+			{
+				File file = this.view.getFileChooser().getSelectedFile();
+				this.view.getPathArea().setText(file.getAbsolutePath());
+        		SharedController.getInstance().setLastDirectory(this.view.getFileChooser().getSelectedFile());
+        		System.out.println(file.getAbsolutePath().toString());
+			}
 		}
 	}
 }

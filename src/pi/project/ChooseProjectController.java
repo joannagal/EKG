@@ -12,7 +12,7 @@ import pi.data.importer.population.ImportPopulationController;
 import pi.data.importer.population.ImportPopulationFrame;
 import pi.data.importer.signal.ImportController;
 import pi.data.importer.signal.ImportPanel;
-import pi.data.importer.signal.ImporterView;
+import pi.data.importer.signal.ImportView;
 import pi.shared.SharedController;
 
 
@@ -46,14 +46,14 @@ public class ChooseProjectController implements ActionListener{
 				project.setType(1);
 				SharedController.getInstance().setProject(project);
 				
-				ImporterView importerView = new ImporterView();
+				ImportView importerView = new ImportView();
 				ImportController controller = new ImportController(importerView);
 				importerView.setBounds(400, 200, 400, 200);
 				
 			}
 			
 			if (selected.equals("TWO_SIGNALS")){
-				view.setVisible(false);
+				/*view.setVisible(false);
 				
 				project = new Project();
 				project.setType(2);
@@ -63,6 +63,7 @@ public class ChooseProjectController implements ActionListener{
 				ImportController controller = new ImportController(importerView);
 					
 				importerView.setBounds(400, 200, 350, 200);
+				*/
 				
 			}
 			if (selected.equals("TWO_POPULATIONS")){

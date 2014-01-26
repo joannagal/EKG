@@ -34,9 +34,9 @@ public class ImportPanel extends JPanel{
 	private String path;
 	private JTextArea area;
 	private JButton button;
-	private ImporterView importView;
+	//private ImporterView importView;
 	
-	public ImportPanel(final ImporterView importView){	
+	public ImportPanel(){	
 		
 		JLabel fileLabel = new JLabel("Specimen");
 		fileLabel.setVisible(true);
@@ -44,10 +44,9 @@ public class ImportPanel extends JPanel{
     
 		area = new JTextArea();
 		area.setPreferredSize(new Dimension(150,20));
-		area.setEditable(false);
-		JScrollPane jsp = new JScrollPane(area);
-
-		this.add(jsp);		
+		area.setEditable(true);
+		//JScrollPane jsp = new JScrollPane(area);
+		//this.add(jsp);		
 		
     	button = new JButton("Choose");
  		this.add(button);
@@ -79,13 +78,7 @@ public class ImportPanel extends JPanel{
 	        		setPath(path);
 	        		
 	        		int type = SharedController.getInstance().getProject().getType();
-	        		if (type == 1){
-		        		importView.getNextButton().setEnabled(true);
-	        		} else if (type == 2){
-	        			if (importView.checkPaths() == true){
-			        		importView.getNextButton().setEnabled(true);
-	        			}
-	        		}
+	        		
 	        		
 	        	}
 	        }

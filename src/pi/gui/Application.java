@@ -22,6 +22,7 @@ import pi.data.importer.Importer;
 import pi.data.importer.population.ImportPopulation;
 import pi.data.importer.population.ImportPopulationFrame;
 import pi.data.importer.population.SingleFile;
+import pi.data.importer.signal.ImportView;
 import pi.gui.menu.MenuController;
 import pi.gui.menu.MenuView;
 import pi.gui.toolbar.ProjectToolbar;
