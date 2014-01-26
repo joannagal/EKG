@@ -28,7 +28,6 @@ public class StatisticsComparatorController implements ActionListener
 	}
 
 	private ArrayList<ArrayList<Double>> toHist;
-	private ArrayList<ArrayList<Double>> toDepend;
 
 	public void set(Specimen spec, String channel, String wave, int columns)
 	{
@@ -41,12 +40,9 @@ public class StatisticsComparatorController implements ActionListener
 		else
 			spec = null;
 
-		// GOING DOWN
-
 		int pntr = 0;
 
 		this.toHist = new ArrayList<ArrayList<Double>>(2);
-		this.toDepend = new ArrayList<ArrayList<Double>>(2);
 
 		ChannelResult channelResult = specResult.getBefore();
 		
@@ -70,10 +66,6 @@ public class StatisticsComparatorController implements ActionListener
 		this.view.getHistogram().recalculate();
 		this.view.getHistogram().draw();
 
-		this.view.getdGraph().setData(this.toDepend);
-		this.view.getdGraph().recalculate();
-		this.view.getdGraph().draw();
-
 
 	}
 
@@ -85,22 +77,7 @@ public class StatisticsComparatorController implements ActionListener
 	    	WavesResult wavesResult = channelResult.getValue().get(channel);
 		if (wavesResult != null)
 		{
-			// PRINT FOR CHECK
-			/*
-			 * System.out.printf("START\n"); ArrayList<PacketData> pck =
-			 * figureResult.getFigure().getParent() .getPacket();
-			 * 
-			 * Figure fig = figureResult.getFigure(); Iterator<Segment> it =
-			 * fig.getSegment().iterator(); while (it.hasNext()) {
-			 * System.out.printf("SEGMENT\n"); Segment seg = it.next(); for (int
-			 * i = seg.getRange().getLeft(); i <= seg.getRange() .getRight();
-			 * i++) { System.out.printf("%d %d %d %d %d %d\n", pck.get(i)
-			 * .getPkX(), pck.get(i).getPkY(), pck.get(i) .getPkTime(),
-			 * pck.get(i).getPkPressure(), pck .get(i).getPkAltitude(),
-			 * pck.get(i).getPkAzimuth()); } }
-			 */
 
-			// --------------
 
 			ArrayList<Double> collector = wavesResult.getWavesCollector().get(wave);
 			if (collector != null)
@@ -113,15 +90,6 @@ public class StatisticsComparatorController implements ActionListener
 			{
 
 				Map<String, Double> statResult = statisticResult.getValue();
-
-//
-//				result = statResult.get("Dependency Collector");
-//				if (result != null)
-//				{
-//					ArrayList<Double> value = result.getValue();
-//					this.toDepend.add(value);
-//				}
-
 
 				int pos = 0;
 				Double result = statResult.get("Pulse(s)");
@@ -210,16 +178,10 @@ public class StatisticsComparatorController implements ActionListener
 
 		if (action.equals("CHANGE_FIGURE"))
 		{
-			view.prepare(view.getSpecimanCombo().getSelectedItem().toString(), view.getChannelCombo().getSelectedItem().toString(),
+			view.prepare(view.getSpecimanStr(), view.getChannelCombo().getSelectedItem().toString(),
 					view.getWaveStr());
 		}
 		
-		if (action.equals("CHANGE_SPEC"))
-		{
-			view.prepare(view.getSpecimanCombo().getSelectedItem().toString(),
-				view.getChannelCombo().getSelectedItem().toString(),
-				view.getWaveStr());
-		}
 
 		if (action.equals("CLOSE"))
 		{

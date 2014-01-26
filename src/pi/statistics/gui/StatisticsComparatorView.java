@@ -25,14 +25,11 @@ import pi.statistics.logic.StatisticsController;
 public class StatisticsComparatorView extends JFrame {
     private static final long serialVersionUID = 1L;
 
-    //private Specimen[] specimen = new Specimen[2];
     private StatisticsComparatorController controller;
 
     public JLabel channelLabel = new JLabel("Channel");
-    public JLabel specimanLabel = new JLabel("Person");
 
     private JComboBox<String> channelCombo = new JComboBox<String>();
-    private JComboBox<String> specimanCombo = new JComboBox<String>();
     private JList<String> wavesList;
 
     private String specimanStr = "";
@@ -43,19 +40,19 @@ public class StatisticsComparatorView extends JFrame {
     private JButton saveButton = new JButton("Save report");
     private JButton reportButton = new JButton("Display report");
     private Histogram histogram = new Histogram();
-    private DependGraph dGraph = new DependGraph();
-
     private JTabbedPane tabbedPane = new JTabbedPane();
 
     private JTable report = new JTable();
     private DefaultTableModel model = new DefaultTableModel();
     private JScrollPane reportPane = new JScrollPane(report);
-    
-    private StatisticsController stController; 
 
-    public StatisticsComparatorView() {
-	this.setTitle("Statistics");
+    private StatisticsController stController;
 
+    public StatisticsComparatorView(String spec) {
+	this.setTitle("Statistic results");
+	
+	setSpecimanStr(spec);
+	
 	getContentPane().setLayout(null);
 	this.setSize(new Dimension(1000, 500));
 	this.setResizable(false);
@@ -67,28 +64,13 @@ public class StatisticsComparatorView extends JFrame {
 
 	controller = new StatisticsComparatorController(this);
 
-	fillSpecimanCombo();
-	//this.specimanCombo.setSelectedIndex(0);
-	this.specimanCombo.setActionCommand("CHANGE_SPEC");
-	this.specimanCombo.addActionListener(controller);
-	
-	this.specimanCombo.setBounds(55, 0, 100, 19);
-	
-	getContentPane().add(this.specimanCombo);
-
-	
-	specimanLabel.setBounds(10, 2, 46, 14);
-	getContentPane().add(specimanLabel);
-	
 	this.channelCombo.setActionCommand("CHANGE_FIGURE");
 	this.channelCombo.addActionListener(controller);
 
 	this.channelLabel.setBounds(5, 22, 100, 15);
 	getContentPane().add(this.channelLabel);
-	
-	
+
 	this.channelCombo.setBounds(55, 18, 100, 19);
-	//this.channelCombo.setSelectedIndex(1);
 	fillChannelCombo();
 	getContentPane().add(this.channelCombo);
 
@@ -97,7 +79,8 @@ public class StatisticsComparatorView extends JFrame {
 	this.wavesList.addListSelectionListener(new ListSelectionListener() {
 	    @Override
 	    public void valueChanged(ListSelectionEvent arg0) {
-		prepare(getSpecimanStr(), getChannelStr(), getWavesList().getSelectedValue());
+		prepare(getSpecimanStr(), getChannelStr(), getWavesList()
+			.getSelectedValue());
 	    }
 	});
 	getContentPane().add(this.wavesList);
@@ -114,15 +97,13 @@ public class StatisticsComparatorView extends JFrame {
 
 	this.tabbedPane.addTab("Data", this.reportPane);
 	this.tabbedPane.addTab("Histogram", this.histogram);
-	this.tabbedPane.addTab("Dependency Graph", this.dGraph);
 	this.tabbedPane.setBounds(165, 18, 820, 417);
 	getContentPane().add(this.tabbedPane);
 
 	this.histogram.recalculate();
 	this.histogram.draw();
 
-	this.dGraph.setType(DependGraph.MIXED);
-	
+
 	this.reportButton.setActionCommand("DISPLAY");
 	this.reportButton.addActionListener(controller);
 	this.reportButton.setBounds(699, 440, 140, 25);
@@ -130,52 +111,7 @@ public class StatisticsComparatorView extends JFrame {
 
 
 
-	this.dGraph.recalculate();
-	this.dGraph.draw();
-
     }
-
-    // public void setSpecimen(Specimen first, Specimen second)
-    // {
-    // this.specimen[0] = first;
-    // this.specimen[1] = second;
-    // }
-
-    // class ShowThread implements Runnable
-    // {
-    // private StatisticsComparatorView view;
-    // private Specimen first;
-    // private Specimen second;
-    //
-    // public ShowThread(StatisticsComparatorView view, Specimen first,
-    // Specimen second)
-    // {
-    // this.view = view;
-    // this.first = first;
-    // this.second = second;
-    // }
-    //
-    // public void run()
-    // {
-    // SharedController.getInstance().getProgressView().init(1);
-    //
-    // view.setSpecimen(first, second);
-    //
-    // view.specimen[0].calculateStatistic();
-    // if (view.specimen[1] != null)
-    // specimen[1].calculateStatistic();
-    //
-    // view.prepare(view.getFigureStr(), view.getElementStr());
-    // }
-    // }
-
-    // public void showWithData(Specimen first, Specimen second)
-    // {
-    // ShowThread runnable = new ShowThread(this, first, second);
-    // Thread thread = new Thread(runnable);
-    // thread.start();
-    //
-    // }
 
     public void prepare(String speciman, String channel, String wave) {
 	this.specimanStr = speciman;
@@ -187,16 +123,34 @@ public class StatisticsComparatorView extends JFrame {
 	Specimen spec = new Specimen();
 	String[] credentials = this.specimanStr.split(" ");
 	for (int i = 0; i < SharedController.getInstance().getProject()
-		.getFirstPopulation().getSpecimen().size(); i++){
-	    if (credentials[0].equals(SharedController.getInstance().getProject()
-		.getFirstPopulation().getSpecimen().get(i).getName()) && credentials[1].equals(SharedController.getInstance().getProject()
-			.getFirstPopulation().getSpecimen().get(i).getSurname())){
+		.getFirstPopulation().getSpecimen().size(); i++) {
+	    if (credentials[0].equals(SharedController.getInstance()
+		    .getProject().getFirstPopulation().getSpecimen().get(i)
+		    .getName())
+		    && credentials[1].equals(SharedController.getInstance()
+			    .getProject().getFirstPopulation().getSpecimen()
+			    .get(i).getSurname())) {
 		spec = SharedController.getInstance().getProject()
 			.getFirstPopulation().getSpecimen().get(i);
+	    } else {
+		if (SharedController.getInstance().getProject()
+			.getSecondPopulation() != null) {
+		for (int j = 0; j < SharedController.getInstance().getProject()
+			.getSecondPopulation().getSpecimen().size(); j++) {
+		    if (credentials[0].equals(SharedController.getInstance()
+			    .getProject().getSecondPopulation().getSpecimen().get(j)
+			    .getName())
+			    && credentials[1].equals(SharedController.getInstance()
+				    .getProject().getSecondPopulation().getSpecimen()
+				    .get(j).getSurname())) {
+			spec = SharedController.getInstance().getProject()
+				.getSecondPopulation().getSpecimen().get(j);
+		    }
+		}
+			}
 	    }
 	}
-	
-	
+
 	if (spec.getBefore() != null) {
 	    size++;
 	    if (spec.getAfter() != null)
@@ -208,8 +162,8 @@ public class StatisticsComparatorView extends JFrame {
 
 	int pntr = 0;
 	if (spec != null) {
-	    columns[++pntr] = String.format("%s %s: Before",
-		    spec.getName(), spec.getSurname());
+	    columns[++pntr] = String.format("%s %s: Before", spec.getName(),
+		    spec.getSurname());
 	    if (spec.getAfter() != null)
 		columns[++pntr] = "After";
 	}
@@ -229,57 +183,42 @@ public class StatisticsComparatorView extends JFrame {
     }
 
     public void fillChannelCombo() {
-	for (String channelName : SharedController.getInstance()
-		.getProjectRes().getPopul1().getResult().get(0).getBefore().getValue().keySet()) {
-	    int tmp = SharedController.getInstance()
-			.getProjectRes().getPopul1().getResult().get(0).getBefore().getValue().keySet().size();
-	    ArrayList<String> names = new ArrayList<String>();
-	    for (int i = 0; i < tmp; i++) {
-		if (!names.contains(channelName)){
-		this.channelCombo.addItem(channelName);
-		names.add(channelName);
-		}
-	    }
-	}
-    }
-
-    public void fillSpecimanCombo() {
-	for (Specimen man : SharedController.getInstance().getProject()
-		.getFirstPopulation().getSpecimen()) {
-	    int tmp = SharedController.getInstance().getProject()
-		    .getFirstPopulation().getSpecimen().size();
-
-	    for (int i = 0; i < tmp; i++) {
-		this.specimanCombo.addItem(man.getName() + " "
-			+ man.getSurname());
-	    }
-	}
-	if (SharedController.getInstance().getProject().getSecondPopulation() != null) {
-	    for (Specimen man : SharedController.getInstance().getProject()
-		    .getSecondPopulation().getSpecimen()) {
-		int tmp = SharedController.getInstance().getProject()
-			.getSecondPopulation().getSpecimen().size();
-
+	try {
+	    for (String channelName : SharedController.getInstance()
+		    .getProjectRes().getPopul1().getResult().get(0).getBefore()
+		    .getValue().keySet()) {
+		int tmp = SharedController.getInstance().getProjectRes()
+			.getPopul1().getResult().get(0).getBefore().getValue()
+			.keySet().size();
+		ArrayList<String> names = new ArrayList<String>();
 		for (int i = 0; i < tmp; i++) {
-		    this.specimanCombo.addItem(man.getName() + " "
-			    + man.getSurname());
+		    if (!names.contains(channelName)) {
+			this.channelCombo.addItem(channelName);
+			names.add(channelName);
+		    }
+		}
+	    }
+	} catch (Exception ex) {
+	    for (String channelName : SharedController.getInstance()
+		    .getProjectRes().getPopul2().getResult().get(0).getBefore()
+		    .getValue().keySet()) {
+		int tmp = SharedController.getInstance().getProjectRes()
+			.getPopul2().getResult().get(0).getBefore().getValue()
+			.keySet().size();
+		ArrayList<String> names = new ArrayList<String>();
+		for (int i = 0; i < tmp; i++) {
+		    if (!names.contains(channelName)) {
+			this.channelCombo.addItem(channelName);
+			names.add(channelName);
+		    }
 		}
 	    }
 	}
-
     }
 
     public void fillWavesList() {
 	this.wavesList = new JList<String>(StatisticWindowController.wavesList);
     }
-
-//    public Specimen[] getSpecimen() {
-//	return specimen;
-//    }
-//
-//    public void setSpecimen(Specimen[] specimen) {
-//	this.specimen = specimen;
-//    }
 
     public JTable getReport() {
 	return report;
@@ -335,22 +274,6 @@ public class StatisticsComparatorView extends JFrame {
 
     public void setChannelCombo(JComboBox<String> channelCombo) {
 	this.channelCombo = channelCombo;
-    }
-
-    public DependGraph getdGraph() {
-	return dGraph;
-    }
-
-    public void setdGraph(DependGraph dGraph) {
-	this.dGraph = dGraph;
-    }
-
-    public JComboBox<String> getSpecimanCombo() {
-	return specimanCombo;
-    }
-
-    public void setSpecimanCombo(JComboBox<String> specimanCombo) {
-	this.specimanCombo = specimanCombo;
     }
 
     public String getSpecimanStr() {

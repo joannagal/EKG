@@ -3,6 +3,8 @@ package pi.gui.toolbar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
+
 public class ProjectToolbarController implements ActionListener {
 
 	private ProjectToolbar tool;
@@ -26,8 +28,10 @@ public class ProjectToolbarController implements ActionListener {
 			this.tool.getStControl();
 		}
 		
-		if (action.equals("REPORT")){
-
+		if (action.equals("STATS")){
+		    if (this.tool.getStControl().getComparatorView() != null) this.tool.getStControl().getComparatorView().setVisible(true);
+		    else if (this.tool.getStControl().getTestsView() != null) this.tool.getStControl().getTestsView().setVisible(true);
+		    else JOptionPane.showMessageDialog(tool, "Count statistics first!");
 		}
 		
 	}

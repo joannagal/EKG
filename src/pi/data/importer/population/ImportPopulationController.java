@@ -232,9 +232,7 @@ public class ImportPopulationController implements ActionListener {
 						.setFirstPopulation(population);
 
 
-				SharedController.getInstance().createProjectToolbar();
-				GraphView view = new GraphView(SharedController.getInstance()
-						.getProject().getFirstPopulation(), 1);
+
 
 				population2 = new Population();
 
@@ -267,9 +265,15 @@ public class ImportPopulationController implements ActionListener {
 
 
 				population2.setSpecimen(specimens2);
+				
+				
 				SharedController.getInstance().getProject()
 						.setSecondPopulation(population2);
 
+				SharedController.getInstance().createProjectToolbar();
+				GraphView view = new GraphView(SharedController.getInstance()
+						.getProject().getFirstPopulation(), 1);
+				
 				GraphView view2 = new GraphView(SharedController.getInstance()
 						.getProject().getSecondPopulation(), 2);
 				

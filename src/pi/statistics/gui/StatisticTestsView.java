@@ -78,7 +78,7 @@ public class StatisticTestsView extends JFrame {
 	private JTextField hypoLeftEdit = new JTextField();
 
     public StatisticTestsView() {
-	this.setTitle("Statistics");
+	this.setTitle("Tests results");
 
 	this.setLayout(null);
 	this.setSize(new Dimension(1000, 500));
@@ -203,48 +203,6 @@ public class StatisticTestsView extends JFrame {
 	controller.setDetails(column, channel, wave, statistics);
     }
 
-//    class ShowThread implements Runnable {
-//
-//	StatisticTestsView view;
-//
-//	public ShowThread(StatisticTestsView view) {
-//	    this.view = view;
-//	}
-//
-//	public void run() {
-//	    Project project = SharedController.getInstance().getProject();
-//	    int specimens = project.getFirstPopulation().getSpecimen().size();
-//
-//	    int columns = 1;
-//
-//	    if (project.getSecondPopulation() != null) {
-//		columns = 5;
-//		specimens += project.getSecondPopulation().getSpecimen().size();
-//	    }
-//
-//	    int figures = StatMapper.getFigureAvaibles();
-//	    int attributes = StatMapper.getAttributeAvaibles();
-//	    int total = figures * attributes * columns;
-//
-//	    SharedController.getInstance().getProgressView()
-//		    .init(specimens + total);
-//	    project.calculateStatistic();
-//
-//	    view.prepare(view.getChannelStr(), view.getWaveStr());
-//	    view.report.changeSelection(0, 1, false, false);
-//
-//	    SharedController.getInstance().getProgressView().close();
-//	    view.setVisible(true);
-//
-//	}
-//    }
-//
-//    public void showWithData() {
-//	ShowThread runnable = new ShowThread(this);
-//	Thread thread = new Thread(runnable);
-//	thread.start();
-//
-//    }
 
     public void prepare(String channel, String wave) {
 	int type = SharedController.getInstance().getProject().getType();
@@ -259,7 +217,6 @@ public class StatisticTestsView extends JFrame {
 	    Project project = SharedController.getInstance().getProject();
 	    columns[0] = "";
 	    columns[1] = project.getFirstPopulation().getName();
-	    //columns[2] = project.getSecondPopulation().getName();
 
 	    this.getModel().setDataVector(null, columns);
 

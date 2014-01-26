@@ -17,11 +17,11 @@ import pi.statistics.gui.StatisticWindowView;
 
 public class ProjectToolbar extends JPanel {
 
-	private JButton projectButton = new JButton("Project Info");
-	private JButton statisticsButton = new JButton("Calculate Statistics");
-	private JButton raportButton = new JButton("Display report");
+	private JButton projectButton = new JButton("Project info");
+	private JButton statisticsButton = new JButton("Calculate statistics");
+	private JButton resultsButton = new JButton("Display statistic results");
 	private JButton[] buttons;
-	private String[] buttonsEvent = new String[]{"PROJECT_INFO", "CALCULATE", "REPORT"};
+	private String[] buttonsEvent = new String[]{"PROJECT_INFO", "CALCULATE", "STATS"};
 	private StatisticWindowView stView = new StatisticWindowView();
 	private StatisticWindowController stControl = new StatisticWindowController(stView);
 
@@ -34,9 +34,9 @@ public class ProjectToolbar extends JPanel {
 
 		this.add(this.projectButton);
 		this.add(this.statisticsButton);
-		this.add(this.raportButton);
+		this.add(this.resultsButton);
 		
-		buttons = new JButton[]{projectButton, statisticsButton, raportButton};
+		buttons = new JButton[]{projectButton, statisticsButton, resultsButton};
 	}
 	
 	public void setButtonsListener(ActionListener al){

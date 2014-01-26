@@ -211,8 +211,10 @@ public class StatisticsController {
 		man.setStatisticResults(specResult);
 	    }
 	} else {
+	    System.out.println("szukam specimena");
 	    for (Specimen man : popul.getSpecimen()) {
 		if (man.getId() == specimenId) {
+		    System.out.println("licze dla specimena");
 		    ECG before = man.getBefore();
 		    specResult.setBefore(count(before));
 		    specResult.addToVectors(vectorsBefore,
@@ -245,6 +247,7 @@ public class StatisticsController {
 	getFinalResult().setPopul1(countForPopulation(popul1));
 	if (popul2 != null) {
 	    getFinalResult().setPopul2(countForPopulation(popul2));
+	    System.out.println("licze dla populacji 2");
 	    if (SharedController.getInstance().getProject().getType() == 3 && specimenId == null) {
 		System.out.println("niezalezne (3)");
 		getFinalResult().performUnpairedTest();

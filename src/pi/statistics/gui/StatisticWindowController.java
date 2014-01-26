@@ -13,7 +13,12 @@ import pi.statistics.logic.StatisticsController;
 public class StatisticWindowController implements ActionListener {
 
     private StatisticWindowView window;
+   
     public StatisticsController stControl = new StatisticsController();
+    
+    private StatisticTestsView testsView;
+    private StatisticsComparatorView comparatorView;
+    
     public static String[] wavesList;
     public static String[] channelsList = { "I", "II", "III", "V1", "V2", "V3", "V4",
 	    "V5", "V6" };
@@ -104,24 +109,37 @@ public class StatisticWindowController implements ActionListener {
 	    int type = SharedController.getInstance().getProject().getType();
 
 	    if (type == 1 || type == 2 || id != null) {
-		StatisticsComparatorView view = new StatisticsComparatorView();
-		view.setStController(stControl);
-		view.setSpecimanStr(specimanStr);
-		view.prepare(view.getSpecimanStr(), view.getChannelStr(),
-			view.getWaveStr());
-		view.setVisible(true);
-		view.getSpecimanCombo().setEnabled(false);
-		view.getSpecimanCombo().setVisible(false);
-		view.specimanLabel.setVisible(false);
+		setComparatorView(new StatisticsComparatorView(specimanStr));
+		getComparatorView().setStController(stControl);
+		getComparatorView().setSpecimanStr(specimanStr);
+		getComparatorView().prepare(getComparatorView().getSpecimanStr(), getComparatorView().getChannelStr(),
+			getComparatorView().getWaveStr());
+		getComparatorView().setVisible(true);
 	    } else {
-		StatisticTestsView view = new StatisticTestsView();
-		view.setStController(stControl);
-		view.prepare(view.getChannelStr(), view.getWaveStr());
-		view.getReport().changeSelection(0, 1, false, false);
-		view.setVisible(true);
+		setTestsView(new StatisticTestsView());
+		getTestsView().setStController(stControl);
+		getTestsView().prepare(getTestsView().getChannelStr(), getTestsView().getWaveStr());
+		getTestsView().getReport().changeSelection(0, 1, false, false);
+		getTestsView().setVisible(true);
 	    }
 	}
 
+    }
+
+    public StatisticTestsView getTestsView() {
+	return testsView;
+    }
+
+    public void setTestsView(StatisticTestsView testsView) {
+	this.testsView = testsView;
+    }
+
+    public StatisticsComparatorView getComparatorView() {
+	return comparatorView;
+    }
+
+    public void setComparatorView(StatisticsComparatorView comparatorView) {
+	this.comparatorView = comparatorView;
     }
 
 }
