@@ -19,10 +19,12 @@ import javax.swing.border.TitledBorder;
 import org.dom4j.DocumentException;
 
 import pi.data.importer.Importer;
+import pi.data.importer.pair.ImportPairController;
+import pi.data.importer.pair.ImportPairView;
 import pi.data.importer.population.ImportPopulation;
 import pi.data.importer.population.ImportPopulationFrame;
 import pi.data.importer.population.SingleFile;
-import pi.data.importer.signal.ImportView;
+import pi.data.importer.signal.ImportSingleView;
 import pi.gui.menu.MenuController;
 import pi.gui.menu.MenuView;
 import pi.gui.toolbar.ProjectToolbar;
@@ -37,6 +39,7 @@ public class Application {
 	public static void main(String[] args) {
 		
 		OurFrame ourFrame = new OurFrame();
+		ImportPairView test = new ImportPairView();
 		
 		while(true){
 			ourFrame.getMenubar().setLogItemText();

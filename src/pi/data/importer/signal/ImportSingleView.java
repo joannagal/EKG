@@ -22,7 +22,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import pi.shared.SharedController;
 
-public class ImportView extends JDialog{
+public class ImportSingleView extends JDialog{
 
 	GridBagConstraints constraints;
 	private JButton okButton;
@@ -33,11 +33,11 @@ public class ImportView extends JDialog{
 	private JTextArea pathArea;
 	private JPanel importPanel;
 	private JLabel fileLabel;
-	private ImportController controller;
+	private ImportSingleController controller;
 	private final JFileChooser fileChooser = new JFileChooser();
 	
 	
-	public ImportView(){
+	public ImportSingleView(){
 		
 		okButton = new JButton("OK");
 		cancelButton = new JButton("CANCEL");
@@ -79,7 +79,7 @@ public class ImportView extends JDialog{
 		constraints.gridwidth = 1;
 		this.add(buttonPanel, constraints);
 	
-		this.controller = new ImportController(this);
+		this.controller = new ImportSingleController(this);
 		this.setTitle("Create Specimen: Single");
 		this.setVisible(true);
 		this.setLocation(100, 100);
@@ -120,7 +120,7 @@ public class ImportView extends JDialog{
 		this.pathArea = text;
 	}
 	
-	public ImportView getContext(){
+	public ImportSingleView getContext(){
 		return this;
 	}
 	

@@ -18,14 +18,14 @@ import pi.population.Specimen;
 import pi.project.Project;
 import pi.shared.SharedController;
 
-public class ImportController implements ActionListener {
+public class ImportSingleController implements ActionListener {
 
-	private ImportView view;
+	private ImportSingleView view;
 	private Importer importer;
 	private Specimen specimen;
 	private Population population;
 
-	public ImportController(ImportView view) {
+	public ImportSingleController(ImportSingleView view) {
 		this.view = view;
 	}
 
@@ -63,7 +63,7 @@ public class ImportController implements ActionListener {
 				
 				this.view.setVisible(false);
 			} else {
-				JOptionPane.showMessageDialog(null, "Please fill in path!");
+				JOptionPane.showMessageDialog(null, "All fields are required, please fill in path!");
 			}
 			
 		} else if (action.equals("CANCEL")) {

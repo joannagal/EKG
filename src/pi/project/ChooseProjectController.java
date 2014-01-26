@@ -10,9 +10,9 @@ import pi.data.importer.Importer;
 import pi.data.importer.population.ImportPopulation;
 import pi.data.importer.population.ImportPopulationController;
 import pi.data.importer.population.ImportPopulationFrame;
-import pi.data.importer.signal.ImportController;
+import pi.data.importer.signal.ImportSingleController;
 import pi.data.importer.signal.ImportPanel;
-import pi.data.importer.signal.ImportView;
+import pi.data.importer.signal.ImportSingleView;
 import pi.shared.SharedController;
 
 
@@ -46,8 +46,8 @@ public class ChooseProjectController implements ActionListener{
 				project.setType(1);
 				SharedController.getInstance().setProject(project);
 				
-				ImportView importerView = new ImportView();
-				ImportController controller = new ImportController(importerView);
+				ImportSingleView importerView = new ImportSingleView();
+				ImportSingleController controller = new ImportSingleController(importerView);
 				importerView.setBounds(400, 200, 400, 200);
 				
 			}
