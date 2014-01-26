@@ -2,8 +2,6 @@ package pi.statistics.gui;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -25,11 +23,14 @@ import javax.swing.table.DefaultTableModel;
 import pi.project.Project;
 import pi.shared.SharedController;
 import pi.statistics.gui.histogram.Histogram;
+import pi.statistics.logic.StatisticsController;
 
 public class StatisticTestsView extends JFrame {
     private static final long serialVersionUID = 1L;
 
     private StatisticTestsController controller;
+    
+    private StatisticsController stController; 
 
     public JLabel channelLabel = new JLabel("Channel");
 
@@ -40,8 +41,9 @@ public class StatisticTestsView extends JFrame {
     private String waveStr = "pWave";
 
     private JButton closeButton = new JButton("Close");
-    private JButton saveButton = new JButton("Save");
-
+    private JButton saveButton = new JButton("Save report");
+    private JButton reportButton = new JButton("Display report");
+    
     private Histogram histogram = new Histogram();
 
     public class MyTableModel extends DefaultTableModel {
@@ -120,6 +122,11 @@ public class StatisticTestsView extends JFrame {
 	this.saveButton.setBounds(850, 440, 140, 25);
 	this.add(this.saveButton);
 
+	this.reportButton.setActionCommand("DISPLAY");
+	this.reportButton.addActionListener(controller);
+	this.reportButton.setBounds(699, 440, 140, 25);
+	getContentPane().add(this.reportButton);
+	
 	this.report.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	this.report.setCellSelectionEnabled(true);
 	this.report.setDragEnabled(false);
@@ -407,5 +414,13 @@ public class StatisticTestsView extends JFrame {
 
     public void setHypoRightStatEdit(JTextField hypoRightStatEdit) {
 	this.hypoRightStatEdit = hypoRightStatEdit;
+    }
+
+    public StatisticsController getStController() {
+	return stController;
+    }
+
+    public void setStController(StatisticsController stController) {
+	this.stController = stController;
     }
 }

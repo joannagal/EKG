@@ -7,9 +7,14 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
 
+import javax.swing.JOptionPane;
+
+import net.sf.jasperreports.engine.JRException;
+
 import pi.project.Project;
 import pi.shared.SharedController;
 import pi.statistics.logic.ProjectResult;
+import pi.statistics.logic.report.ReportManager;
 
 public class StatisticTestsController implements ActionListener
 {
@@ -207,9 +212,39 @@ public class StatisticTestsController implements ActionListener
 
 		if (com.equals("SAVE"))
 		{
+		         if (view.getStController().getFinalResult() != null) {
+		                try {
+		                 ReportManager rm = new ReportManager();
+		                 rm.saveRaportAsPdf(null);
+		                 rm.saveReportAsHtml(null);
+		                } catch (JRException ex) {
+		                 System.out.println("Report exception");
+		                 ex.printStackTrace();
+		                }
+		         } else {
+		                JOptionPane
+		                        .showMessageDialog(view, "Count statistics first!");
+		         }
+		}
+		if (com.equals("DISPLAY"))
+		{
+			long start = System.currentTimeMillis();
+		         if (view.getStController().getFinalResult() != null) {
+		                try {
+		                 ReportManager rm = new ReportManager();
+		                 rm.viewRaport();
+		                } catch (JRException ex) {
+		                 System.out.println("Report exception");
+		                 ex.printStackTrace();
+		                }
+		         } else {
+		                JOptionPane
+		                        .showMessageDialog(view, "Count statistics first!");
+		         }
+		         long time = System.currentTimeMillis() - start;
+		         System.out.println("Czas wyœwietlenia raportu: "+time);
 
 		}
-
 		if (com.equals("CHANGE_FIGURE"))
 		{
 			view.prepare(view.getChannelCombo().getSelectedItem().toString(),

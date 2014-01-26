@@ -20,6 +20,7 @@ import pi.population.Specimen;
 import pi.shared.SharedController;
 import pi.statistics.gui.dependgraph.DependGraph;
 import pi.statistics.gui.histogram.Histogram;
+import pi.statistics.logic.StatisticsController;
 
 public class StatisticsComparatorView extends JFrame {
     private static final long serialVersionUID = 1L;
@@ -39,7 +40,8 @@ public class StatisticsComparatorView extends JFrame {
     private String waveStr = "pWave";
 
     private JButton closeButton = new JButton("Close");
-    private JButton saveButton = new JButton("Save");
+    private JButton saveButton = new JButton("Save report");
+    private JButton reportButton = new JButton("Display report");
     private Histogram histogram = new Histogram();
     private DependGraph dGraph = new DependGraph();
 
@@ -48,6 +50,8 @@ public class StatisticsComparatorView extends JFrame {
     private JTable report = new JTable();
     private DefaultTableModel model = new DefaultTableModel();
     private JScrollPane reportPane = new JScrollPane(report);
+    
+    private StatisticsController stController; 
 
     public StatisticsComparatorView() {
 	this.setTitle("Statistics");
@@ -105,7 +109,7 @@ public class StatisticsComparatorView extends JFrame {
 
 	this.saveButton.setActionCommand("SAVE");
 	this.saveButton.addActionListener(controller);
-	this.saveButton.setBounds(850, 440, 140, 25);
+	this.saveButton.setBounds(845, 440, 140, 25);
 	getContentPane().add(this.saveButton);
 
 	this.tabbedPane.addTab("Data", this.reportPane);
@@ -118,6 +122,11 @@ public class StatisticsComparatorView extends JFrame {
 	this.histogram.draw();
 
 	this.dGraph.setType(DependGraph.MIXED);
+	
+	this.reportButton.setActionCommand("DISPLAY");
+	this.reportButton.addActionListener(controller);
+	this.reportButton.setBounds(699, 440, 140, 25);
+	getContentPane().add(this.reportButton);
 
 
 
@@ -350,5 +359,13 @@ public class StatisticsComparatorView extends JFrame {
 
     public void setSpecimanStr(String specimanStr) {
 	this.specimanStr = specimanStr;
+    }
+
+    public StatisticsController getStController() {
+	return stController;
+    }
+
+    public void setStController(StatisticsController stController) {
+	this.stController = stController;
     }
 }

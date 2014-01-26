@@ -4,23 +4,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
-
-import org.apache.commons.math3.genetics.StoppingCondition;
-
-import net.sf.jasperreports.engine.JRException;
-
 import pi.population.Specimen;
 import pi.shared.SharedController;
 import pi.statistics.functions.*;
 import pi.statistics.logic.Function;
 import pi.statistics.logic.StatisticsController;
-import pi.statistics.logic.report.ReportManager;
 
 public class StatisticWindowController implements ActionListener {
 
     private StatisticWindowView window;
-    StatisticsController stControl = new StatisticsController();
+    public StatisticsController stControl = new StatisticsController();
     public static String[] wavesList;
     public static String[] channelsList = { "I", "II", "III", "V1", "V2", "V3", "V4",
 	    "V5", "V6" };
@@ -38,29 +31,7 @@ public class StatisticWindowController implements ActionListener {
 	if (action.equals("CANCEL")) {
 	    window.setVisible(false);
 	}
-	if (action.equals("REPORT")) {
-		long start = System.currentTimeMillis();
-	    long start = System.currentTimeMillis();
-	         if (stControl.getFinalResult() != null) {
-	                // TODO generowanie raportu koñcowego
-	                try {
-	                 ReportManager rm = new ReportManager();
-	                 rm.viewRaport();
-	                 //rm.saveRaportAsPdf(null);
-	                 //rm.saveReportAsHtml(null);
-	                } catch (JRException ex) {
-	                 System.out.println("Report exception");
-	                 ex.printStackTrace();
-	                }
-	         } else {
-	                JOptionPane
-	                        .showMessageDialog(window, "Count statistics first!");
-	         }
-	         long time = System.currentTimeMillis() - start;
-	         System.out.println("Czas wyœwietlenia raportu: "+time);
-	    long time = System.currentTimeMillis() - start;
-	    System.out.println("Czas wyœwietlenia raportu: "+time);
-	}
+
 	if (action.equals("COUNT")) {
 	    ArrayList<Function> functions = new ArrayList<Function>();
 	    ArrayList<String> wavesNames = new ArrayList<String>();
@@ -134,6 +105,7 @@ public class StatisticWindowController implements ActionListener {
 
 	    if (type == 1 || type == 2 || id != null) {
 		StatisticsComparatorView view = new StatisticsComparatorView();
+		view.setStController(stControl);
 		view.setSpecimanStr(specimanStr);
 		view.prepare(view.getSpecimanStr(), view.getChannelStr(),
 			view.getWaveStr());
@@ -143,6 +115,7 @@ public class StatisticWindowController implements ActionListener {
 		view.specimanLabel.setVisible(false);
 	    } else {
 		StatisticTestsView view = new StatisticTestsView();
+		view.setStController(stControl);
 		view.prepare(view.getChannelStr(), view.getWaveStr());
 		view.getReport().changeSelection(0, 1, false, false);
 		view.setVisible(true);

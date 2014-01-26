@@ -7,11 +7,16 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
 
+import javax.swing.JOptionPane;
+
+import net.sf.jasperreports.engine.JRException;
+
 import pi.population.Specimen;
 import pi.statistics.logic.ChannelResult;
 import pi.statistics.logic.SpecimenResult;
 import pi.statistics.logic.StatisticResult;
 import pi.statistics.logic.WavesResult;
+import pi.statistics.logic.report.ReportManager;
 
 public class StatisticsComparatorController implements ActionListener
 {
@@ -223,6 +228,37 @@ public class StatisticsComparatorController implements ActionListener
 
 		if (action.equals("SAVE"))
 		{
+		         if (view.getStController().getFinalResult() != null) {
+		                try {
+		                 ReportManager rm = new ReportManager();
+		                 rm.saveRaportAsPdf(null);
+		                 rm.saveReportAsHtml(null);
+		                } catch (JRException ex) {
+		                 System.out.println("Report exception");
+		                 ex.printStackTrace();
+		                }
+		         } else {
+		                JOptionPane
+		                        .showMessageDialog(view, "Count statistics first!");
+		         }
+		}
+		if (action.equals("DISPLAY"))
+		{
+			long start = System.currentTimeMillis();
+		         if (view.getStController().getFinalResult() != null) {
+		                try {
+		                 ReportManager rm = new ReportManager();
+		                 rm.viewRaport();
+		                } catch (JRException ex) {
+		                 System.out.println("Report exception");
+		                 ex.printStackTrace();
+		                }
+		         } else {
+		                JOptionPane
+		                        .showMessageDialog(view, "Count statistics first!");
+		         }
+		         long time = System.currentTimeMillis() - start;
+		         System.out.println("Czas wyœwietlenia raportu: "+time);
 
 		}
 	}
