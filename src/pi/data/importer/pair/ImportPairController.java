@@ -22,6 +22,7 @@ public class ImportPairController implements ActionListener {
 
 	private ImportPairView view;
 	private Importer importer;
+	private Importer importer2;
 	private Specimen specimen;
 	private Population population;
 
@@ -35,40 +36,82 @@ public class ImportPairController implements ActionListener {
 		String action = e.getActionCommand();
 
 		if (action.equals("OK")) {
-			if ( (!this.view.getFirstPathArea().getText().isEmpty()) &&
-					(!this.view.getSecondPathArea().getText().isEmpty()) )
-			{
-				
-			
+			if ((!this.view.getFirstPathArea().getText().isEmpty())
+					&& (!this.view.getSecondPathArea().getText().isEmpty())) {
+				String path = this.view.getFirstPathArea().getText().toString();
+
+				try {
+					importer = new Importer(path);
+					ArrayList<ECG> temp = importer.importSignals();
+
+					specimen = new Specimen();
+					specimen.setBefore(temp.get(0));
+					specimen.setPath(path);
+					ArrayList<Specimen> pop = new ArrayList<>(1);
+					pop.add(specimen);
+					specimen.setDetails(importer.getAttributes());
+
+					population = new Population();
+					population.setSpecimen(pop);
+
+					SharedController.getInstance().getProject()
+							.setFirstPopulation(population);
+					SharedController.getInstance().createProjectToolbar();
+
+					GraphView view = new GraphView(population, 1);
+
+				} catch (DocumentException ae) {
+					ae.printStackTrace();
+				}
+
+				String path2 = this.view.getSecondPathArea().getText()
+						.toString();
+
+				try {
+
+					importer2 = new Importer(path2);
+					ArrayList<ECG> temp2 = importer2.importSignals();
+
+					specimen.setAfter(temp2.get(0));
+					specimen.setPathAfter(path2);
+
+					GraphView view2 = new GraphView(population, 2);
+
+				} catch (DocumentException ae) {
+					ae.printStackTrace();
+				}
+
+			} else {
+				JOptionPane.showMessageDialog(null,
+						"All fields are required, please fill in paths!");
 			}
-			else {
-				JOptionPane.showMessageDialog(null, "All fields are required, please fill in paths!");
-			}
 			
-			
-			
-			
+			this.view.dispose();
+
 		} else if (action.equals("CANCEL")) {
 			this.view.setVisible(false);
 		} else if (action.equals("CHOOSE_FIRST")) {
 			int returnVal = this.view.getFileChooser().showOpenDialog(null);
 
-			if (returnVal == JFileChooser.APPROVE_OPTION)
-			{
+			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				File file = this.view.getFileChooser().getSelectedFile();
 				this.view.getFirstPathArea().setText(file.getAbsolutePath());
+				SharedController.getInstance().setLastDirectory(
+						this.view.getFileChooser().getSelectedFile());
+				System.out.println(file.getAbsolutePath().toString());
 			}
-			
-			
-		} else if(action.equals("CHOOSE_SECOND")){
+
+		} else if (action.equals("CHOOSE_SECOND")) {
 			int returnVal = this.view.getFileChooser().showOpenDialog(null);
 
-			if (returnVal == JFileChooser.APPROVE_OPTION)
-			{
+			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				File file = this.view.getFileChooser().getSelectedFile();
 				this.view.getSecondPathArea().setText(file.getAbsolutePath());
+				SharedController.getInstance().setLastDirectory(
+						this.view.getFileChooser().getSelectedFile());
+				System.out.println(file.getAbsolutePath().toString());
 			}
-			
+
 		}
 	}
 }

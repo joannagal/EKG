@@ -7,6 +7,8 @@ import javax.swing.BorderFactory;
 import javax.swing.border.TitledBorder;
 
 import pi.data.importer.Importer;
+import pi.data.importer.pair.ImportPairController;
+import pi.data.importer.pair.ImportPairView;
 import pi.data.importer.population.ImportPopulation;
 import pi.data.importer.population.ImportPopulationController;
 import pi.data.importer.population.ImportPopulationFrame;
@@ -48,22 +50,22 @@ public class ChooseProjectController implements ActionListener{
 				
 				ImportSingleView importerView = new ImportSingleView();
 				ImportSingleController controller = new ImportSingleController(importerView);
-				importerView.setBounds(400, 200, 400, 200);
+				importerView.setBounds(400, 200, 450, 200);
 				
 			}
 			
 			if (selected.equals("TWO_SIGNALS")){
-				/*view.setVisible(false);
+				view.setVisible(false);
 				
 				project = new Project();
 				project.setType(2);
 				SharedController.getInstance().setProject(project);
 				
-				ImporterView importerView = new ImporterView();
-				ImportController controller = new ImportController(importerView);
+				ImportPairView importerView = new ImportPairView();
+				ImportPairController controller = new ImportPairController(importerView);
 					
-				importerView.setBounds(400, 200, 350, 200);
-				*/
+				importerView.setBounds(400, 200, 500, 200);
+				
 				
 			}
 			if (selected.equals("TWO_POPULATIONS")){

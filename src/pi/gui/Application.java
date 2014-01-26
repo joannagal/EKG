@@ -39,7 +39,6 @@ public class Application {
 	public static void main(String[] args) {
 		
 		OurFrame ourFrame = new OurFrame();
-		ImportPairView test = new ImportPairView();
 		
 		while(true){
 			ourFrame.getMenubar().setLogItemText();

@@ -1,15 +1,10 @@
 package pi.data.importer.signal;
 
-import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.LayoutManager;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.util.ArrayList;
+
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -24,12 +19,13 @@ import pi.shared.SharedController;
 
 public class ImportSingleView extends JDialog{
 
+
+	private static final long serialVersionUID = 1L;
 	GridBagConstraints constraints;
 	private JButton okButton;
 	private JButton cancelButton;
 	private JButton chooseButton;
 	private JPanel buttonPanel;	
-	private JLabel label;
 	private JTextArea pathArea;
 	private JPanel importPanel;
 	private JLabel fileLabel;
@@ -52,7 +48,7 @@ public class ImportSingleView extends JDialog{
 		fileLabel.setVisible(true);
 		importPanel.add(fileLabel);
 		getPathArea().setEditable(true);
-		getPathArea().setPreferredSize(new Dimension(150,20));
+		getPathArea().setPreferredSize(new Dimension(250,20));
 		getPathArea().setEditable(true);
 		importPanel.add(getPathArea());
 		importPanel.add(chooseButton);

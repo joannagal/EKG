@@ -59,7 +59,7 @@ public class ImportPairView extends JDialog{
 		firstLabel.setVisible(true);
 		importFirstPanel.add(firstLabel);
 		getFirstPathArea().setEditable(true);
-		getFirstPathArea().setPreferredSize(new Dimension(150,20));
+		getFirstPathArea().setPreferredSize(new Dimension(250,20));
 		getFirstPathArea().setEditable(true);
 		importFirstPanel.add(getFirstPathArea());
 		importFirstPanel.add(chooseFirstButton);
@@ -71,7 +71,7 @@ public class ImportPairView extends JDialog{
 		secondLabel.setVisible(true);
 		importSecondPanel.add(secondLabel);
 		getSecondPathArea().setEditable(true);
-		getSecondPathArea().setPreferredSize(new Dimension(150,20));
+		getSecondPathArea().setPreferredSize(new Dimension(250,20));
 		getSecondPathArea().setEditable(true);
 		importSecondPanel.add(getSecondPathArea());
 		importSecondPanel.add(chooseSecondButton);

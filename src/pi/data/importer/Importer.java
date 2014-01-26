@@ -37,7 +37,7 @@ public class Importer {
 			document = loadDocument(filePath);
 		} catch (DocumentException docEx) {
 			JOptionPane.showMessageDialog(null,
-					"Something wring with given file!");
+					"Something wrong with given file!");
 		}
 	}
 
