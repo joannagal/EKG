@@ -7,17 +7,12 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.io.File;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
-
-import net.sf.jasperreports.engine.export.tabulator.SplitCell;
 
 import pi.data.importer.Importer;
 import pi.graph.signal.GraphView;
@@ -97,8 +92,8 @@ public class SharedController {
 	// -------------------------
 	// SHARED PROJECT
 	private Project project;
-	
-	//SHARED PROJECT RESULT
+
+	// SHARED PROJECT RESULT
 	private ProjectResult projectRes;
 
 	// --------------------------
@@ -108,6 +103,8 @@ public class SharedController {
 	// SHARED PULSE
 	private double pulse;
 	private boolean isFirstPopulationSet;
+
+	private boolean toolbarSet = false;
 
 	public void updateProgressBar() {
 		if (this.progressBar != null) {
@@ -294,36 +291,24 @@ public class SharedController {
 	}
 
 	public void addPanel(JPanel panel) {
+
 		JScrollPane sp = new JScrollPane(panel);
-		panel.setPreferredSize(new Dimension(500,500));
+		sp.getVerticalScrollBar().setUnitIncrement(15);
+		sp.getHorizontalScrollBar().setUnitIncrement(15);
 		
-		//panel.setVisible(true);
-		
-		if(getFrame().getContent().getComponentCount()>0){
-			Component temp =  getFrame().getContent().getComponent(0);
-			JSplitPane split = new JSplitPane(JSplitPane.VERTICAL_SPLIT, temp, sp);
+		if (getFrame().getContent().getComponentCount() > 0) {
+			Component temp = getFrame().getContent().getComponent(0);
+			JSplitPane split = new JSplitPane(JSplitPane.VERTICAL_SPLIT, temp,
+					sp);
 			getFrame().getContent().removeAll();
 			getFrame().getContent().add(split);
 			split.setDividerLocation(0.5);
 			split.setContinuousLayout(true);
 			split.setResizeWeight(0.5);
-			
-			
-			int width = sp.getWidth();
-			int height = split.getDividerLocation();
-			sp.setPreferredSize(new Dimension(5, 5));
-			
 		} else {
 			getFrame().getContent().add(sp);
-			
-			int width = sp.getWidth();
-			int height = panel.getHeight();
-			sp.setPreferredSize(new Dimension(5, 5));
 		}
-		
-		frame.setSize(800, 800);
-		
-		
+		frame.revalidate();
 	}
 
 	public void packFrame() {
@@ -344,17 +329,26 @@ public class SharedController {
 
 	public void setProject(Project project) {
 		this.project = project;
+		if(project == null){
+			Dimension conSize = frame.getContent().getSize();
+			frame.getContentPane().removeAll();
+			toolbarSet = false;
+			frame.initContent();
+			frame.getContent().setPreferredSize(conSize);
+			frame.repaint();
+		}
 	}
 
 	public void createProjectToolbar() {
-		ProjectToolbar tool = new ProjectToolbar();
-		ProjectToolbarController toolConroller = new ProjectToolbarController(
-				tool);
-		tool.setVisible(true);
-		// tool.setBounds(10, 10, frame.getWidth()-40, 65);
-		SharedController.getInstance().getFrame().getContentPane()
-				.add(tool, BorderLayout.NORTH);
-		//SharedController.getInstance().getFrame().pack();
+		if (!toolbarSet) {
+			ProjectToolbar tool = new ProjectToolbar();
+			ProjectToolbarController toolConroller = new ProjectToolbarController(
+					tool);
+			tool.setVisible(true);
+			SharedController.getInstance().getFrame().getContentPane()
+					.add(tool, BorderLayout.NORTH);
+			toolbarSet = true;
+		}
 	}
 
 	public double getPulse() {
@@ -422,11 +416,11 @@ public class SharedController {
 	}
 
 	public ProjectResult getProjectRes() {
-	    return projectRes;
+		return projectRes;
 	}
 
 	public void setProjectRes(ProjectResult projectRes) {
-	    this.projectRes = projectRes;
+		this.projectRes = projectRes;
 	}
 
 	public boolean isFirstPopulationSet() {

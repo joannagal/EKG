@@ -1,11 +1,21 @@
 package pi.graph.signal;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import javax.swing.JViewport;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Insets;
 import java.awt.Rectangle;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -50,21 +60,49 @@ public class Graph extends JPanel
 	private Dimension segmentSize;
 	// -------------------------------------------
 
+	private ComponentListener cl = new ComponentListener() {
+		
+		@Override
+		public void componentShown(ComponentEvent arg0) {}
+		
+		@Override
+		public void componentResized(ComponentEvent arg0) {
+			recalculate();
+			if(getParent()!=null){
+				GraphView gv = (GraphView) getParent();
+				Dimension newSize = new Dimension(getWidth(), getHeight()+getY()+5);
+				gv.setSize(newSize);
+				gv.setPreferredSize(newSize);
+				gv.setMinimumSize(newSize);
+				gv.getParent().revalidate();
+			}
+		}
+		
+		@Override
+		public void componentMoved(ComponentEvent arg0) {}
+		
+		@Override
+		public void componentHidden(ComponentEvent arg0) {}
+	};
 
 	// -------------------------------------------
 
 	public Graph(Dimension size, Channel signal)
 	{
-		this.controller = SharedController.getInstance();
-		this.setToolBox(new ToolBox());
-		this.prepareGraph(size, signal, 1);
+		this.initGraph(size, signal, 1);	
 	}
 
 	public Graph(Dimension size, Channel signal, int segments)
 	{
+		this.initGraph(size, signal, segments);
+	}
+	
+	public void initGraph(Dimension size, Channel signal, int segments){
 		this.controller = SharedController.getInstance();
 		this.setToolBox(new ToolBox());
 		this.prepareGraph(size, signal, segments);
+		this.addComponentListener(cl);
+		this.setBorder(BorderFactory.createLineBorder(Color.white));
 	}
 
 	public void prepareGraph(Dimension size, Channel signal, int segments)
@@ -333,8 +371,9 @@ public class Graph extends JPanel
 		{
 			this.drawYProbe(graphics);
 		}
-
-		//this.drawBorder(graphics);
+		
+		
+		this.drawBorder(graphics);
 	}
 
 	// ------------------------------------------

@@ -28,6 +28,7 @@ public class PopImporter extends DefaultHandler {
 	private Channel channel;
 	private LinkedList<Cycle> cyclesList;
 	private Cycle cycle;
+	private StringBuffer rawDataBuffer;
 
 	private int specimenIndex = 0;
 	private int channelIndex = 0;
@@ -41,6 +42,7 @@ public class PopImporter extends DefaultHandler {
 
 	@Override
 	public void endDocument() {
+		input.findAll();
 		System.out.println("Project imported");
 	}
 
@@ -60,6 +62,7 @@ public class PopImporter extends DefaultHandler {
 			initChannel(attributes);
 		} else if (qName.equalsIgnoreCase("RAW_DATA")) {
 			rawDataNode = true;
+			rawDataBuffer = new StringBuffer();
 		} else if (qName.equalsIgnoreCase("CYCLES")) {
 			initCycles(attributes);
 		} else if (qName.equalsIgnoreCase("CYCLE")) {
@@ -68,8 +71,12 @@ public class PopImporter extends DefaultHandler {
 	}
 
 	@Override
-	public void endElement(String uri, String localName,
-			String qName) throws SAXException {
+	public void endElement(String uri, String localName, String qName)
+			throws SAXException {
+		if(qName.equalsIgnoreCase("RAW_DATA")){
+			rawDataNode = false;
+			importRowData();
+		}
 		System.out.println("End Element :" + qName);
 	}
 
@@ -79,7 +86,7 @@ public class PopImporter extends DefaultHandler {
 
 		if (rawDataNode) {
 			getRawData(ch, start, length);
-			rawDataNode = false;
+		
 		}
 	}
 
@@ -152,7 +159,7 @@ public class PopImporter extends DefaultHandler {
 			spec.setMetadonTimeApplication(Integer.parseInt(mta));
 
 		String ttgm = attributes.getValue("time_to_good_mood");
-		if (ttgm != "")
+		if (ttgm != null && ttgm != "")
 			spec.setTimeToGoodMood(Integer.parseInt(ttgm));
 
 		String gmd = attributes.getValue("good_mood_duration");
@@ -186,28 +193,55 @@ public class PopImporter extends DefaultHandler {
 		String translation = attributes.getValue("translations");
 		if (translation != "")
 			channel.setTranslation(Double.valueOf(translation));
-		
-		String interval = attributes.getValue("interval");
-		if((interval!= null) && (interval != ""))
-			channel.setInterval(Double.valueOf(interval));
-		
-		//TODO Nie wiem czy atrybuyt samples jest w ogóle potrzebny
 
+		String interval = attributes.getValue("interval");
+		if ((interval != null) && (interval != ""))
+			channel.setInterval(Double.valueOf(interval));
+
+		
+		channel.setTranslation(0.0d);
+		channel.setStartAxis(0.0d);
+		channel.setScale(0.2d);
+		channel.setParent(input);
+		
+		// TODO Nie wiem czy atrybuyt samples jest w ogóle potrzebny
+		
 		channelList.add(channelIndex, channel);
 		channelIndex++;
 
 	}
 
 	public void getRawData(char ch[], int start, int length) {
-		String data[] = (new String(ch, start, length)).split(" ");
+		String temp = new String(ch, start, length);
+		rawDataBuffer.append(temp);
+	}
+	
+	public void importRowData(){
+		int max = 0;
+		int min = 0;
+		String data[] = rawDataBuffer.toString().split(" ");
 		ArrayList<Probe> probes = new ArrayList<>(data.length);
 		for (int i = 0; i < data.length; i++) {
-			System.out.println(data[i]);
-			Probe p = new Probe(i, Integer.parseInt(data[i]));
-			probes.add(i, p);
+			// System.out.println(data[i]);
+			try {
+				Probe p = new Probe(i, Integer.parseInt(data[i]));
+				int probeValue = p.getValue();
+				if (probeValue  > max)
+					max = probeValue;
+				if (probeValue < min)
+					min = probeValue;
+				probes.add(i, p);
+			} catch (NumberFormatException nfe) {
+				System.out.println(nfe);
+				System.out.println("\nprev: " + data[i - 1] + "\ncurr: "
+						+ data[i]);
+				System.out.println("\n\nROW DATA:\n=================\n" + rawDataBuffer.toString());
+			}
 		}
+		channel.setMaxValue((double) max / 1000.0d);
+		channel.setMinValue((double) min / 1000.0d);
 		channel.setProbe(probes);
-
+		channel.recalculate();
 	}
 
 	public void initCycles(Attributes attributes) {
@@ -260,7 +294,6 @@ public class PopImporter extends DefaultHandler {
 
 		cyclesList.add(cycle);
 	}
-
 
 	public Project getProject() {
 		return project;

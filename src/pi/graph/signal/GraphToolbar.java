@@ -13,12 +13,9 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import pi.graph.signal.Graph;
 import pi.gui.autofinder.AutoFinderView;
 import pi.inputs.signal.Channel;
 import pi.shared.SharedController;
-import pi.statistics.gui.StatisticWindowController;
-import pi.statistics.gui.StatisticWindowView;
 
 public class GraphToolbar extends JPanel {
 
@@ -42,7 +39,6 @@ public class GraphToolbar extends JPanel {
 	private JComboBox comboBoxSpecimen;
 	private JButton comboBoxButton;
 	private JComboBox comboBoxTreatment;
-	
 
 	private JButton[] buttonArray;
 	private String[] itemEvent = new String[] { "INFO", "AUTOFINDER", "ADD",
@@ -89,12 +85,12 @@ public class GraphToolbar extends JPanel {
 		comboBoxSpecimen.setVisible(true);
 		initComboBoxSpecimen();
 
-		if (SharedController.getInstance().getProject().getType() == 4){
+		if (SharedController.getInstance().getProject().getType() == 4) {
 			comboBoxTreatment = new JComboBox();
 			comboBoxTreatment.setVisible(true);
-			initComboBoxTreatmenr();			
+			initComboBoxTreatmenr();
 		}
-		
+
 		comboBoxButton = new JButton("Change");
 		comboBoxButton.addActionListener(new ActionListener() {
 
@@ -149,9 +145,9 @@ public class GraphToolbar extends JPanel {
 					}
 
 				}
-				
-				if (SharedController.getInstance().getProject().getType() == 3){
-					if (getGraphView().getType() == 1){
+
+				if (SharedController.getInstance().getProject().getType() == 3) {
+					if (getGraphView().getType() == 1) {
 						signal = SharedController.getInstance().getProject()
 								.getFirstPopulation().getSpecimen()
 								.get(comboBoxSpecimen.getSelectedIndex())
@@ -159,8 +155,7 @@ public class GraphToolbar extends JPanel {
 								.get(comboBoxChannel.getSelectedIndex());
 						graph.setSignal(signal);
 						clear();
-					}
-					else if (getGraphView().getType() == 2){
+					} else if (getGraphView().getType() == 2) {
 						signal = SharedController.getInstance().getProject()
 								.getFirstPopulation().getSpecimen()
 								.get(comboBoxSpecimen.getSelectedIndex())
@@ -176,7 +171,7 @@ public class GraphToolbar extends JPanel {
 
 		changeChannelPanel.add(comboBoxSpecimen);
 		changeChannelPanel.add(comboBoxChannel);
-		if (SharedController.getInstance().getProject().getType() == 4){
+		if (SharedController.getInstance().getProject().getType() == 4) {
 			changeChannelPanel.add(comboBoxTreatment);
 		}
 		changeChannelPanel.add(comboBoxButton);
@@ -202,40 +197,10 @@ public class GraphToolbar extends JPanel {
 				SharedController controller = SharedController.getInstance();
 
 				if (getGraphView().getType() == 1) {
-
 					graph.setHeight(segmentHeightSlider.getValue());
-					getGraphView().setSize(controller.getFirstPanelWidth(),
-							100 + segmentHeightSlider.getValue());
-					getGraphView().setMinimumSize(new Dimension(controller.getFirstPanelWidth(),
-							100 + segmentHeightSlider.getValue()));
-					getGraphView().setPreferredSize(new Dimension(controller.getFirstPanelWidth(),
-							100 + segmentHeightSlider.getValue()));
-					controller.setFirstPanelHeight(100 + segmentHeightSlider
-							.getValue());
-					
-					
-					/*
-					if (controller.getSecondGraphView() != null) {
-						controller.getSecondGraphView().setLocation(
-								controller.getFirstPanelX(),
-								controller.getFirstPanelHeight()
-										+ controller.getFirstPanelY() + 40);
-					}
-					*/
-					//SharedController.getInstance().getFrame().pack();
 				} else if (getGraphView().getType() == 2) {
-
 					graph.setHeight(segmentHeightSlider.getValue());
-					getGraphView().setSize(controller.getFirstPanelWidth(),
-							100 + segmentHeightSlider.getValue());
-					getGraphView().setMinimumSize(new Dimension(controller.getFirstPanelWidth(),
-							100 + segmentHeightSlider.getValue()));
-					getGraphView().setPreferredSize(new Dimension(controller.getFirstPanelWidth(),
-							100 + segmentHeightSlider.getValue()));
 				}
-				
-				getGraphView().getParent().revalidate();
-
 			}
 
 		});
@@ -328,7 +293,6 @@ public class GraphToolbar extends JPanel {
 							+ this.graphView.getPopulation().getSpecimen()
 									.get(i).getSurname());
 				}
-				
 
 			}
 
@@ -363,12 +327,12 @@ public class GraphToolbar extends JPanel {
 		}
 	}
 
-	public void initComboBoxTreatmenr(){
+	public void initComboBoxTreatmenr() {
 		comboBoxTreatment.addItem("BEFORE");
 		comboBoxTreatment.addItem("AFTER");
 
 	}
-	
+
 	private Graph getGraph() {
 		return graph;
 	}

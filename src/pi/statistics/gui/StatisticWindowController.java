@@ -39,6 +39,7 @@ public class StatisticWindowController implements ActionListener {
 	    window.setVisible(false);
 	}
 	if (action.equals("REPORT")) {
+		long start = System.currentTimeMillis();
 	    long start = System.currentTimeMillis();
 	         if (stControl.getFinalResult() != null) {
 	                // TODO generowanie raportu koñcowego
@@ -57,6 +58,8 @@ public class StatisticWindowController implements ActionListener {
 	         }
 	         long time = System.currentTimeMillis() - start;
 	         System.out.println("Czas wyœwietlenia raportu: "+time);
+	    long time = System.currentTimeMillis() - start;
+	    System.out.println("Czas wyœwietlenia raportu: "+time);
 	}
 	if (action.equals("COUNT")) {
 	    ArrayList<Function> functions = new ArrayList<Function>();

@@ -25,6 +25,7 @@ public class PopSaver {
 	private Project project;
 	// private String path;
 	private XMLStreamWriter out;
+	int populId = 1;
 
 	public PopSaver(Project project) {
 		this.project = project;
@@ -66,11 +67,8 @@ public class PopSaver {
 
 	private void savePopul(Population popul) throws XMLStreamException {
 		out.writeStartElement("POPUL");
-		if (popul.getName() != null) {
-			out.writeAttribute("id", popul.getName());
-		} else {
-			out.writeAttribute("id", "");
-		}
+		out.writeAttribute("id", String.valueOf(populId));
+		populId++;
 		out.writeAttribute("specimens",
 				String.valueOf(popul.getSpecimen().size()));
 

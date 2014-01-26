@@ -1,26 +1,16 @@
 package pi.graph.signal;
 
-import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
-import java.util.ArrayList;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
-import org.dom4j.DocumentException;
-
-import pi.data.importer.Importer;
-import pi.graph.signal.Graph;
-import pi.gui.toolbar.ProjectToolbar;
-import pi.gui.toolbar.ProjectToolbarController;
 import pi.inputs.signal.Channel;
 import pi.inputs.signal.ECG;
 import pi.population.Population;
 import pi.population.Specimen;
-import pi.project.ChooseProjectController;
-import pi.project.ChooseProjectView;
-import pi.project.Project;
 import pi.shared.SharedController;
 
 public class GraphView extends JPanel {
@@ -35,56 +25,88 @@ public class GraphView extends JPanel {
 	private String[] attributes = new String[4];
 	private Population population;
 	private int type;
+	private int minimumWidth = 1110;
+	private ComponentListener cl = new ComponentListener() {
+
+		@Override
+		public void componentShown(ComponentEvent e) {
+		}
+
+		@Override
+		public void componentResized(ComponentEvent e) {
+			Component[] children = getContext().getComponents();
+			int width = getContext().getParent().getWidth();
+			if (width < minimumWidth) {
+				width = minimumWidth;
+			}
+
+			for (Component c : children) {
+				c.setSize(width, c.getHeight());
+			}
+
+		}
+
+		@Override
+		public void componentMoved(ComponentEvent e) {
+		}
+
+		@Override
+		public void componentHidden(ComponentEvent e) {
+		}
+	};
 
 	public GraphView(Population population, int type) {
 
 		this.setPopulation(population);
 
+		this.addComponentListener(cl);
 		this.setVisible(true);
 		this.setLayout(null);
 		this.setType(type);
 		SharedController sharedController = SharedController.getInstance();
-		
+
 		if (this.getType() == 1) {
-			
-			//this.setBorder(BorderFactory.createLineBorder(Color.red));
-			this.setBounds(sharedController.getFirstPanelX(), sharedController.getFirstPanelY(),
-							sharedController.getFirstPanelWidth(), sharedController.getFirstPanelHeight());
+
+			// this.setBorder(BorderFactory.createLineBorder(Color.red));
+			this.setBounds(sharedController.getFirstPanelX(),
+					sharedController.getFirstPanelY(),
+					sharedController.getFirstPanelWidth(),
+					sharedController.getFirstPanelHeight());
 
 			signal1 = this.getPopulation().getSpecimen().get(0).getBefore()
 					.getChannel().get(0);
-			
+
 			sharedController.setFirstGraphView(this);
 
 		}
 
 		if (this.getType() == 2) {
-			
+
 			int projectType = sharedController.getProject().getType();
-			
-			this.setBounds(sharedController.getFirstPanelX(), sharedController.getFirstPanelHeight() + 20 + sharedController.getFirstPanelY(), 
-					sharedController.getFirstPanelWidth(), sharedController.getFirstPanelHeight());
 
-			
-			if (projectType == 2){
-	
+			this.setBounds(sharedController.getFirstPanelX(),
+					sharedController.getFirstPanelHeight() + 20
+							+ sharedController.getFirstPanelY(),
+					sharedController.getFirstPanelWidth(),
+					sharedController.getFirstPanelHeight());
+
+			if (projectType == 2) {
+
 				signal1 = this.getPopulation().getSpecimen().get(0).getAfter()
-					.getChannel().get(0);
-			}
-			else if (projectType == 4){
-		
-				signal1 = this.getPopulation().getSpecimen().get(0).getBefore()
 						.getChannel().get(0);
-			}
-			else if (projectType == 3){
+			} else if (projectType == 4) {
 
 				signal1 = this.getPopulation().getSpecimen().get(0).getBefore()
 						.getChannel().get(0);
-				
+			} else if (projectType == 3) {
+
+				signal1 = this.getPopulation().getSpecimen().get(0).getBefore()
+						.getChannel().get(0);
+
 			}
-			
+
 			sharedController.setSecondGraphView(this);
-			
+
 		}
 
 		graph = new Graph(new Dimension(1100, 190), signal1);
@@ -96,8 +118,8 @@ public class GraphView extends JPanel {
 
 		controller = new GraphToolbarController(toolbar, graph);
 
-		this.add(graph);
 		this.add(toolbar);
+		this.add(graph);
 
 		SharedController.getInstance().addPanel(this);
 
@@ -117,5 +139,13 @@ public class GraphView extends JPanel {
 
 	public void setType(int type) {
 		this.type = type;
+	}
+
+	public Graph getGraph() {
+		return graph;
+	}
+
+	public GraphView getContext() {
+		return this;
 	}
 }

@@ -13,6 +13,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
@@ -41,9 +42,12 @@ public class ReportManager {
 		dataSource = new JRBeanCollectionDataSource(
 				ChannelStatistic.getChannelStatistics());
 
-		File file = new File("report3.jrxml");
-		jasperDesign = JRXmlLoader.load(file);
-		jasperReport = JasperCompileManager.compileReport(jasperDesign);
+		//File file = new File("report3.jrxml");
+		//jasperDesign = JRXmlLoader.load(file);
+		//jasperReport = JasperCompileManager.compileReport(jasperDesign);
+		
+		File file = new File("report3.jasper");
+		jasperReport = (JasperReport) JRLoader.loadObject(file);
 		jasperPrint = JasperFillManager.fillReport(jasperReport, parameters,
 				dataSource.cloneDataSource());
 	}
@@ -110,9 +114,9 @@ public class ReportManager {
 
 		try {
 			ReportManager rm = new ReportManager();
-			// rm.viewRaport();
-			rm.saveRaportAsPdf(null);
-			rm.saveReportAsHtml(null);
+			rm.viewRaport();
+			//rm.saveRaportAsPdf(null);
+			//rm.saveReportAsHtml(null);
 		} catch (JRException e) {
 			System.out.println("Report exception");
 			e.printStackTrace();

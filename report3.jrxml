@@ -3,6 +3,7 @@
 	<property name="ireport.zoom" value="1.1"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.export.pdf.compressed" value="true"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -161,7 +162,7 @@
 	</background>
 	<title>
 		<band height="104" splitType="Stretch">
-			<image>
+			<image isUsingCache="true">
 				<reportElement x="0" y="0" width="102" height="104" uuid="489b9cde-a6d5-44eb-8527-86aaa4c2e948"/>
 				<imageExpression><![CDATA["img\\Logo.png"]]></imageExpression>
 			</image>
