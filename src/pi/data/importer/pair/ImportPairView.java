@@ -1,15 +1,10 @@
 package pi.data.importer.pair;
 
-import java.awt.Component;
-import java.awt.Container;
+
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.LayoutManager;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -24,6 +19,8 @@ import pi.shared.SharedController;
 
 public class ImportPairView extends JDialog{
 
+
+	private static final long serialVersionUID = 1L;
 	GridBagConstraints constraints;
 	private JButton okButton;
 	private JButton cancelButton;
@@ -60,7 +57,6 @@ public class ImportPairView extends JDialog{
 		importFirstPanel.add(firstLabel);
 		getFirstPathArea().setEditable(true);
 		getFirstPathArea().setPreferredSize(new Dimension(250,20));
-		getFirstPathArea().setEditable(true);
 		importFirstPanel.add(getFirstPathArea());
 		importFirstPanel.add(chooseFirstButton);
 		importFirstPanel.setVisible(true);
@@ -72,7 +68,6 @@ public class ImportPairView extends JDialog{
 		importSecondPanel.add(secondLabel);
 		getSecondPathArea().setEditable(true);
 		getSecondPathArea().setPreferredSize(new Dimension(250,20));
-		getSecondPathArea().setEditable(true);
 		importSecondPanel.add(getSecondPathArea());
 		importSecondPanel.add(chooseSecondButton);
 		importSecondPanel.setVisible(true);
