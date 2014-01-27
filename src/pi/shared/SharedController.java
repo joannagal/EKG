@@ -23,6 +23,7 @@ import pi.project.Project;
 import pi.shared.schemes.Scheme;
 import pi.shared.schemes.signal.SignalScheme;
 import pi.statistics.logic.ProjectResult;
+import pi.statistics.logic.report.ReportManager;
 import pi.utilities.Margin;
 
 //-------------------------------------------
@@ -88,6 +89,7 @@ public class SharedController {
 	private GraphView firstGraphView;
 	private GraphView secondGraphView;
 	private File lastDirectory;
+	private ReportManager reportMgr;
 
 	// -------------------------
 	// SHARED PROJECT
@@ -429,6 +431,14 @@ public class SharedController {
 
 	public void setFirstPopulationSet(boolean isFirstPopulationSet) {
 		this.isFirstPopulationSet = isFirstPopulationSet;
+	}
+
+	public ReportManager getReportManager() {
+		return reportMgr;
+	}
+
+	public void setReportManager(ReportManager reportMgr) {
+		this.reportMgr = reportMgr;
 	}
 
 }

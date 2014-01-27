@@ -34,7 +34,7 @@ public class ReportManager {
 
 	private void initReport() throws JRException {
 		System.out.println("Init report");
-
+		long start = System.currentTimeMillis();
 		Map parameters = new HashMap();
 
 		// TODO Sprawdziæ czy klonowanie dataSource jest wydajniejsze od
@@ -49,11 +49,16 @@ public class ReportManager {
 		File file = new File("report3.jasper");
 		jasperReport = (JasperReport) JRLoader.loadObject(file);
 		jasperPrint = JasperFillManager.fillReport(jasperReport, parameters,
-				dataSource.cloneDataSource());
+				dataSource);
+				//dataSource.cloneDataSource());
+		
+		long time = System.currentTimeMillis() - start;
+		System.out.println("Czas inicjowania raportu: " + time);
+
 	}
 
 	public void viewRaport() throws JRException {
-		JasperViewer.viewReport(jasperPrint);
+		JasperViewer.viewReport(jasperPrint, false);
 	}
 
 	public void saveRaportAsPdf(String path) throws JRException {
