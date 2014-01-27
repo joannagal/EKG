@@ -4,14 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ChannelResult {
-	private Map<String, WavesResult> channelResult = new HashMap<String, WavesResult>();
+	private Map<String, AttributeResult> channelResult = new HashMap<String, AttributeResult>();
 
-	public Map<String, WavesResult> getValue() {
+	public Map<String, AttributeResult> getValue() {
 		return channelResult;
 	}
 
 
-        public void addValue(String name, WavesResult result ) {
+        public void addValue(String name, AttributeResult result ) {
                 channelResult.put(name, result);
         }
         

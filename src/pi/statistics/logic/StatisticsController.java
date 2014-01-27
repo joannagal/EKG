@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import pi.inputs.signal.Channel;
 import pi.inputs.signal.Cycle;
 import pi.inputs.signal.ECG;
+import pi.inputs.signal.Probe;
 import pi.population.Population;
 import pi.population.Specimen;
 import pi.shared.SharedController;
@@ -39,25 +40,24 @@ public class StatisticsController {
 	channelResult.clearValues();
 	Duration duration = new Duration();
 	for (Channel channel : signal.getChannel()) {
-	    if (!channel.getName().equals("STATUS")){
-	    AttributeResult atrResult = new AttributeResult();
-	    DurationResult dResult = new DurationResult();
-	    dResult.clearValues();
-	    for (Cycle cycle : channel.getCycle()) {
-
-		int leftRR = 0;
-		int rightRR = 0;
-		int index = channel.getCycle().indexOf(cycle);
-		leftRR = cycle.getR();
-		try {
-		    Cycle nextCycle = channel.getCycle().get(index + 1);
-		    rightRR = nextCycle.getR();
-		} catch (Exception e) {
-		    rightRR = leftRR;
-		}
-		Range RR = new Range(leftRR, rightRR);
-		// TODO sprawdzic co z markered
-		if (cycle.getMarkered() == false) {
+	    if (!channel.getName().equals("STATUS")) {
+		DurationResult dResult = new DurationResult();
+		AmplitudeResult aResult = new AmplitudeResult();
+		ArrayList<DurationResult> durArray = new ArrayList<DurationResult>();
+		ArrayList<AmplitudeResult> ampArray = new ArrayList<AmplitudeResult>();
+		dResult.clearValues();
+		for (Cycle cycle : channel.getCycle()) {
+		    int leftRR = 0;
+		    int rightRR = 0;
+		    int index = channel.getCycle().indexOf(cycle);
+		    leftRR = cycle.getR();
+		    try {
+			Cycle nextCycle = channel.getCycle().get(index + 1);
+			rightRR = nextCycle.getR();
+		    } catch (Exception e) {
+			rightRR = leftRR;
+		    }
+		    Range RR = new Range(leftRR, rightRR);
 		    Waves waves = new Waves(cycle, wavesNames);
 		    waves.addWaves(RR, "RR_interval");
 		    waves.setJPoint(dResult);
@@ -68,122 +68,188 @@ public class StatisticsController {
 			duration.setName(waveName);
 			duration.countDuration(left, right,
 				channel.getInterval(), dResult);
+			boolean flag = false;
+			int max = -9999;
+			int min = 9999;
+			for (Probe probe : channel.getProbe()){
+			    if (probe.getNumber() == left) flag = true;
+			    if (probe.getNumber() == right) flag = false;
+			    if (flag == true) {
+				if (probe.getValue() > max) max = probe.getValue();
+				if (probe.getValue() < min) min = probe.getValue();
+			    }
+			}
+			double amplitude = max - min;
+			aResult.addValue(waveName, amplitude);
 		    }
 
 		}
-	    }
 
-	    dResult.checkRR();
-	    atrResult.addValue(dResult);
-	    for (DurationResult dur : atrResult.getValue()) {
-		dur.printDurations();
-	    }
+		dResult.checkRR();
+		durArray.add(dResult);
+		ampArray.add(aResult);
+		
+		AttributeResult atrResult = new AttributeResult();
 
-	    WavesResult result = new WavesResult();
-	    
-	    for (DurationResult dur : atrResult.getValue()) {
-		Collector collector = new Collector();
-		for (String name : dur.getValue().keySet()) {
-		    StatisticResult statResult = new StatisticResult();
-		    statResult.clearValues();
+		WavesResult resultD = new WavesResult();
+		
+		for (DurationResult dur : durArray) {
+		    Collector collector = new Collector();
+		    for (String name : dur.getValue().keySet()) {
+			StatisticResult statResult = new StatisticResult();
+			statResult.clearValues();
 
-		    for (Double number : dur.getValue().get(name)) {
-			for (Function function : functions) {
-			    if (function.getName() != "Variance"
-				    && function.getName() != "SD") {
-				function.iterate(number);
+			for (Double number : dur.getValue().get(name)) {
+			    for (Function function : functions) {
+				if (function.getName() != "Variance"
+					&& function.getName() != "SD") {
+				    function.iterate(number);
+				}
+			    }
+			    for (Function function : functions) {
+				if (function.getName() != "Variance"
+					&& function.getName() != "SD") {
+				    function.countResult(statResult);
+				}
 			    }
 			}
-			for (Function function : functions) {
-			    if (function.getName() != "Variance"
-				    && function.getName() != "SD") {
-				function.countResult(statResult);
+			if (name.equals("RR_interval")) {
+			    if (statResult.getValue().get("Average") != null) {
+				double avg = statResult.getValue()
+					.get("Average").doubleValue();
+
+				pulse = 1 / avg;
+
+				statResult.addValue("Pulse(s)", pulse);
+				statResult.addValue("Pulse(min)", pulse * 60);
 			    }
 			}
-		    }
-		    if (name.equals("RR_interval")) {
-			if (statResult.getValue().get("Average") != null) {
-			double avg = statResult.getValue().get("Average")
-				.doubleValue();
-			
-			pulse = 1 / avg;
+			// PULS I KOREKCJA
+			if (name.equals("qtInterval")) {
+			    double QTcB = 0;
+			    double QTcF = 0;
+			    double QTcR = 0;
 
-			statResult.addValue("Pulse(s)", pulse);
-			statResult.addValue("Pulse(min)",pulse*60);
-			}
-		    }
-		    // PULS I KOREKCJA
-		    if (name.equals("qtInterval")) {
-			double QTcB = 0;
-			double QTcF = 0;
-			double QTcR = 0;
-
-			// PODEJSCIE Z POROWNYWANIEM SREDNICH
-			if (result.getWavesResult()
+			    // PODEJSCIE Z POROWNYWANIEM SREDNICH
+			    if (resultD.getWavesResult().get("RR_interval")
+				    .getValue().get("Average") != null) {
+				double avg = resultD.getWavesResult()
 					.get("RR_interval").getValue()
-					.get("Average") != null){
-			double avg = result.getWavesResult()
-				.get("RR_interval").getValue()
-				.get("Average").doubleValue();
-			
-			QTcB = statResult.getValue().get("Average").doubleValue()
-				/ (Math.sqrt(avg));
+					.get("Average").doubleValue();
 
-			QTcF = statResult.getValue().get("Average")
-				.doubleValue()
-				/ (Math.pow(avg, 1/3));
+				QTcB = statResult.getValue().get("Average")
+					.doubleValue()
+					/ (Math.sqrt(avg));
 
-			QTcR = statResult.getValue().get("Average")
-				.doubleValue()
-				+ 0.154
-				* (1 - avg);
+				QTcF = statResult.getValue().get("Average")
+					.doubleValue()
+					/ (Math.pow(avg, 1 / 3));
+
+				QTcR = statResult.getValue().get("Average")
+					.doubleValue()
+					+ 0.154 * (1 - avg);
+			    }
+
+			    statResult.addValue("QTcB", QTcB);
+			    statResult.addValue("QTcF", QTcF);
+			    statResult.addValue("QTcR", QTcR);
 			}
 
-			statResult.addValue("QTcB", QTcB);
-			statResult.addValue("QTcF", QTcF);
-			statResult.addValue("QTcR", QTcR);
+			for (Double number : dur.getValue().get(name)) {
+			    collector.iterate(number);
+			    for (Function function : functions) {
+				if (function.getName() == "Variance") {
+				    Variance func = (Variance) function;
+				    func.setAverage(statResult);
+				    func.iterate(number);
+				}
+			    }
+			    for (Function function : functions) {
+				if (function.getName() == "Variance") {
+				    function.countResult(statResult);
+				}
+			    }
+			    for (Function function : functions) {
+				if (function.getName() == "SD") {
+				    function.iterate(number);
+				}
+			    }
+			    for (Function function : functions) {
+				if (function.getName() == "SD") {
+				    function.countResult(statResult);
+				}
+			    }
+			}
+			ArrayList<Double> tmp = new ArrayList<Double>(
+				collector.getResult());
+			collector.backToBegin();
+			resultD.addCollector(name, tmp);
+			for (Function function : functions) {
+			    function.backToBegin();
+			}
+			resultD.addValue(name, statResult);
 		    }
-
-		    for (Double number : dur.getValue().get(name)) {
-			collector.iterate(number);
-			for (Function function : functions) {
-			    if (function.getName() == "Variance") {
-				Variance func = (Variance) function;
-				func.setAverage(statResult);
-				func.iterate(number);
-			    }
-			}
-			for (Function function : functions) {
-			    if (function.getName() == "Variance") {
-				function.countResult(statResult);
-			    }
-			}
-			for (Function function : functions) {
-			    if (function.getName() == "SD") {
-				function.iterate(number);
-			    }
-			}
-			for (Function function : functions) {
-			    if (function.getName() == "SD") {
-				function.countResult(statResult);
-			    }
-			}
-		    }
-		    ArrayList<Double> tmp = new ArrayList<Double>(collector.getResult());
-		    collector.backToBegin();
-		    result.addCollector(name, tmp);
-		    for (Function function : functions) {
-			function.backToBegin();
-		    }
-		    
-		    result.addValue(name, statResult);
-
 		}
+		atrResult.addValue("Duration", resultD);
+		WavesResult resultA = new WavesResult();
+		for (AmplitudeResult amp : ampArray){
+		    Collector collector = new Collector();
+		    for (String name : amp.getValue().keySet()) {
+			StatisticResult statResult = new StatisticResult();
+			statResult.clearValues();
 
+			for (Double number : amp.getValue().get(name)) {
+			    for (Function function : functions) {
+				if (function.getName() != "Variance"
+					&& function.getName() != "SD") {
+				    function.iterate(number);
+				}
+			    }
+			    for (Function function : functions) {
+				if (function.getName() != "Variance"
+					&& function.getName() != "SD") {
+				    function.countResult(statResult);
+				}
+			    }
+			}
+			for (Double number : amp.getValue().get(name)) {
+			    collector.iterate(number);
+			    for (Function function : functions) {
+				if (function.getName() == "Variance") {
+				    Variance func = (Variance) function;
+				    func.setAverage(statResult);
+				    func.iterate(number);
+				}
+			    }
+			    for (Function function : functions) {
+				if (function.getName() == "Variance") {
+				    function.countResult(statResult);
+				}
+			    }
+			    for (Function function : functions) {
+				if (function.getName() == "SD") {
+				    function.iterate(number);
+				}
+			    }
+			    for (Function function : functions) {
+				if (function.getName() == "SD") {
+				    function.countResult(statResult);
+				}
+			    }
+			}
+			ArrayList<Double> tmp = new ArrayList<Double>(
+				collector.getResult());
+			collector.backToBegin();
+			resultA.addCollector(name, tmp);
+			for (Function function : functions) {
+			    function.backToBegin();
+			}
+			resultA.addValue(name, statResult);
+		    }
+		}
+		atrResult.addValue("Amplitude", resultA);
+		channelResult.addValue(channel.getName(), atrResult);
 	    }
-
-	    channelResult.addValue(channel.getName(), result);
-	}
 	}
 	return channelResult;
     }
@@ -203,7 +269,7 @@ public class StatisticsController {
 		ECG after = man.getAfter();
 		if (after != null) {
 		    specResult.setAfter(count(after));
-		    //specResult.compareResult();
+		    // specResult.compareResult();
 		    specResult
 			    .addToVectors(vectorsAfter, specResult.getAfter());
 		}
@@ -211,10 +277,8 @@ public class StatisticsController {
 		man.setStatisticResults(specResult);
 	    }
 	} else {
-	    System.out.println("szukam specimena");
 	    for (Specimen man : popul.getSpecimen()) {
 		if (man.getId() == specimenId) {
-		    System.out.println("licze dla specimena");
 		    ECG before = man.getBefore();
 		    specResult.setBefore(count(before));
 		    specResult.addToVectors(vectorsBefore,
@@ -222,7 +286,7 @@ public class StatisticsController {
 		    ECG after = man.getAfter();
 		    if (after != null) {
 			specResult.setAfter(count(after));
-			//specResult.compareResult();
+			// specResult.compareResult();
 			specResult.addToVectors(vectorsAfter,
 				specResult.getAfter());
 		    }
@@ -231,7 +295,6 @@ public class StatisticsController {
 		}
 	    }
 	}
-	//popResult.setVectors(vectorsBefore.getVectors(), vectorsAfter.getVectors());
 	popResult.setVectorsBefore(vectorsBefore.getVectors());
 	popResult.setVectorsAfter(vectorsAfter.getVectors());
 	return popResult;
@@ -247,18 +310,18 @@ public class StatisticsController {
 	getFinalResult().setPopul1(countForPopulation(popul1));
 	if (popul2 != null) {
 	    getFinalResult().setPopul2(countForPopulation(popul2));
-	    System.out.println("licze dla populacji 2");
-	    if (SharedController.getInstance().getProject().getType() == 3 && specimenId == null) {
-		System.out.println("niezalezne (3)");
+	    if (SharedController.getInstance().getProject().getType() == 3
+		    && specimenId == null) {
 		getFinalResult().performUnpairedTest();
-	    } else if (SharedController.getInstance().getProject().getType() == 4 && specimenId == null) {
-		System.out.println("zalezne (4)");
+	    } else if (SharedController.getInstance().getProject().getType() == 4
+		    && specimenId == null) {
 		getFinalResult().performPairedTest(1);
 		getFinalResult().performPairedTest(2);
 		getFinalResult().performDifferencesTest();
 	    }
 	}
 	SharedController.getInstance().setProjectRes(getFinalResult());
+
     }
 
     public Population getPopul1() {

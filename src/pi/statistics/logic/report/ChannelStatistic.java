@@ -92,9 +92,9 @@ public class ChannelStatistic {
 					cs.setSurname(specimen.getSurname());
 					cs.setTimeToGoodMood(specimen.getTimeToGoodMood());
 					cs.setWeight(specimen.getWeight());
-					for (String waveName : before.getValue().get(name)
+					for (String waveName : before.getValue().get(name).getValue().get("Duration")
 							.getWavesResult().keySet()) {// PO WAVE
-						double value = before.getValue().get(name)
+						double value = before.getValue().get(name).getValue().get("Duration")
 								.getWavesResult().get(waveName).getValue()
 								.get(statName).doubleValue();
 
@@ -138,13 +138,13 @@ public class ChannelStatistic {
 							cs.setChannelName(name);
 							cs.setQt_intervalResult(value);
 							cs.setStatisticName(statName);
-							cs.setQTcB(before.getValue().get(name)
+							cs.setQTcB(before.getValue().get(name).getValue().get("Duration")
 									.getWavesResult().get(waveName).getValue()
 									.get("QTcB").doubleValue());
-							cs.setQTcF(before.getValue().get(name)
+							cs.setQTcF(before.getValue().get(name).getValue().get("Duration")
 									.getWavesResult().get(waveName).getValue()
 									.get("QTcF").doubleValue());
-							cs.setQTcR(before.getValue().get(name)
+							cs.setQTcR(before.getValue().get(name).getValue().get("Duration")
 									.getWavesResult().get(waveName).getValue()
 									.get("QTcR").doubleValue());
 						}
@@ -162,7 +162,7 @@ public class ChannelStatistic {
 							cs.setChannelName(name);
 							cs.setRr_interval(value);
 							cs.setStatisticName(statName);
-							cs.setPulse(before.getValue().get(name)
+							cs.setPulse(before.getValue().get(name).getValue().get("Duration")
 									.getWavesResult().get(waveName).getValue()
 									.get("Pulse(min)").doubleValue());
 						}
@@ -181,9 +181,9 @@ public class ChannelStatistic {
 					for (String statName : StatisticWindowController.statsList) {
 						ChannelStatistic cs = new ChannelStatistic();
 						cs.setExamination("After");
-						for (String waveName : after.getValue().get(name)
+						for (String waveName : after.getValue().get(name).getValue().get("Duration")
 								.getWavesResult().keySet()) {// PO WAVE
-							double value = after.getValue().get(name)
+							double value = after.getValue().get(name).getValue().get("Duration")
 									.getWavesResult().get(waveName).getValue()
 									.get(statName).doubleValue();
 
@@ -227,13 +227,13 @@ public class ChannelStatistic {
 								cs.setChannelName(name);
 								cs.setQt_intervalResult(value);
 								cs.setStatisticName(statName);
-								cs.setQTcB(before.getValue().get(name)
+								cs.setQTcB(before.getValue().get(name).getValue().get("Duration")
 										.getWavesResult().get(waveName)
 										.getValue().get("QTcB").doubleValue());
-								cs.setQTcF(before.getValue().get(name)
+								cs.setQTcF(before.getValue().get(name).getValue().get("Duration")
 										.getWavesResult().get(waveName)
 										.getValue().get("QTcF").doubleValue());
-								cs.setQTcR(before.getValue().get(name)
+								cs.setQTcR(before.getValue().get(name).getValue().get("Duration")
 										.getWavesResult().get(waveName)
 										.getValue().get("QTcR").doubleValue());
 							}
@@ -251,7 +251,7 @@ public class ChannelStatistic {
 								cs.setChannelName(name);
 								cs.setRr_interval(value);
 								cs.setStatisticName(statName);
-								cs.setPulse(before.getValue().get(name)
+								cs.setPulse(before.getValue().get(name).getValue().get("Duration")
 										.getWavesResult().get(waveName)
 										.getValue().get("Pulse(min)")
 										.doubleValue());

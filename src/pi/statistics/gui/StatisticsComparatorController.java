@@ -72,9 +72,7 @@ public class StatisticsComparatorController implements ActionListener
 	public void fillColumn(ChannelResult channelResult, String channel,
 			String wave, int column)
 	{
-
-		
-	    	WavesResult wavesResult = channelResult.getValue().get(channel);
+	    	WavesResult wavesResult = channelResult.getValue().get(channel).getValue().get(this.view.getAttributeCombo().getSelectedItem().toString());
 		if (wavesResult != null)
 		{
 
@@ -176,7 +174,13 @@ public class StatisticsComparatorController implements ActionListener
 	{
 		String action = e.getActionCommand();
 
-		if (action.equals("CHANGE_FIGURE"))
+		if (action.equals("CHANGE_CHANNEL"))
+		{
+			view.prepare(view.getSpecimanStr(), view.getChannelCombo().getSelectedItem().toString(),
+					view.getWaveStr());
+		}
+		
+		if (action.equals("CHANGE_ATR"))
 		{
 			view.prepare(view.getSpecimanStr(), view.getChannelCombo().getSelectedItem().toString(),
 					view.getWaveStr());

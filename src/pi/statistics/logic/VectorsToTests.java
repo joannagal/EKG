@@ -8,27 +8,14 @@ public class VectorsToTests {
     private Vector<Object> numbers;
     private Map<String, Vector<Object>> values;
     private Map<String, Map<String, Vector<Object>>> waves = new HashMap<String, Map<String, Vector<Object>>>();
-    private Map<String, Map<String, Map<String, Vector<Object>>>> vectors = new HashMap<String, Map<String, Map<String, Vector<Object>>>>();
+    private Map<String, Map<String, Map<String, Vector<Object>>>> atr = new HashMap<String, Map<String, Map<String, Vector<Object>>>>();
+    private Map<String, Map<String, Map<String, Map<String, Vector<Object>>>>> vectors = new HashMap<String, Map<String, Map<String, Map<String, Vector<Object>>>>>();
 
     public void clearVectors() {
 	getVectors().clear();
-	// values.clear();
-	// numbers.clear();
     }
 
     public void printVectors() {
-//	for (String vectName : getVectors().keySet()) {
-//	    System.out.println(vectName);
-//	    for (String waveName : getVectors().get(vectName).keySet()) {
-//		System.out.println(waveName);
-//		for (String statName : getVectors().get(vectName).get(waveName)
-//			.keySet()) {
-//		    System.out.println(statName);
-//		    System.out.println(getVectors().get(vectName).get(waveName)
-//			    .get(statName));
-//		}
-//	    }
-//	}
 	System.out.println(vectors);
     }
 
@@ -70,25 +57,54 @@ public class VectorsToTests {
 	numbers.add(number);
     }
 
-    public Map<String, Map<String, Map<String, Vector<Object>>>> getVectors() {
+    public Map<String, Map<String, Map<String, Map<String, Vector<Object>>>>> getVectors() {
 	return vectors;
     }
 
-    public void addVector(String name, String waveName, String statName,
+    public void addVector(String name, String atrName, String waveName, String statName,
 	    Object value) {
 	
 	if (vectors.containsKey(name) == false) {
-	    waves = new HashMap<String, Map<String, Vector<Object>>>();
-	    addWave(waveName, statName, value);
-	    vectors.put(name, waves);
+	    atr = new HashMap<String, Map<String, Map<String, Vector<Object>>>>();
+	    addAtr(atrName, waveName, statName, value);
+	    vectors.put(name, atr);
+	}
+	else {
+	    if (vectors.get(name).get(atrName) == null) {
+		addAtr(atrName, waveName, statName, value);
+	    
 	} else {
-	    if (vectors.get(name).get(waveName) == null) {
+	    if (vectors.get(name).get(atrName).get(waveName) == null) {
 		addWave(waveName, statName, value);
 	    } else {
-		if (vectors.get(name).get(waveName).get(statName) == null) {
+		if (vectors.get(name).get(atrName).get(waveName).get(statName) == null) {
 		    addValue(statName, value);
 		} else
-		    vectors.get(name).get(waveName).get(statName).add(value);
+		    vectors.get(name).get(atrName).get(waveName).get(statName).add(value);
+	    }
+	}
+	}
+
+    }
+
+    public Map<String, Map<String, Map<String, Vector<Object>>>> getAtr() {
+	return atr;
+    }
+
+    public void addAtr(String name, String waveName, String statName,
+	    Object value) {
+	if (atr.containsKey(name) == false) {   
+	    waves = new HashMap<String, Map<String, Vector<Object>>>();
+	    addWave(waveName, statName, value);
+	    atr.put(name, waves);
+	} else {
+	    if (atr.get(name).get(waveName) == null) {
+		addWave(waveName, statName, value);
+	    } else {
+		if (atr.get(name).get(waveName).get(statName) == null) {
+		    addValue(statName, value);
+		} else
+		    atr.get(name).get(waveName).get(statName).add(value);
 	    }
 	}
 

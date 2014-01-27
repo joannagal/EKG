@@ -26,5 +26,9 @@ public class WavesResult {
 	    wavesCollector.put(name, collector);
 	}
 	
+	public void clearAll(){
+	    wavesResult.clear();
+	    wavesCollector.clear();
+	}
 
 }

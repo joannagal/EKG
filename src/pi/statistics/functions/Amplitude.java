@@ -11,7 +11,6 @@ public class Amplitude extends Function {
 
     @Override
     public void countResult(StatisticResult statResult) {
-	// TODO null?
 	double min = statResult.getValue().get("Min")
 		.doubleValue();
 	double max = statResult.getValue().get("Max")

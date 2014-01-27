@@ -109,6 +109,7 @@ public class StatisticWindowController implements ActionListener {
 	    int type = SharedController.getInstance().getProject().getType();
 
 	    if (type == 1 || type == 2 || id != null) {
+		System.out.println(specimanStr);
 		setComparatorView(new StatisticsComparatorView(specimanStr));
 		getComparatorView().setStController(stControl);
 		getComparatorView().setSpecimanStr(specimanStr);
@@ -118,7 +119,7 @@ public class StatisticWindowController implements ActionListener {
 	    } else {
 		setTestsView(new StatisticTestsView());
 		getTestsView().setStController(stControl);
-		getTestsView().prepare(getTestsView().getChannelStr(), getTestsView().getWaveStr());
+		getTestsView().prepare(getTestsView().getChannelStr(), getTestsView().getAtrStr(), getTestsView().getWaveStr());
 		getTestsView().getReport().changeSelection(0, 1, false, false);
 		getTestsView().setVisible(true);
 	    }

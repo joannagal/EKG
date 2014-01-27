@@ -31,15 +31,19 @@ public class StatisticTestsView extends JFrame {
     private StatisticTestsController controller;
     
     private StatisticsController stController; 
+    
+    public static String[] attributes = { "Duration", "Amplitude"};
 
     public JLabel channelLabel = new JLabel("Channel");
 
     private JComboBox<String> channelCombo = new JComboBox<String>();
+    private JComboBox<String> attributeCombo = new JComboBox<String>(attributes);
     private JList<String> wavesList;
 
     private String channelStr = "I";
     private String waveStr = "pWave";
-
+    private String atrStr = "Duration";
+    
     private JButton closeButton = new JButton("Close");
     private JButton saveButton = new JButton("Save report");
     private JButton reportButton = new JButton("Display report");
@@ -94,6 +98,11 @@ public class StatisticTestsView extends JFrame {
 	this.channelLabel.setBounds(5, 22, 100, 15);
 	this.add(this.channelLabel);
 
+	this.attributeCombo.setActionCommand("CHANGE_ATR");
+	this.attributeCombo.addActionListener(controller);
+	this.attributeCombo.setBounds(15, 409, 140, 20);
+	getContentPane().add(this.attributeCombo);
+	
 	this.channelCombo.setBounds(55, 18, 100, 19);
 	this.channelCombo.setActionCommand("CHANGE_FIGURE");
 	this.channelCombo.addActionListener(controller);
@@ -101,11 +110,11 @@ public class StatisticTestsView extends JFrame {
 	this.add(this.channelCombo);
 
 	fillWavesList();
-	this.wavesList.setBounds(15, 45, 140, 390);
+	this.wavesList.setBounds(15, 45, 140, 350);
 	this.wavesList.addListSelectionListener(new ListSelectionListener() {
 	    @Override
 	    public void valueChanged(ListSelectionEvent arg0) {
-		prepare(getChannelStr(), getWavesList().getSelectedValue());
+		prepare(getChannelStr(), getAtrStr(), getWavesList().getSelectedValue());
 		report.changeSelection(0, 1, false, false);
 		changeSelection();
 	    }
@@ -197,20 +206,22 @@ public class StatisticTestsView extends JFrame {
 
 	String channel = getChannelStr();
 	String wave = getWaveStr();
+	String atr = getAtrStr();
 
 	String statistics = model.getValueAt(row, 0).toString();
 
-	controller.setDetails(column, channel, wave, statistics);
+	controller.setDetails(column, channel, atr, wave, statistics);
     }
 
 
-    public void prepare(String channel, String wave) {
+    public void prepare(String channel, String atr, String wave) {
 	int type = SharedController.getInstance().getProject().getType();
 
 	String[] columns;
 
 	this.channelStr = channel;
 	this.waveStr = wave;
+	this.atrStr = atr;
 
 	if (type == Project.POPULATION_SINGLE) {
 	    columns = new String[2];
@@ -225,7 +236,7 @@ public class StatisticTestsView extends JFrame {
 	    for (int i = 0; i < 10; i++)
 		this.model.addRow(columns);
 
-	    controller.set(channel, wave);
+	    controller.set(channel, atr, wave);
 
 	} else if (type == Project.POPULATION_PAIR) {
 	    columns = new String[6];
@@ -244,7 +255,7 @@ public class StatisticTestsView extends JFrame {
 	    for (int i = 0; i < 10; i++)
 		this.model.addRow(columns);
 
-	    controller.set(channel, wave);
+	    controller.set(channel, atr, wave);
 	}
 
 	this.report.setModel(this.getModel());
@@ -379,5 +390,21 @@ public class StatisticTestsView extends JFrame {
 
     public void setStController(StatisticsController stController) {
 	this.stController = stController;
+    }
+
+    public JComboBox<String> getAttributeCombo() {
+	return attributeCombo;
+    }
+
+    public void setAttributeCombo(JComboBox<String> attributeCombo) {
+	this.attributeCombo = attributeCombo;
+    }
+
+    public String getAtrStr() {
+	return atrStr;
+    }
+
+    public void setAtrStr(String atrStr) {
+	this.atrStr = atrStr;
     }
 }

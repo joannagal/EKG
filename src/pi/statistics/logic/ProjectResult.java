@@ -15,10 +15,13 @@ import pi.statistics.tests.LillieforsNormality;
 import pi.statistics.tests.Result;
 
 public class ProjectResult {
+
+
     private PopulationResult popul1Result;
     private PopulationResult popul2Result;
-    private Map<String, Map<String, Map<String, Map<String, Vector<Double>>>>> testResult = new HashMap<String, Map<String, Map<String, Map<String, Vector<Double>>>>>();
-    private Map<String, Map<String, Map<String, Vector<Double>>>> channels;
+    private Map<String, Map<String, Map<String, Map<String, Map<String, Vector<Double>>>>>> testResult = new HashMap<String, Map<String, Map<String, Map<String, Map<String, Vector<Double>>>>>>();
+    private Map<String, Map<String, Map<String, Map<String, Vector<Double>>>>> channels;
+    private Map<String, Map<String, Map<String, Vector<Double>>>> atrs;
     private Map<String, Map<String, Vector<Double>>> waves;
     private Map<String, Vector<Double>> stats;
 
@@ -40,41 +43,52 @@ public class ProjectResult {
 	    popResult = popul2Result;
 
 	for (String channelName : popResult.getVectorsBefore().keySet()) {
-	    for (String waveName : popResult.getVectorsBefore()
-		    .get(channelName).keySet()) {
-		for (String statName : popResult.getVectorsBefore()
-			.get(channelName).get(waveName).keySet()) {
-		    if (!popResult.getVectorsAfter().get(channelName)
-			    .get(waveName).get(statName).contains(null)
-			    && !popResult.getVectorsBefore().get(channelName)
-				    .get(waveName).get(statName).contains(null)) {
-			Vector<Object> vector1 = popResult.getVectorsBefore()
-				.get(channelName).get(waveName).get(statName);
-			double[] ar1 = new double[vector1.size()];
-			for (int i = 0; i < vector1.size(); i++) {
-			    ar1[i] = (double) vector1.get(i);
-			}
-			Vector<Object> vector2 = popResult.getVectorsAfter()
-				.get(channelName).get(waveName).get(statName);
-			double[] ar2 = new double[vector2.size()];
-			for (int i = 0; i < vector2.size(); i++) {
-			    ar2[i] = (double) vector2.get(i);
-			}
-			boolean normal = lillieforsTest(ar1, ar2);
-			if (normal == true) {
-			    if (populNo == 1)
-				tStudentPairedTest("P1AB", channelName,
-					waveName, statName, ar1, ar2);
-			    else if (populNo == 2)
-				tStudentPairedTest("P2AB", channelName,
-					waveName, statName, ar1, ar2);
-			} else {
-			    if (populNo == 1)
-				wilcoxonTest("P1AB", channelName, waveName,
-					statName, ar1, ar2);
-			    else if (populNo == 2)
-				wilcoxonTest("P2AB", channelName, waveName,
-					statName, ar1, ar2);
+	    for (String atrName : popResult.getVectorsBefore().get(channelName)
+		    .keySet()) {
+		for (String waveName : popResult.getVectorsBefore()
+			.get(channelName).get(atrName).keySet()) {
+		    for (String statName : popResult.getVectorsBefore()
+			    .get(channelName).get(atrName).get(waveName)
+			    .keySet()) {
+			if (!popResult.getVectorsAfter().get(channelName)
+				.get(atrName).get(waveName).get(statName)
+				.contains(null)
+				&& !popResult.getVectorsBefore()
+					.get(channelName).get(atrName)
+					.get(waveName).get(statName)
+					.contains(null)) {
+			    Vector<Object> vector1 = popResult
+				    .getVectorsBefore().get(channelName)
+				    .get(atrName).get(waveName).get(statName);
+			    double[] ar1 = new double[vector1.size()];
+			    for (int i = 0; i < vector1.size(); i++) {
+				ar1[i] = (double) vector1.get(i);
+			    }
+			    Vector<Object> vector2 = popResult
+				    .getVectorsAfter().get(channelName)
+				    .get(atrName).get(waveName).get(statName);
+			    double[] ar2 = new double[vector2.size()];
+			    for (int i = 0; i < vector2.size(); i++) {
+				ar2[i] = (double) vector2.get(i);
+			    }
+			    boolean normal = lillieforsTest(ar1, ar2);
+			    if (normal == true) {
+				if (populNo == 1)
+				    tStudentPairedTest("P1AB", channelName,
+					    atrName, waveName, statName, ar1,
+					    ar2);
+				else if (populNo == 2)
+				    tStudentPairedTest("P2AB", channelName,
+					    atrName, waveName, statName, ar1,
+					    ar2);
+			    } else {
+				if (populNo == 1)
+				    wilcoxonTest("P1AB", channelName, atrName,
+					    waveName, statName, ar1, ar2);
+				else if (populNo == 2)
+				    wilcoxonTest("P2AB", channelName, atrName,
+					    waveName, statName, ar1, ar2);
+			    }
 			}
 		    }
 		}
@@ -84,36 +98,44 @@ public class ProjectResult {
 
     public void beforeUnpaired() {
 	for (String channelName : popul1Result.getVectorsBefore().keySet()) {
-	    for (String waveName : popul1Result.getVectorsBefore()
+	    for (String atrName : popul1Result.getVectorsBefore()
 		    .get(channelName).keySet()) {
-		for (String statName : popul1Result.getVectorsBefore()
-			.get(channelName).get(waveName).keySet()) {
-		    if (!popul2Result.getVectorsBefore().get(channelName)
-			    .get(waveName).get(statName).contains(null)
-			    && !popul1Result.getVectorsBefore()
-				    .get(channelName).get(waveName)
-				    .get(statName).contains(null)) {
-			Vector<Object> vector1 = popul1Result
-				.getVectorsBefore().get(channelName)
-				.get(waveName).get(statName);
-			double[] ar1 = new double[vector1.size()];
-			for (int i = 0; i < vector1.size(); i++) {
-			    ar1[i] = (double) vector1.get(i);
-			}
-			Vector<Object> vector2 = popul2Result
-				.getVectorsBefore().get(channelName)
-				.get(waveName).get(statName);
-			double[] ar2 = new double[vector2.size()];
-			for (int i = 0; i < vector2.size(); i++) {
-			    ar2[i] = (double) vector2.get(i);
-			}
-			boolean normal = lillieforsTest(ar1, ar2);
-			if (normal == true) {
-			    tStudentUnpairedTest("BB", channelName, waveName,
-				    statName, ar1, ar2);
-			} else {
-			    mannWhitneyUTest("BB", channelName, waveName,
-				    statName, ar1, ar2);
+		for (String waveName : popul1Result.getVectorsBefore()
+			.get(channelName).get(atrName).keySet()) {
+		    for (String statName : popul1Result.getVectorsBefore()
+			    .get(channelName).get(atrName).get(waveName)
+			    .keySet()) {
+			if (!popul2Result.getVectorsBefore().get(channelName)
+				.get(atrName).get(waveName).get(statName)
+				.contains(null)
+				&& !popul1Result.getVectorsBefore()
+					.get(channelName).get(atrName)
+					.get(waveName).get(statName)
+					.contains(null)) {
+			    Vector<Object> vector1 = popul1Result
+				    .getVectorsBefore().get(channelName)
+				    .get(atrName).get(waveName).get(statName);
+			    double[] ar1 = new double[vector1.size()];
+			    for (int i = 0; i < vector1.size(); i++) {
+				ar1[i] = (double) vector1.get(i);
+			    }
+			    Vector<Object> vector2 = popul2Result
+				    .getVectorsBefore().get(channelName)
+				    .get(atrName).get(waveName).get(statName);
+			    double[] ar2 = new double[vector2.size()];
+			    for (int i = 0; i < vector2.size(); i++) {
+				ar2[i] = (double) vector2.get(i);
+			    }
+			    boolean normal = lillieforsTest(ar1, ar2);
+			    if (normal == true) {
+				tStudentUnpairedTest("BB", channelName,
+					atrName, waveName, statName, ar1, ar2);
+
+			    } else {
+				mannWhitneyUTest("BB", channelName, atrName,
+					waveName, statName, ar1, ar2);
+
+			    }
 			}
 		    }
 		}
@@ -123,33 +145,42 @@ public class ProjectResult {
 
     public void afterUnpaired() {
 	for (String channelName : popul1Result.getVectorsAfter().keySet()) {
-	    for (String waveName : popul1Result.getVectorsAfter()
+	    for (String atrName : popul1Result.getVectorsAfter()
 		    .get(channelName).keySet()) {
-		for (String statName : popul1Result.getVectorsAfter()
-			.get(channelName).get(waveName).keySet()) {
-		    if (!popul2Result.getVectorsAfter().get(channelName)
-			    .get(waveName).get(statName).contains(null)
-			    && !popul1Result.getVectorsAfter().get(channelName)
-				    .get(waveName).get(statName).contains(null)) {
-			Vector<Object> vector1 = popul1Result.getVectorsAfter()
-				.get(channelName).get(waveName).get(statName);
-			double[] ar1 = new double[vector1.size()];
-			for (int i = 0; i < vector1.size(); i++) {
-			    ar1[i] = (double) vector1.get(i);
-			}
-			Vector<Object> vector2 = popul2Result.getVectorsAfter()
-				.get(channelName).get(waveName).get(statName);
-			double[] ar2 = new double[vector2.size()];
-			for (int i = 0; i < vector2.size(); i++) {
-			    ar2[i] = (double) vector2.get(i);
-			}
-			boolean normal = lillieforsTest(ar1, ar2);
-			if (normal == true) {
-			    tStudentUnpairedTest("AA", channelName, waveName,
-				    statName, ar1, ar2);
-			} else {
-			    mannWhitneyUTest("AA", channelName, waveName,
-				    statName, ar1, ar2);
+		for (String waveName : popul1Result.getVectorsAfter()
+			.get(channelName).get(atrName).keySet()) {
+		    for (String statName : popul1Result.getVectorsAfter()
+			    .get(channelName).get(atrName).get(waveName)
+			    .keySet()) {
+			if (!popul2Result.getVectorsAfter().get(channelName)
+				.get(atrName).get(waveName).get(statName)
+				.contains(null)
+				&& !popul1Result.getVectorsAfter()
+					.get(channelName).get(atrName)
+					.get(waveName).get(statName)
+					.contains(null)) {
+			    Vector<Object> vector1 = popul1Result
+				    .getVectorsAfter().get(channelName)
+				    .get(atrName).get(waveName).get(statName);
+			    double[] ar1 = new double[vector1.size()];
+			    for (int i = 0; i < vector1.size(); i++) {
+				ar1[i] = (double) vector1.get(i);
+			    }
+			    Vector<Object> vector2 = popul2Result
+				    .getVectorsAfter().get(channelName)
+				    .get(atrName).get(waveName).get(statName);
+			    double[] ar2 = new double[vector2.size()];
+			    for (int i = 0; i < vector2.size(); i++) {
+				ar2[i] = (double) vector2.get(i);
+			    }
+			    boolean normal = lillieforsTest(ar1, ar2);
+			    if (normal == true) {
+				tStudentUnpairedTest("AA", channelName,
+					atrName, waveName, statName, ar1, ar2);
+			    } else {
+				mannWhitneyUTest("AA", channelName, atrName,
+					waveName, statName, ar1, ar2);
+			    }
 			}
 		    }
 		}
@@ -158,86 +189,119 @@ public class ProjectResult {
     }
 
     public void afterBeforeDeffierences() {
-	for (String channelName : popul1Result.getVectorsBefore().keySet()) {
-	    for (String waveName : popul1Result.getVectorsBefore()
-		    .get(channelName).keySet()) {
-		for (String statName : popul1Result.getVectorsBefore()
-			.get(channelName).get(waveName).keySet()) {
-		    if (!popul1Result.getVectorsAfter().get(channelName)
-			    .get(waveName).get(statName).contains(null)
-			    && !popul1Result.getVectorsBefore()
-				    .get(channelName).get(waveName)
-				    .get(statName).contains(null)) {
-			Vector<Object> vector1 = popul1Result
-				.getVectorsBefore().get(channelName)
-				.get(waveName).get(statName);
-			Vector<Object> vector2 = popul1Result.getVectorsAfter()
-				.get(channelName).get(waveName).get(statName);
 
-			for (String channelName2 : popul2Result
-				.getVectorsBefore().keySet()) {
-			    for (String waveName2 : popul2Result
-				    .getVectorsBefore().get(channelName2)
-				    .keySet()) {
-				for (String statName2 : popul2Result
+	for (String channelName : popul1Result.getVectorsBefore().keySet()) {
+	    for (String atrName : popul1Result.getVectorsBefore()
+		    .get(channelName).keySet()) {
+		for (String waveName : popul1Result.getVectorsBefore()
+			.get(channelName).get(atrName).keySet()) {
+		    for (String statName : popul1Result.getVectorsBefore()
+			    .get(channelName).get(atrName).get(waveName)
+			    .keySet()) {
+			if (!popul1Result.getVectorsAfter().get(channelName)
+				.get(atrName).get(waveName).get(statName)
+				.contains(null)
+				&& !popul1Result.getVectorsBefore()
+					.get(channelName).get(atrName)
+					.get(waveName).get(statName)
+					.contains(null)) {
+			    Vector<Object> vector1 = popul1Result
+				    .getVectorsBefore().get(channelName)
+				    .get(atrName).get(waveName).get(statName);
+			    Vector<Object> vector2 = popul1Result
+				    .getVectorsAfter().get(channelName)
+				    .get(atrName).get(waveName).get(statName);
+
+			    for (String channelName2 : popul2Result
+				    .getVectorsBefore().keySet()) {
+				for (String atrName2 : popul2Result
 					.getVectorsBefore().get(channelName2)
-					.get(waveName2).keySet()) {
-				    if (!popul2Result.getVectorsAfter()
-					    .get(channelName2).get(waveName2)
-					    .get(statName2).contains(null)
-					    && !popul2Result.getVectorsBefore()
-						    .get(channelName2)
-						    .get(waveName2)
-						    .get(statName2)
-						    .contains(null)) {
-					Vector<Object> vector1P2 = popul2Result
+					.keySet()) {
+				    for (String waveName2 : popul2Result
+					    .getVectorsBefore()
+					    .get(channelName2).get(atrName2)
+					    .keySet()) {
+					for (String statName2 : popul2Result
 						.getVectorsBefore()
 						.get(channelName2)
-						.get(waveName2).get(statName2);
-					Vector<Object> vector2P2 = popul2Result
-						.getVectorsAfter()
-						.get(channelName2)
-						.get(waveName2).get(statName2);
-					int length;
+						.get(atrName2).get(waveName2)
+						.keySet()) {
+					    if (!popul2Result.getVectorsAfter()
+						    .get(channelName2)
+						    .get(atrName2)
+						    .get(waveName2)
+						    .get(statName2)
+						    .contains(null)
+						    && !popul2Result
+							    .getVectorsBefore()
+							    .get(channelName2)
+							    .get(atrName2)
+							    .get(waveName2)
+							    .get(statName2)
+							    .contains(null)) {
+						Vector<Object> vector1P2 = popul2Result
+							.getVectorsBefore()
+							.get(channelName2)
+							.get(atrName2)
+							.get(waveName2)
+							.get(statName2);
+						Vector<Object> vector2P2 = popul2Result
+							.getVectorsAfter()
+							.get(channelName2)
+							.get(atrName2)
+							.get(waveName2)
+							.get(statName2);
+						int length;
 
-					if (vector1.size() != vector2.size()
-						|| vector1.size() != vector1P2
+						if (vector1.size() != vector2
 							.size()
-						|| vector1P2.size() != vector2P2
-							.size()) {
-					    length = vector1.size();
-					    if (vector2.size() < length)
-						length = vector2.size();
-					    if (vector1P2.size() < length)
-						length = vector1P2.size();
-					    if (vector2P2.size() < length)
-						length = vector2P2.size();
-					} else {
-					    length = vector1.size();
-					}
+							|| vector1.size() != vector1P2
+								.size()
+							|| vector1P2.size() != vector2P2
+								.size()) {
+						    length = vector1.size();
+						    if (vector2.size() < length)
+							length = vector2.size();
+						    if (vector1P2.size() < length)
+							length = vector1P2
+								.size();
+						    if (vector2P2.size() < length)
+							length = vector2P2
+								.size();
+						} else {
+						    length = vector1.size();
+						}
 
-					double[] ar1 = new double[length];
-					for (int i = 0; i < length; i++) {
-					    ar1[i] = (double) vector2.get(i)
-						    - (double) vector1.get(i);
-					}
+						double[] ar1 = new double[length];
+						for (int i = 0; i < length; i++) {
+						    ar1[i] = (double) vector2
+							    .get(i)
+							    - (double) vector1
+								    .get(i);
+						}
 
-					double[] ar2 = new double[length];
-					for (int i = 0; i < length; i++) {
-					    ar2[i] = (double) vector2P2.get(i)
-						    - (double) vector1P2.get(i);
-					}
+						double[] ar2 = new double[length];
+						for (int i = 0; i < length; i++) {
+						    ar2[i] = (double) vector2P2
+							    .get(i)
+							    - (double) vector1P2
+								    .get(i);
+						}
 
-					boolean normal = lillieforsTest(ar1,
-						ar2);
-					if (normal == true) {
-					    tStudentPairedTest("dAB",
-						    channelName, waveName,
-						    statName, ar1, ar2);
-					} else {
-					    mannWhitneyUTest("dAB",
-						    channelName, waveName,
-						    statName, ar1, ar2);
+						boolean normal = lillieforsTest(
+							ar1, ar2);
+						if (normal == true) {
+						    tStudentPairedTest("dAB",
+							    channelName,
+							    atrName, waveName,
+							    statName, ar1, ar2);
+						} else {
+						    mannWhitneyUTest("dAB",
+							    channelName,
+							    atrName, waveName,
+							    statName, ar1, ar2);
+						}
+					    }
 					}
 				    }
 				}
@@ -260,7 +324,8 @@ public class ProjectResult {
     }
 
     public void tStudentPairedTest(String testName, String channelName,
-	    String waveName, String statName, double[] ar1, double[] ar2) {
+	    String atrName, String waveName, String statName, double[] ar1,
+	    double[] ar2) {
 	TTest test = new TTest();
 	Vector<Double> result = new Vector<Double>();
 	calculateStatistics(result, ar1);
@@ -273,11 +338,13 @@ public class ProjectResult {
 	} catch (Exception ex) {
 	}
 	result.add(pval);
-	addTestResult(testName, channelName, waveName, statName, result);
+	addTestResult(testName, channelName, atrName, waveName, statName,
+		result);
     }
 
     public void tStudentUnpairedTest(String testName, String channelName,
-	    String waveName, String statName, double[] ar1, double[] ar2) {
+	    String atrName, String waveName, String statName, double[] ar1,
+	    double[] ar2) {
 	TTest test = new TTest();
 	Vector<Double> result = new Vector<Double>();
 	calculateStatistics(result, ar1);
@@ -291,11 +358,13 @@ public class ProjectResult {
 
 	}
 	result.add(pval);
-	addTestResult(testName, channelName, waveName, statName, result);
+	addTestResult(testName, channelName, atrName, waveName, statName,
+		result);
     }
 
     public void wilcoxonTest(String testName, String channelName,
-	    String waveName, String statName, double[] ar1, double[] ar2) {
+	    String atrName, String waveName, String statName, double[] ar1,
+	    double[] ar2) {
 	WilcoxonSignedRankTest wilcoxTest = new WilcoxonSignedRankTest();
 	Vector<Double> result = new Vector<Double>();
 	calculateStatistics(result, ar1);
@@ -307,21 +376,26 @@ public class ProjectResult {
 	    if (ar1.length <= 30 && ar2.length <= 30) {
 		pval = wilcoxTest.wilcoxonSignedRankTest(ar1, ar2, true);
 		result.add(pval);
-		addTestResult(testName, channelName, waveName, statName, result);
+		addTestResult(testName, channelName, atrName, waveName,
+			statName, result);
 	    } else {
 		pval = wilcoxTest.wilcoxonSignedRankTest(ar1, ar2, false);
 		result.add(pval);
-		addTestResult(testName, channelName, waveName, statName, result);
+		addTestResult(testName, channelName, atrName, waveName,
+			statName, result);
 	    }
 	} catch (Exception ex) {
 	    System.out.println("ex");
-	    result.add(pval);
-	    addTestResult(testName, channelName, waveName, statName, result);
 	}
+	result.add(pval);
+	addTestResult(testName, channelName, atrName, waveName, statName,
+		result);
+
     }
 
     public void mannWhitneyUTest(String testName, String channelName,
-	    String waveName, String statName, double[] ar1, double[] ar2) {
+	    String atrName, String waveName, String statName, double[] ar1,
+	    double[] ar2) {
 	MannWhitneyUTest mannWhitneyUTest = new MannWhitneyUTest();
 	Vector<Double> result = new Vector<Double>();
 	calculateStatistics(result, ar1);
@@ -335,7 +409,8 @@ public class ProjectResult {
 	    System.out.println("ex");
 	}
 	result.add(pval);
-	addTestResult(testName, channelName, waveName, statName, result);
+	addTestResult(testName, channelName, atrName, waveName, statName,
+		result);
     }
 
     public double[] vectorToDouble(Vector<Object> vector, int length) {
@@ -400,48 +475,47 @@ public class ProjectResult {
 	this.popul2Result = popul2;
     }
 
-    public Map<String, Map<String, Map<String, Map<String, Vector<Double>>>>> getTestResult() {
+    public Map<String, Map<String, Map<String, Map<String, Map<String, Vector<Double>>>>>> getTestResult() {
 	return testResult;
     }
 
-    public void addTestResult(String name, String channel, String wave,
-	    String statistic, Vector<Double> result) {
+    public void addTestResult(String name, String channel, String atr,
+	    String wave, String statistic, Vector<Double> result) {
 	if (testResult.containsKey(name) == false) {
-	    channels = new HashMap<String, Map<String, Map<String, Vector<Double>>>>();
-	    addChannels(channel, wave, statistic, result);
+	    channels = new HashMap<String, Map<String, Map<String, Map<String, Vector<Double>>>>>();
+	    addChannels(channel, atr, wave, statistic, result);
 	    testResult.put(name, channels);
-	} else {
-	    if (testResult.get(name).get(channel) == null) {
-		addChannels(channel, wave, statistic, result);
-	    } else if (testResult.get(name).get(channel).get(wave) == null) {
-		addWaves(wave, statistic, result);
-	    } else {
-		if (testResult.get(name).get(channel).get(wave).get(statistic) == null) {
-		    addStats(statistic, result);
-		}
-	    }
+	} else if (testResult.get(name).get(channel) == null) {
+	    addChannels(channel, atr, wave, statistic, result);
+	} else if (testResult.get(name).get(channel).get(atr) == null) {
+	    addAtrs(atr, wave, statistic, result);
+	} else if (testResult.get(name).get(channel).get(atr).get(wave) == null) {
+	    addWaves(wave, statistic, result);
+	} else if (testResult.get(name).get(channel).get(atr).get(wave)
+		.get(statistic) == null) {
+	    addStats(statistic, result);
 	}
+
     }
 
-    public Map<String, Map<String, Map<String, Vector<Double>>>> getChannels() {
+    public Map<String, Map<String, Map<String, Map<String, Vector<Double>>>>> getChannels() {
 	return channels;
     }
 
-    public void addChannels(String channel, String wave, String statistic,
-	    Vector<Double> result) {
+    public void addChannels(String channel, String atr, String wave,
+	    String statistic, Vector<Double> result) {
 	if (channels.containsKey(channel) == false) {
-	    waves = new HashMap<String, Map<String, Vector<Double>>>();
+	    atrs = new HashMap<String, Map<String, Map<String, Vector<Double>>>>();
+	    addAtrs(atr, wave, statistic, result);
+	    channels.put(channel, atrs);
+	} else if (channels.get(channel).get(atr) == null) {
+	    addAtrs(atr, wave, statistic, result);
+	} else if (channels.get(channel).get(atr).get(wave) == null) {
 	    addWaves(wave, statistic, result);
-	    channels.put(channel, waves);
-	} else {
-	    if (channels.get(channel).get(wave) == null) {
-		addWaves(wave, statistic, result);
-	    } else {
-		if (channels.get(channel).get(wave).get(statistic) == null) {
-		    addStats(statistic, result);
-		}
-	    }
+	} else if (channels.get(channel).get(atr).get(wave).get(statistic) == null) {
+	    addStats(statistic, result);
 	}
+
     }
 
     public Map<String, Map<String, Vector<Double>>> getWaves() {
@@ -453,11 +527,10 @@ public class ProjectResult {
 	    stats = new HashMap<String, Vector<Double>>();
 	    addStats(statistic, result);
 	    waves.put(wave, stats);
-	} else {
-	    if (waves.get(wave).get(statistic) == null) {
-		addStats(statistic, result);
-	    }
+	} else if (waves.get(wave).get(statistic) == null) {
+	    addStats(statistic, result);
 	}
+
     }
 
     public Map<String, Vector<Double>> getStats() {
@@ -466,6 +539,24 @@ public class ProjectResult {
 
     public void addStats(String statistic, Vector<Double> result) {
 	stats.put(statistic, result);
-    };
+    }
+
+    public Map<String, Map<String, Map<String, Vector<Double>>>> getAtrs() {
+	return atrs;
+    }
+
+    public void addAtrs(String atr, String wave, String statistic,
+	    Vector<Double> result) {
+	if (atrs.containsKey(atr) == false) {
+	    waves = new HashMap<String, Map<String, Vector<Double>>>();
+	    addWaves(wave, statistic, result);
+	    atrs.put(atr, waves);
+	} else if (atrs.get(atr).get(wave) == null) {
+	    addWaves(wave, statistic, result);
+	    // atrs.put(atr, waves);
+	} else if (atrs.get(atr).get(wave).get(statistic) == null) {
+	    addStats(statistic, result);
+	}
+    }
 
 }

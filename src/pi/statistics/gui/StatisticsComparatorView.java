@@ -24,12 +24,13 @@ import pi.statistics.logic.StatisticsController;
 
 public class StatisticsComparatorView extends JFrame {
     private static final long serialVersionUID = 1L;
-
+    public static String[] attributes = { "Duration", "Amplitude"};
     private StatisticsComparatorController controller;
 
     public JLabel channelLabel = new JLabel("Channel");
 
     private JComboBox<String> channelCombo = new JComboBox<String>();
+    private JComboBox<String> attributeCombo = new JComboBox<String>(attributes);
     private JList<String> wavesList;
 
     private String specimanStr = "";
@@ -64,7 +65,12 @@ public class StatisticsComparatorView extends JFrame {
 
 	controller = new StatisticsComparatorController(this);
 
-	this.channelCombo.setActionCommand("CHANGE_FIGURE");
+	this.attributeCombo.setActionCommand("CHANGE_ATR");
+	this.attributeCombo.addActionListener(controller);
+	this.attributeCombo.setBounds(15, 409, 140, 20);
+	getContentPane().add(this.attributeCombo);
+	
+	this.channelCombo.setActionCommand("CHANGE_CHANNEL");
 	this.channelCombo.addActionListener(controller);
 
 	this.channelLabel.setBounds(5, 22, 100, 15);
@@ -75,7 +81,7 @@ public class StatisticsComparatorView extends JFrame {
 	getContentPane().add(this.channelCombo);
 
 	fillWavesList();
-	this.wavesList.setBounds(15, 45, 140, 390);
+	this.wavesList.setBounds(15, 45, 140, 350);
 	this.wavesList.addListSelectionListener(new ListSelectionListener() {
 	    @Override
 	    public void valueChanged(ListSelectionEvent arg0) {
@@ -108,6 +114,9 @@ public class StatisticsComparatorView extends JFrame {
 	this.reportButton.addActionListener(controller);
 	this.reportButton.setBounds(699, 440, 140, 25);
 	getContentPane().add(this.reportButton);
+	
+
+
 
 
 
@@ -290,5 +299,13 @@ public class StatisticsComparatorView extends JFrame {
 
     public void setStController(StatisticsController stController) {
 	this.stController = stController;
+    }
+
+    public JComboBox<String> getAttributeCombo() {
+	return attributeCombo;
+    }
+
+    public void setAttributeCombo(JComboBox<String> attributeCombo) {
+	this.attributeCombo = attributeCombo;
     }
 }

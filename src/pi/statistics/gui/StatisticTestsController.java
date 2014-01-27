@@ -25,7 +25,7 @@ public class StatisticTestsController implements ActionListener
 		this.view = view;
 	}
 
-	public void setDetails(int column, String channel, String wave,
+	public void setDetails(int column, String channel, String atr, String wave,
 			String statistics)
 	{
 		view.getHypoTestEdit().setText("");
@@ -43,28 +43,33 @@ public class StatisticTestsController implements ActionListener
 		this.makeParams(column, params);
 		if (params[0] == null)
 			return;
-
-		Vector<Object> first = pResult.getPopul1().getVectorsBefore().get(channel).get(wave).get(statistics);
-		Vector<Object> second = pResult.getPopul2().getVectorsBefore().get(channel).get(wave).get(statistics);
+		
+		Vector<Object> first = null;
+		Vector<Object> second = null;
+		
+		try{
+		first = pResult.getPopul1().getVectorsBefore().get(channel).get("Duration").get(wave).get(statistics);
+		second = pResult.getPopul2().getVectorsBefore().get(channel).get("Duration").get(wave).get(statistics);
 
 		if ((first == null) || (second == null))
 			return;
-		
-		//  -------------------------------------
-		// Details
+		}
+		catch (Exception ex) {
+		}
+
 		
 		String columnName = this.getColumnName(column);
 		if (columnName != null)
 		{
-			Map<String, Map<String, Map<String, Vector<Double>>>> map = pResult.getTestResult().get(columnName);
+			Map<String, Map< String, Map<String, Map<String, Vector<Double>>>>> map = pResult.getTestResult().get(columnName);
 			
 			System.out.printf("Column Name %s", columnName);
 			
-			if (map != null && map.get(channel) != null && map.get(channel).get(wave) != null)
+			if (map != null && map.get(channel) != null && map.get(channel).get(atr) != null  && map.get(channel).get(atr).get(wave) != null)
 			{
 				
 				
-				Vector<Double> result = map.get(channel).get(wave).get(statistics);
+				Vector<Double> result = map.get(channel).get(atr).get(wave).get(statistics);
 				if (result != null)
 				{
 					boolean isT = true;
@@ -105,6 +110,7 @@ public class StatisticTestsController implements ActionListener
 		
 		ArrayList <ArrayList <Double>> toHist = new ArrayList <ArrayList <Double>>(2);
 		
+		try {
 		toHist.add(this.getArrayFromVector(first));
 		toHist.add(this.getArrayFromVector(second));
 		
@@ -114,10 +120,10 @@ public class StatisticTestsController implements ActionListener
 		this.view.getHistogram().setData(toHist);
 		this.view.getHistogram().recalculate();
 		this.view.getHistogram().draw();
-
+		} catch (Exception ex) {}
 	}
 
-	public void set(String channel, String wave)
+	public void set(String channel, String atr, String wave)
 	{
 		boolean after = false;
 		int type = SharedController.getInstance().getProject().getType();
@@ -132,7 +138,7 @@ public class StatisticTestsController implements ActionListener
 
 			for (int i = 0; i < 5; i++)
 			{
-				this.fillPopulation(maps[i], channel, wave, i + 1);
+				this.fillPopulation(maps[i], channel, atr, wave, i + 1);
 			}
 		} else
 		{
@@ -141,16 +147,16 @@ public class StatisticTestsController implements ActionListener
 
 			for (int i = 0; i < 1; i++)
 			{
-				this.fillPopulation(maps[i], channel, wave, i + 1);
+				this.fillPopulation(maps[i], channel, atr, wave, i + 1);
 			}
 		}
 	}
 
-	public void fillPopulation(String source, String channel, String wave,
+	public void fillPopulation(String source, String channel, String atr, String wave,
 			int column)
 	{
 		ProjectResult pResult = SharedController.getInstance().getProjectRes();
-		Map<String, Map<String, Map<String, Vector<Double>>>> map = pResult
+		Map<String, Map<String, Map<String, Map<String, Vector<Double>>>>> map = pResult
 				.getTestResult().get(source);
 
 		Vector<Double> result = null;
@@ -160,7 +166,7 @@ public class StatisticTestsController implements ActionListener
 		for (int i = 0; i <  StatisticWindowController.statsList.length; i++)
 		{
 			try{
-		    	result = map.get(channel).get(wave)
+		    	result = map.get(channel).get(atr).get(wave)
 					.get(StatisticWindowController.statsList[i]);
 			} catch (Exception ex) {}
 			if (result == null) continue;
@@ -247,7 +253,17 @@ public class StatisticTestsController implements ActionListener
 		}
 		if (com.equals("CHANGE_FIGURE"))
 		{
-			view.prepare(view.getChannelCombo().getSelectedItem().toString(),
+			view.prepare(view.getChannelCombo().getSelectedItem().toString(), view.getAtrStr(), 
+					view.getWaveStr());
+
+			view.getReport().changeSelection(0, 1, false, false);
+			
+			view.changeSelection();
+		}
+		
+		if (com.equals("CHANGE_ATR"))
+		{
+			view.prepare(view.getChannelStr(), view.getAttributeCombo().getSelectedItem().toString(), 
 					view.getWaveStr());
 
 			view.getReport().changeSelection(0, 1, false, false);
