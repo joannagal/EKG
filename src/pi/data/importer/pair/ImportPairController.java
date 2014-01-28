@@ -15,7 +15,6 @@ import pi.graph.signal.GraphView;
 import pi.inputs.signal.ECG;
 import pi.population.Population;
 import pi.population.Specimen;
-import pi.project.Project;
 import pi.shared.SharedController;
 
 public class ImportPairController implements ActionListener {
@@ -53,6 +52,7 @@ public class ImportPairController implements ActionListener {
 
 					population = new Population();
 					population.setSpecimen(pop);
+					population.setName("First population");
 
 					SharedController.getInstance().getProject()
 							.setFirstPopulation(population);
@@ -80,13 +80,13 @@ public class ImportPairController implements ActionListener {
 				} catch (DocumentException ae) {
 					ae.printStackTrace();
 				}
+				this.view.dispose();
 
 			} else {
 				JOptionPane.showMessageDialog(null,
 						"All fields are required, please fill in paths!");
 			}
 			
-			this.view.dispose();
 
 		} else if (action.equals("CANCEL")) {
 			this.view.setVisible(false);

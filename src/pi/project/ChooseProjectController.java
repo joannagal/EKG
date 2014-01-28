@@ -46,6 +46,7 @@ public class ChooseProjectController implements ActionListener{
 				
 				project = new Project();
 				project.setType(1);
+				project.setName("New Project");
 				SharedController.getInstance().setProject(project);
 				
 				ImportSingleView importerView = new ImportSingleView();
@@ -59,6 +60,8 @@ public class ChooseProjectController implements ActionListener{
 				
 				project = new Project();
 				project.setType(2);
+				project.setName("New Project");
+
 				SharedController.getInstance().setProject(project);
 				
 				ImportPairView importerView = new ImportPairView();
@@ -73,6 +76,8 @@ public class ChooseProjectController implements ActionListener{
 				
 				project = new Project();
 				project.setType(3);
+				project.setName("New Project");
+
 				SharedController.getInstance().setProject(project);
 				
 				ImportPopulationFrame importFrame = new ImportPopulationFrame();
@@ -87,6 +92,8 @@ public class ChooseProjectController implements ActionListener{
 				
 				project = new Project();
 				project.setType(4);
+				project.setName("New Project");
+
 				SharedController.getInstance().setProject(project);
 				
 				ImportPopulationFrame importFrame = new ImportPopulationFrame();

@@ -51,6 +51,8 @@ public class ImportSingleController implements ActionListener {
 
 					population = new Population();
 					population.setSpecimen(pop);
+					population.setName("First population");
+
 
 					SharedController.getInstance().getProject()
 							.setFirstPopulation(population);
