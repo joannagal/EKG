@@ -5,8 +5,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
-import pi.gui.information.InformationsController;
-import pi.gui.information.InformationsView;
+import pi.gui.information.InformationProjectController;
+import pi.gui.information.InformationProjectView;
 
 public class ProjectToolbarController implements ActionListener {
 
@@ -23,8 +23,8 @@ public class ProjectToolbarController implements ActionListener {
 		String action = e.getActionCommand();	
 		
 		if (action.equals("PROJECT_INFO")){
-			InformationsView view = new InformationsView();
-			InformationsController controller = new InformationsController(view);
+			InformationProjectView view = new InformationProjectView();
+			InformationProjectController controller = new InformationProjectController(view);
 		}
 		
 		if (action.equals("CALCULATE")){

@@ -6,11 +6,11 @@ import java.awt.event.ActionListener;
 
 import pi.shared.SharedController;
 
-public class InformationsController implements ActionListener 
+public class InformationProjectController implements ActionListener 
 {
-	private InformationsView view;
+	private InformationProjectView view;
 	
-	public InformationsController(InformationsView view)
+	public InformationProjectController(InformationProjectView view)
 	{
 		this.view = view;
 	}

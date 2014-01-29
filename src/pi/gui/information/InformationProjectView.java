@@ -18,11 +18,11 @@ import javax.swing.JTextField;
 import pi.project.Project;
 import pi.shared.SharedController;
 
-public class InformationsView extends JDialog
+public class InformationProjectView extends JDialog
 {
 	private static final long serialVersionUID = 1L;
 
-	private InformationsController controller;
+	private InformationProjectController controller;
 
 	private JButton cancelButton = new JButton("Cancel");
 	private JButton okButton = new JButton("OK");
@@ -42,10 +42,10 @@ public class InformationsView extends JDialog
 	
 	GridBagConstraints constraints;
 	
-	public InformationsView()
+	public InformationProjectView()
 	{
 		this.setTitle("Project Informations");		
-		controller = new InformationsController(this);
+		controller = new InformationProjectController(this);
 		int type = SharedController.getInstance().getProject().getType();
 		
 		this.setLayout(new GridBagLayout());
