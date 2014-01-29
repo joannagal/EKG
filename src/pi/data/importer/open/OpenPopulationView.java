@@ -21,88 +21,81 @@ import org.dom4j.DocumentException;
 
 import pi.data.importer.Importer;
 import pi.data.importer.signal.ImportPanel;
+import pi.gui.information.InformationsController;
 import pi.shared.SharedController;
 
 public class OpenPopulationView extends JDialog {
 
 	private String[] actions = new String[] { "OPEN", "CANCEL" };
 	private JButton[] buttons;
-	private ImportPanel importPanel;
+	private JPanel importPanel;
 	private GridBagConstraints constraints;
 	private String path;
+	private OpenPopulationController controller;
+	private JLabel fileLabel;
+	private JTextArea pathArea;
+	private JButton chooseButton;
+	private JButton openButton;
+	private JButton cancelButton;
+	private JPanel buttonPanel;
+	
 
 	public OpenPopulationView() {
-		// this.setAlwaysOnTop(true);
+		controller = new OpenPopulationController(this);
 		this.setLayout(new GridBagLayout());
 		constraints = new GridBagConstraints();
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		this.setVisible(true);
 		this.setTitle("Open Project...");
-		this.setBounds(400, 200, 350, 200);
-
-		/*
-		 * setImportPanel(new ImportPanel(new ImporterView()));
-		 * constraints.gridx = 0; constraints.gridy = 0; constraints.gridwidth =
-		 * 1; this.add(getImportPanel(), constraints);
-		 */
-		JPanel chooser = new JPanel();
-		JLabel fileLabel = new JLabel("Specimen");
+		this.setBounds(500, 200, 450, 200);
+			
+		//importPanel configuration
+		chooseButton = new JButton("Choose");
+		chooseButton.addActionListener(this.controller);
+		chooseButton.setActionCommand("CHOOSE");
+		fileLabel = new JLabel("Project");
 		fileLabel.setVisible(true);
-		chooser.add(fileLabel);
-
-		JButton button = new JButton("Choose");
-		this.add(button);
-
-		button.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent ae) {
-				JFileChooser fileChooser = new JFileChooser();
-				fileChooser.setCurrentDirectory(SharedController.getInstance()
-						.getLastDirectory());
-				FileNameExtensionFilter filter = new FileNameExtensionFilter(
-						"XML (*.xml)", "xml");
-				fileChooser.addChoosableFileFilter(filter);
-				fileChooser.setFileFilter(filter);
-				int returnValue = fileChooser.showDialog(null,
-						"Choose specimen...");
-
-				if (returnValue == JFileChooser.APPROVE_OPTION) {
-					File selectedFile = fileChooser.getSelectedFile();
-					String path = selectedFile.getAbsolutePath();
-					SharedController.getInstance().setLastDirectory(
-							fileChooser.getSelectedFile());
-					System.out.println(path);
-					setPath(path);
-				}
-
-			}
-		});
-
-		JPanel panel = new JPanel();
-		panel.setVisible(true);
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER));
-		JButton openButton = new JButton("OPEN");
-		JButton cancelButton = new JButton("CANCEL");
-		panel.add(cancelButton);
-		panel.add(openButton);
-
+		pathArea = new JTextArea();
+		getPathArea().setEditable(true);
+		getPathArea().setPreferredSize(new Dimension(250,20));
+		getPathArea().setEditable(true);
+		importPanel = new JPanel();
+		importPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+		importPanel.add(fileLabel);
+		importPanel.add(getPathArea());
+		importPanel.add(chooseButton);
+		importPanel.setVisible(true);
+		importPanel.setSize(500,440);
+		
+		openButton = new JButton("OPEN");
+		openButton.addActionListener(this.controller);
+		openButton.setActionCommand("OPEN");	
+		cancelButton = new JButton("CANCEL");
+		cancelButton.addActionListener(this.controller);
+		cancelButton.setActionCommand("CANCEL");
+		buttonPanel = new JPanel();
+		buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+		buttonPanel.setVisible(true);
+		buttonPanel.add(cancelButton);
+		buttonPanel.add(openButton);
+		
+		this.setLayout(new GridBagLayout());
+		constraints = new GridBagConstraints();
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		
+		constraints.gridx = 0;
+		constraints.gridy = 0;
+		constraints.gridwidth = 1;
+		this.add(importPanel, constraints);
+	
 		constraints.gridx = 0;
 		constraints.gridy = 1;
 		constraints.gridwidth = 1;
-		this.add(panel, constraints);
-
-		buttons = new JButton[] { openButton, cancelButton };
+		this.add(buttonPanel, constraints);
 
 	}
 
-	public void addActionListener(OpenPopulationController controller) {
-		for (int i = 0; i < buttons.length; i++) {
-			buttons[i].setActionCommand(actions[i]);
-			buttons[i].addActionListener(controller);
-		}
-	}
-
-	public ImportPanel getImportPanel() {
+	public JPanel getImportPanel() {
 		return importPanel;
 	}
 
@@ -116,6 +109,14 @@ public class OpenPopulationView extends JDialog {
 
 	public void setPath(String path) {
 		this.path = path;
+	}
+
+	public JTextArea getPathArea() {
+		return pathArea;
+	}
+
+	public void setPathArea(JTextArea pathArea) {
+		this.pathArea = pathArea;
 	}
 
 }

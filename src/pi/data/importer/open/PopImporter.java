@@ -49,7 +49,6 @@ public class PopImporter extends DefaultHandler {
 	@Override
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException {
-
 		if (qName.equalsIgnoreCase("PROJECT")) {
 			initProject(attributes);
 		} else if (qName.equalsIgnoreCase("POPUL")) {

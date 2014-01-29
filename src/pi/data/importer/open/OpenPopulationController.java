@@ -2,7 +2,11 @@ package pi.data.importer.open;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
+
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
@@ -17,9 +21,7 @@ public class OpenPopulationController implements ActionListener {
 	private OpenPopulationView view;
 
 	public OpenPopulationController(OpenPopulationView view) {
-
 		this.view = view;
-		view.addActionListener(this);
 	}
 
 	@Override
@@ -48,11 +50,15 @@ public class OpenPopulationController implements ActionListener {
 					GraphView view = new GraphView(
 							importedProject.getFirstPopulation(), 1);
 				} else if (type == 2) {
+					GraphView view = new GraphView(importedProject.getFirstPopulation(), 1);
+					GraphView view2 = new GraphView(importedProject.getFirstPopulation(), 2);
 
 				} else if (type == 3) {
-
+					GraphView view = new GraphView(importedProject.getFirstPopulation(), 1);
+					GraphView view2 = new GraphView(importedProject.getFirstPopulation(), 2);
 				} else if (type == 4) {
-
+					GraphView view = new GraphView(importedProject.getFirstPopulation(), 1);
+					GraphView view2 = new GraphView(importedProject.getSecondPopulation(), 2);
 				}
 
 			} catch (SAXException | IOException e1) {
@@ -62,8 +68,33 @@ public class OpenPopulationController implements ActionListener {
 
 		}
 		if (action.equals("CANCEL")) {
-
+			view.dispose();
 		}
+		if (action.equals("CHOOSE")){
+			JFileChooser fileChooser = new JFileChooser();
+			fileChooser.setCurrentDirectory(SharedController.getInstance()
+					.getLastDirectory());
+			FileNameExtensionFilter filter = new FileNameExtensionFilter(
+					"XML (*.xml)", "xml");
+			fileChooser.addChoosableFileFilter(filter);
+			fileChooser.setFileFilter(filter);
+			int returnValue = fileChooser.showDialog(null,
+					"Choose project...");
+
+			if (returnValue == JFileChooser.APPROVE_OPTION) {
+				File selectedFile = fileChooser.getSelectedFile();
+				String path = selectedFile.getAbsolutePath();
+				SharedController.getInstance().setLastDirectory(
+						fileChooser.getSelectedFile());
+				System.out.println(path);
+				view.setPath(path);
+			}
+			
+			view.dispose();
+		}
+			
+		
+		
 	}
 
 }
