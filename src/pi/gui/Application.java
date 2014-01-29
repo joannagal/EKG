@@ -26,6 +26,8 @@ import pi.data.importer.population.ImportPopulationFrame;
 import pi.data.importer.population.SingleFile;
 import pi.data.importer.signal.ImportSingleView;
 import pi.gui.information.InformationProjectView;
+import pi.gui.information.InformationSpecimenController;
+import pi.gui.information.InformationSpecimenView;
 import pi.gui.menu.MenuController;
 import pi.gui.menu.MenuView;
 import pi.gui.toolbar.ProjectToolbar;

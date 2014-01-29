@@ -11,11 +11,18 @@ public class InformationSpecimenController implements ActionListener{
 		this.view = view;
 	}
 	
-	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
+		String action = e.getActionCommand();
+
+		if (action.equals("OK")){
+			
+		}
+		if (action.equals("CANCEL")){
+			
+		}
 	}
 
 }
