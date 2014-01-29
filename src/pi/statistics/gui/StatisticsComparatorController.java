@@ -22,24 +22,11 @@ import pi.statistics.logic.report.ReportManager;
 
 public class StatisticsComparatorController implements ActionListener {
 	public StatisticsComparatorView view;
-	private Runnable r = new Runnable() {
-		public void run() {
-			try {
-				SharedController.getInstance().setReportManager(
-						new ReportManager());
-				view.enableReports(true);
-			} catch (JRException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				System.out.println("Report error: " + e.toString());
-			}
-			view.setReportsCursor(Cursor.DEFAULT_CURSOR);
-		}
-	};
+
 
 	public StatisticsComparatorController(StatisticsComparatorView view) {
 		this.view = view;
-		new Thread(r).start();
+		//new Thread(r).start();
 
 	}
 
