@@ -12,6 +12,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import pi.graph.signal.GraphToolbar;
+import pi.shared.SharedController;
+
 public class InformationSpecimenView extends JDialog{
 	
 	private JLabel firstnameLabel;
@@ -48,7 +51,9 @@ public class InformationSpecimenView extends JDialog{
 	GridBagConstraints constraints;
 	private InformationSpecimenController controller;
 	
-	public InformationSpecimenView(){
+	public InformationSpecimenView(GraphToolbar toolbar){
+		
+		//String name = SharedController.getInstance().getProject().
 		
 		this.controller = new InformationSpecimenController(this);
 
@@ -81,9 +86,9 @@ public class InformationSpecimenView extends JDialog{
 		
 		//birthdate
 		birthLabel = new JLabel("Birth date:");
-		birthField = new JTextField();
+		setBirthField(new JTextField());
 		birthPanel = new JPanel();
-		intializePanel(birthLabel, birthField, true, birthPanel);
+		intializePanel(birthLabel, getBirthField(), true, birthPanel);
 		constraints.gridx = 0;
 		constraints.gridy = 2;
 		constraints.gridwidth = 1;
@@ -91,9 +96,9 @@ public class InformationSpecimenView extends JDialog{
 					
 		//weight
 		weightLabel = new JLabel("Weight:");
-		weightField = new JTextField();
+		setWeightField(new JTextField());
 		weightPanel = new JPanel();
-		intializePanel(weightLabel, weightField, true, weightPanel);
+		intializePanel(weightLabel, getWeightField(), true, weightPanel);
 		constraints.gridx = 0;
 		constraints.gridy = 3;
 		constraints.gridwidth = 1;
@@ -101,9 +106,9 @@ public class InformationSpecimenView extends JDialog{
 		
 		//methadone [ml]
 		methadoneLabel = new JLabel("Methadone [ml]:");
-		methadoneField = new JTextField();
+		setMethadoneField(new JTextField());
 		methadonePanel = new JPanel();
-		intializePanel(methadoneLabel, methadoneField, true, methadonePanel);
+		intializePanel(methadoneLabel, getMethadoneField(), true, methadonePanel);
 		constraints.gridx = 0;
 		constraints.gridy = 4;
 		constraints.gridwidth = 1;
@@ -111,9 +116,9 @@ public class InformationSpecimenView extends JDialog{
 		
 		//methadone treatment
 		methadoneTreatmentLabel = new JLabel("Methadone Treatment [months]:");
-		methadoneTreatmentField = new JTextField();
+		setMethadoneTreatmentField(new JTextField());
 		methadoneTreatmentPanel = new JPanel();
-		intializePanel(methadoneTreatmentLabel, methadoneTreatmentField, true, methadoneTreatmentPanel);
+		intializePanel(methadoneTreatmentLabel, getMethadoneTreatmentField(), true, methadoneTreatmentPanel);
 		constraints.gridx = 0;
 		constraints.gridy = 5;
 		constraints.gridwidth = 1;
@@ -122,12 +127,12 @@ public class InformationSpecimenView extends JDialog{
 		//hiv
 		hivLabel = new JLabel("HIV");
 		hivLabel.setPreferredSize(new Dimension(200, 20));
-		hivCheckBox = new JCheckBox();
-		hivCheckBox.setPreferredSize(new Dimension(160, 20));
-		hivCheckBox.setVisible(true);
+		setHivCheckBox(new JCheckBox());
+		getHivCheckBox().setPreferredSize(new Dimension(160, 20));
+		getHivCheckBox().setVisible(true);
 		hivPanel = new JPanel();
 		hivPanel.add(hivLabel);
-		hivPanel.add(hivCheckBox);
+		hivPanel.add(getHivCheckBox());
 		constraints.gridx = 0;
 		constraints.gridy = 6;
 		constraints.gridwidth = 1;
@@ -163,6 +168,46 @@ public class InformationSpecimenView extends JDialog{
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER));
 		panel.add(label);
 		panel.add(field);
+	}
+
+	public JTextField getBirthField() {
+		return birthField;
+	}
+
+	public void setBirthField(JTextField birthField) {
+		this.birthField = birthField;
+	}
+
+	public JTextField getWeightField() {
+		return weightField;
+	}
+
+	public void setWeightField(JTextField weightField) {
+		this.weightField = weightField;
+	}
+
+	public JTextField getMethadoneField() {
+		return methadoneField;
+	}
+
+	public void setMethadoneField(JTextField methadoneField) {
+		this.methadoneField = methadoneField;
+	}
+
+	public JTextField getMethadoneTreatmentField() {
+		return methadoneTreatmentField;
+	}
+
+	public void setMethadoneTreatmentField(JTextField methadoneTreatmentField) {
+		this.methadoneTreatmentField = methadoneTreatmentField;
+	}
+
+	public JCheckBox getHivCheckBox() {
+		return hivCheckBox;
+	}
+
+	public void setHivCheckBox(JCheckBox hivCheckBox) {
+		this.hivCheckBox = hivCheckBox;
 	}
 	
 

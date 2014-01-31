@@ -43,9 +43,9 @@ public class GraphToolbar extends JPanel {
 	private JButton[] buttonArray;
 	private String[] itemEvent = new String[] { "INFO", "AUTOFINDER", "ADD",
 			"DELETE" };
-	private String[] descriptionString = new String[] { "Chanel 1", "Chanel 2",
-			"Chanel 3", "Chanel 4", "Chanel 5", "Chanel 6", "Chanel 7",
-			"Chanel 8", "Chanel 9" };
+	private String[] descriptionString = new String[] { "I", "II",
+			"III", "V1", "V2", "V3", "V4",
+			"V5", "V6" };
 
 	public GraphToolbar(final Graph graph, GraphView view) {
 		this.setGraphView(view);
@@ -81,8 +81,8 @@ public class GraphToolbar extends JPanel {
 		comboBoxChannel.setVisible(true);
 		initComboBoxChannel();
 
-		comboBoxSpecimen = new JComboBox();
-		comboBoxSpecimen.setVisible(true);
+		setComboBoxSpecimen(new JComboBox());
+		getComboBoxSpecimen().setVisible(true);
 		initComboBoxSpecimen();
 
 		if (SharedController.getInstance().getProject().getType() == 4) {
@@ -103,7 +103,7 @@ public class GraphToolbar extends JPanel {
 
 					if (getGraphView().getType() == 1) {
 						signal = getGraphView().getPopulation().getSpecimen()
-								.get(comboBoxSpecimen.getSelectedIndex())
+								.get(getComboBoxSpecimen().getSelectedIndex())
 								.getBefore().getChannel()
 								.get(comboBoxChannel.getSelectedIndex());
 						graph.setSignal(signal);
@@ -113,7 +113,7 @@ public class GraphToolbar extends JPanel {
 
 					if (getGraphView().getType() == 2) {
 						signal = getGraphView().getPopulation().getSpecimen()
-								.get(comboBoxSpecimen.getSelectedIndex())
+								.get(getComboBoxSpecimen().getSelectedIndex())
 								.getAfter().getChannel()
 								.get(comboBoxChannel.getSelectedIndex());
 						graph.setSignal(signal);
@@ -127,7 +127,7 @@ public class GraphToolbar extends JPanel {
 					if (getGraphView().getType() == 1) {
 						signal = SharedController.getInstance().getProject()
 								.getFirstPopulation().getSpecimen()
-								.get(comboBoxSpecimen.getSelectedIndex())
+								.get(getComboBoxSpecimen().getSelectedIndex())
 								.getBefore().getChannel()
 								.get(comboBoxChannel.getSelectedIndex());
 						graph.setSignal(signal);
@@ -137,7 +137,7 @@ public class GraphToolbar extends JPanel {
 					if (getGraphView().getType() == 2) {
 						signal = SharedController.getInstance().getProject()
 								.getSecondPopulation().getSpecimen()
-								.get(comboBoxSpecimen.getSelectedIndex())
+								.get(getComboBoxSpecimen().getSelectedIndex())
 								.getBefore().getChannel()
 								.get(comboBoxChannel.getSelectedIndex());
 						graph.setSignal(signal);
@@ -150,7 +150,7 @@ public class GraphToolbar extends JPanel {
 					if (getGraphView().getType() == 1) {
 						signal = SharedController.getInstance().getProject()
 								.getFirstPopulation().getSpecimen()
-								.get(comboBoxSpecimen.getSelectedIndex())
+								.get(getComboBoxSpecimen().getSelectedIndex())
 								.getBefore().getChannel()
 								.get(comboBoxChannel.getSelectedIndex());
 						graph.setSignal(signal);
@@ -158,7 +158,7 @@ public class GraphToolbar extends JPanel {
 					} else if (getGraphView().getType() == 2) {
 						signal = SharedController.getInstance().getProject()
 								.getFirstPopulation().getSpecimen()
-								.get(comboBoxSpecimen.getSelectedIndex())
+								.get(getComboBoxSpecimen().getSelectedIndex())
 								.getAfter().getChannel()
 								.get(comboBoxChannel.getSelectedIndex());
 						graph.setSignal(signal);
@@ -169,7 +169,7 @@ public class GraphToolbar extends JPanel {
 			}
 		});
 
-		changeChannelPanel.add(comboBoxSpecimen);
+		changeChannelPanel.add(getComboBoxSpecimen());
 		changeChannelPanel.add(comboBoxChannel);
 		if (SharedController.getInstance().getProject().getType() == 4) {
 			changeChannelPanel.add(comboBoxTreatment);
@@ -264,7 +264,7 @@ public class GraphToolbar extends JPanel {
 		if (getGraphView().getType() == 1) {
 
 			if (projectType == 1 || projectType == 2) {
-				this.comboBoxSpecimen.addItem(controller.getProject()
+				this.getComboBoxSpecimen().addItem(controller.getProject()
 						.getFirstPopulation().getSpecimen().get(0).getName()
 						+ " "
 						+ controller.getProject().getFirstPopulation()
@@ -275,7 +275,7 @@ public class GraphToolbar extends JPanel {
 				int tmp = this.graphView.getPopulation().getSpecimen().size();
 
 				for (int i = 0; i < tmp; i++) {
-					this.comboBoxSpecimen.addItem(this.graphView
+					this.getComboBoxSpecimen().addItem(this.graphView
 							.getPopulation().getSpecimen().get(i).getName()
 							+ " "
 							+ this.graphView.getPopulation().getSpecimen()
@@ -287,7 +287,7 @@ public class GraphToolbar extends JPanel {
 				int tmp = this.graphView.getPopulation().getSpecimen().size();
 
 				for (int i = 0; i < tmp; i++) {
-					this.comboBoxSpecimen.addItem(this.graphView
+					this.getComboBoxSpecimen().addItem(this.graphView
 							.getPopulation().getSpecimen().get(i).getName()
 							+ " "
 							+ this.graphView.getPopulation().getSpecimen()
@@ -298,7 +298,7 @@ public class GraphToolbar extends JPanel {
 
 		} else if (getGraphView().getType() == 2) {
 			if (projectType == 2) {
-				this.comboBoxSpecimen.addItem(controller.getProject()
+				this.getComboBoxSpecimen().addItem(controller.getProject()
 						.getFirstPopulation().getSpecimen().get(0).getName()
 						+ " "
 						+ controller.getProject().getFirstPopulation()
@@ -307,7 +307,7 @@ public class GraphToolbar extends JPanel {
 				int tmp = this.graphView.getPopulation().getSpecimen().size();
 
 				for (int i = 0; i < tmp; i++) {
-					this.comboBoxSpecimen.addItem(this.graphView
+					this.getComboBoxSpecimen().addItem(this.graphView
 							.getPopulation().getSpecimen().get(i).getName()
 							+ " "
 							+ this.graphView.getPopulation().getSpecimen()
@@ -317,7 +317,7 @@ public class GraphToolbar extends JPanel {
 				int tmp = this.graphView.getPopulation().getSpecimen().size();
 
 				for (int i = 0; i < tmp; i++) {
-					this.comboBoxSpecimen.addItem(this.graphView
+					this.getComboBoxSpecimen().addItem(this.graphView
 							.getPopulation().getSpecimen().get(i).getName()
 							+ " "
 							+ this.graphView.getPopulation().getSpecimen()
@@ -352,6 +352,14 @@ public class GraphToolbar extends JPanel {
 	private void clear() {
 		graph.recalculate();
 		graph.draw();
+	}
+
+	public JComboBox getComboBoxSpecimen() {
+		return comboBoxSpecimen;
+	}
+
+	public void setComboBoxSpecimen(JComboBox comboBoxSpecimen) {
+		this.comboBoxSpecimen = comboBoxSpecimen;
 	}
 
 }

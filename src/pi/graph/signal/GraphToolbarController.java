@@ -7,6 +7,8 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import pi.gui.information.InformationSpecimenController;
+import pi.gui.information.InformationSpecimenView;
 import pi.shared.SharedController;
 
 
@@ -26,7 +28,8 @@ public class GraphToolbarController implements ActionListener {
 		
 		String action = ae.getActionCommand();	
 		if (action.equals("INFO")){
-
+			InformationSpecimenView view = new InformationSpecimenView(this.view);
+			InformationSpecimenController controller = new InformationSpecimenController(view);
 		}
 		if (action.equals("AUTOFINDER")){
 			this.view.getAfView().showWithSignal(model);
