@@ -1,4 +1,4 @@
-package pi.data.importer.populationpair;
+package pi.data.importer.population.single;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -6,6 +6,8 @@ import java.awt.Graphics;
 import java.awt.Insets;
 import java.awt.Toolkit;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import javax.swing.DefaultListModel;
@@ -19,6 +21,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.Border;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import pi.shared.SharedController;
 
 
 public class PopulationSingleView extends JDialog{
@@ -41,9 +46,8 @@ public class PopulationSingleView extends JDialog{
 	private JButton cancelButton;
 	private JFileChooser fileChooser;
 	
-	
-	
 	public PopulationSingleView(){
+		this.controller = new PopulationSingleController(this);
 		tabbedPane = new JTabbedPane();
 		firstBeforeListModel = new DefaultListModel<String>();
 		firstBeforeList = new JList<String>(firstBeforeListModel);
@@ -60,8 +64,8 @@ public class PopulationSingleView extends JDialog{
 		secondBeforeFiles = new LinkedList<File>();
 		
 		addButton = new JButton("SELECT");
-		addButton.addActionListener(this.controller);
 		addButton.setActionCommand("ADD");
+		addButton.addActionListener(this.controller);
 		
 		delButton = new JButton("DELETE");
 		delButton.addActionListener(this.controller);
@@ -84,8 +88,12 @@ public class PopulationSingleView extends JDialog{
 		cancelButton.setActionCommand("CANCEL");
 		
 		fileChooser = new JFileChooser();
+		fileChooser.setCurrentDirectory(SharedController.getInstance().getLastDirectory());
+    	FileNameExtensionFilter filter = new FileNameExtensionFilter("XML (*.xml)","xml");
+    	fileChooser.addChoosableFileFilter(filter);
+    	fileChooser.setFileFilter(filter);
 		
-		this.controller = new PopulationSingleController();
+		
 		this.setTitle("Create Two Populations");
 		this.setSize(400, 500);
 		this.setVisible(true);
@@ -98,7 +106,7 @@ public class PopulationSingleView extends JDialog{
 		
 		JPanel secondPanel = new JPanel();
 		secondPanel.add(secondBeforePane);
-		this.tabbedPane.addTab("First population", secondPanel);
+		this.tabbedPane.addTab("Second population", secondPanel);
 		this.add(this.tabbedPane);
 		
 		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
@@ -139,5 +147,93 @@ public class PopulationSingleView extends JDialog{
 		
 	}
 	
+	public ArrayList<ArrayList<String>> getPaths()
+	{
+		ArrayList<ArrayList<String>> paths = new ArrayList<ArrayList<String>>(2);
+
+		int size = this.firstBeforeFiles.size();
+		ArrayList<String> firstBefore = new ArrayList<String>(size);
+		Iterator <File> it = this.firstBeforeFiles.iterator();
+		File file;
+		
+		while (it.hasNext())
+		{
+			file = it.next();
+			System.out.println(file.getAbsolutePath());
+			firstBefore.add(file.getAbsolutePath());
+		}	
+		paths.add(firstBefore);
+
+		size = this.secondBeforeFiles.size();
+		ArrayList<String> secondBefore = new ArrayList<String>(size);
+		it = this.secondBeforeFiles.iterator();
+		
+		while (it.hasNext())
+		{
+			file = it.next();
+			System.out.println(file.getAbsolutePath());
+			secondBefore.add(file.getAbsolutePath());
+		}	
+		paths.add(secondBefore);
+
+		return paths;
+	}
+
+	public DefaultListModel<String> getCurrentListModel()
+	{
+		int tab = this.tabbedPane.getSelectedIndex();
+		if (tab == -1)
+			return null;
+		else if (tab == 0)
+			return this.firstBeforeListModel;
+		else
+			return this.secondBeforeListModel;
+	}
 	
+	public LinkedList<File> getCurrentFileList()
+	{
+		int tab = this.tabbedPane.getSelectedIndex();
+		if (tab == -1)
+			return null;
+		else if (tab == 0)
+			return this.firstBeforeFiles;
+		else
+			return this.secondBeforeFiles;
+	}
+
+	public JList<String> getCurrentList()
+	{
+		int tab = this.tabbedPane.getSelectedIndex();
+		if (tab == -1)
+			return null;
+		else if (tab == 0)
+			return this.firstBeforeList;
+		else
+			return this.secondBeforeList;
+	}
+
+	public JFileChooser getFc()
+	{
+		return fileChooser;
+	}
+
+	public LinkedList <File> getFirstBeforeFiles()
+	{
+		return firstBeforeFiles;
+	}
+
+	public void setFirstBeforeFiles(LinkedList <File> firstBeforeFiles)
+	{
+		this.firstBeforeFiles = firstBeforeFiles;
+	}
+
+	public LinkedList <File> getSecondBeforeFiles()
+	{
+		return secondBeforeFiles;
+	}
+
+	public void setSecondBeforeFiles(LinkedList <File> secondBeforeFiles)
+	{
+		this.secondBeforeFiles = secondBeforeFiles;
+	}
 }

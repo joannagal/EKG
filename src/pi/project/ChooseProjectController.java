@@ -9,9 +9,8 @@ import javax.swing.border.TitledBorder;
 import pi.data.importer.Importer;
 import pi.data.importer.pair.ImportPairController;
 import pi.data.importer.pair.ImportPairView;
-import pi.data.importer.population.ImportPopulation;
-import pi.data.importer.population.ImportPopulationController;
-import pi.data.importer.population.ImportPopulationFrame;
+import pi.data.importer.population.single.PopulationSingleController;
+import pi.data.importer.population.single.PopulationSingleView;
 import pi.data.importer.signal.ImportSingleController;
 import pi.data.importer.signal.ImportPanel;
 import pi.data.importer.signal.ImportSingleView;
@@ -80,12 +79,9 @@ public class ChooseProjectController implements ActionListener{
 
 				SharedController.getInstance().setProject(project);
 				
-				ImportPopulationFrame importFrame = new ImportPopulationFrame();
-				ImportPopulationController controller = new ImportPopulationController(importFrame);
-				TitledBorder title = BorderFactory.createTitledBorder("POPULATION");
-				importFrame.getImport1().setBorder(title);
-				title =  BorderFactory.createTitledBorder("POPULATION 2");
-				importFrame.getImport2().setBorder(title);
+				PopulationSingleView view = new PopulationSingleView();
+				PopulationSingleController controller = new PopulationSingleController(view);
+				
 			}
 			if (selected.equals("POPULATION_DIFFERENCE")){
 				view.setVisible(false);
@@ -96,12 +92,7 @@ public class ChooseProjectController implements ActionListener{
 
 				SharedController.getInstance().setProject(project);
 				
-				ImportPopulationFrame importFrame = new ImportPopulationFrame();
-				ImportPopulationController controller = new ImportPopulationController(importFrame);
-				TitledBorder title = BorderFactory.createTitledBorder("POPULATION 1 - BEFORE");
-				importFrame.getImport1().setBorder(title);
-				title =  BorderFactory.createTitledBorder("POPULATION 1 - AFTER");
-				importFrame.getImport2().setBorder(title);
+
 			}
 		}
 

@@ -157,9 +157,9 @@ public class GraphToolbar extends JPanel {
 						clear();
 					} else if (getGraphView().getType() == 2) {
 						signal = SharedController.getInstance().getProject()
-								.getFirstPopulation().getSpecimen()
+								.getSecondPopulation().getSpecimen()
 								.get(getComboBoxSpecimen().getSelectedIndex())
-								.getAfter().getChannel()
+								.getBefore().getChannel()
 								.get(comboBoxChannel.getSelectedIndex());
 						graph.setSignal(signal);
 						clear();
