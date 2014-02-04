@@ -144,6 +144,8 @@ public class PopulationPairController implements ActionListener {
 						.getProject().getFirstPopulation(), 1));
 				setView2(new GraphView(SharedController.getInstance()
 						.getProject().getSecondPopulation(), 2));
+				
+				view.dispose();
 
 			} else
 				JOptionPane.showMessageDialog(null,
