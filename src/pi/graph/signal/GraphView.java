@@ -8,21 +8,15 @@ import java.awt.event.ComponentListener;
 import javax.swing.JPanel;
 
 import pi.inputs.signal.Channel;
-import pi.inputs.signal.ECG;
 import pi.population.Population;
-import pi.population.Specimen;
 import pi.shared.SharedController;
 
 public class GraphView extends JPanel {
 
-	private String path;
-	private ECG ecg;
+	private static final long serialVersionUID = 1L;
 	private Channel signal1;
 	private Graph graph;
-	private GraphToolbarController controller;
 	private GraphToolbar toolbar;
-	private Specimen specimen;
-	private String[] attributes = new String[4];
 	private Population population;
 	private int type;
 	private int minimumWidth = 1110;
@@ -66,8 +60,6 @@ public class GraphView extends JPanel {
 		SharedController sharedController = SharedController.getInstance();
 
 		if (this.getType() == 1) {
-
-			// this.setBorder(BorderFactory.createLineBorder(Color.red));
 			this.setBounds(sharedController.getFirstPanelX(),
 					sharedController.getFirstPanelY(),
 					sharedController.getFirstPanelWidth(),
@@ -116,7 +108,8 @@ public class GraphView extends JPanel {
 		toolbar = new GraphToolbar(graph, this);
 		toolbar.setLocation(0, 5);
 
-		controller = new GraphToolbarController(toolbar, graph);
+		@SuppressWarnings("unused")
+		GraphToolbarController controller = new GraphToolbarController(toolbar, graph);
 
 		this.add(toolbar);
 		this.add(graph);

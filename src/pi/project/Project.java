@@ -1,6 +1,4 @@
 package pi.project;
-
-import java.sql.Date;
 import java.util.LinkedList;
 
 import pi.analyze.AnalysisResult;

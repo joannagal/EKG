@@ -47,17 +47,24 @@ public class OpenPopulationController implements ActionListener {
 
 				
 				if (type == 1) {
+					@SuppressWarnings("unused")
 					GraphView view = new GraphView(
 							importedProject.getFirstPopulation(), 1);
 				} else if (type == 2) {
+					@SuppressWarnings("unused")
 					GraphView view = new GraphView(importedProject.getFirstPopulation(), 1);
+					@SuppressWarnings("unused")
 					GraphView view2 = new GraphView(importedProject.getFirstPopulation(), 2);
 
 				} else if (type == 3) {
+					@SuppressWarnings("unused")
 					GraphView view = new GraphView(importedProject.getFirstPopulation(), 1);
+					@SuppressWarnings("unused")
 					GraphView view2 = new GraphView(importedProject.getFirstPopulation(), 2);
 				} else if (type == 4) {
+					@SuppressWarnings("unused")
 					GraphView view = new GraphView(importedProject.getFirstPopulation(), 1);
+					@SuppressWarnings("unused")
 					GraphView view2 = new GraphView(importedProject.getSecondPopulation(), 2);
 				}
 

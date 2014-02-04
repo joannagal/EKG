@@ -1,6 +1,5 @@
 package pi.statistics.gui;
 
-import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -18,7 +17,6 @@ import pi.statistics.logic.ChannelResult;
 import pi.statistics.logic.SpecimenResult;
 import pi.statistics.logic.StatisticResult;
 import pi.statistics.logic.WavesResult;
-import pi.statistics.logic.report.ReportManager;
 
 public class StatisticsComparatorController implements ActionListener {
 	public StatisticsComparatorView view;
@@ -26,8 +24,6 @@ public class StatisticsComparatorController implements ActionListener {
 
 	public StatisticsComparatorController(StatisticsComparatorView view) {
 		this.view = view;
-		//new Thread(r).start();
-
 	}
 
 	private ArrayList<ArrayList<Double>> toHist;

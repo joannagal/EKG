@@ -29,6 +29,8 @@ public class PopulationPairController implements ActionListener {
 	private Population population2;
 	private Specimen specimen;
 	private Importer importer;
+	private GraphView view2;
+	private GraphView view3;
 
 	public PopulationPairController(PopulationPairView view) {
 		this.view = view;
@@ -138,10 +140,10 @@ public class PopulationPairController implements ActionListener {
 				}
 
 				SharedController.getInstance().createProjectToolbar();
-				GraphView view = new GraphView(SharedController.getInstance()
-						.getProject().getFirstPopulation(), 1);
-				GraphView view2 = new GraphView(SharedController.getInstance()
-						.getProject().getSecondPopulation(), 2);
+				setView3(new GraphView(SharedController.getInstance()
+						.getProject().getFirstPopulation(), 1));
+				setView2(new GraphView(SharedController.getInstance()
+						.getProject().getSecondPopulation(), 2));
 
 			} else
 				JOptionPane.showMessageDialog(null,
@@ -258,5 +260,21 @@ public class PopulationPairController implements ActionListener {
 		}
 
 		list.setSelectedIndex(selection);
+	}
+
+	public GraphView getView2() {
+		return view2;
+	}
+
+	public void setView2(GraphView view2) {
+		this.view2 = view2;
+	}
+
+	public GraphView getView3() {
+		return view3;
+	}
+
+	public void setView3(GraphView view3) {
+		this.view3 = view3;
 	}
 }

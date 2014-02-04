@@ -9,7 +9,8 @@ import javax.swing.JDialog;
 import javax.swing.JProgressBar;
 
 public class ProgessDialog extends JDialog{
-	
+
+	private static final long serialVersionUID = 1L;
 	private JButton cancelButton;
 	private JProgressBar progressBar;
 	

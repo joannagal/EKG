@@ -12,6 +12,7 @@ import pi.gui.information.project.InformationProjectView;
 public class ProjectToolbarController implements ActionListener {
 
 	private ProjectToolbar tool;
+	private InformationProjectController controller;
 	
 	public ProjectToolbarController(ProjectToolbar tool){
 		this.tool = tool;
@@ -25,7 +26,7 @@ public class ProjectToolbarController implements ActionListener {
 		
 		if (action.equals("PROJECT_INFO")){
 			InformationProjectView view = new InformationProjectView();
-			InformationProjectController controller = new InformationProjectController(view);
+			setController(new InformationProjectController(view));
 		}
 		
 		if (action.equals("CALCULATE")){
@@ -39,6 +40,14 @@ public class ProjectToolbarController implements ActionListener {
 		    else JOptionPane.showMessageDialog(tool, "Count statistics first!");
 		}
 		
+	}
+
+	public InformationProjectController getController() {
+		return controller;
+	}
+
+	public void setController(InformationProjectController controller) {
+		this.controller = controller;
 	}
 
 }

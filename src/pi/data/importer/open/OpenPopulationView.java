@@ -4,29 +4,16 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
-import org.dom4j.DocumentException;
-
-import pi.data.importer.Importer;
-import pi.data.importer.signal.ImportPanel;
-import pi.shared.SharedController;
 
 public class OpenPopulationView extends JDialog {
 
-	private String[] actions = new String[] { "OPEN", "CANCEL" };
-	private JButton[] buttons;
+	private static final long serialVersionUID = 1L;
 	private JPanel importPanel;
 	private GridBagConstraints constraints;
 	private String path;
@@ -94,13 +81,6 @@ public class OpenPopulationView extends JDialog {
 
 	}
 
-	public JPanel getImportPanel() {
-		return importPanel;
-	}
-
-	public void setImportPanel(ImportPanel importPanel) {
-		this.importPanel = importPanel;
-	}
 
 	public String getPath() {
 		return path;

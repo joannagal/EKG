@@ -16,7 +16,8 @@ import javax.swing.JRadioButton;
 
 
 public class ChooseProjectView extends JDialog{
-	
+
+	private static final long serialVersionUID = 1L;
 	private JRadioButton oneSignalButton;
 	private JRadioButton twoSignalsButton;
 	private JRadioButton twoPopulationsButton;

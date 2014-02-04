@@ -6,7 +6,6 @@ import java.util.Map;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRParameter;
-import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -14,7 +13,6 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.util.JRLoader;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
 public class ReportManager {
@@ -32,9 +30,11 @@ public class ReportManager {
 		initReport();
 	}
 
+	@SuppressWarnings("unchecked")
 	private void initReport() throws JRException {
 		System.out.println("Init report");
 		long start = System.currentTimeMillis();
+		@SuppressWarnings("rawtypes")
 		Map parameters = new HashMap();
 
 		// TODO Sprawdziæ czy klonowanie dataSource jest wydajniejsze od
@@ -71,12 +71,14 @@ public class ReportManager {
 		System.out.println("PDF ready");
 	}
 
+	@SuppressWarnings("unchecked")
 	public void saveReportAsHtml(String path) throws JRException {
 		if (path == null || path == "") {
 			path = "newReport.html";
 		} else if (!path.endsWith(".html")) {
 			path += ".html";
 		}
+		@SuppressWarnings("rawtypes")
 		Map parameters = new HashMap();
 		parameters.put(JRParameter.IS_IGNORE_PAGINATION, true);
 		JasperPrint htmlReport = JasperFillManager.fillReport(jasperReport,

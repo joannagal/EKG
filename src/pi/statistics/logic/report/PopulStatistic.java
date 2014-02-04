@@ -17,6 +17,7 @@ public class PopulStatistic {
 	private double secondDeviation;
 	private double p_value;
 	
+	@SuppressWarnings("rawtypes")
 	public static Collection getPopulStatistics() {
 		Vector<PopulStatistic> statistics = new Vector<PopulStatistic>();
 		

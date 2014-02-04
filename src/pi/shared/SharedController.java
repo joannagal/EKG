@@ -108,6 +108,8 @@ public class SharedController {
 
 	private boolean toolbarSet = false;
 
+	private ProjectToolbarController toolConroller;
+
 	public void updateProgressBar() {
 		if (this.progressBar != null) {
 			this.progressBar.setValue(this.progressBar.getValue() + 1);
@@ -344,8 +346,9 @@ public class SharedController {
 	public void createProjectToolbar() {
 		if (!toolbarSet) {
 			ProjectToolbar tool = new ProjectToolbar();
-			ProjectToolbarController toolConroller = new ProjectToolbarController(
-					tool);
+			
+			setToolConroller(new ProjectToolbarController(
+					tool));
 			tool.setVisible(true);
 			SharedController.getInstance().getFrame().getContentPane()
 					.add(tool, BorderLayout.NORTH);
@@ -439,6 +442,14 @@ public class SharedController {
 
 	public void setReportManager(ReportManager reportMgr) {
 		this.reportMgr = reportMgr;
+	}
+
+	public ProjectToolbarController getToolConroller() {
+		return toolConroller;
+	}
+
+	public void setToolConroller(ProjectToolbarController toolConroller) {
+		this.toolConroller = toolConroller;
 	}
 
 }

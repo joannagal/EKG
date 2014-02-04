@@ -1,21 +1,19 @@
 package pi.gui.menu;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JRadioButton;
 import javax.swing.JSeparator;
-
-import pi.project.ChooseProjectView;
 import pi.shared.SharedController;
 
 
 public class MenuView extends JMenuBar {
 		
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/*
 	 * projectMenu enables user to create a new project, open already existing project, 
 	 * save changes and close the project.
@@ -35,7 +33,6 @@ public class MenuView extends JMenuBar {
 	private JMenuItem logItem;
 	private JMenuItem closeAppItem;
 	private JMenuItem aboutAppItem;
-	private ChooseProjectView projectDialog;
 	private JMenuItem[] menuItemsArray;
 	private String[] menuItemEvent = new String[]{"ABOUT", "EXIT", "LOG",
 			"CREATE_PROJECT", "OPEN_PROJECT", "SAVE_AS_PROJECT",

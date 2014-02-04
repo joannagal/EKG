@@ -50,6 +50,7 @@ public class ChannelStatistic {
 	private Double QTcF;
 	private Double QTcB;
 
+	@SuppressWarnings("rawtypes")
 	public static Collection getChannelStatistics() {
 
 		long start = System.currentTimeMillis();

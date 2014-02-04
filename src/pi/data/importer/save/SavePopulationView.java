@@ -6,13 +6,13 @@ import java.io.UnsupportedEncodingException;
 
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
-import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.stream.FactoryConfigurationError;
 import javax.xml.stream.XMLStreamException;
 
 import pi.shared.SharedController;
 
+@SuppressWarnings("serial")
 public class SavePopulationView extends JDialog {
 
 	public SavePopulationView() throws FileNotFoundException,

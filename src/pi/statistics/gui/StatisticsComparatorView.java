@@ -3,7 +3,6 @@ package pi.statistics.gui;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.awt.geom.CubicCurve2D;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -20,7 +19,6 @@ import javax.swing.table.DefaultTableModel;
 
 import pi.population.Specimen;
 import pi.shared.SharedController;
-import pi.statistics.gui.dependgraph.DependGraph;
 import pi.statistics.gui.histogram.Histogram;
 import pi.statistics.logic.StatisticsController;
 

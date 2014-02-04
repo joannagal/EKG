@@ -1,9 +1,6 @@
 
 package pi.population;
 
-import java.sql.Date;
-
-import pi.inputs.Input;
 import pi.inputs.signal.ECG;
 import pi.statistics.logic.SpecimenResult;
 

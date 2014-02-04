@@ -3,13 +3,9 @@ package pi.graph.signal;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JSlider;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
 import pi.gui.information.specimen.InformationSpecimenController;
 import pi.gui.information.specimen.InformationSpecimenView;
-import pi.shared.SharedController;
+
 
 
 public class GraphToolbarController implements ActionListener {
@@ -29,6 +25,7 @@ public class GraphToolbarController implements ActionListener {
 		String action = ae.getActionCommand();	
 		if (action.equals("INFO")){
 			InformationSpecimenView view = new InformationSpecimenView(this.view);
+			@SuppressWarnings("unused")
 			InformationSpecimenController controller = new InformationSpecimenController(view);
 		}
 		if (action.equals("AUTOFINDER")){

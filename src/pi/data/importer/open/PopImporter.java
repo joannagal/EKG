@@ -89,21 +89,10 @@ public class PopImporter extends DefaultHandler {
 		}
 	}
 
-	public void init() {
-
-	}
-
-	public void finalize() {
-
-	}
-
 	public void initProject(Attributes attributes) {
 		project = new Project();
 		project.setName(attributes.getValue("name"));
 		project.setPath(attributes.getValue("path"));
-		// TODO:
-		// Date date = new Date(attributes.getValue("date"));
-		// project.setDate(date);
 		String type = attributes.getValue("type");
 		if (type != "")
 			project.setType(Integer.parseInt(type));
@@ -129,9 +118,8 @@ public class PopImporter extends DefaultHandler {
 		spec = new Specimen();
 		spec.setName(attributes.getValue("name"));
 		spec.setSurname(attributes.getValue("surname"));
+		@SuppressWarnings("unused")
 		Date d = new Date();
-		// TODO attributes.getValue("birth_date")
-		// spec.setBirth((java.sql.Date) d);
 
 		String age = attributes.getValue("age");
 		if (age != "")
@@ -201,10 +189,7 @@ public class PopImporter extends DefaultHandler {
 		channel.setTranslation(0.0d);
 		channel.setStartAxis(0.0d);
 		channel.setScale(0.2d);
-		channel.setParent(input);
-		
-		// TODO Nie wiem czy atrybuyt samples jest w ogóle potrzebny
-		
+		channel.setParent(input);	
 		channelList.add(channelIndex, channel);
 		channelIndex++;
 
@@ -221,7 +206,6 @@ public class PopImporter extends DefaultHandler {
 		String data[] = rawDataBuffer.toString().split(" ");
 		ArrayList<Probe> probes = new ArrayList<>(data.length);
 		for (int i = 0; i < data.length; i++) {
-			// System.out.println(data[i]);
 			try {
 				Probe p = new Probe(i, Integer.parseInt(data[i]));
 				int probeValue = p.getValue();
@@ -244,8 +228,6 @@ public class PopImporter extends DefaultHandler {
 	}
 
 	public void initCycles(Attributes attributes) {
-		// TODO Czy przy LinkedList atrybut number nie jest zbêdny?
-		// int cycles = Integer.parseInt(attributes.getValue("number"));
 		cyclesList = new LinkedList<>();
 		channel.setCycle(cyclesList);
 	}

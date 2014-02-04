@@ -14,8 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import pi.graph.signal.GraphToolbar;
-import pi.shared.SharedController;
 
+@SuppressWarnings("serial")
 public class InformationSpecimenView extends JDialog{
 	
 	private JLabel firstnameLabel;

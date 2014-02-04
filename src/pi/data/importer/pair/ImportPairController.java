@@ -58,6 +58,7 @@ public class ImportPairController implements ActionListener {
 							.setFirstPopulation(population);
 					SharedController.getInstance().createProjectToolbar();
 
+					@SuppressWarnings("unused")
 					GraphView view = new GraphView(population, 1);
 
 				} catch (DocumentException ae) {
@@ -75,6 +76,7 @@ public class ImportPairController implements ActionListener {
 					specimen.setAfter(temp2.get(0));
 					specimen.setPathAfter(path2);
 
+					@SuppressWarnings("unused")
 					GraphView view2 = new GraphView(population, 2);
 
 				} catch (DocumentException ae) {
