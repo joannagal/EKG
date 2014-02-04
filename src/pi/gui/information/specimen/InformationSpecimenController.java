@@ -27,8 +27,6 @@ public class InformationSpecimenController implements ActionListener {
 
 	}
 
-	@SuppressWarnings("unused")
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		String action = e.getActionCommand();
 

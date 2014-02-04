@@ -36,7 +36,7 @@ public class OpenPopulationView extends JDialog {
 		this.setBounds(500, 200, 450, 200);
 			
 		//importPanel configuration
-		chooseButton = new JButton("Choose");
+		chooseButton = new JButton("CHOOSE");
 		chooseButton.addActionListener(this.controller);
 		chooseButton.setActionCommand("CHOOSE");
 		fileLabel = new JLabel("Project");
@@ -55,7 +55,8 @@ public class OpenPopulationView extends JDialog {
 		
 		openButton = new JButton("OPEN");
 		openButton.addActionListener(this.controller);
-		openButton.setActionCommand("OPEN");	
+		openButton.setActionCommand("OPEN");
+		
 		cancelButton = new JButton("CANCEL");
 		cancelButton.addActionListener(this.controller);
 		cancelButton.setActionCommand("CANCEL");

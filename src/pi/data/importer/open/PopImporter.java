@@ -118,7 +118,6 @@ public class PopImporter extends DefaultHandler {
 		spec = new Specimen();
 		spec.setName(attributes.getValue("name"));
 		spec.setSurname(attributes.getValue("surname"));
-		@SuppressWarnings("unused")
 		Date d = new Date();
 
 		String age = attributes.getValue("age");
