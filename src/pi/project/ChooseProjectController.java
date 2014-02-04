@@ -18,6 +18,9 @@ public class ChooseProjectController implements ActionListener{
 	Project model;
 	ChooseProjectView view;
 	private Project project;
+	private ImportPairController importPairController;
+	private PopulationSingleController populationSingleControlle;
+	private PopulationPairController populationPairController;
 	
 	public ChooseProjectController(Project model, ChooseProjectView view){
 		this.model = model;
@@ -61,8 +64,7 @@ public class ChooseProjectController implements ActionListener{
 				SharedController.getInstance().setProject(project);
 				
 				ImportPairView importerView = new ImportPairView();
-				@SuppressWarnings("unused")
-				ImportPairController controller = new ImportPairController(importerView);
+				setImportPairController(new ImportPairController(importerView));
 					
 				importerView.setBounds(400, 200, 500, 200);
 				
@@ -78,8 +80,7 @@ public class ChooseProjectController implements ActionListener{
 				SharedController.getInstance().setProject(project);
 				
 				PopulationSingleView view = new PopulationSingleView();
-				@SuppressWarnings("unused")
-				PopulationSingleController controller = new PopulationSingleController(view);
+				setPopulationSingleController(new PopulationSingleController(view));
 				
 			}
 			if (selected.equals("POPULATION_DIFFERENCE")){
@@ -91,13 +92,36 @@ public class ChooseProjectController implements ActionListener{
 
 				SharedController.getInstance().setProject(project);
 				PopulationPairView view = new PopulationPairView();
-				@SuppressWarnings("unused")
-				PopulationPairController controller = new PopulationPairController(view);
+				setPopulationPairController(new PopulationPairController(view));
 				
 
 			}
 		}
 
+	}
+
+	public ImportPairController getImportPairController() {
+		return importPairController;
+	}
+
+	public void setImportPairController(ImportPairController controller) {
+		this.importPairController = controller;
+	}
+
+	public PopulationSingleController getPopulationSingleController() {
+		return populationSingleControlle;
+	}
+
+	public void setPopulationSingleController(PopulationSingleController controller) {
+		this.populationSingleControlle = controller;
+	}
+
+	public PopulationPairController getPopulationPairController() {
+		return populationPairController;
+	}
+
+	public void setPopulationPairController(PopulationPairController controller) {
+		this.populationPairController = controller;
 	}
 	
 }

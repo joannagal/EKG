@@ -25,26 +25,26 @@ public class Specimen
 	
 	private int age = -1;
 	
-	private int weight = -1;
+	private int weight = 0;
 	// CZAS TRWALNIA UZALEZNIENIA/UPRAWIANIA SPORTU
 	// W LATACH
 	private int activityDuration = -1;
 	
 	// -1 = BRAK, 0 - DODATNI 1 - UJEMNY
-	private int hiv = -1;
+	private int hiv = 1;
 	
 	// DAWKA METADONU W ML
-	private int metadon = -1;
+	private int metadon = 0;
 	
 	// CZAS W MIESIACACH APLIKOWANIA METADONU
-	private int metadonTimeApplication = -1;
+	private int metadonTimeApplication = 0;
 	
 	// CZAS PO JAKIM PACJENT ODCZUWA DOBRE SAMOPOCZUCIE
 	// W GODZINACH
-	private int timeToGoodMood = -1;
+	private int timeToGoodMood = 0;
 	
 	// CZAS TRWANIA DOBREGO SAMOPOCZUCIA
-	private int goodMoodDuration = -1;
+	private int goodMoodDuration = 0;
 	
 	// -------------------------
 	// SYGNAL ECG OSOBNIKA

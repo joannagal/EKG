@@ -387,11 +387,11 @@ public class GraphToolbar extends JPanel {
 		this.graph = graph;
 	}
 
-	private GraphView getGraphView() {
+	public GraphView getGraphView() {
 		return graphView;
 	}
 
-	private void setGraphView(GraphView graphView) {
+	public void setGraphView(GraphView graphView) {
 		this.graphView = graphView;
 	}
 
