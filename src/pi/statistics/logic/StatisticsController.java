@@ -71,12 +71,16 @@ public class StatisticsController {
 			boolean flag = false;
 			int max = -9999;
 			int min = 9999;
-			for (Probe probe : channel.getProbe()){
-			    if (probe.getNumber() == left) flag = true;
-			    if (probe.getNumber() == right) flag = false;
+			for (Probe probe : channel.getProbe()) {
+			    if (probe.getNumber() == left)
+				flag = true;
+			    if (probe.getNumber() == right)
+				flag = false;
 			    if (flag == true) {
-				if (probe.getValue() > max) max = probe.getValue();
-				if (probe.getValue() < min) min = probe.getValue();
+				if (probe.getValue() > max)
+				    max = probe.getValue();
+				if (probe.getValue() < min)
+				    min = probe.getValue();
 			    }
 			}
 			double amplitude = max - min;
@@ -88,11 +92,11 @@ public class StatisticsController {
 		dResult.checkRR();
 		durArray.add(dResult);
 		ampArray.add(aResult);
-		
+
 		AttributeResult atrResult = new AttributeResult();
 
 		WavesResult resultD = new WavesResult();
-		
+
 		for (DurationResult dur : durArray) {
 		    Collector collector = new Collector();
 		    for (String name : dur.getValue().keySet()) {
@@ -192,7 +196,7 @@ public class StatisticsController {
 		}
 		atrResult.addValue("Duration", resultD);
 		WavesResult resultA = new WavesResult();
-		for (AmplitudeResult amp : ampArray){
+		for (AmplitudeResult amp : ampArray) {
 		    Collector collector = new Collector();
 		    for (String name : amp.getValue().keySet()) {
 			StatisticResult statResult = new StatisticResult();
@@ -257,21 +261,30 @@ public class StatisticsController {
     public PopulationResult countForPopulation(Population popul) {
 	PopulationResult popResult = new PopulationResult();
 	SpecimenResult specResult = new SpecimenResult();
+	EcgResult ecgResult = new EcgResult();
 	VectorsToTests vectorsBefore = new VectorsToTests();
 	VectorsToTests vectorsAfter = new VectorsToTests();
 	vectorsBefore.clearVectors();
 	vectorsAfter.clearVectors();
+	specResult.setValue(ecgResult);
 	if (specimenId == null) {
 	    for (Specimen man : popul.getSpecimen()) {
 		ECG before = man.getBefore();
-		specResult.setBefore(count(before));
-		specResult.addToVectors(vectorsBefore, specResult.getBefore());
+		// specResult.setBefore(count(before));
+		// specResult.addToVectors(vectorsBefore,
+		// specResult.getBefore());
+		ecgResult.addValue("Before", count(before));
+		specResult.addToVectors(vectorsBefore, specResult.getValue()
+			.getValue().get("Before"));
 		ECG after = man.getAfter();
 		if (after != null) {
-		    specResult.setAfter(count(after));
-		    // specResult.compareResult();
-		    specResult
-			    .addToVectors(vectorsAfter, specResult.getAfter());
+		    // specResult.setAfter(count(after));
+		    // // specResult.compareResult();
+		    // specResult
+		    // .addToVectors(vectorsAfter, specResult.getAfter());
+		    ecgResult.addValue("After", count(after));
+		    specResult.addToVectors(vectorsBefore, specResult
+			    .getValue().getValue().get("After"));
 		}
 		popResult.addResult(specResult);
 		man.setStatisticResults(specResult);
@@ -280,15 +293,21 @@ public class StatisticsController {
 	    for (Specimen man : popul.getSpecimen()) {
 		if (man.getId() == specimenId) {
 		    ECG before = man.getBefore();
-		    specResult.setBefore(count(before));
-		    specResult.addToVectors(vectorsBefore,
-			    specResult.getBefore());
+		    ecgResult.addValue("Before", count(before));
+		    specResult.addToVectors(vectorsBefore, specResult
+			    .getValue().getValue().get("Before"));
+		    // specResult.setBefore(count(before));
+		    // specResult.addToVectors(vectorsBefore,
+		    // specResult.getBefore());
 		    ECG after = man.getAfter();
 		    if (after != null) {
-			specResult.setAfter(count(after));
-			// specResult.compareResult();
-			specResult.addToVectors(vectorsAfter,
-				specResult.getAfter());
+			// specResult.setAfter(count(after));
+			// // specResult.compareResult();
+			// specResult.addToVectors(vectorsAfter,
+			// specResult.getAfter());
+			ecgResult.addValue("After", count(after));
+			specResult.addToVectors(vectorsBefore, specResult
+				.getValue().getValue().get("After"));
 		    }
 		    popResult.addResult(specResult);
 		    man.setStatisticResults(specResult);

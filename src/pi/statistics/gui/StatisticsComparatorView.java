@@ -205,10 +205,10 @@ public class StatisticsComparatorView extends JFrame {
 	public void fillChannelCombo() {
 		try {
 			for (String channelName : SharedController.getInstance()
-					.getProjectRes().getPopul1().getResult().get(0).getBefore()
+					.getProjectRes().getPopul1().getResult().get(0).getValue().getValue().get("Before")
 					.getValue().keySet()) {
 				int tmp = SharedController.getInstance().getProjectRes()
-						.getPopul1().getResult().get(0).getBefore().getValue()
+						.getPopul1().getResult().get(0).getValue().getValue().get("Before").getValue()
 						.keySet().size();
 				ArrayList<String> names = new ArrayList<String>();
 				for (int i = 0; i < tmp; i++) {
@@ -220,10 +220,10 @@ public class StatisticsComparatorView extends JFrame {
 			}
 		} catch (Exception ex) {
 			for (String channelName : SharedController.getInstance()
-					.getProjectRes().getPopul2().getResult().get(0).getBefore()
+					.getProjectRes().getPopul2().getResult().get(0).getValue().getValue().get("Before")
 					.getValue().keySet()) {
 				int tmp = SharedController.getInstance().getProjectRes()
-						.getPopul2().getResult().get(0).getBefore().getValue()
+						.getPopul2().getResult().get(0).getValue().getValue().get("Before").getValue()
 						.keySet().size();
 				ArrayList<String> names = new ArrayList<String>();
 				for (int i = 0; i < tmp; i++) {

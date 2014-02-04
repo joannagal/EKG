@@ -59,9 +59,12 @@ public class ChannelStatistic {
 		// ChannelResult before = SharedController.getInstance().getProjectRes()
 		// .getPopul1().getResult().get(0).getBefore();
 
+//		ChannelResult before = SharedController.getInstance().getProject()
+//				.getFirstPopulation().getSpecimen().get(0)
+//				.getStatisticResults().getBefore();
 		ChannelResult before = SharedController.getInstance().getProject()
-				.getFirstPopulation().getSpecimen().get(0)
-				.getStatisticResults().getBefore();
+			.getFirstPopulation().getSpecimen().get(0)
+			.getStatisticResults().getValue().getValue().get("Before");
 
 		Specimen specimen = SharedController.getInstance().getProject()
 				.getFirstPopulation().getSpecimen().get(0);
@@ -174,9 +177,12 @@ public class ChannelStatistic {
 
 			}
 
+//			ChannelResult after = SharedController.getInstance().getProject()
+//					.getFirstPopulation().getSpecimen().get(0)
+//					.getStatisticResults().getAfter();
 			ChannelResult after = SharedController.getInstance().getProject()
-					.getFirstPopulation().getSpecimen().get(0)
-					.getStatisticResults().getAfter();
+				.getFirstPopulation().getSpecimen().get(0)
+				.getStatisticResults().getValue().getValue().get("After");
 			if (after != null) {
 				for (String name : after.getValue().keySet()) {// PO CHANNELACH
 					for (String statName : StatisticWindowController.statsList) {

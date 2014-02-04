@@ -41,15 +41,16 @@ public class StatisticsComparatorController implements ActionListener {
 
 		this.toHist = new ArrayList<ArrayList<Double>>(2);
 
-		ChannelResult channelResult = specResult.getBefore();
-
+//		ChannelResult channelResult = specResult.getBefore();
+		ChannelResult channelResult = specResult.getValue().getValue().get("Before");
 		if (channelResult != null) {
 
 			pntr++;
 			this.fillColumn(channelResult, channel, wave, pntr);
 		}
 
-		channelResult = specResult.getAfter();
+//		channelResult = specResult.getAfter();
+		channelResult = specResult.getValue().getValue().get("After");
 		if (channelResult != null) {
 			pntr++;
 			this.fillColumn(channelResult, channel, wave, pntr);
