@@ -7,8 +7,8 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import pi.gui.information.InformationSpecimenController;
-import pi.gui.information.InformationSpecimenView;
+import pi.gui.information.specimen.InformationSpecimenController;
+import pi.gui.information.specimen.InformationSpecimenView;
 import pi.shared.SharedController;
 
 

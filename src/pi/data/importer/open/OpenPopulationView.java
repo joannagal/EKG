@@ -21,7 +21,6 @@ import org.dom4j.DocumentException;
 
 import pi.data.importer.Importer;
 import pi.data.importer.signal.ImportPanel;
-import pi.gui.information.InformationProjectController;
 import pi.shared.SharedController;
 
 public class OpenPopulationView extends JDialog {

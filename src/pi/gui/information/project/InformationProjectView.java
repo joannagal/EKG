@@ -1,4 +1,5 @@
-package pi.gui.information;
+package pi.gui.information.project;
+
 
 
 import java.awt.Dimension;

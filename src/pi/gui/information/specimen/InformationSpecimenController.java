@@ -1,4 +1,5 @@
-package pi.gui.information;
+package pi.gui.information.specimen;
+
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

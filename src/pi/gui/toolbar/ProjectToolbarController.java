@@ -5,8 +5,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
-import pi.gui.information.InformationProjectController;
-import pi.gui.information.InformationProjectView;
+import pi.gui.information.project.InformationProjectController;
+import pi.gui.information.project.InformationProjectView;
+
 
 public class ProjectToolbarController implements ActionListener {
 

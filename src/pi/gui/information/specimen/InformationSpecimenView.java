@@ -1,4 +1,5 @@
-package pi.gui.information;
+package pi.gui.information.specimen;
+
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;

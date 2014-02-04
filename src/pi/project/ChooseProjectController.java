@@ -9,6 +9,8 @@ import javax.swing.border.TitledBorder;
 import pi.data.importer.Importer;
 import pi.data.importer.pair.ImportPairController;
 import pi.data.importer.pair.ImportPairView;
+import pi.data.importer.population.pair.PopulationPairController;
+import pi.data.importer.population.pair.PopulationPairView;
 import pi.data.importer.population.single.PopulationSingleController;
 import pi.data.importer.population.single.PopulationSingleView;
 import pi.data.importer.signal.ImportSingleController;
@@ -91,6 +93,8 @@ public class ChooseProjectController implements ActionListener{
 				project.setName("New Project");
 
 				SharedController.getInstance().setProject(project);
+				PopulationPairView view = new PopulationPairView();
+				PopulationPairController controller = new PopulationPairController(view);
 				
 
 			}
