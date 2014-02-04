@@ -31,10 +31,10 @@ public class Specimen
 	private int activityDuration = -1;
 	
 	// -1 = BRAK, 0 - DODATNI 1 - UJEMNY
-	private int hiv = 1;
+	private int hiv = 0;
 	
 	// DAWKA METADONU W ML
-	private int metadon = 0;
+	private int methadone = 0;
 	
 	// CZAS W MIESIACACH APLIKOWANIA METADONU
 	private int metadonTimeApplication = 0;
@@ -126,13 +126,13 @@ public class Specimen
 	{
 		this.hiv = hiv;
 	}
-	public int getMetadon()
+	public int getMethadone()
 	{
-		return metadon;
+		return methadone;
 	}
-	public void setMetadon(int metadon)
+	public void setMethadone(int methadone)
 	{
-		this.metadon = metadon;
+		this.methadone = methadone;
 	}
 	public int getMetadonTimeApplication()
 	{

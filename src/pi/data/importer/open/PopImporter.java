@@ -139,7 +139,7 @@ public class PopImporter extends DefaultHandler {
 
 		String metadon = attributes.getValue("metadon");
 		if (metadon != "")
-			spec.setMetadon(Integer.parseInt(metadon));
+			spec.setMethadone(Integer.parseInt(metadon));
 
 		String mta = attributes.getValue("metadon_time_application");
 		if (mta != "")

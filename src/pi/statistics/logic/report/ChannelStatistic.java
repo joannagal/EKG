@@ -89,7 +89,7 @@ public class ChannelStatistic {
 					cs.setBirth(specimen.getBirth());
 					cs.setGoodMoodDuration(specimen.getGoodMoodDuration());
 					cs.setHiv(specimen.getHiv());
-					cs.setMetadon(specimen.getMetadon());
+					cs.setMetadon(specimen.getMethadone());
 					cs.setMetadonTimeApplication(specimen
 							.getMetadonTimeApplication());
 					cs.setName(specimen.getName());

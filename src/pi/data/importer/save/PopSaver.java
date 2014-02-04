@@ -94,7 +94,7 @@ public class PopSaver {
 		out.writeAttribute("activity_duration",
 				String.valueOf(s.getActivityDuration()));
 		out.writeAttribute("hiv", String.valueOf(s.getHiv()));
-		out.writeAttribute("metadon", String.valueOf(s.getMetadon()));
+		out.writeAttribute("metadon", String.valueOf(s.getMethadone()));
 		out.writeAttribute("metadon_time_application",
 				String.valueOf(s.getMetadonTimeApplication()));
 		out.writeAttribute("good_mood_duration",
