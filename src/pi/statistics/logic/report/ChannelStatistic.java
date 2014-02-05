@@ -56,12 +56,7 @@ public class ChannelStatistic {
 		long start = System.currentTimeMillis();
 		// TODO wydajnoœæ dodawania do wektora
 		Vector<ChannelStatistic> statistics = new Vector<ChannelStatistic>();
-		// ChannelResult before = SharedController.getInstance().getProjectRes()
-		// .getPopul1().getResult().get(0).getBefore();
 
-//		ChannelResult before = SharedController.getInstance().getProject()
-//				.getFirstPopulation().getSpecimen().get(0)
-//				.getStatisticResults().getBefore();
 		ChannelResult before = SharedController.getInstance().getProject()
 			.getFirstPopulation().getSpecimen().get(0)
 			.getStatisticResults().getValue().getValue().get("Before");
@@ -69,16 +64,7 @@ public class ChannelStatistic {
 		Specimen specimen = SharedController.getInstance().getProject()
 				.getFirstPopulation().getSpecimen().get(0);
 
-		// Project project = SharedController.getInstance().getProject();
-		// Specimen firstSpec =
-		// project.getFirstPopulation().getSpecimen().get(0);
-		//
-		// if (firstSpec.getStatisticResults().getBefore() != null) {
-		// ChannelResult cr = firstSpec.getStatisticResults().getBefore();
-		// if(cr.getValue()!= null){
-		//
-		// }
-		// }
+
 
 		try {
 			for (String name : before.getValue().keySet()) {// PO CHANNELACH

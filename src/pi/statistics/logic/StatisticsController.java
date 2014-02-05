@@ -283,7 +283,7 @@ public class StatisticsController {
 		    // specResult
 		    // .addToVectors(vectorsAfter, specResult.getAfter());
 		    ecgResult.addValue("After", count(after));
-		    specResult.addToVectors(vectorsBefore, specResult
+		    specResult.addToVectors(vectorsAfter, specResult
 			    .getValue().getValue().get("After"));
 		}
 		popResult.addResult(specResult);
@@ -306,7 +306,7 @@ public class StatisticsController {
 			// specResult.addToVectors(vectorsAfter,
 			// specResult.getAfter());
 			ecgResult.addValue("After", count(after));
-			specResult.addToVectors(vectorsBefore, specResult
+			specResult.addToVectors(vectorsAfter, specResult
 				.getValue().getValue().get("After"));
 		    }
 		    popResult.addResult(specResult);
