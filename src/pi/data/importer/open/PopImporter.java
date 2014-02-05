@@ -297,6 +297,16 @@ public class PopImporter extends DefaultHandler {
 				cycle.setQrs_complex(qrs_complex);
 			}
 		}
+		
+		if (attributes.getValue("st_segment") != null) {
+			String st[] = attributes.getValue("st_segment").split(" ");
+			if (st.length >= 2 && st[0].matches("\\d+")
+					&& st[1].matches("\\d+")) {
+				Range st_segment = new Range(Integer.parseInt(st[0]),
+						Integer.parseInt(st[1]));
+				cycle.setSt_segment(st_segment);
+			}
+		}
 
 		Boolean markered = Boolean
 				.parseBoolean(attributes.getValue("markered"));

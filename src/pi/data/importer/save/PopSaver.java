@@ -172,11 +172,13 @@ public class PopSaver {
 		} else {
 			out.writeAttribute("range", "");
 		}
+		
 		if (c.getP_wave() != null) {
 			out.writeAttribute("p_wave", c.getP_wave().toString());
 		} else {
 			out.writeAttribute("p_wave", "");
 		}
+		
 		if (c.getPr_segment() != null) {
 			out.writeAttribute("pr_segment", c.getPr_segment().toString());
 		} else {
@@ -198,6 +200,13 @@ public class PopSaver {
 		} else {
 			out.writeAttribute("u_wave", "");
 		}
+		
+		if (c.getSt_segment() != null) {
+			out.writeAttribute("st_segment", c.getSt_segment().toString());
+		} else {
+			out.writeAttribute("st_segment", "");
+		}
+		
 		if (c.getMarkered() != null) {
 			out.writeAttribute("markered", c.getMarkered().toString());
 		} else {
