@@ -78,7 +78,7 @@ public class InformationSpecimenController implements ActionListener {
 				error = false;
 				break okStatement;
 			}
-			
+
 			this.view.dispose();
 
 		}

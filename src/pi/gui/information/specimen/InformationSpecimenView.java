@@ -1,6 +1,5 @@
 package pi.gui.information.specimen;
 
-
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -73,19 +72,19 @@ public class InformationSpecimenView extends JDialog {
 					.getFirstPopulation().getSpecimen()
 					.get(toolbar.getComboBoxSpecimen().getSelectedIndex()));
 		} else if (type == 2) {
-			int projectType = SharedController.getInstance().getProject().getType();
-			
-			if (projectType == 1 || projectType == 2){
+			int projectType = SharedController.getInstance().getProject()
+					.getType();
+
+			if (projectType == 1 || projectType == 2) {
 				setSpecimen(SharedController.getInstance().getProject()
 						.getFirstPopulation().getSpecimen()
 						.get(toolbar.getComboBoxSpecimen().getSelectedIndex()));
-			}
-			else if (projectType == 3 || projectType == 4){
+			} else if (projectType == 3 || projectType == 4) {
 				setSpecimen(SharedController.getInstance().getProject()
 						.getSecondPopulation().getSpecimen()
 						.get(toolbar.getComboBoxSpecimen().getSelectedIndex()));
 			}
-			
+
 		}
 
 		name = specimen.getName();

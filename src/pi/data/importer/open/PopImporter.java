@@ -110,6 +110,7 @@ public class PopImporter extends DefaultHandler {
 		if (popId == 1) {
 			project.setFirstPopulation(popul);
 		} else if (popId == 2) {
+			
 			project.setSecondPopulation(popul);
 		}
 	}
