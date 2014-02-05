@@ -84,11 +84,11 @@ public class PopulStatistic {
 				// wyciagamy kazdy wave...
 				for (String waveName : columnEntry.get(channelName).keySet()) {
 					// ... dla niego statystyke ...
-					for (String statName : columnEntry.get(channelName)
-							.get(waveName).get("Duration").keySet()) { //TODO rzuca NULL POINTER EX.
+					for (String statName : columnEntry.get(channelName).get("Duration")
+							.get(waveName).keySet()) { //TODO rzuca NULL POINTER EX.
 
 						Vector<Double> list = columnEntry.get(channelName)
-								.get(waveName).get("Duration").get(statName);
+								.get("Duration").get(waveName).get(statName);
 
 						if (list == null)
 							continue;
