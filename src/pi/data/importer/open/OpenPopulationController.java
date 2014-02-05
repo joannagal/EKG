@@ -39,7 +39,6 @@ public class OpenPopulationController implements ActionListener {
 
 				p = XMLReaderFactory.createXMLReader();
 				p.setContentHandler(pi);
-				System.out.println(view.getPath().toString());
 				p.parse(view.getPath());
 				Project importedProject = pi.getProject();
 
@@ -48,8 +47,11 @@ public class OpenPopulationController implements ActionListener {
 				SharedController.getInstance().setProject(importedProject);
 				SharedController.getInstance().createProjectToolbar();
 
-				System.out.println("Projekt: " + type);
-
+				for (int i = 0; i < SharedController.getInstance().getProject().getFirstPopulation().getSpecimen().get(0).getBefore().getChannel().size(); i++){
+					System.out.println(SharedController.getInstance().getProject().getFirstPopulation().getSpecimen().get(0).getBefore().getChannel().get(i).getRange());				
+				}
+				
+				
 				if (type == 1) {
 					setGraphFirstView(new GraphView(
 							importedProject.getFirstPopulation(), 1));
@@ -78,7 +80,6 @@ public class OpenPopulationController implements ActionListener {
 			view.dispose();
 		}
 		if (action.equals("CHOOSE")) {
-			System.out.println("JESTEM W CHOOSE");
 			JFileChooser fileChooser = new JFileChooser();
 			fileChooser.setCurrentDirectory(SharedController.getInstance()
 					.getLastDirectory());

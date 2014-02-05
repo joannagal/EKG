@@ -34,6 +34,7 @@ public class PopImporter extends DefaultHandler {
 	private int channelIndex = 0;
 
 	boolean rawDataNode = false;
+	private Date d;
 
 	@Override
 	public void startDocument() {
@@ -76,7 +77,7 @@ public class PopImporter extends DefaultHandler {
 			rawDataNode = false;
 			importRowData();
 		}
-		System.out.println("End Element :" + qName);
+		//System.out.println("End Element :" + qName);
 	}
 
 	@Override
@@ -119,7 +120,7 @@ public class PopImporter extends DefaultHandler {
 		spec = new Specimen();
 		spec.setName(attributes.getValue("name"));
 		spec.setSurname(attributes.getValue("surname"));
-		Date d = new Date();
+		setD(new Date());
 
 		String age = attributes.getValue("age");
 		if (age != "")
@@ -278,5 +279,13 @@ public class PopImporter extends DefaultHandler {
 
 	public Project getProject() {
 		return project;
+	}
+
+	public Date getD() {
+		return d;
+	}
+
+	public void setD(Date d) {
+		this.d = d;
 	}
 }

@@ -5,74 +5,26 @@ import java.util.LinkedList;
 
 import pi.inputs.signal.autofinder.Parameters;
 
-//-------------------------------------------
-/*
- JEDEN CHANNEL Z ECG
-
- DAJEMY TU DANE Z JEDNEJ ELEKTRODY
-
- */
-//-------------------------------------------
-
 public class Channel {
-	// PARENT
+
 	private ECG parent = null;
-
-	// NAZWA CHANNELU
 	private String name;
-
-	// TRANSLACJA KANALU W CZASIE
-	// DOMYSLNIE 0.0d ALE NA WYKRESIE
-	// BEDZIE SOBIE MOZNA PRZESUWAC
 	private Double translation = 0.0d;
-
-	// ODLEGLOSC W CZASIE MIEDZY KOLEJNYMI
-	// PROBKAMI
-	// CZYLI JAK MAMY SYGNAL 50HZ
-	// TO OGLEDLOSC JEST ROWNA 1/50s
 	private Double interval = 0.0d;
-
-	// POMOCNICZA PIERDOLA DO WYKRESOW
 	private Double endTime = 0.0d;
-
-	// HIPOTETYCZNY POZIOM ZAZNACZENIA
-	// WSZYSTKICH ZALAMKOW ITP.
-	// SPROBOJE OGARNAC W FUNKCJI AUTOMATYCZNIE
-	// ODNAJDUJACYCH TE BAJERY
 	private Float fill = 0.0f;
-
-	// LISTA PRZEDZIALOW PROBEK, GDZIE ZNAJDUJA SIE MARKERY
-	// JAK LISTA JEST EMPTY TO BIEZEMY DANE DO STATY Z LISTY
-	// cycle
-	// A JAK SA JAKIES WPISY TO BIEZEMY CYKLE DO STATY Z
-	// cycleMarker
-	// W TYCH CYKLACH MAMY INFORMACJE O PRZEDZIALE (RANGE)
-	// NP. p-wave. BIEZEMY Z TAMTAD LEWY I PRAWY KONIEC TEGO PRZEDZIALU
-	// A NASTEPNIE SUROWE DANE Z WEKTORA probe OD LEWEGO DO PRAWEGO
-	// KONCA
-
-	// LISTA CYKLI
 	private LinkedList<Cycle> cycle;
-
-	// SUROWE DANE ZAWIERAJACE PROBKI
 	private ArrayList<Probe> probe;
-
-	// MINIMALNA I MAKSYMALNA WARTOSC, USTALANA PRZY WCZYTYWANIU
 	private double minValue = 0.0d;
 	private double maxValue = 0.0d;
-
-	// TO MOJE PIERDY DO WYKRESOW, NIE WAZNE
 	private Double startAxis = 0.0d;
 	private Double scale = 0.0d;
-
-	// PARAMETRY AUTOFINDERA
 	private Parameters params;
 
 	public Channel() {
 		this.cycle = new LinkedList<Cycle>();
 	}
 
-	// POWINNO BYC CALLED PO UTWORZENIU WEKTORA PROBE
 	public void recalculate() {
 		this.endTime = this.translation + this.probe.size() * this.interval;
 
@@ -113,7 +65,6 @@ public class Channel {
 
 	public void setInterval(Double interval) {
 		this.interval = interval;
-		//this.recalculate();
 	}
 
 	public Float getFill() {
@@ -158,7 +109,6 @@ public class Channel {
 
 	public void setTranslation(Double translation) {
 		this.translation = translation;
-		//this.recalculate();
 	}
 
 	public Double getStartAxis() {

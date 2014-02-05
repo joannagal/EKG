@@ -1,6 +1,7 @@
 package pi.analyze.ECG;
 
 import java.sql.Date;
+
 import pi.analyze.AnalysisResult;
 
 public class ECGAnalysisResult implements AnalysisResult
