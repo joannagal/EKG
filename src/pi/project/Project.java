@@ -25,11 +25,11 @@ public class Project {
 		setAnalyzer(new ECGAnalyzer());
 	}
 
-	public boolean load(String path) {
-		return true;
-	}
-
 	public boolean save(String path) {
+		SaverThread runnable = new SaverThread(path, this);
+		Thread thread = new Thread(runnable);
+		thread.start();
+
 		return true;
 	}
 
