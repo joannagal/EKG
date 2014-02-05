@@ -16,7 +16,8 @@ import pi.statistics.functions.SD;
 import pi.statistics.functions.Variance;
 import pi.statistics.logic.Function;
 import pi.statistics.logic.StatisticsController;
-import pi.statistics.logic.report.ReportManager;
+import pi.statistics.logic.report.PopulReportMngr;
+import pi.statistics.logic.report.SpecimenReportMngr;
 
 public class StatisticWindowController implements ActionListener {
 
@@ -35,17 +36,20 @@ public class StatisticWindowController implements ActionListener {
 	private Runnable r = new Runnable() {
 		public void run() {
 			try {
-				SharedController.getInstance().setReportManager(
-						new ReportManager());
-				int type = SharedController.getInstance().getProject().getType();
+
+				int type = SharedController.getInstance().getProject()
+						.getType();
 				int index = window.comboBox.getSelectedIndex();
 				String specimen = window.comboBox.getItemAt(index);
-				
+
 				if (type == 1 || type == 2 || !specimen.equals("Count for all")) {
-				comparatorView.enableReports(true);
-				}
-				else {
-				    testsView.enableReports(true);
+					SharedController.getInstance().setSpecimenReportManager(
+							new SpecimenReportMngr());
+					comparatorView.enableReports(true);
+				} else {
+					SharedController.getInstance().setPopulReportMngr(
+							new PopulReportMngr());
+					testsView.enableReports(true);
 				}
 			} catch (JRException e) {
 				// TODO Auto-generated catch block
@@ -144,7 +148,7 @@ public class StatisticWindowController implements ActionListener {
 
 			if (type == 1 || type == 2 || id != null) {
 				System.out.println(specimanStr);
-				if(comparatorView!=null){
+				if (comparatorView != null) {
 					comparatorView.setVisible(false);
 					comparatorView.dispose();
 				}

@@ -15,14 +15,14 @@ import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
-public class ReportManager {
+public class SpecimenReportMngr {
 
 	JasperReport jasperReport = null;
 	JasperPrint jasperPrint = null;
 	JasperDesign jasperDesign = null;
 	JRBeanCollectionDataSource dataSource = null;
 
-	public ReportManager() throws JRException {
+	public SpecimenReportMngr() throws JRException {
 		initReport();
 	}
 
@@ -120,7 +120,7 @@ public class ReportManager {
 		// http://stackoverflow.com/questions/12178615/eclipse-jasper-report-not-compiling-java-lang-noclassdeffounderror-org-apach
 
 		try {
-			ReportManager rm = new ReportManager();
+			SpecimenReportMngr rm = new SpecimenReportMngr();
 			rm.viewRaport();
 			//rm.saveRaportAsPdf(null);
 			//rm.saveReportAsHtml(null);

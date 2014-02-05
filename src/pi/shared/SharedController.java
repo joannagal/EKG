@@ -23,7 +23,8 @@ import pi.project.Project;
 import pi.shared.schemes.Scheme;
 import pi.shared.schemes.signal.SignalScheme;
 import pi.statistics.logic.ProjectResult;
-import pi.statistics.logic.report.ReportManager;
+import pi.statistics.logic.report.PopulReportMngr;
+import pi.statistics.logic.report.SpecimenReportMngr;
 import pi.utilities.Margin;
 
 //-------------------------------------------
@@ -89,7 +90,9 @@ public class SharedController {
 	private GraphView firstGraphView;
 	private GraphView secondGraphView;
 	private File lastDirectory;
-	private ReportManager reportMgr;
+	private SpecimenReportMngr specimenReportMgr;
+	private PopulReportMngr populReportMngr;
+	
 
 	// -------------------------
 	// SHARED PROJECT
@@ -436,12 +439,20 @@ public class SharedController {
 		this.isFirstPopulationSet = isFirstPopulationSet;
 	}
 
-	public ReportManager getReportManager() {
-		return reportMgr;
+	public SpecimenReportMngr getSpecimenReportManager() {
+		return specimenReportMgr;
 	}
 
-	public void setReportManager(ReportManager reportMgr) {
-		this.reportMgr = reportMgr;
+	public void setSpecimenReportManager(SpecimenReportMngr reportMgr) {
+		this.specimenReportMgr = reportMgr;
+	}
+
+	public PopulReportMngr getPopulReportMngr() {
+		return populReportMngr;
+	}
+
+	public void setPopulReportMngr(PopulReportMngr populReportMngr) {
+		this.populReportMngr = populReportMngr;
 	}
 
 	public ProjectToolbarController getToolConroller() {

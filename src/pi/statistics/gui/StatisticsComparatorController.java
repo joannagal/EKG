@@ -193,10 +193,10 @@ public class StatisticsComparatorController implements ActionListener {
 					if (response == JFileChooser.APPROVE_OPTION) {
 						String path = fc.getSelectedFile().getPath();
 						if (type == 0)
-							SharedController.getInstance().getReportManager()
+							SharedController.getInstance().getSpecimenReportManager()
 									.saveRaportAsPdf(path);
 						else if (type == 1)
-							SharedController.getInstance().getReportManager()
+							SharedController.getInstance().getSpecimenReportManager()
 									.saveReportAsHtml(path);
 					}
 				} catch (JRException ex) {
@@ -214,7 +214,7 @@ public class StatisticsComparatorController implements ActionListener {
 					// ReportManager rm = new ReportManager();
 					// rm.viewRaport();
 
-					SharedController.getInstance().getReportManager()
+					SharedController.getInstance().getSpecimenReportManager()
 							.viewRaport();
 				} catch (JRException ex) {
 					System.out.println("Report exception");
