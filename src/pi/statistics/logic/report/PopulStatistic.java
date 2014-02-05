@@ -8,6 +8,7 @@ public class PopulStatistic {
 	private int sampleSize;
 	private String firstPopul;
 	private String secondPopul;
+	private String tableName;
 	private String channelName;
 	private String waveName;
 	private String statisticName;
@@ -22,6 +23,7 @@ public class PopulStatistic {
 		
 		//TODO
 		PopulStatistic ps1 = new PopulStatistic();
+		ps1.tableName = "Tabela 1";
 		ps1.channelName = "channel 1";
 		ps1.statisticName = "Average";
 		ps1.waveName = "P-wave";
@@ -29,6 +31,7 @@ public class PopulStatistic {
 		ps1.secondAverage = 0.5;
 		
 		PopulStatistic ps2 = new PopulStatistic();
+		ps2.tableName = "Tabela 1";
 		ps2.channelName = "channel 1";
 		ps2.statisticName = "Wariance";
 		ps2.waveName = "P-wave";
@@ -127,5 +130,13 @@ public class PopulStatistic {
 
 	public void setP_value(double p_value) {
 		this.p_value = p_value;
+	}
+
+	public String getTableName() {
+		return tableName;
+	}
+
+	public void setTableName(String tableName) {
+		this.tableName = tableName;
 	}
 }
