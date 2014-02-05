@@ -7,10 +7,10 @@
 		<CHANNEL name="" frequency="" samples="" translations="">
 			<RAW_DATA>1 2 3 4</RAW_DATA>
 			<CYCLES number="2"> 
-				<CYCLE range="" p_wave="" pr_segment="" qrs_segment="" t_wave="" u_wave="" markered="">				
+				<CYCLE range="12 13" p_wave="" pr_segment="" qrs_complex="" t_wave="" u_wave="" markered="">				
 					moj przykladowy cykl 1!
 				</CYCLE>		
-				<CYCLE range="" p_wave="" pr_segment="" qrs_segment="" t_wave="" u_wave="" markered="">				
+				<CYCLE range="2c2" p_wave="" pr_segment="" qrs_complex="" t_wave="" u_wave="" markered="">				
 					moj przykladowy cykl 2!
 				</CYCLE>					
 			</CYCLES>

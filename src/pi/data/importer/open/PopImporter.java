@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 
+import javax.swing.JOptionPane;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -73,11 +75,11 @@ public class PopImporter extends DefaultHandler {
 	@Override
 	public void endElement(String uri, String localName, String qName)
 			throws SAXException {
-		if(qName.equalsIgnoreCase("RAW_DATA")){
+		if (qName.equalsIgnoreCase("RAW_DATA")) {
 			rawDataNode = false;
 			importRowData();
 		}
-		//System.out.println("End Element :" + qName);
+		// System.out.println("End Element :" + qName);
 	}
 
 	@Override
@@ -86,7 +88,7 @@ public class PopImporter extends DefaultHandler {
 
 		if (rawDataNode) {
 			getRawData(ch, start, length);
-		
+
 		}
 	}
 
@@ -111,7 +113,7 @@ public class PopImporter extends DefaultHandler {
 		if (popId == 1) {
 			project.setFirstPopulation(popul);
 		} else if (popId == 2) {
-			
+
 			project.setSecondPopulation(popul);
 		}
 	}
@@ -186,11 +188,10 @@ public class PopImporter extends DefaultHandler {
 		if ((interval != null) && (interval != ""))
 			channel.setInterval(Double.valueOf(interval));
 
-		
 		channel.setTranslation(0.0d);
 		channel.setStartAxis(0.0d);
 		channel.setScale(0.2d);
-		channel.setParent(input);	
+		channel.setParent(input);
 		channelList.add(channelIndex, channel);
 		channelIndex++;
 
@@ -200,8 +201,8 @@ public class PopImporter extends DefaultHandler {
 		String temp = new String(ch, start, length);
 		rawDataBuffer.append(temp);
 	}
-	
-	public void importRowData(){
+
+	public void importRowData() {
 		int max = 0;
 		int min = 0;
 		String data[] = rawDataBuffer.toString().split(" ");
@@ -210,7 +211,7 @@ public class PopImporter extends DefaultHandler {
 			try {
 				Probe p = new Probe(i, Integer.parseInt(data[i]));
 				int probeValue = p.getValue();
-				if (probeValue  > max)
+				if (probeValue > max)
 					max = probeValue;
 				if (probeValue < min)
 					min = probeValue;
@@ -219,7 +220,8 @@ public class PopImporter extends DefaultHandler {
 				System.out.println(nfe);
 				System.out.println("\nprev: " + data[i - 1] + "\ncurr: "
 						+ data[i]);
-				System.out.println("\n\nROW DATA:\n=================\n" + rawDataBuffer.toString());
+				System.out.println("\n\nROW DATA:\n=================\n"
+						+ rawDataBuffer.toString());
 			}
 		}
 		channel.setMaxValue((double) max / 1000.0d);
@@ -237,37 +239,63 @@ public class PopImporter extends DefaultHandler {
 		cycle = new Cycle();
 
 		// TODO Zast¹piæ try-catch ifami
-		try {
+
+		if (attributes.getValue("range") != null) {
 			String r[] = attributes.getValue("range").split(" ");
-			Range range = new Range(Integer.parseInt(r[0]),
-					Integer.parseInt(r[1]));
-			cycle.setRange(range);
+			if (r.length >= 2 && r[0].matches("\\d+") && r[1].matches("\\d+")) {
+				Range range = new Range(Integer.parseInt(r[0]),
+						Integer.parseInt(r[1]));
+				cycle.setRange(range);
+			} else {
+				JOptionPane.showMessageDialog(null, "Wrong format");
+			}
+		}
 
+		if (attributes.getValue("u_wave") != null) {
 			String u[] = attributes.getValue("u_wave").split(" ");
-			Range u_wave = new Range(Integer.parseInt(u[0]),
-					Integer.parseInt(u[1]));
-			cycle.setU_wave(u_wave);
+			if (u.length >= 2 && u[0].matches("\\d+") && u[1].matches("\\d+")) {
+				Range u_wave = new Range(Integer.parseInt(u[0]),
+						Integer.parseInt(u[1]));
+				cycle.setU_wave(u_wave);
+			}
+		}
 
+		if (attributes.getValue("t_wave") != null) {
 			String t[] = attributes.getValue("t_wave").split(" ");
-			Range t_wave = new Range(Integer.parseInt(t[0]),
-					Integer.parseInt(t[1]));
-			cycle.setT_wave(t_wave);
+			if (t.length >= 2 && t[0].matches("\\d+") && t[1].matches("\\d+")) {
+				Range t_wave = new Range(Integer.parseInt(t[0]),
+						Integer.parseInt(t[1]));
+				cycle.setT_wave(t_wave);
+			}
+		}
 
+		if (attributes.getValue("pr_segment") != null) {
 			String pr[] = attributes.getValue("pr_segment").split(" ");
-			Range pr_seg = new Range(Integer.parseInt(pr[0]),
-					Integer.parseInt(pr[1]));
-			cycle.setPr_segment(pr_seg);
+			if (pr.length >= 2 && pr[0].matches("\\d+")
+					&& pr[1].matches("\\d+")) {
+				Range pr_seg = new Range(Integer.parseInt(pr[0]),
+						Integer.parseInt(pr[1]));
+				cycle.setPr_segment(pr_seg);
+			}
+		}
 
+		if (attributes.getValue("p_wave") != null) {
 			String p[] = attributes.getValue("p_wave").split(" ");
-			Range p_wave = new Range(Integer.parseInt(p[0]),
-					Integer.parseInt(p[1]));
-			cycle.setP_wave(p_wave);
+			if (p.length >= 2 && p[0].matches("\\d+") && p[1].matches("\\d+")) {
+				Range p_wave = new Range(Integer.parseInt(p[0]),
+						Integer.parseInt(p[1]));
+				cycle.setP_wave(p_wave);
+			}
+		}
 
+		if (attributes.getValue("qrs_complex") != null) {
 			String qrs[] = attributes.getValue("qrs_complex").split(" ");
-			Range qrs_complex = new Range(Integer.parseInt(qrs[0]),
-					Integer.parseInt(qrs[1]));
-			cycle.setQrs_complex(qrs_complex);
-		} catch (Exception e) {
+			if (qrs.length >= 2 && qrs[0].matches("\\d+")
+					&& qrs[1].matches("\\d+")) {
+				Range qrs_complex = new Range(Integer.parseInt(qrs[0]),
+						Integer.parseInt(qrs[1]));
+				cycle.setQrs_complex(qrs_complex);
+			}
 		}
 
 		Boolean markered = Boolean
