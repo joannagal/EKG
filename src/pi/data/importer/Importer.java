@@ -1,14 +1,11 @@
 package pi.data.importer;
 
 import java.io.File;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.JOptionPane;
-
-import org.codehaus.groovy.control.messages.Message;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Node;
@@ -33,7 +30,7 @@ public class Importer {
 	 */
 	public Importer(String filePath) throws DocumentException {
 		try {
-			this.filePath = filePath;
+			this.setFilePath(filePath);
 			document = loadDocument(filePath);
 		} catch (DocumentException docEx) {
 			JOptionPane.showMessageDialog(null,
@@ -183,6 +180,14 @@ public class Importer {
 		SAXReader reader = new SAXReader();
 		Document document = reader.read(inputFile);
 		return document;
+	}
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
 	}
 
 }

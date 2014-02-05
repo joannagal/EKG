@@ -15,7 +15,6 @@ import pi.graph.signal.GraphView;
 import pi.inputs.signal.ECG;
 import pi.population.Population;
 import pi.population.Specimen;
-import pi.project.Project;
 import pi.shared.SharedController;
 
 public class ImportSingleController implements ActionListener {
@@ -58,6 +57,7 @@ public class ImportSingleController implements ActionListener {
 							.setFirstPopulation(population);
 					SharedController.getInstance().createProjectToolbar();
 
+					@SuppressWarnings("unused")
 					GraphView view = new GraphView(population, 1);
 				} catch (DocumentException ae) {
 					ae.printStackTrace();

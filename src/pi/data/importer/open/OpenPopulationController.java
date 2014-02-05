@@ -19,6 +19,8 @@ import pi.shared.SharedController;
 public class OpenPopulationController implements ActionListener {
 
 	private OpenPopulationView view;
+	private GraphView graphFirstView;
+	private GraphView graphSecondView;
 
 	public OpenPopulationController(OpenPopulationView view) {
 		this.view = view;
@@ -34,43 +36,50 @@ public class OpenPopulationController implements ActionListener {
 
 			XMLReader p;
 			try {
+
 				p = XMLReaderFactory.createXMLReader();
 				p.setContentHandler(pi);
-				System.out.println(view.getPath().toString());
 				p.parse(view.getPath());
 				Project importedProject = pi.getProject();
-				int type = importedProject.getType();
 
+				int type = importedProject.getType();
 
 				SharedController.getInstance().setProject(importedProject);
 				SharedController.getInstance().createProjectToolbar();
 
+				for (int i = 0; i < SharedController.getInstance().getProject().getFirstPopulation().getSpecimen().get(0).getBefore().getChannel().size(); i++){
+					System.out.println(SharedController.getInstance().getProject().getFirstPopulation().getSpecimen().get(0).getBefore().getChannel().get(i).getRange());				
+				}
+				
 				
 				if (type == 1) {
-					GraphView view = new GraphView(
-							importedProject.getFirstPopulation(), 1);
+					setGraphFirstView(new GraphView(
+							importedProject.getFirstPopulation(), 1));
 				} else if (type == 2) {
-					GraphView view = new GraphView(importedProject.getFirstPopulation(), 1);
-					GraphView view2 = new GraphView(importedProject.getFirstPopulation(), 2);
+					setGraphFirstView(new GraphView(
+							importedProject.getFirstPopulation(), 1));
+					setGraphSecondView(new GraphView(
+							importedProject.getFirstPopulation(), 2));
 
-				} else if (type == 3) {
-					GraphView view = new GraphView(importedProject.getFirstPopulation(), 1);
-					GraphView view2 = new GraphView(importedProject.getFirstPopulation(), 2);
-				} else if (type == 4) {
-					GraphView view = new GraphView(importedProject.getFirstPopulation(), 1);
-					GraphView view2 = new GraphView(importedProject.getSecondPopulation(), 2);
+				} else if (type == 3 || type == 4) {
+					setGraphFirstView(new GraphView(
+							importedProject.getFirstPopulation(), 1));
+					setGraphSecondView(new GraphView(
+							importedProject.getSecondPopulation(), 2));
 				}
 
 			} catch (SAXException | IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+			
+			this.view.dispose();
 
 		}
 		if (action.equals("CANCEL")) {
 			view.dispose();
 		}
-		if (action.equals("CHOOSE")){
+		if (action.equals("CHOOSE")) {
 			JFileChooser fileChooser = new JFileChooser();
 			fileChooser.setCurrentDirectory(SharedController.getInstance()
 					.getLastDirectory());
@@ -78,8 +87,7 @@ public class OpenPopulationController implements ActionListener {
 					"XML (*.xml)", "xml");
 			fileChooser.addChoosableFileFilter(filter);
 			fileChooser.setFileFilter(filter);
-			int returnValue = fileChooser.showDialog(null,
-					"Choose project...");
+			int returnValue = fileChooser.showDialog(null, "Choose project...");
 
 			if (returnValue == JFileChooser.APPROVE_OPTION) {
 				File selectedFile = fileChooser.getSelectedFile();
@@ -87,14 +95,27 @@ public class OpenPopulationController implements ActionListener {
 				SharedController.getInstance().setLastDirectory(
 						fileChooser.getSelectedFile());
 				System.out.println(path);
+				this.view.getPathArea().setText(path);
 				view.setPath(path);
 			}
-			
-			view.dispose();
 		}
-			
-		
-		
+
+	}
+
+	public GraphView getGraphFirstView() {
+		return graphFirstView;
+	}
+
+	public void setGraphFirstView(GraphView graphFirstView) {
+		this.graphFirstView = graphFirstView;
+	}
+
+	public GraphView getGraphSecondView() {
+		return graphSecondView;
+	}
+
+	public void setGraphSecondView(GraphView graphSecondView) {
+		this.graphSecondView = graphSecondView;
 	}
 
 }

@@ -196,6 +196,11 @@ public class StatisticTestsView extends JFrame {
 	this.add(this.tabbedPane);
 
     }
+    
+	public void enableReports(boolean b) {
+		this.saveButton.setEnabled(b);
+		this.reportButton.setEnabled(b);
+	}
 
     public void changeSelection() {
 	int row = report.getSelectedRow();

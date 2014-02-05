@@ -1,7 +1,6 @@
 package pi.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
@@ -16,6 +15,7 @@ import pi.shared.SharedController;
 
 public class OurFrame extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private MenuView menubar;
 	private MenuController menuController;
 	private JPanel content;
@@ -52,7 +52,7 @@ public class OurFrame extends JFrame {
 		setMenubar(new MenuView(this));
 		this.setJMenuBar(getMenubar());
 		setMenuController(new MenuController(getMenubar()));
-		this.setSize(new Dimension(1150, 800));
+		this.setSize(new Dimension(1200, 800));
 		
 	}
 

@@ -24,6 +24,8 @@ public class ImportPairController implements ActionListener {
 	private Importer importer2;
 	private Specimen specimen;
 	private Population population;
+	private GraphView firstView;
+	private GraphView secondView;
 
 	public ImportPairController(ImportPairView view) {
 		this.view = view;
@@ -58,7 +60,7 @@ public class ImportPairController implements ActionListener {
 							.setFirstPopulation(population);
 					SharedController.getInstance().createProjectToolbar();
 
-					GraphView view = new GraphView(population, 1);
+					setSecondView(new GraphView(population, 1));
 
 				} catch (DocumentException ae) {
 					ae.printStackTrace();
@@ -75,7 +77,7 @@ public class ImportPairController implements ActionListener {
 					specimen.setAfter(temp2.get(0));
 					specimen.setPathAfter(path2);
 
-					GraphView view2 = new GraphView(population, 2);
+					setFirstView(new GraphView(population, 2));
 
 				} catch (DocumentException ae) {
 					ae.printStackTrace();
@@ -86,7 +88,6 @@ public class ImportPairController implements ActionListener {
 				JOptionPane.showMessageDialog(null,
 						"All fields are required, please fill in paths!");
 			}
-			
 
 		} else if (action.equals("CANCEL")) {
 			this.view.setVisible(false);
@@ -113,5 +114,21 @@ public class ImportPairController implements ActionListener {
 			}
 
 		}
+	}
+
+	public GraphView getSecondView() {
+		return secondView;
+	}
+
+	public void setSecondView(GraphView secondView) {
+		this.secondView = secondView;
+	}
+
+	public GraphView getFirstView() {
+		return firstView;
+	}
+
+	public void setFirstView(GraphView firstView) {
+		this.firstView = firstView;
 	}
 }

@@ -1,6 +1,5 @@
 package pi.statistics.gui;
 
-import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,7 +37,16 @@ public class StatisticWindowController implements ActionListener {
 			try {
 				SharedController.getInstance().setReportManager(
 						new ReportManager());
+				int type = SharedController.getInstance().getProject().getType();
+				int index = window.comboBox.getSelectedIndex();
+				String specimen = window.comboBox.getItemAt(index);
+				
+				if (type == 1 || type == 2 || !specimen.equals("Count for all")) {
 				comparatorView.enableReports(true);
+				}
+				else {
+				    testsView.enableReports(true);
+				}
 			} catch (JRException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -50,31 +50,21 @@ public class ChannelStatistic {
 	private Double QTcF;
 	private Double QTcB;
 
+	@SuppressWarnings("rawtypes")
 	public static Collection getChannelStatistics() {
 
 		long start = System.currentTimeMillis();
 		// TODO wydajnoœæ dodawania do wektora
 		Vector<ChannelStatistic> statistics = new Vector<ChannelStatistic>();
-		// ChannelResult before = SharedController.getInstance().getProjectRes()
-		// .getPopul1().getResult().get(0).getBefore();
 
 		ChannelResult before = SharedController.getInstance().getProject()
-				.getFirstPopulation().getSpecimen().get(0)
-				.getStatisticResults().getBefore();
+			.getFirstPopulation().getSpecimen().get(0)
+			.getStatisticResults().getValue().getValue().get("Before");
 
 		Specimen specimen = SharedController.getInstance().getProject()
 				.getFirstPopulation().getSpecimen().get(0);
 
-		// Project project = SharedController.getInstance().getProject();
-		// Specimen firstSpec =
-		// project.getFirstPopulation().getSpecimen().get(0);
-		//
-		// if (firstSpec.getStatisticResults().getBefore() != null) {
-		// ChannelResult cr = firstSpec.getStatisticResults().getBefore();
-		// if(cr.getValue()!= null){
-		//
-		// }
-		// }
+
 
 		try {
 			for (String name : before.getValue().keySet()) {// PO CHANNELACH
@@ -85,7 +75,7 @@ public class ChannelStatistic {
 					cs.setBirth(specimen.getBirth());
 					cs.setGoodMoodDuration(specimen.getGoodMoodDuration());
 					cs.setHiv(specimen.getHiv());
-					cs.setMetadon(specimen.getMetadon());
+					cs.setMetadon(specimen.getMethadone());
 					cs.setMetadonTimeApplication(specimen
 							.getMetadonTimeApplication());
 					cs.setName(specimen.getName());
@@ -173,9 +163,12 @@ public class ChannelStatistic {
 
 			}
 
+//			ChannelResult after = SharedController.getInstance().getProject()
+//					.getFirstPopulation().getSpecimen().get(0)
+//					.getStatisticResults().getAfter();
 			ChannelResult after = SharedController.getInstance().getProject()
-					.getFirstPopulation().getSpecimen().get(0)
-					.getStatisticResults().getAfter();
+				.getFirstPopulation().getSpecimen().get(0)
+				.getStatisticResults().getValue().getValue().get("After");
 			if (after != null) {
 				for (String name : after.getValue().keySet()) {// PO CHANNELACH
 					for (String statName : StatisticWindowController.statsList) {

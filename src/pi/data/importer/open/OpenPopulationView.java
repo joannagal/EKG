@@ -4,30 +4,16 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
-import org.dom4j.DocumentException;
-
-import pi.data.importer.Importer;
-import pi.data.importer.signal.ImportPanel;
-import pi.gui.information.InformationProjectController;
-import pi.shared.SharedController;
 
 public class OpenPopulationView extends JDialog {
 
-	private String[] actions = new String[] { "OPEN", "CANCEL" };
-	private JButton[] buttons;
+	private static final long serialVersionUID = 1L;
 	private JPanel importPanel;
 	private GridBagConstraints constraints;
 	private String path;
@@ -50,7 +36,7 @@ public class OpenPopulationView extends JDialog {
 		this.setBounds(500, 200, 450, 200);
 			
 		//importPanel configuration
-		chooseButton = new JButton("Choose");
+		chooseButton = new JButton("CHOOSE");
 		chooseButton.addActionListener(this.controller);
 		chooseButton.setActionCommand("CHOOSE");
 		fileLabel = new JLabel("Project");
@@ -69,7 +55,8 @@ public class OpenPopulationView extends JDialog {
 		
 		openButton = new JButton("OPEN");
 		openButton.addActionListener(this.controller);
-		openButton.setActionCommand("OPEN");	
+		openButton.setActionCommand("OPEN");
+		
 		cancelButton = new JButton("CANCEL");
 		cancelButton.addActionListener(this.controller);
 		cancelButton.setActionCommand("CANCEL");
@@ -95,13 +82,6 @@ public class OpenPopulationView extends JDialog {
 
 	}
 
-	public JPanel getImportPanel() {
-		return importPanel;
-	}
-
-	public void setImportPanel(ImportPanel importPanel) {
-		this.importPanel = importPanel;
-	}
 
 	public String getPath() {
 		return path;

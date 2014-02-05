@@ -12,46 +12,27 @@ import javax.swing.JTable;
 
 import pi.graph.signal.Graph;
 
-public class AutoFinderView extends JFrame
-{
+public class AutoFinderView extends JFrame {
 	private static final long serialVersionUID = 1L;
 
-	// ---------------------
-	private String[] columnNames =
-	{ "Parameter", "Value" };
-	private Object[][] data =
-	{
-	{ "SIMPLIFIED_RANGE", "" },
-	{ "IS_DOWN_SIGNAL", "" },
-	{ "QRS_ASC_DERIV", "" },
-	{ "QRS_ASC_TIME", "" },
-	{ "QRS_MAX_NEG_ASC", "" },
-	{ "QRS_DESC_DERIV", "" },
-	{ "QRS_DESC_TIME", "" },
-	{ "QRS_MAX_NEG_DESC", "" },
-	{ "QRS_RIGHT_UP_DERIV", "" },
-	{ "QRS_RIGHT_UP_TIME", "" },
-	{ "QRS_MAX_NEG_RIGHT_UP", "" },
-	{ "QRS_JUMP_AFTER", "" },
-	{ "T_IS_UP", "" },
-	{ "T_LEFT_PROP", "" },
-	{ "T_LEFT_DERIV", "" },
-	{ "T_LEFT_TIME", "" },
-	{ "T_LEFT_NEG", "" },
-	{ "T_RIGHT_PROP", "" },
-	{ "T_RIGHT_DERIV", "" },
-	{ "T_RIGHT_TIME", "" },
-	{ "T_RIGHT_NEG", "" },
-	{ "P_MOD", "" },
-	{ "P_LEFT_PROP", "" },
-	{ "P_RIGHT_PROP", "" } };
+	private String[] columnNames = { "Parameter", "Value" };
+	private Object[][] data = { { "SIMPLIFIED_RANGE", "" },
+			{ "IS_DOWN_SIGNAL", "" }, { "QRS_ASC_DERIV", "" },
+			{ "QRS_ASC_TIME", "" }, { "QRS_MAX_NEG_ASC", "" },
+			{ "QRS_DESC_DERIV", "" }, { "QRS_DESC_TIME", "" },
+			{ "QRS_MAX_NEG_DESC", "" }, { "QRS_RIGHT_UP_DERIV", "" },
+			{ "QRS_RIGHT_UP_TIME", "" }, { "QRS_MAX_NEG_RIGHT_UP", "" },
+			{ "QRS_JUMP_AFTER", "" }, { "T_IS_UP", "" }, { "T_LEFT_PROP", "" },
+			{ "T_LEFT_DERIV", "" }, { "T_LEFT_TIME", "" },
+			{ "T_LEFT_NEG", "" }, { "T_RIGHT_PROP", "" },
+			{ "T_RIGHT_DERIV", "" }, { "T_RIGHT_TIME", "" },
+			{ "T_RIGHT_NEG", "" }, { "P_MOD", "" }, { "P_LEFT_PROP", "" },
+			{ "P_RIGHT_PROP", "" } };
 
-	private JTable tableBase = new JTable(data, columnNames)
-	{
+	private JTable tableBase = new JTable(data, columnNames) {
 		private static final long serialVersionUID = 1L;
 
-		public boolean isCellEditable(int row, int column)
-		{
+		public boolean isCellEditable(int row, int column) {
 			if (column == 0)
 				return false;
 			return true;
@@ -65,16 +46,12 @@ public class AutoFinderView extends JFrame
 
 	private AutoFinderController controller = new AutoFinderController();
 
-	// ---------------------
-
-	public void showWithSignal(Graph graph)
-	{
+	public void showWithSignal(Graph graph) {
 		this.controller.applyParams(graph, this);
 		this.setVisible(true);
 	}
 
-	public AutoFinderView()
-	{
+	public AutoFinderView() {
 		this.setResizable(false);
 		this.setTitle("Parameters");
 		this.setLayout(new GridBagLayout());
@@ -129,18 +106,15 @@ public class AutoFinderView extends JFrame
 
 	}
 
-	public JTable getTableBase()
-	{
+	public JTable getTableBase() {
 		return tableBase;
 	}
 
-	public JButton getCloseButton()
-	{
+	public JButton getCloseButton() {
 		return closeButton;
 	}
 
-	public JProgressBar getProgressBar()
-	{
+	public JProgressBar getProgressBar() {
 		return progressBar;
 	}
 

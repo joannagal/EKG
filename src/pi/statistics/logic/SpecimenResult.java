@@ -1,9 +1,9 @@
 package pi.statistics.logic;
 
 public class SpecimenResult {
-    private ChannelResult after;
-    private ChannelResult before;
-
+    //private ChannelResult after;
+    //private ChannelResult before;
+    private EcgResult value;
     // public void compareResult() {
     // System.out.println("START");
     // for (String name : before.getValue().keySet()) {// PO CHANNELACH
@@ -88,19 +88,27 @@ public class SpecimenResult {
 	}
     }
 
-    public ChannelResult getAfter() {
-	return after;
+    public EcgResult getValue() {
+	return value;
     }
 
-    public void setAfter(ChannelResult after) {
-	this.after = after;
+    public void setValue(EcgResult value) {
+	this.value = value;
     }
 
-    public ChannelResult getBefore() {
-	return before;
-    }
-
-    public void setBefore(ChannelResult before) {
-	this.before = before;
-    }
+//    public ChannelResult getAfter() {
+//	return after;
+//    }
+//
+//    public void setAfter(ChannelResult after) {
+//	this.after = after;
+//    }
+//
+//    public ChannelResult getBefore() {
+//	return before;
+//    }
+//
+//    public void setBefore(ChannelResult before) {
+//	this.before = before;
+//    }
 }

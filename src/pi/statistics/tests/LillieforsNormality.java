@@ -2,9 +2,6 @@ package pi.statistics.tests;
 
 import org.apache.commons.math3.distribution.NormalDistribution;
 
-import pi.statistics.functions.Average;
-import pi.statistics.functions.Variance;
-import pi.statistics.logic.StatisticResult;
 
 public class LillieforsNormality
 {

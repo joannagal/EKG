@@ -26,22 +26,22 @@ public class tester {
 			
 			XMLReader p = XMLReaderFactory.createXMLReader();
 			p.setContentHandler(pi);
-			p.parse("C:\\Users\\nadam_000\\workspace\\ECG-Loader\\population_ex.xml");
+			p.parse("population_ex.xml");
 			
 			Project importedProject = pi.getProject();
 			
-			System.out.println("\nZapis: ");
-			
-			PopSaver ps = new PopSaver(importedProject);
-			ps.save("savedXml.xml");
+//			System.out.println("\nZapis: ");
+//			
+//			PopSaver ps = new PopSaver(importedProject);
+//			ps.save("savedXml.xml");
 					
 		} catch (IOException | SAXException e) {
 			System.out.println("Project load failure");
 			e.printStackTrace();
-		} catch (XMLStreamException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("B£¥D ZAPISU");
+//		} catch (XMLStreamException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			System.out.println("B£¥D ZAPISU");
 		} catch (FactoryConfigurationError e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

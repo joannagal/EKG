@@ -2,8 +2,6 @@ package pi.data.importer.population.single;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.Insets;
 import java.awt.Toolkit;
 import java.io.File;
 import java.util.ArrayList;
@@ -14,18 +12,17 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import pi.shared.SharedController;
 
 
+@SuppressWarnings("serial")
 public class PopulationSingleView extends JDialog{
 
 	private PopulationSingleController controller;

@@ -3,19 +3,16 @@ package pi.graph.signal;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JSlider;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import pi.gui.information.specimen.InformationSpecimenController;
+import pi.gui.information.specimen.InformationSpecimenView;
 
-import pi.gui.information.InformationSpecimenController;
-import pi.gui.information.InformationSpecimenView;
-import pi.shared.SharedController;
 
 
 public class GraphToolbarController implements ActionListener {
 
 	private GraphToolbar view;
-	private Graph model; 
+	private Graph model;
+	private InformationSpecimenController controller; 
 	
 	public GraphToolbarController(GraphToolbar view, Graph model){
 		this.view = view;
@@ -29,7 +26,7 @@ public class GraphToolbarController implements ActionListener {
 		String action = ae.getActionCommand();	
 		if (action.equals("INFO")){
 			InformationSpecimenView view = new InformationSpecimenView(this.view);
-			InformationSpecimenController controller = new InformationSpecimenController(view);
+			setController(new InformationSpecimenController(view));
 		}
 		if (action.equals("AUTOFINDER")){
 			this.view.getAfView().showWithSignal(model);
@@ -42,5 +39,13 @@ public class GraphToolbarController implements ActionListener {
 			model.delSegment();
 		}
 		
+	}
+
+	public InformationSpecimenController getController() {
+		return controller;
+	}
+
+	public void setController(InformationSpecimenController controller) {
+		this.controller = controller;
 	}
 }

@@ -107,9 +107,11 @@ public class PopulationSingleController implements ActionListener {
 						.setSecondPopulation(population2);
 
 				SharedController.getInstance().createProjectToolbar();
+				@SuppressWarnings("unused")
 				GraphView view = new GraphView(SharedController.getInstance()
 						.getProject().getFirstPopulation(), 1);
 
+				@SuppressWarnings("unused")
 				GraphView view2 = new GraphView(SharedController.getInstance()
 						.getProject().getSecondPopulation(), 2);
 

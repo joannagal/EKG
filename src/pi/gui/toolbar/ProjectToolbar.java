@@ -1,22 +1,18 @@
 package pi.gui.toolbar;
 
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
-import javax.swing.border.TitledBorder;
 
 import pi.statistics.gui.StatisticWindowController;
 import pi.statistics.gui.StatisticWindowView;
 
 public class ProjectToolbar extends JPanel {
 
+	private static final long serialVersionUID = 1L;
 	private JButton projectButton = new JButton("Project info");
 	private JButton statisticsButton = new JButton("Calculate statistics");
 	private JButton resultsButton = new JButton("Display statistic results");

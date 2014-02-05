@@ -3,7 +3,6 @@ package pi.statistics.gui;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.awt.geom.CubicCurve2D;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -20,7 +19,6 @@ import javax.swing.table.DefaultTableModel;
 
 import pi.population.Specimen;
 import pi.shared.SharedController;
-import pi.statistics.gui.dependgraph.DependGraph;
 import pi.statistics.gui.histogram.Histogram;
 import pi.statistics.logic.StatisticsController;
 
@@ -207,10 +205,10 @@ public class StatisticsComparatorView extends JFrame {
 	public void fillChannelCombo() {
 		try {
 			for (String channelName : SharedController.getInstance()
-					.getProjectRes().getPopul1().getResult().get(0).getBefore()
+					.getProjectRes().getPopul1().getResult().get(0).getValue().getValue().get("Before")
 					.getValue().keySet()) {
 				int tmp = SharedController.getInstance().getProjectRes()
-						.getPopul1().getResult().get(0).getBefore().getValue()
+						.getPopul1().getResult().get(0).getValue().getValue().get("Before").getValue()
 						.keySet().size();
 				ArrayList<String> names = new ArrayList<String>();
 				for (int i = 0; i < tmp; i++) {
@@ -222,10 +220,10 @@ public class StatisticsComparatorView extends JFrame {
 			}
 		} catch (Exception ex) {
 			for (String channelName : SharedController.getInstance()
-					.getProjectRes().getPopul2().getResult().get(0).getBefore()
+					.getProjectRes().getPopul2().getResult().get(0).getValue().getValue().get("Before")
 					.getValue().keySet()) {
 				int tmp = SharedController.getInstance().getProjectRes()
-						.getPopul2().getResult().get(0).getBefore().getValue()
+						.getPopul2().getResult().get(0).getValue().getValue().get("Before").getValue()
 						.keySet().size();
 				ArrayList<String> names = new ArrayList<String>();
 				for (int i = 0; i < tmp; i++) {

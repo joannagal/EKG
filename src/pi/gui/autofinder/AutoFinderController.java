@@ -12,13 +12,12 @@ import pi.inputs.signal.Channel;
 import pi.inputs.signal.autofinder.Parameters;
 import pi.shared.SharedController;
 
-public class AutoFinderController
-{
+public class AutoFinderController {
 	AutoFinderView view;
 	private Graph graph;
 	private Channel signal;
 	private Parameters params;
-	
+
 	class FinderRunnable implements Runnable {
 		public void run() {
 			JProgressBar bar = view.getProgressBar();
@@ -26,217 +25,371 @@ public class AutoFinderController
 			bar.setMaximum(4);
 			bar.setValue(0);
 			SharedController.getInstance().setProgressBar(bar);
-			// run finding
 			signal.getParent().findForChannel(signal);
 			graph.recalculate();
 			graph.draw();
 		}
 	}
 
-	public void showError(String message)
-	{
+	public void showError(String message) {
 		JOptionPane.showMessageDialog(view, message);
 	}
-	
-	private ActionListener closeAction = new ActionListener()
-	{
-		public void actionPerformed(ActionEvent evt)
-		{
+
+	private ActionListener closeAction = new ActionListener() {
+		public void actionPerformed(ActionEvent evt) {
 			view.setVisible(false);
 		}
 	};
-	
-	private ActionListener findAction = new ActionListener()
-	{
-		public void actionPerformed(ActionEvent evt)
-		{
+
+	private ActionListener findAction = new ActionListener() {
+		public void actionPerformed(ActionEvent evt) {
 			view.getCloseButton().setEnabled(false);
-			
-			if (verifyData())
-			{
+
+			if (verifyData()) {
 				FinderRunnable runnable = new FinderRunnable();
 				Thread thread = new Thread(runnable);
 				thread.start();
 			}
-			
+
 			view.getCloseButton().setEnabled(true);
 		}
 	};
-	
-	
-	public ActionListener getCloseAction() {return this.closeAction;}
-	public ActionListener getFindAction() {return this.findAction;}
-	
-	public boolean verifyData()
-	{
-		// SIMPLIFIED_RANGE
+
+	public ActionListener getCloseAction() {
+		return this.closeAction;
+	}
+
+	public ActionListener getFindAction() {
+		return this.findAction;
+	}
+
+	public boolean verifyData() {
 		JTable table = this.view.getTableBase();
-	
-		
-		// --------------------------------------------------------------
+
 		Object value = table.getValueAt(0, 1);
 		boolean pass = true;
 		int simplified_range = 0;
-		try {simplified_range = Integer.valueOf((String)value);}
-	    catch (NumberFormatException exc) {pass = false;}
-		if ((pass) && ((simplified_range < 1) || (simplified_range > 5))) pass = false; 
-		if (!pass) {this.showError("This field should be: [1 ; 5] integer number"); return false;}
+		try {
+			simplified_range = Integer.valueOf((String) value);
+		} catch (NumberFormatException exc) {
+			pass = false;
+		}
+		if ((pass) && ((simplified_range < 1) || (simplified_range > 5)))
+			pass = false;
+		if (!pass) {
+			this.showError("This field should be: [1 ; 5] integer number");
+			return false;
+		}
 		// --------------------------------------------------------------
 		value = table.getValueAt(1, 1);
 		boolean down_signal = false;
 		pass = true;
-		if (value.toString().compareTo("true") == 0) down_signal = true;
-		else if (value.toString().compareTo("false") == 0) down_signal = false;
-		else {this.showError("This field should be: 'true' or 'false'"); return false;}
+		if (value.toString().compareTo("true") == 0)
+			down_signal = true;
+		else if (value.toString().compareTo("false") == 0)
+			down_signal = false;
+		else {
+			this.showError("This field should be: 'true' or 'false'");
+			return false;
+		}
 		// --------------------------------------------------------------
 		value = table.getValueAt(2, 1);
 		double qrs_asc_deriv = 0.0d;
-		try {qrs_asc_deriv = Double.valueOf((String)value);}
-	    catch (NumberFormatException exc) {pass = false;}
-		if (!pass) {this.showError("This field should be: real number f.i 1.15"); return false;}
+		try {
+			qrs_asc_deriv = Double.valueOf((String) value);
+		} catch (NumberFormatException exc) {
+			pass = false;
+		}
+		if (!pass) {
+			this.showError("This field should be: real number f.i 1.15");
+			return false;
+		}
 		// --------------------------------------------------------------
 		value = table.getValueAt(3, 1);
 		double qrs_asc_time = 0.0d;
-		try {qrs_asc_time = Double.valueOf((String)value);}
-	    catch (NumberFormatException exc) {pass = false;}
-		if ((pass) && (qrs_asc_time < 0.0000d)) pass = false;
-		if (!pass) {this.showError("This field should be: real number greater/equal 0"); return false;}
+		try {
+			qrs_asc_time = Double.valueOf((String) value);
+		} catch (NumberFormatException exc) {
+			pass = false;
+		}
+		if ((pass) && (qrs_asc_time < 0.0000d))
+			pass = false;
+		if (!pass) {
+			this.showError("This field should be: real number greater/equal 0");
+			return false;
+		}
 		// --------------------------------------------------------------
 		value = table.getValueAt(4, 1);
 		int qrs_max_neg_asc = 0;
-		try {qrs_max_neg_asc = Integer.valueOf((String)value);}
-	    catch (NumberFormatException exc) {pass = false;}
-		if ((pass) && (qrs_max_neg_asc < 0)) pass = false;
-		if (!pass) {this.showError("This field should be: integer number greater/equal 0"); return false;}
+		try {
+			qrs_max_neg_asc = Integer.valueOf((String) value);
+		} catch (NumberFormatException exc) {
+			pass = false;
+		}
+		if ((pass) && (qrs_max_neg_asc < 0))
+			pass = false;
+		if (!pass) {
+			this.showError("This field should be: integer number greater/equal 0");
+			return false;
+		}
 		// --------------------------------------------------------------
 		value = table.getValueAt(5, 1);
 		double qrs_desc_deriv = 0.0d;
-		try {qrs_desc_deriv = Double.valueOf((String)value);}
-	    catch (NumberFormatException exc) {pass = false;}
-		if (!pass) {this.showError("This field should be: real number f.i 1.15"); return false;}
+		try {
+			qrs_desc_deriv = Double.valueOf((String) value);
+		} catch (NumberFormatException exc) {
+			pass = false;
+		}
+		if (!pass) {
+			this.showError("This field should be: real number f.i 1.15");
+			return false;
+		}
 		// --------------------------------------------------------------
 		value = table.getValueAt(6, 1);
 		double qrs_desc_time = 0.0d;
-		try {qrs_desc_time = Double.valueOf((String)value);}
-	    catch (NumberFormatException exc) {pass = false;}
-		if ((pass) && (qrs_desc_time < 0.0000d)) pass = false;
-		if (!pass) {this.showError("This field should be: real number greater/equal 0"); return false;}
+		try {
+			qrs_desc_time = Double.valueOf((String) value);
+		} catch (NumberFormatException exc) {
+			pass = false;
+		}
+		if ((pass) && (qrs_desc_time < 0.0000d))
+			pass = false;
+		if (!pass) {
+			this.showError("This field should be: real number greater/equal 0");
+			return false;
+		}
 		// --------------------------------------------------------------
 		value = table.getValueAt(7, 1);
 		int qrs_max_neg_desc = 0;
-		try {qrs_max_neg_desc = Integer.valueOf((String)value);}
-	    catch (NumberFormatException exc) {pass = false;}
-		if ((pass) && (qrs_max_neg_desc < 0)) pass = false;
-		if (!pass) {this.showError("This field should be: integer number greater/equal 0"); return false;}
+		try {
+			qrs_max_neg_desc = Integer.valueOf((String) value);
+		} catch (NumberFormatException exc) {
+			pass = false;
+		}
+		if ((pass) && (qrs_max_neg_desc < 0))
+			pass = false;
+		if (!pass) {
+			this.showError("This field should be: integer number greater/equal 0");
+			return false;
+		}
 		// --------------------------------------------------------------
 		value = table.getValueAt(8, 1);
 		double qrs_right_up_deriv = 0.0d;
-		try {qrs_right_up_deriv = Double.valueOf((String)value);}
-	    catch (NumberFormatException exc) {pass = false;}
-		if (!pass) {this.showError("This field should be: real number f.i 1.15"); return false;}
+		try {
+			qrs_right_up_deriv = Double.valueOf((String) value);
+		} catch (NumberFormatException exc) {
+			pass = false;
+		}
+		if (!pass) {
+			this.showError("This field should be: real number f.i 1.15");
+			return false;
+		}
 		// --------------------------------------------------------------
 		value = table.getValueAt(9, 1);
 		double qrs_right_up_time = 0.0d;
-		try {qrs_right_up_time = Double.valueOf((String)value);}
-	    catch (NumberFormatException exc) {pass = false;}
-		if ((pass) && (qrs_right_up_time < 0.0000d)) pass = false;
-		if (!pass) {this.showError("This field should be: real number greater/equal 0"); return false;}
+		try {
+			qrs_right_up_time = Double.valueOf((String) value);
+		} catch (NumberFormatException exc) {
+			pass = false;
+		}
+		if ((pass) && (qrs_right_up_time < 0.0000d))
+			pass = false;
+		if (!pass) {
+			this.showError("This field should be: real number greater/equal 0");
+			return false;
+		}
 		// --------------------------------------------------------------
 		value = table.getValueAt(10, 1);
 		int qrs_max_neg_right_up = 0;
-		try {qrs_max_neg_right_up = Integer.valueOf((String)value);}
-	    catch (NumberFormatException exc) {pass = false;}
-		if ((pass) && (qrs_max_neg_right_up < 0)) pass = false;
-		if (!pass) {this.showError("This field should be: integer number greater/equal 0"); return false;}
+		try {
+			qrs_max_neg_right_up = Integer.valueOf((String) value);
+		} catch (NumberFormatException exc) {
+			pass = false;
+		}
+		if ((pass) && (qrs_max_neg_right_up < 0))
+			pass = false;
+		if (!pass) {
+			this.showError("This field should be: integer number greater/equal 0");
+			return false;
+		}
 		// --------------------------------------------------------------
 		value = table.getValueAt(11, 1);
 		double qrs_jump_after = 0.0d;
-		try {qrs_jump_after = Double.valueOf((String)value);}
-	    catch (NumberFormatException exc) {pass = false;}
-		if ((pass) && (qrs_jump_after < 0.0000d)) pass = false; 
-		if (!pass) {this.showError("This field should be: real number greater/equal 0"); return false;}
+		try {
+			qrs_jump_after = Double.valueOf((String) value);
+		} catch (NumberFormatException exc) {
+			pass = false;
+		}
+		if ((pass) && (qrs_jump_after < 0.0000d))
+			pass = false;
+		if (!pass) {
+			this.showError("This field should be: real number greater/equal 0");
+			return false;
+		}
 		// --------------------------------------------------------------
 		value = table.getValueAt(12, 1);
 		boolean t_is_up = false;
 		pass = true;
-		if (value.toString().compareTo("true") == 0) t_is_up = true;
-		else if (value.toString().compareTo("false") == 0) t_is_up = false;
-		else {this.showError("This field should be: 'true' or 'false'"); return false;}
+		if (value.toString().compareTo("true") == 0)
+			t_is_up = true;
+		else if (value.toString().compareTo("false") == 0)
+			t_is_up = false;
+		else {
+			this.showError("This field should be: 'true' or 'false'");
+			return false;
+		}
 		// --------------------------------------------------------------
 		value = table.getValueAt(13, 1);
 		double t_left_prop = 0.0d;
-		try {t_left_prop = Double.valueOf((String)value);}
-	    catch (NumberFormatException exc) {pass = false;}
-		if ((pass) && (t_left_prop < 0.0000d)) pass = false; 
-		if (!pass) {this.showError("This field should be: real number greater/equal 0"); return false;}
+		try {
+			t_left_prop = Double.valueOf((String) value);
+		} catch (NumberFormatException exc) {
+			pass = false;
+		}
+		if ((pass) && (t_left_prop < 0.0000d))
+			pass = false;
+		if (!pass) {
+			this.showError("This field should be: real number greater/equal 0");
+			return false;
+		}
 		// --------------------------------------------------------------
 		value = table.getValueAt(14, 1);
 		double t_left_deriv = 0.0d;
-		try {t_left_deriv = Double.valueOf((String)value);}
-	    catch (NumberFormatException exc) {pass = false;}
-		if (!pass) {this.showError("This field should be: real number f.i 1.15"); return false;}
+		try {
+			t_left_deriv = Double.valueOf((String) value);
+		} catch (NumberFormatException exc) {
+			pass = false;
+		}
+		if (!pass) {
+			this.showError("This field should be: real number f.i 1.15");
+			return false;
+		}
 		// --------------------------------------------------------------
 		value = table.getValueAt(15, 1);
 		double t_left_time = 0;
-		try {t_left_time = Double.valueOf((String)value);}
-	    catch (NumberFormatException exc) {pass = false;}
-		if ((pass) && (t_left_time < 0.0000d)) pass = false; 
-		if (!pass) {this.showError("This field should be: real number greater/equal 0"); return false;}
+		try {
+			t_left_time = Double.valueOf((String) value);
+		} catch (NumberFormatException exc) {
+			pass = false;
+		}
+		if ((pass) && (t_left_time < 0.0000d))
+			pass = false;
+		if (!pass) {
+			this.showError("This field should be: real number greater/equal 0");
+			return false;
+		}
 		// --------------------------------------------------------------
 		value = table.getValueAt(16, 1);
 		int t_left_neg = 0;
-		try {t_left_neg = Integer.valueOf((String)value);}
-		catch (NumberFormatException exc) {pass = false;}
-		if ((pass) && (qrs_max_neg_right_up < 0)) pass = false;
-		if (!pass) {this.showError("This field should be: integer number greater/equal 0"); return false;}
+		try {
+			t_left_neg = Integer.valueOf((String) value);
+		} catch (NumberFormatException exc) {
+			pass = false;
+		}
+		if ((pass) && (qrs_max_neg_right_up < 0))
+			pass = false;
+		if (!pass) {
+			this.showError("This field should be: integer number greater/equal 0");
+			return false;
+		}
 		// --------------------------------------------------------------
 		value = table.getValueAt(17, 1);
 		double t_right_prop = 0.0d;
-		try {t_right_prop = Double.valueOf((String)value);}
-	    catch (NumberFormatException exc) {pass = false;}
-		if ((pass) && ((t_right_prop < 0.0000d) || (t_right_prop < t_left_prop))) pass = false; 
-		if (!pass) {this.showError("This field should be: real number greater/equal t_left_prop"); return false;}
+		try {
+			t_right_prop = Double.valueOf((String) value);
+		} catch (NumberFormatException exc) {
+			pass = false;
+		}
+		if ((pass)
+				&& ((t_right_prop < 0.0000d) || (t_right_prop < t_left_prop)))
+			pass = false;
+		if (!pass) {
+			this.showError("This field should be: real number greater/equal t_left_prop");
+			return false;
+		}
 		// --------------------------------------------------------------
 		value = table.getValueAt(18, 1);
 		double t_right_deriv = 0.0d;
-		try {t_right_deriv = Double.valueOf((String)value);}
-	    catch (NumberFormatException exc) {pass = false;}
-		if (!pass) {this.showError("This field should be: real number f.i 1.15"); return false;}
+		try {
+			t_right_deriv = Double.valueOf((String) value);
+		} catch (NumberFormatException exc) {
+			pass = false;
+		}
+		if (!pass) {
+			this.showError("This field should be: real number f.i 1.15");
+			return false;
+		}
 		// --------------------------------------------------------------
 		value = table.getValueAt(19, 1);
 		double t_right_time = 0;
-		try {t_right_time = Double.valueOf((String)value);}
-	    catch (NumberFormatException exc) {pass = false;}
-		if ((pass) && (t_right_time < 0.0000d)) pass = false; 
-		if (!pass) {this.showError("This field should be: real number greater/equal 0"); return false;}
+		try {
+			t_right_time = Double.valueOf((String) value);
+		} catch (NumberFormatException exc) {
+			pass = false;
+		}
+		if ((pass) && (t_right_time < 0.0000d))
+			pass = false;
+		if (!pass) {
+			this.showError("This field should be: real number greater/equal 0");
+			return false;
+		}
 		// --------------------------------------------------------------
 		value = table.getValueAt(20, 1);
 		int t_right_neg = 0;
-		try {t_right_neg = Integer.valueOf((String)value);}
-		catch (NumberFormatException exc) {pass = false;}
-		if ((pass) && (t_right_neg < 0)) pass = false;
-		if (!pass) {this.showError("This field should be: integer number greater/equal 0"); return false;}
+		try {
+			t_right_neg = Integer.valueOf((String) value);
+		} catch (NumberFormatException exc) {
+			pass = false;
+		}
+		if ((pass) && (t_right_neg < 0))
+			pass = false;
+		if (!pass) {
+			this.showError("This field should be: integer number greater/equal 0");
+			return false;
+		}
 		// --------------------------------------------------------------
 		value = table.getValueAt(21, 1);
 		double p_mod = 0.0d;
-		try {p_mod = Double.valueOf((String)value);}
-	    catch (NumberFormatException exc) {pass = false;}
-		if ((pass) && (p_mod < 0.0000d) ) pass = false;
-		if (!pass) {this.showError("This field should be: real number f.i 1.15"); return false;}
+		try {
+			p_mod = Double.valueOf((String) value);
+		} catch (NumberFormatException exc) {
+			pass = false;
+		}
+		if ((pass) && (p_mod < 0.0000d))
+			pass = false;
+		if (!pass) {
+			this.showError("This field should be: real number f.i 1.15");
+			return false;
+		}
 		// --------------------------------------------------------------
 		value = table.getValueAt(22, 1);
 		double p_left_prop = 0;
-		try {p_left_prop = Double.valueOf((String)value);}
-	    catch (NumberFormatException exc) {pass = false;}
-		if ((pass) && ((p_left_prop < 0.0000d) || (p_left_prop > 1.0d))) pass = false; 
-		if (!pass) {this.showError("This field should be: real number [0.0 ; 1.0]"); return false;}
+		try {
+			p_left_prop = Double.valueOf((String) value);
+		} catch (NumberFormatException exc) {
+			pass = false;
+		}
+		if ((pass) && ((p_left_prop < 0.0000d) || (p_left_prop > 1.0d)))
+			pass = false;
+		if (!pass) {
+			this.showError("This field should be: real number [0.0 ; 1.0]");
+			return false;
+		}
 		// --------------------------------------------------------------
 		value = table.getValueAt(23, 1);
 		double p_right_prop = 0;
-		try {p_right_prop = Double.valueOf((String)value);}
-		catch (NumberFormatException exc) {pass = false;}
-		if ((pass) && ((p_right_prop < 0.0000d) || (p_left_prop < p_right_prop))) pass = false; 
-		if (!pass) {this.showError("This field should be: real number greater/equal 0.0 and smaller then t_left_prop"); return false;}
+		try {
+			p_right_prop = Double.valueOf((String) value);
+		} catch (NumberFormatException exc) {
+			pass = false;
+		}
+		if ((pass)
+				&& ((p_right_prop < 0.0000d) || (p_left_prop < p_right_prop)))
+			pass = false;
+		if (!pass) {
+			this.showError("This field should be: real number greater/equal 0.0 and smaller then t_left_prop");
+			return false;
+		}
 		// --- FILL PARAMS ---------
 		params.SIMPLIFIED_RANGE = simplified_range;
 		params.DOWN_SIGNAL = down_signal;
@@ -264,9 +417,8 @@ public class AutoFinderController
 		params.P_RIGHT_PROP = p_right_prop;
 		return true;
 	}
-	
-	public void applyParams(Graph graph, AutoFinderView view)
-	{
+
+	public void applyParams(Graph graph, AutoFinderView view) {
 		this.view = view;
 		this.graph = graph;
 		this.signal = graph.getSignal();
@@ -297,7 +449,6 @@ public class AutoFinderController
 		table.setValueAt(String.valueOf(params.P_MOD), 21, 1);
 		table.setValueAt(String.valueOf(params.P_LEFT_PROP), 22, 1);
 		table.setValueAt(String.valueOf(params.P_RIGHT_PROP), 23, 1);
-		
 
 	}
 }

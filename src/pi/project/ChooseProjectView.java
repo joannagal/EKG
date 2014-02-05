@@ -14,9 +14,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
+public class ChooseProjectView extends JDialog {
 
-public class ChooseProjectView extends JDialog{
-	
+	private static final long serialVersionUID = 1L;
 	private JRadioButton oneSignalButton;
 	private JRadioButton twoSignalsButton;
 	private JRadioButton twoPopulationsButton;
@@ -28,109 +28,110 @@ public class ChooseProjectView extends JDialog{
 	private JLabel projectLabel;
 	private JRadioButton[] radioButtonsArray;
 	private JButton[] buttonsArray;
-	private String[] radioEvent = new String[]{"SINGLE_SIGNAL", "TWO_SIGNALS", 
-			"TWO_POPULATIONS", "POPULATION_DIFFERENCE"};
-	private String[] buttonEvent = new String[]{"CANCEL", "NEXT"};
-	
-	public ChooseProjectView(){
+	private String[] radioEvent = new String[] { "SINGLE_SIGNAL",
+			"TWO_SIGNALS", "TWO_POPULATIONS", "POPULATION_DIFFERENCE" };
+	private String[] buttonEvent = new String[] { "CANCEL", "NEXT" };
+
+	public ChooseProjectView() {
 		setAlwaysOnTop(true);
 		setVisible(true);
 		JPanel panel = new JPanel(new GridBagLayout());
 		panel.setVisible(true);
 		this.add(panel);
-		panel.setPreferredSize(new Dimension(350,220));
+		panel.setPreferredSize(new Dimension(350, 220));
 		this.setResizable(false);
 		GridBagConstraints constraints = new GridBagConstraints();
 		constraints.fill = GridBagConstraints.HORIZONTAL;
-		
+
 		projectLabel = new JLabel("New project");
 		projectLabel.setFont(new Font("Arial", Font.BOLD, 24));
 		panel.add(projectLabel);
-		
+
 		oneSignalButton = new JRadioButton("Single singal");
 		oneSignalButton.setFont(new Font("Arial", Font.BOLD, 14));
 		twoSignalsButton = new JRadioButton("Signal pair analyzis");
 		twoSignalsButton.setFont(new Font("Arial", Font.BOLD, 14));
 		twoPopulationsButton = new JRadioButton("Two populations");
 		twoPopulationsButton.setFont(new Font("Arial", Font.BOLD, 14));
-		diffrencesPopulationButton = new JRadioButton("Diffrences between populations");
+		diffrencesPopulationButton = new JRadioButton(
+				"Diffrences between populations");
 		diffrencesPopulationButton.setFont(new Font("Arial", Font.BOLD, 14));
-		
-		radioButtonsArray = new JRadioButton[]{oneSignalButton, twoSignalsButton, 
-				twoPopulationsButton, diffrencesPopulationButton};
-		
+
+		radioButtonsArray = new JRadioButton[] { oneSignalButton,
+				twoSignalsButton, twoPopulationsButton,
+				diffrencesPopulationButton };
+
 		projectGroup = new ButtonGroup();
 		projectGroup.add(oneSignalButton);
 		projectGroup.add(twoPopulationsButton);
 		projectGroup.add(twoSignalsButton);
 		projectGroup.add(diffrencesPopulationButton);
-		
+
 		projectLabel.setVisible(true);
 		constraints.gridx = 0;
 		constraints.gridy = 0;
 		constraints.gridwidth = 1;
 		panel.add(oneSignalButton, constraints);
-		
+
 		oneSignalButton.setVisible(true);
 		constraints.gridx = 0;
 		constraints.gridy = 1;
 		constraints.gridwidth = 1;
 		panel.add(oneSignalButton, constraints);
-		
+
 		twoSignalsButton.setVisible(true);
 		constraints.gridx = 0;
 		constraints.gridy = 2;
 		constraints.gridwidth = 1;
 		panel.add(twoSignalsButton, constraints);
-		
+
 		twoPopulationsButton.setVisible(true);
 		constraints.gridx = 0;
 		constraints.gridy = 3;
 		constraints.gridwidth = 1;
 		panel.add(twoPopulationsButton, constraints);
-		
+
 		diffrencesPopulationButton.setVisible(true);
 		constraints.gridx = 0;
 		constraints.gridy = 4;
 		constraints.gridwidth = 1;
 		panel.add(diffrencesPopulationButton, constraints);
-		
+
 		buttonPanel = new JPanel();
 		cancelButton = new JButton(buttonEvent[0]);
 		proceedButton = new JButton(buttonEvent[1]);
-		buttonsArray = new JButton[]{cancelButton, proceedButton};
+		buttonsArray = new JButton[] { cancelButton, proceedButton };
 
 		buttonPanel.add(cancelButton);
 		buttonPanel.add(proceedButton);
-		
+
 		buttonPanel.setVisible(true);
 		constraints.gridx = 0;
 		constraints.gridy = 5;
 		constraints.gridwidth = 1;
 		panel.add(buttonPanel, constraints);
-						
-		getContentPane().add(panel, BorderLayout.CENTER);		
-		
+
+		getContentPane().add(panel, BorderLayout.CENTER);
+
 		pack();
 	}
-	
-	public void setButtonsListener(ActionListener al){
-		
-		for (int i = 0; i < buttonsArray.length; i++){
+
+	public void setButtonsListener(ActionListener al) {
+
+		for (int i = 0; i < buttonsArray.length; i++) {
 			buttonsArray[i].setActionCommand(buttonEvent[i]);
 			buttonsArray[i].addActionListener(al);
 		}
 	}
-	
-	public String findSelectedRadio(){
+
+	public String findSelectedRadio() {
 		String selected = "";
-		for (int i = 0; i < radioButtonsArray.length; i++){
-			if (radioButtonsArray[i].isSelected()){
+		for (int i = 0; i < radioButtonsArray.length; i++) {
+			if (radioButtonsArray[i].isSelected()) {
 				selected = radioEvent[i];
 			}
 		}
 		return selected;
 	}
-
 
 }
