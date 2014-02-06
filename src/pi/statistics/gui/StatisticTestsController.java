@@ -247,8 +247,11 @@ public class StatisticTestsController implements ActionListener {
 			if (view.getStController().getFinalResult() != null) {
 				try {
 					// SpecimenReportMngr rm = new SpecimenReportMngr();
-					SharedController.getInstance().getPopulReportMngr()
-							.viewRaport();
+					if (SharedController.getInstance().getPopulReportMngr() != null)
+						SharedController.getInstance().getPopulReportMngr()
+								.viewRaport();
+					else
+						JOptionPane.showMessageDialog(null, "Report jest nullem");
 				} catch (JRException ex) {
 					System.out.println("Report exception");
 					ex.printStackTrace();
