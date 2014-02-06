@@ -329,6 +329,82 @@ public class ChannelStatistic {
 										.doubleValue());
 							}
 						}
+						for (String waveName : after.getValue().get(name).getValue().get("Amplitude")
+							.getWavesResult().keySet()) {// PO WAVE
+						double value = after.getValue().get(name).getValue().get("Amplitude")
+								.getWavesResult().get(waveName).getValue()
+								.get(statName).doubleValue();
+
+						if (waveName.equals("pWave")) {
+							cs.setChannelName(name);
+							cs.setP_waveResult(value);
+							cs.setStatisticName(statName);
+
+						}
+						if (waveName.equals("tWave")) {
+							cs.setChannelName(name);
+							cs.setT_waveResult(value);
+							cs.setStatisticName(statName);
+						}
+						if (waveName.equals("uWave")) {
+							cs.setChannelName(name);
+							cs.setU_waveResult(value);
+							cs.setStatisticName(statName);
+						}
+						if (waveName.equals("prInterval")) {
+							cs.setChannelName(name);
+							cs.setPr_intervalResult(value);
+							cs.setStatisticName(statName);
+						}
+						if (waveName.equals("prSegment")) {
+							cs.setChannelName(name);
+							cs.setPr_segmentResult(value);
+							cs.setStatisticName(statName);
+						}
+						if (waveName.equals("stSegment")) {
+							cs.setChannelName(name);
+							cs.setSt_segmentResult(value);
+							cs.setStatisticName(statName);
+						}
+						if (waveName.equals("stInterval")) {
+							cs.setChannelName(name);
+							cs.setSt_intervalResult(value);
+							cs.setStatisticName(statName);
+						}
+						if (waveName.equals("qtInterval")) {
+							cs.setChannelName(name);
+							cs.setQt_intervalResult(value);
+							cs.setStatisticName(statName);
+							cs.setQTcB(before.getValue().get(name).getValue().get("Amplitude")
+									.getWavesResult().get(waveName)
+									.getValue().get("QTcB").doubleValue());
+							cs.setQTcF(before.getValue().get(name).getValue().get("Amplitude")
+									.getWavesResult().get(waveName)
+									.getValue().get("QTcF").doubleValue());
+							cs.setQTcR(before.getValue().get(name).getValue().get("Amplitude")
+									.getWavesResult().get(waveName)
+									.getValue().get("QTcR").doubleValue());
+						}
+						if (waveName.equals("qrsComplex")) {
+							cs.setChannelName(name);
+							cs.setQrs_complexResult(value);
+							cs.setStatisticName(statName);
+						}
+						if (waveName.equals("J-point")) {
+							cs.setChannelName(name);
+							cs.setJ_point(value);
+							cs.setStatisticName(statName);
+						}
+						if (waveName.equals("RR_interval")) {
+							cs.setChannelName(name);
+							cs.setRr_interval(value);
+							cs.setStatisticName(statName);
+							cs.setPulse(before.getValue().get(name).getValue().get("Amplitude")
+									.getWavesResult().get(waveName)
+									.getValue().get("Pulse(min)")
+									.doubleValue());
+						}
+					}
 						statistics.add(cs);
 					}
 
