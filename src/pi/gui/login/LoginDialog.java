@@ -28,7 +28,6 @@ public class LoginDialog extends JDialog {
 	private JButton loginButton;
 	private JPanel buttonPanel;
 	private boolean succeeded;
-	private LoginController controller;
 
 	public LoginDialog() {
 		this.setTitle("Login");
@@ -45,7 +44,6 @@ public class LoginDialog extends JDialog {
 
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		
-		setController(new LoginController());
 	
 		usernameLabel = new JLabel("Username: ");
 		usernameLabel.setVisible(true);
@@ -78,7 +76,7 @@ public class LoginDialog extends JDialog {
 		passwordField.setText("admin");
 
 		loginButton = new JButton("Login");
-		/*
+		
 		loginButton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -97,9 +95,8 @@ public class LoginDialog extends JDialog {
 				}
 			}
 		});
-		*/
 		
-		loginButton.addActionListener(this.controller);
+		
 		loginButton.setActionCommand("LOGIN");
 		buttonPanel = new JPanel();
 
@@ -127,13 +124,5 @@ public class LoginDialog extends JDialog {
 	}
 
 
-	public LoginController getController() {
-		return controller;
-	}
-
-
-	public void setController(LoginController controller) {
-		this.controller = controller;
-	}
 
 }

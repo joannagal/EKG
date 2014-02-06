@@ -390,7 +390,6 @@ public class AutoFinderController {
 			this.showError("This field should be: real number greater/equal 0.0 and smaller then t_left_prop");
 			return false;
 		}
-		// --- FILL PARAMS ---------
 		params.SIMPLIFIED_RANGE = simplified_range;
 		params.DOWN_SIGNAL = down_signal;
 		params.QRS_ASC_DERIV = qrs_asc_deriv;

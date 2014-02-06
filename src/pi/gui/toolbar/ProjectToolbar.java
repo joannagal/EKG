@@ -29,9 +29,7 @@ public class ProjectToolbar extends JPanel {
 		this.setBorder(BorderFactory.createTitledBorder("Project Settings"));
 
 		this.add(this.projectButton);
-		this.add(this.statisticsButton);
-		this.add(this.resultsButton);
-		
+		this.add(this.statisticsButton);		
 		buttons = new JButton[]{projectButton, statisticsButton, resultsButton};
 	}
 	
