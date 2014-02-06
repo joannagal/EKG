@@ -13,6 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import pi.shared.SharedController;
+
 public class OpenPopulationView extends JDialog {
 
 	private static final long serialVersionUID = 1L;
@@ -28,6 +30,9 @@ public class OpenPopulationView extends JDialog {
 	private JPanel buttonPanel;
 
 	public OpenPopulationView() {
+		
+		super(SharedController.getInstance().getFrame());
+
 		URL iconURL = getClass().getResource("../../../../images/logo1.png");
 		ImageIcon icon = new ImageIcon(iconURL);
 		this.setIconImage(icon.getImage());

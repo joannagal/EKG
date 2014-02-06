@@ -21,6 +21,9 @@ public class SavePopulation extends JDialog {
 	public SavePopulation(int type) throws FileNotFoundException,
 			UnsupportedEncodingException, XMLStreamException,
 			FactoryConfigurationError {
+		
+		super(SharedController.getInstance().getFrame());
+
 
 		this.type = type;
 
