@@ -3,21 +3,18 @@ package pi.data.importer;
 import java.io.IOException;
 
 import javax.xml.stream.FactoryConfigurationError;
-import javax.xml.stream.XMLStreamException;
 
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
 
 import pi.data.importer.open.PopImporter;
-import pi.data.importer.save.PopSaver;
 import pi.project.Project;
 
 public class tester {
 
-	/**
-	 * @param args
-	 */
+	private static Project importedProject;
+
 	public static void main(String[] args) {
 
 		//POPULATION (PROJECT)IMPORT
@@ -28,7 +25,7 @@ public class tester {
 			p.setContentHandler(pi);
 			p.parse("population_ex.xml");
 			
-			Project importedProject = pi.getProject();
+			setImportedProject(pi.getProject());
 			
 //			System.out.println("\nZapis: ");
 //			
@@ -50,6 +47,14 @@ public class tester {
 		
 		
 		
+	}
+
+	public static Project getImportedProject() {
+		return importedProject;
+	}
+
+	public static void setImportedProject(Project importedProject) {
+		tester.importedProject = importedProject;
 	}
 
 }

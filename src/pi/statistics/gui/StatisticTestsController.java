@@ -15,8 +15,6 @@ import net.sf.jasperreports.engine.JRException;
 import pi.project.Project;
 import pi.shared.SharedController;
 import pi.statistics.logic.ProjectResult;
-import pi.statistics.logic.report.PopulReportMngr;
-import pi.statistics.logic.report.SpecimenReportMngr;
 
 public class StatisticTestsController implements ActionListener {
 	StatisticTestsView view;

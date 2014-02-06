@@ -6,7 +6,6 @@ import java.io.File;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import pi.data.importer.open.OpenPopulationController;
 import pi.data.importer.open.OpenPopulationView;
