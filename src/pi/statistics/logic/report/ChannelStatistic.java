@@ -80,6 +80,7 @@ public class ChannelStatistic {
 		    cs.setSurname(specimen.getSurname());
 		    cs.setTimeToGoodMood(specimen.getTimeToGoodMood());
 		    cs.setWeight(specimen.getWeight());
+		    cs.setAttributeName("Duration");
 		    for (String waveName : before.getValue().get(name)
 			    .getValue().get("Duration").getWavesResult()
 			    .keySet()) {// PO WAVE
@@ -161,7 +162,10 @@ public class ChannelStatistic {
 			}
 
 		    }
-
+		    
+		    
+		    statistics.add(cs);
+		    cs.setAttributeName("Amplitude");
 		    for (String waveName : before.getValue().get(name)
 			    .getValue().get("Amplitude").getWavesResult()
 			    .keySet()) {// PO WAVE
@@ -244,7 +248,7 @@ public class ChannelStatistic {
 			}
 
 		    }
-
+		    
 		    statistics.add(cs);
 		}
 
@@ -254,10 +258,13 @@ public class ChannelStatistic {
 		    .getFirstPopulation().getSpecimen().get(0)
 		    .getStatisticResults().getValue().getValue().get("After");
 	    if (after != null) {
+		
 		for (String name : after.getValue().keySet()) {// PO CHANNELACH
 		    for (String statName : StatisticWindowController.statsList) {
 			ChannelStatistic cs = new ChannelStatistic();
+			
 			cs.setExamination("After");
+			cs.setAttributeName("Duration");
 			for (String waveName : after.getValue().get(name)
 				.getValue().get("Duration").getWavesResult()
 				.keySet()) {// PO WAVE
@@ -340,6 +347,8 @@ public class ChannelStatistic {
 					.doubleValue());
 			    }
 			}
+			statistics.add(cs);
+			cs.setAttributeName("Amplitude");
 			for (String waveName : after.getValue().get(name)
 				.getValue().get("Amplitude").getWavesResult()
 				.keySet()) {// PO WAVE
