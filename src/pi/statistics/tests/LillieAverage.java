@@ -2,22 +2,18 @@ package pi.statistics.tests;
 
 import java.util.ArrayList;
 
-
-public class LillieAverage
-{
+public class LillieAverage {
 
 	static Result result;
 
-	static public void init(Result input)
-	{
+	static public void init(Result input) {
 		result = input;
 		input.setValue(new ArrayList<Double>(2));
 		input.getValue().add(0.0d);
 		input.getValue().add(0.0d);
 	}
 
-	static public void iterate(Double value)
-	{
+	static public void iterate(Double value) {
 		double tmp = result.getValue().get(0) + value;
 		result.getValue().set(0, tmp);
 
@@ -25,8 +21,7 @@ public class LillieAverage
 		result.getValue().set(1, tmp);
 	}
 
-	static public void finish()
-	{
+	static public void finish() {
 		double res = result.getValue().get(0) / result.getValue().get(1);
 		result.getValue().set(0, res);
 	}

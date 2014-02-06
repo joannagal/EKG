@@ -13,32 +13,19 @@ import pi.shared.SharedController;
 import pi.shared.schemes.signal.SignalScheme;
 import pi.utilities.Range;
 
-// ------------------------------------------
-// --- SEGMENT CLASS
-public class Segment
-{
-	// --- OWNER CLASS
+public class Segment {
 	private Graph graph;
-	// --- CURRENT SIGNAL
 	private Channel signal;
-	// --- CURRENT SCHEME
 	private SignalScheme scheme;
 
-	// --- GRID CLASS
 	private Grid grid;
-	// --- AXIS CONTROLLER
 	private AxisController axis;
-	// --- SIGNAL ----> SEGMENT
 	private SignalAdapter signalAdapter;
 
-	// --- ID
 	private int id;
-	// --- AXIS START TIME
 	private double startTime;
-	// --- AXIS END TIME
 	private double stopTime;
 
-	// --- STATIC CONSTANT FIELDS
 	public static final int NONE_LEVEL = 0;
 	public static final int CYCLE_LEVEL = 1;
 	public static final int SEGMENT_LEVEL = 2;
@@ -52,10 +39,8 @@ public class Segment
 	public static final int cycle = 6;
 	public static final int selection = 7;
 	public static final int cycleSelection = 8;
-	// --- RESPONSIBLE FOR KEEPING NECESSARY DATA
-	// --- FOR SELECTIONS DRAWING
-	public class SelectionFlyWeight
-	{
+
+	public class SelectionFlyWeight {
 		public int leftPoint;
 		public int rightPoint;
 		public double left;
@@ -69,10 +54,7 @@ public class Segment
 
 	private LinkedList<SelectionFlyWeight> adapter;
 
-	// ------------------------------------------
-	// --- STANDARD CONSTRUCTOR
-	public Segment(Graph graph, int id)
-	{
+	public Segment(Graph graph, int id) {
 		this.graph = graph;
 		this.setId(id);
 
@@ -86,16 +68,7 @@ public class Segment
 		adapter = new LinkedList<SelectionFlyWeight>();
 	}
 
-	// ------------------------------------------
-	// --- CHECK IF X,Y POINT IS INSIDE SOME
-	// --- SELECTION AND RETURNS A VALUE
-	// --- NONE_LEVEL - NOT IN SELECTION
-	// --- CYCLE_LEVEL - IN SOME CYCLE SELECTION
-	// --- MARKER_LEVEL - TO CREATE NEW MARKERS
-	// --- SEGMENT_LEVEL - IN SME STANDARD SEL.
-	
-	public int isInsideSelection(int x, int y)
-	{
+	public int isInsideSelection(int x, int y) {
 		if (!this.grid.isInGrid(x, y))
 			return Segment.NONE_LEVEL;
 
@@ -103,8 +76,7 @@ public class Segment
 
 		SelectionFlyWeight value;
 
-		while (itr.hasNext())
-		{
+		while (itr.hasNext()) {
 			value = itr.next();
 
 			if (value.right < scheme.getMargin().getLeft())
@@ -112,72 +84,22 @@ public class Segment
 			if (value.left > scheme.getMargin().getLeft() + grid.getWidth())
 				continue;
 
-			if ((x >= value.left) && (x <= value.right))
-			{
+			if ((x >= value.left) && (x <= value.right)) {
 				this.graph.getCyclePopUp().setAdapter(value);
 				this.graph.getSelectPopUp().setAdapter(value);
 
 				if ((value.type == Segment.cycle)
-						|| (value.type == Segment.cycleSelection))
-				{
+						|| (value.type == Segment.cycleSelection)) {
 					return Segment.CYCLE_LEVEL;
-				}
-				else
-				{
+				} else {
 					return Segment.SEGMENT_LEVEL;
 				}
 			}
 		}
 		return Segment.NONE_LEVEL;
 	}
-	
-	/*public int isInsideSelection(int x, int y)
-	{
-		if (!this.grid.isInGrid(x, y))
-			return Segment.NONE_LEVEL;
 
-		ListIterator<SelectionFlyWeight> itr = adapter.listIterator();
-
-		SelectionFlyWeight value;
-
-		while (itr.hasNext())
-		{
-			value = itr.next();
-
-			if (value.right < scheme.getMargin().getLeft())
-				continue;
-			if (value.left > scheme.getMargin().getLeft() + grid.getWidth())
-				continue;
-
-			if ((x >= value.left) && (x <= value.right))
-			{
-				this.graph.getCyclePopUp().setAdapter(value);
-				this.graph.getSelectPopUp().setAdapter(value);
-
-				if ((value.type == Segment.cycle)
-						|| (value.type == Segment.cycleSelection))
-				{
-					return Segment.CYCLE_LEVEL;
-				}
-				else if ((value.type == Segment.markerSelection)
-							|| (value.type == Segment.marker))
-				{
-					return Segment.MARKER_LEVEL;
-				} 
-				else
-				{
-					return Segment.SEGMENT_LEVEL;
-				}
-			}
-		}
-		return Segment.NONE_LEVEL;
-	}*/
-
-	// ------------------------------------------
-	// --- INPUT -> POSITION
-	// --- OUTPUT -> TIME CALC BY A PROPORTION
-	public double getTimeFormPosition(double x)
-	{
+	public double getTimeFormPosition(double x) {
 		double time = ((double) x - this.scheme.getMargin().getLeft())
 				* (this.stopTime - this.startTime);
 		time /= this.grid.getWidth();
@@ -186,10 +108,7 @@ public class Segment
 		return time;
 	}
 
-	// ------------------------------------------
-	// --- CALLED WHEN GRAPH RECALCULATE
-	public void recalculate()
-	{
+	public void recalculate() {
 		this.scheme = graph.getScheme();
 
 		grid.recalculate();
@@ -200,20 +119,14 @@ public class Segment
 		this.prepareSelectAdapter();
 	}
 
-	// ------------------------------------------
-	// --- JUST DRAW
-	public void draw(Graphics graphics)
-	{
+	public void draw(Graphics graphics) {
 		this.grid.draw(graphics);
 		this.axis.draw(graphics);
 		this.signalAdapter.draw(graphics);
 		this.drawSelections(graphics);
 	}
 
-	// ------------------------------------------
-	// --- ASSIGN BEGIN, END TIME OF SEGMENT
-	public void assignTime()
-	{
+	public void assignTime() {
 		this.signal = this.graph.getSignal();
 
 		this.startTime = signal.getStartAxis();
@@ -222,8 +135,7 @@ public class Segment
 				/ SharedController.getInstance().getPixelsForScale();
 		double duration = grid.getWidth() * timeScale;
 
-		if (this.id > 0)
-		{
+		if (this.id > 0) {
 			startTime += (double) (this.id) * duration;
 		}
 
@@ -231,17 +143,12 @@ public class Segment
 				* duration;
 	}
 
-	// ------------------------------------------
-	// --- CHEKCS IF SELECTION IS POSSIBLE IN
-	// --- SOME RANGE, FOR CREATE NEW SELECTIONS
-	public boolean isSelectionPosssible(Range range)
-	{
+	public boolean isSelectionPosssible(Range range) {
 		ListIterator<SelectionFlyWeight> itr = adapter.listIterator();
 
 		SelectionFlyWeight value;
 
-		while (itr.hasNext())
-		{
+		while (itr.hasNext()) {
 			value = itr.next();
 
 			if ((value.type == Segment.cycle) && (range.isInside(value.range)))
@@ -261,9 +168,7 @@ public class Segment
 		return true;
 	}
 
-	// ------------------------------------------
-	public void prepareSelectAdapter()
-	{
+	public void prepareSelectAdapter() {
 		this.adapter.clear();
 
 		LinkedList<Cycle> cycles = this.signal.getCycle();
@@ -272,8 +177,7 @@ public class Segment
 		Cycle cycle;
 		Color color;
 
-		while (itr.hasNext())
-		{
+		while (itr.hasNext()) {
 			cycle = itr.next();
 
 			color = this.scheme.getP_WaveColor();
@@ -298,46 +202,45 @@ public class Segment
 			this.constructList(cycle, cycle.getU_wave(), Segment.u_wave, color);
 
 			color = this.scheme.getCycleColor();
-			
-			if (cycle.getMarkered())
-			{
+
+			if (cycle.getMarkered()) {
 				color = this.scheme.getMarkeredCycleColor();
 			}
-			
+
 			this.constructList(cycle, cycle.getRange(), Segment.cycle, color);
 		}
 
-		if (graph.getToolBox().isSelectionExists())
-		{
+		if (graph.getToolBox().isSelectionExists()) {
 			double time = this.graph.getToolBox().getLeftSelection();
-			if (time < signal.getTranslation()) time = signal.getTranslation();		
-			else if (time > signal.getEndTime()) time = signal.getEndTime();
+			if (time < signal.getTranslation())
+				time = signal.getTranslation();
+			else if (time > signal.getEndTime())
+				time = signal.getEndTime();
 			this.graph.getToolBox().setLeftSelection(time);
 			double left = this.signalAdapter.getXFromTime(time);
-			
+
 			time = this.graph.getToolBox().getRightSelection();
-			if (time < signal.getTranslation()) time = signal.getTranslation();	
-			else if (time > signal.getEndTime()) time = signal.getEndTime();
+			if (time < signal.getTranslation())
+				time = signal.getTranslation();
+			else if (time > signal.getEndTime())
+				time = signal.getEndTime();
 			this.graph.getToolBox().setRightSelection(time);
 			double right = this.signalAdapter.getXFromTime(time);
 
-			if ( (left - right > -0.001d) && (left - right < 0.001d) ) 
-			{
+			if ((left - right > -0.001d) && (left - right < 0.001d)) {
 				this.graph.getToolBox().setSelectionExists(false);
 				return;
 			}
-			
+
 			if ((left < this.scheme.getMargin().getLeft())
-					&& (right >= this.scheme.getMargin().getLeft()))
-			{
+					&& (right >= this.scheme.getMargin().getLeft())) {
 				left = this.scheme.getMargin().getLeft();
 			}
 
 			if ((right > this.scheme.getMargin().getLeft()
 					+ this.grid.getWidth())
 					&& (left <= this.scheme.getMargin().getLeft()
-							+ this.grid.getWidth()))
-			{
+							+ this.grid.getWidth())) {
 				right = scheme.getMargin().getLeft() + this.grid.getWidth();
 			}
 
@@ -348,8 +251,7 @@ public class Segment
 			adapt.type = Segment.cycleSelection;
 			adapt.color = this.scheme.getSelectColor();
 
-			time = this.graph.getTranform().getTimeFromPosition(left,
-					this);
+			time = this.graph.getTranform().getTimeFromPosition(left, this);
 			adapt.leftPoint = this.graph.getTranform().getProbeFromTime(time);
 			time = this.graph.getTranform().getTimeFromPosition(right, this);
 			adapt.rightPoint = this.graph.getTranform().getProbeFromTime(time);
@@ -363,25 +265,20 @@ public class Segment
 			ListIterator<SelectionFlyWeight> adapters = adapter.listIterator();
 			SelectionFlyWeight value;
 
-			while (adapters.hasNext())
-			{
+			while (adapters.hasNext()) {
 				value = adapters.next();
-				if (adapt.range.isInside(value.range))
-				{
+				if (adapt.range.isInside(value.range)) {
 					adapt.type = Segment.selection;
 					adapt.cycle = value.cycle;
 					break;
 				}
 			}
 
-			//if ()
-			
 			this.adapter.addFirst(adapt);
 		}
 	}
 
-	public void constructList(Cycle cycle, Range range, int type, Color color)
-	{
+	public void constructList(Cycle cycle, Range range, int type, Color color) {
 		if (range == null)
 			return;
 
@@ -393,26 +290,22 @@ public class Segment
 				* this.signal.getInterval();
 		left = this.signalAdapter.getXFromTime(left);
 		right = this.signalAdapter.getXFromTime(right);
-		
-		if (cycle.getQrs_complex() != null)
-		{
+
+		if (cycle.getQrs_complex() != null) {
 			rPos = this.signal.getTranslation() + (double) cycle.getR()
 					* this.signal.getInterval();
-			
+
 			rPos = this.signalAdapter.getXFromTime(rPos);
 		}
-		
 
 		if ((left < this.scheme.getMargin().getLeft())
-				&& (right >= this.scheme.getMargin().getLeft()))
-		{
+				&& (right >= this.scheme.getMargin().getLeft())) {
 			left = this.scheme.getMargin().getLeft();
 		}
 
 		if ((right > this.scheme.getMargin().getLeft() + this.grid.getWidth())
 				&& (left <= this.scheme.getMargin().getLeft()
-						+ this.grid.getWidth()))
-		{
+						+ this.grid.getWidth())) {
 			right = scheme.getMargin().getLeft() + this.grid.getWidth();
 		}
 
@@ -427,8 +320,7 @@ public class Segment
 		this.adapter.add(adapter);
 	}
 
-	public void drawSelections(Graphics graphics)
-	{
+	public void drawSelections(Graphics graphics) {
 		ListIterator<SelectionFlyWeight> itr = adapter.listIterator();
 
 		SelectionFlyWeight temp;
@@ -438,13 +330,11 @@ public class Segment
 
 		boolean pass = false;
 
-		while (itr.hasNext())
-		{
+		while (itr.hasNext()) {
 			pass = true;
 			temp = itr.next();
 
-			switch (temp.type)
-			{
+			switch (temp.type) {
 			case Segment.cycle:
 				if (!toolbox.isCycleShown())
 					pass = false;
@@ -479,15 +369,13 @@ public class Segment
 			if (!pass)
 				continue;
 
-	
-			this.drawSelection(temp.type, temp.left, temp.right, temp.rPos, temp.color,
-					graphics);
+			this.drawSelection(temp.type, temp.left, temp.right, temp.rPos,
+					temp.color, graphics);
 		}
 	}
 
-	public void drawSelection(int type, double left, double right, double rPos, Color color,
-			Graphics graphics)
-	{
+	public void drawSelection(int type, double left, double right, double rPos,
+			Color color, Graphics graphics) {
 		if (right < scheme.getMargin().getLeft())
 			return;
 		if (left > scheme.getMargin().getLeft() + this.grid.getWidth())
@@ -507,8 +395,7 @@ public class Segment
 
 		String label = "";
 
-		switch (type)
-		{
+		switch (type) {
 		case Segment.p_wave:
 			label = "P";
 			break;
@@ -530,68 +417,56 @@ public class Segment
 		}
 
 		int stringWidth = graphics.getFontMetrics().stringWidth(label);
-		
-		if ((right - left) > stringWidth)
-		{
+
+		if ((right - left) > stringWidth) {
 			graphics.setColor(this.scheme.getFontColor());
 			graphics.drawString(label, (int) (center - stringWidth / 2.0d),
 					(int) yBottom);
-			
-			if (type == Segment.qrs_complex)
-			{
-				graphics.drawLine((int)rPos, (int)(yBottom + 10), (int)rPos,
-						(int)(yBottom + 10 + this.grid.getHeight()));
+
+			if (type == Segment.qrs_complex) {
+				graphics.drawLine((int) rPos, (int) (yBottom + 10), (int) rPos,
+						(int) (yBottom + 10 + this.grid.getHeight()));
 			}
 		}
 	}
 
-	public Grid getGrid()
-	{
+	public Grid getGrid() {
 		return this.grid;
 	}
 
-	public SignalAdapter getSignalAdapter()
-	{
+	public SignalAdapter getSignalAdapter() {
 		return this.signalAdapter;
 	}
 
-	public AxisController getAxis()
-	{
+	public AxisController getAxis() {
 		return axis;
 	}
 
-	public Graph getGraph()
-	{
+	public Graph getGraph() {
 		return graph;
 	}
 
-	public int getId()
-	{
+	public int getId() {
 		return id;
 	}
 
-	public void setId(int id)
-	{
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	public double getStartTime()
-	{
+	public double getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(double startTime)
-	{
+	public void setStartTime(double startTime) {
 		this.startTime = startTime;
 	}
 
-	public double getStopTime()
-	{
+	public double getStopTime() {
 		return stopTime;
 	}
 
-	public void setStopTime(double stopTime)
-	{
+	public void setStopTime(double stopTime) {
 		this.stopTime = stopTime;
 	}
 }

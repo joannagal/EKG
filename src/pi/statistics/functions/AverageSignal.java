@@ -5,28 +5,23 @@ import pi.statistics.logic.StatisticResult;
 
 public class AverageSignal extends Function {
 
-    public AverageSignal() {
-	super("Average signal");
-	// TODO Auto-generated constructor stub
-    }
+	public AverageSignal() {
+		super("Average signal");
+	}
 
-    @Override
-    public void countResult(StatisticResult statResult) {
-	// TODO Auto-generated method stub
+	@Override
+	public void countResult(StatisticResult statResult) {
 
-    }
+	}
 
-    @Override
-    public void iterate(double value) {
-	// TODO Auto-generated method stub
+	@Override
+	public void iterate(double value) {
 
-    }
+	}
 
-    @Override
-    public void backToBegin() {
-	// TODO Auto-generated method stub
-	
-    }
+	@Override
+	public void backToBegin() {
 
+	}
 
 }

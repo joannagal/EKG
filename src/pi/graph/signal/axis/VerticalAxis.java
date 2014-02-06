@@ -6,8 +6,7 @@ import java.awt.Graphics;
 
 import pi.shared.schemes.signal.SignalScheme;
 
-public class VerticalAxis
-{
+public class VerticalAxis {
 	private static int MEMORY = 20;
 
 	private double x, y;
@@ -21,37 +20,31 @@ public class VerticalAxis
 	private Marker[] marker;
 	private SignalScheme scheme;
 
-	public VerticalAxis()
-	{
+	public VerticalAxis() {
 		this.point = new Value[MEMORY];
 		this.marker = new Marker[MEMORY];
 
-		for (int i = 0; i < MEMORY; i++)
-		{
+		for (int i = 0; i < MEMORY; i++) {
 			this.point[i] = new Value();
 			this.marker[i] = new Marker();
 		}
 
 	}
 
-	public boolean isInAxis(int x, int y)
-	{
+	public boolean isInAxis(int x, int y) {
 		if ((x < this.x) && (x > this.x - scheme.getFontSize() * 4)
-				&& (y <= this.y) && (y >= this.y - this.length))
-		{
+				&& (y <= this.y) && (y >= this.y - this.length)) {
 			return true;
 		}
 
 		return false;
 	}
 
-	public void draw(Graphics graphics, Font font)
-	{
+	public void draw(Graphics graphics, Font font) {
 		graphics.setFont(font);
 		graphics.setColor(scheme.getFontColor());
 
-		for (int i = 0; point[i].isActive(); i++)
-		{
+		for (int i = 0; point[i].isActive(); i++) {
 			graphics.drawString(String.format("%.2fmV", point[i].getValue()),
 					point[i].getPosition().x, point[i].getPosition().y);
 
@@ -62,12 +55,10 @@ public class VerticalAxis
 
 	}
 
-	public void shiftFonts(FontMetrics fontMetrics)
-	{
+	public void shiftFonts(FontMetrics fontMetrics) {
 		double xshift = 0.0d;
 
-		for (int i = 0; point[i].isActive(); i++)
-		{
+		for (int i = 0; point[i].isActive(); i++) {
 			xshift = fontMetrics.stringWidth(String.format("%.2fmV",
 					point[i].getValue()));
 
@@ -76,8 +67,7 @@ public class VerticalAxis
 		}
 	}
 
-	public void recalculate()
-	{
+	public void recalculate() {
 
 		double y = this.y - this.shift;
 		int n = 0;
@@ -88,8 +78,7 @@ public class VerticalAxis
 
 		yshift = scheme.getFontSize() / 2;
 
-		for (; y > this.y - length; n++)
-		{
+		for (; y > this.y - length; n++) {
 			value = this.startValue + n * this.interval;
 			y = this.y - this.shift - n * this.distance;
 
@@ -104,48 +93,39 @@ public class VerticalAxis
 			point[n].setPosition((int) (this.x + xshift), (int) (y + yshift));
 		}
 
-		for (; n < MEMORY; n++)
-		{
+		for (; n < MEMORY; n++) {
 			point[n].setActive(false);
 		}
 
 	}
 
-	public void setBegin(int x, int y)
-	{
+	public void setBegin(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
 
-	public void setLength(int length)
-	{
+	public void setLength(int length) {
 		this.length = length;
 	}
 
-	public void setDistance(double distance)
-	{
+	public void setDistance(double distance) {
 		this.distance = distance;
 	}
 
-	public void setShift(double shift)
-	{
+	public void setShift(double shift) {
 		this.shift = shift;
 	}
 
-	public void setInterval(double interval)
-	{
+	public void setInterval(double interval) {
 		this.interval = interval;
 	}
 
-	public void setStartValue(double startValue)
-	{
+	public void setStartValue(double startValue) {
 		this.startValue = startValue;
 	}
 
-	public void setScheme(SignalScheme scheme)
-	{
+	public void setScheme(SignalScheme scheme) {
 		this.scheme = scheme;
 	}
-
 
 }

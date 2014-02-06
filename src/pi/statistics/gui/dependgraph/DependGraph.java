@@ -7,8 +7,7 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-public class DependGraph extends JPanel
-{
+public class DependGraph extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	private ArrayList<ArrayList<Double>> data = null;
@@ -18,20 +17,20 @@ public class DependGraph extends JPanel
 	private final Color gridColor = new Color(170, 170, 170, 255);
 	private final Color fontColor = new Color(0, 0, 0, 255);
 
-	private final Color[] drawColor =
-	{ new Color(255, 0, 0, 255), new Color(0, 255, 0, 255),
-			new Color(0, 0, 255, 255), new Color(255, 0, 255, 255),
-			new Color(255, 255, 0, 255), new Color(0, 255, 255, 255), };
+	private final Color[] drawColor = { new Color(255, 0, 0, 255),
+			new Color(0, 255, 0, 255), new Color(0, 0, 255, 255),
+			new Color(255, 0, 255, 255), new Color(255, 255, 0, 255),
+			new Color(0, 255, 255, 255), };
 
-	private final Color[] mixedColor =
-	{ new Color(255, 200, 200, 255), new Color(200, 255, 200, 255),
-			new Color(200, 200, 255, 255), new Color(255, 200, 255, 255),
-			new Color(255, 255, 200, 255), new Color(200, 255, 255, 255), };
-	
+	private final Color[] mixedColor = { new Color(255, 200, 200, 255),
+			new Color(200, 255, 200, 255), new Color(200, 200, 255, 255),
+			new Color(255, 200, 255, 255), new Color(255, 255, 200, 255),
+			new Color(200, 255, 255, 255), };
+
 	public final static int LINE = 0;
 	public final static int POINT = 1;
 	public final static int MIXED = 2;
-	
+
 	private int type = DependGraph.LINE;
 
 	private final double margin = 30.0d;
@@ -39,15 +38,14 @@ public class DependGraph extends JPanel
 
 	private double minValue = 0.0d;
 	private double maxValue = 0.0d;
-	
+
 	private double minTime = 0.0d;
 	private double maxTime = 0.0d;
-	
+
 	private double lockedMaxTime = 0.0d;
 	private boolean loockedMax = false;
 
-	public void recalculate()
-	{
+	public void recalculate() {
 		if (getData() == null)
 			return;
 
@@ -56,11 +54,9 @@ public class DependGraph extends JPanel
 		this.minTime = 1000000.0d;
 		this.maxTime = -1000000.0d;
 
-		for (int i = 0; i < data.size(); i++)
-		{
+		for (int i = 0; i < data.size(); i++) {
 			int size = data.get(i).size();
-			for (int j = 0; j < size - 1; j += 2)
-			{
+			for (int j = 0; j < size - 1; j += 2) {
 				if (getData().get(i).get(j) > maxTime)
 					maxTime = getData().get(i).get(j);
 				if (getData().get(i).get(j) < minTime)
@@ -73,16 +69,14 @@ public class DependGraph extends JPanel
 			}
 		}
 
-		if (this.loockedMax)
-		{
+		if (this.loockedMax) {
 			this.maxTime = this.lockedMaxTime;
 		}
-		
+
 	}
 
 	@Override
-	public void paintComponent(Graphics graphics)
-	{
+	public void paintComponent(Graphics graphics) {
 
 		this.drawBackground(graphics);
 		this.drawBorder(graphics);
@@ -105,17 +99,16 @@ public class DependGraph extends JPanel
 
 		double prevX = 0.0d, prevY = 0.0d;
 
-		for (int i = 0; i < data.size(); i++)
-		{
+		for (int i = 0; i < data.size(); i++) {
 			int size = data.get(i).size();
 			graphics.setColor(this.drawColor[i]);
 
-			for (int j = 0; j < size - 1; j += 2)
-			{
+			for (int j = 0; j < size - 1; j += 2) {
 				tmp = data.get(i).get(j);
-				
-				if (tmp > this.lockedMaxTime) break;
-				
+
+				if (tmp > this.lockedMaxTime)
+					break;
+
 				prop = (tmp - this.minTime) / (this.maxTime - this.minTime);
 				posX = 0.5d + left + width * prop;
 
@@ -123,28 +116,22 @@ public class DependGraph extends JPanel
 				prop = (tmp - this.minValue) / (this.maxValue - this.minValue);
 				posY = bottom - height * prop;
 
-				if (this.type == DependGraph.LINE)
-				{
-					if (j != 0)
-					{
+				if (this.type == DependGraph.LINE) {
+					if (j != 0) {
 						graphics.drawLine((int) prevX, (int) prevY, (int) posX,
 								(int) posY);
 					}
-				} else if (type == DependGraph.MIXED)
-				{
-					if (j != 0)
-					{
+				} else if (type == DependGraph.MIXED) {
+					if (j != 0) {
 						graphics.setColor(this.mixedColor[i]);
 						graphics.drawLine((int) (prevX), (int) (prevY - 1),
 								(int) (posX), (int) (posY + 1));
 					}
-					
-					graphics.setColor(this.drawColor[i]);
-					graphics.fillOval((int)(posX - 3), (int)(posY - 3), 5, 5);
 
-				}
-				else 
-				{
+					graphics.setColor(this.drawColor[i]);
+					graphics.fillOval((int) (posX - 3), (int) (posY - 3), 5, 5);
+
+				} else {
 					graphics.drawLine((int) (posX - 1), (int) (posY),
 							(int) (posX + 1), (int) (posY));
 					graphics.drawLine((int) (posX), (int) (posY - 1),
@@ -159,8 +146,7 @@ public class DependGraph extends JPanel
 
 	}
 
-	public void drawGrid(Graphics graphics)
-	{
+	public void drawGrid(Graphics graphics) {
 		int divider = 10;
 
 		double left = marginLeft;
@@ -175,8 +161,7 @@ public class DependGraph extends JPanel
 		double dV = (this.maxValue - this.minValue) / (double) divider;
 		double dT = (this.maxTime - this.minTime) / (double) divider;
 
-		for (int i = 0; i <= divider; i++)
-		{
+		for (int i = 0; i <= divider; i++) {
 			graphics.setColor(this.gridColor);
 
 			posX = left + i * divX;
@@ -199,59 +184,46 @@ public class DependGraph extends JPanel
 
 	}
 
-	public void draw()
-	{
+	public void draw() {
 		if (getData() == null)
 			return;
 		this.repaint();
 	}
 
-	// ------------------------------------------
-	// SIMPLE DRAWING BORDER
-	public void drawBorder(Graphics graphics)
-	{
+	public void drawBorder(Graphics graphics) {
 		Rectangle frame = this.getBounds();
 		graphics.setColor(this.borderColor);
 		graphics.drawRect(0, 0, frame.width - 1, frame.height - 1);
 	}
 
-	// ------------------------------------------
-	// SIMPLE DRAWING BACKGROUND
-	public void drawBackground(Graphics graphics)
-	{
+	public void drawBackground(Graphics graphics) {
 		Rectangle frame = this.getBounds();
 		graphics.setColor(this.backgroundColor);
 		graphics.fillRect(0, 0, frame.width - 1, frame.height - 1);
 	}
-	
-	public void setLockedMaxTime(double value)
-	{
+
+	public void setLockedMaxTime(double value) {
 		this.loockedMax = true;
 		this.lockedMaxTime = value;
 	}
 
-	public void disableLockedValue()
-	{
+	public void disableLockedValue() {
 		this.loockedMax = false;
 	}
-	
-	public ArrayList<ArrayList<Double>> getData()
-	{
+
+	public ArrayList<ArrayList<Double>> getData() {
 		return data;
 	}
 
-	public void setData(ArrayList<ArrayList<Double>> data)
-	{
+	public void setData(ArrayList<ArrayList<Double>> data) {
 		this.data = data;
 	}
 
-	public int getType()
-	{
+	public int getType() {
 		return type;
 	}
 
-	public void setType(int type)
-	{
+	public void setType(int type) {
 		this.type = type;
 	}
 

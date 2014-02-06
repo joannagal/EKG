@@ -10,8 +10,7 @@ import pi.shared.SharedController;
 import pi.shared.schemes.signal.SignalScheme;
 import pi.utilities.Margin;
 
-public class AxisController
-{
+public class AxisController {
 	private Segment segment;
 	private SignalScheme scheme;
 
@@ -25,11 +24,10 @@ public class AxisController
 
 	private double width;
 	private double height;
-	
+
 	private double segmentHeight;
 
-	public AxisController(Segment segment)
-	{
+	public AxisController(Segment segment) {
 		this.segment = segment;
 		this.scheme = segment.getGraph().getScheme();
 
@@ -39,31 +37,29 @@ public class AxisController
 		horizontal = new HorizontalAxis();
 	}
 
-	public void prepareHorizontal()
-	{
-		horizontal.setBegin((int) margin.getLeft(),
-				(int) ( (segment.getId() * segmentHeight) + margin.getTop() + height) );
-		
+	public void prepareHorizontal() {
+		horizontal
+				.setBegin(
+						(int) margin.getLeft(),
+						(int) ((segment.getId() * segmentHeight)
+								+ margin.getTop() + height));
+
 		horizontal.setLength((int) width);
-		
+
 		horizontal.setDistance(SharedController.getInstance()
 				.getPixelsForScale());
-
-		// calculate shift
 
 		int distance = (int) width * this.segment.getId();
 		int shift = -distance;
 		int pixels = (int) SharedController.getInstance().getPixelsForScale();
 
-		while (shift < 0)
-		{
+		while (shift < 0) {
 			shift += pixels;
 		}
 
 		horizontal.setShift(shift);
 
-		if (this.segment.getId() == 0)
-		{
+		if (this.segment.getId() == 0) {
 			horizontal.setStartID(0);
 		}
 
@@ -75,19 +71,19 @@ public class AxisController
 		horizontal.setStartValue(value);
 		horizontal.setInterval(signal.getScale());
 		horizontal.setScheme(this.scheme);
-		
+
 		horizontal.recalculate();
 	}
 
-	public void prepareVertical()
-	{
-		vertical.setBegin( (int) margin.getLeft(), 
-				(int) ( (segment.getId() * segmentHeight) + margin.getTop() + height) );
-		
+	public void prepareVertical() {
+		vertical.setBegin(
+				(int) margin.getLeft(),
+				(int) ((segment.getId() * segmentHeight) + margin.getTop() + height));
+
 		vertical.setLength((int) height);
 		vertical.setDistance((height / 2.0d));
 		vertical.setShift(0.0d);
-		
+
 		vertical.setStartValue(signal.getMinValue());
 		vertical.setInterval((double) (signal.getMaxValue() - signal
 				.getMinValue()) / 2.0d);
@@ -95,8 +91,7 @@ public class AxisController
 		vertical.recalculate();
 	}
 
-	public void recalculate()
-	{
+	public void recalculate() {
 		this.scheme = this.segment.getGraph().getScheme();
 		this.firstDraw = true;
 
@@ -107,15 +102,13 @@ public class AxisController
 		this.height = segment.getGrid().getHeight();
 
 		this.segmentHeight = this.segment.getGraph().getSegmentSize().height;
-		
+
 		this.prepareVertical();
 		this.prepareHorizontal();
 	}
 
-	public void draw(Graphics graphics)
-	{
-		if (this.firstDraw)
-		{
+	public void draw(Graphics graphics) {
+		if (this.firstDraw) {
 			vertical.shiftFonts(graphics.getFontMetrics(this.scheme.getFont()));
 			horizontal
 					.shiftFonts(graphics.getFontMetrics(this.scheme.getFont()));
@@ -126,13 +119,11 @@ public class AxisController
 		horizontal.draw(graphics, this.scheme.getFont());
 	}
 
-	public HorizontalAxis getHorizontal()
-	{
+	public HorizontalAxis getHorizontal() {
 		return horizontal;
 	}
 
-	public VerticalAxis getVertical()
-	{
+	public VerticalAxis getVertical() {
 		return vertical;
 	}
 }

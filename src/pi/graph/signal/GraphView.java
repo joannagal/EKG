@@ -109,7 +109,8 @@ public class GraphView extends JPanel {
 		toolbar.setLocation(0, 5);
 
 		@SuppressWarnings("unused")
-		GraphToolbarController controller = new GraphToolbarController(toolbar, graph);
+		GraphToolbarController controller = new GraphToolbarController(toolbar,
+				graph);
 
 		this.add(toolbar);
 		this.add(graph);

@@ -21,7 +21,6 @@ import pi.statistics.logic.WavesResult;
 public class StatisticsComparatorController implements ActionListener {
 	public StatisticsComparatorView view;
 
-
 	public StatisticsComparatorController(StatisticsComparatorView view) {
 		this.view = view;
 	}
@@ -41,15 +40,16 @@ public class StatisticsComparatorController implements ActionListener {
 
 		this.toHist = new ArrayList<ArrayList<Double>>(2);
 
-//		ChannelResult channelResult = specResult.getBefore();
-		ChannelResult channelResult = specResult.getValue().getValue().get("Before");
+		// ChannelResult channelResult = specResult.getBefore();
+		ChannelResult channelResult = specResult.getValue().getValue()
+				.get("Before");
 		if (channelResult != null) {
 
 			pntr++;
 			this.fillColumn(channelResult, channel, wave, pntr);
 		}
 
-//		channelResult = specResult.getAfter();
+		// channelResult = specResult.getAfter();
 		channelResult = specResult.getValue().getValue().get("After");
 		if (channelResult != null) {
 			pntr++;
@@ -193,10 +193,12 @@ public class StatisticsComparatorController implements ActionListener {
 					if (response == JFileChooser.APPROVE_OPTION) {
 						String path = fc.getSelectedFile().getPath();
 						if (type == 0)
-							SharedController.getInstance().getSpecimenReportManager()
+							SharedController.getInstance()
+									.getSpecimenReportManager()
 									.saveRaportAsPdf(path);
 						else if (type == 1)
-							SharedController.getInstance().getSpecimenReportManager()
+							SharedController.getInstance()
+									.getSpecimenReportManager()
 									.saveReportAsHtml(path);
 					}
 				} catch (JRException ex) {

@@ -15,11 +15,10 @@ import pi.graph.signal.Segment.SelectionFlyWeight;
 import pi.inputs.signal.Probe;
 import pi.utilities.Range;
 
-public class SelectPopUp extends JPopupMenu
-{
+public class SelectPopUp extends JPopupMenu {
 	private static final long serialVersionUID = 1L;
 	private Graph graph;
-	
+
 	private JMenuItem p_Wave = new JMenuItem("P-Wave");
 	private JMenuItem pr_Segment = new JMenuItem("Pr-Segment");
 	private JMenuItem qrs_Segment = new JMenuItem("Qrs-Complex");
@@ -29,249 +28,201 @@ public class SelectPopUp extends JPopupMenu
 	private JMenuItem delete = new JMenuItem("Delete");
 
 	private SelectionFlyWeight adapter;
-	
-	public void removePrevious()
-	{	
-		if (this.adapter.cycle.getP_wave() == this.adapter.range) this.adapter.cycle.setP_wave(null);
-		else if (this.adapter.cycle.getPr_segment() == this.adapter.range) this.adapter.cycle.setPr_segment(null);
-		else if (this.adapter.cycle.getQrs_complex() == this.adapter.range) this.adapter.cycle.setQrs_complex(null);
-		else if (this.adapter.cycle.getSt_segment() == this.adapter.range) this.adapter.cycle.setSt_segment(null);
-		else if (this.adapter.cycle.getT_wave() == this.adapter.range) this.adapter.cycle.setT_wave(null);
-		else if (this.adapter.cycle.getU_wave() == this.adapter.range) this.adapter.cycle.setU_wave(null);
+
+	public void removePrevious() {
+		if (this.adapter.cycle.getP_wave() == this.adapter.range)
+			this.adapter.cycle.setP_wave(null);
+		else if (this.adapter.cycle.getPr_segment() == this.adapter.range)
+			this.adapter.cycle.setPr_segment(null);
+		else if (this.adapter.cycle.getQrs_complex() == this.adapter.range)
+			this.adapter.cycle.setQrs_complex(null);
+		else if (this.adapter.cycle.getSt_segment() == this.adapter.range)
+			this.adapter.cycle.setSt_segment(null);
+		else if (this.adapter.cycle.getT_wave() == this.adapter.range)
+			this.adapter.cycle.setT_wave(null);
+		else if (this.adapter.cycle.getU_wave() == this.adapter.range)
+			this.adapter.cycle.setU_wave(null);
 	}
-	
-	
-	public boolean iterateIntersect(LinkedList <Range> list)
-	{
-		ListIterator <Range> itr = list.listIterator();
+
+	public boolean iterateIntersect(LinkedList<Range> list) {
+		ListIterator<Range> itr = list.listIterator();
 		Range temp;
-		
-		while(itr.hasNext())
-		{
+
+		while (itr.hasNext()) {
 			temp = itr.next();
-			
-			if ( (adapter.leftPoint < temp.getRight()) && (adapter.rightPoint > temp.getLeft() ) ) return true;	
+
+			if ((adapter.leftPoint < temp.getRight())
+					&& (adapter.rightPoint > temp.getLeft()))
+				return true;
 		}
 		return false;
 	}
-	
-	public SelectPopUp(Graph graph)
-	{
+
+	public SelectPopUp(Graph graph) {
 		this.graph = graph;
-		
+
 		this.add(this.p_Wave);
-		this.p_Wave.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				if (adapter.type == Segment.selection)
-				{
-					if (getGraph().isSelectionPossible())
-					{
+		this.p_Wave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				if (adapter.type == Segment.selection) {
+					if (getGraph().isSelectionPossible()) {
 						adapter.cycle.setP_wave(adapter.range);
 						getGraph().getToolBox().setSelectionExists(false);
 					}
-				}
-				else 
-				{
+				} else {
 					removePrevious();
 					adapter.cycle.setP_wave(adapter.range);
 				}
 				getGraph().getToolBox().setSelectionExists(false);
-				
+
 				getGraph().recalculate();
 				getGraph().draw();
 			}
 		});
-		
+
 		this.add(this.pr_Segment);
-		this.pr_Segment.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				if (adapter.type == Segment.selection)
-				{
-					if (getGraph().isSelectionPossible())
-					{
+		this.pr_Segment.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				if (adapter.type == Segment.selection) {
+					if (getGraph().isSelectionPossible()) {
 						adapter.cycle.setPr_segment(adapter.range);
 						getGraph().getToolBox().setSelectionExists(false);
 					}
-				}
-				else 
-				{
+				} else {
 					removePrevious();
 					adapter.cycle.setPr_segment(adapter.range);
 				}
 				getGraph().getToolBox().setSelectionExists(false);
-				
+
 				getGraph().recalculate();
 				getGraph().draw();
 			}
 		});
-		
+
 		this.add(this.qrs_Segment);
-		this.qrs_Segment.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				
+		this.qrs_Segment.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+
 				int lP = -1;
 				int rP = -1;
-				if (adapter.type == Segment.selection)
-				{
-					if (getGraph().isSelectionPossible())
-					{
+				if (adapter.type == Segment.selection) {
+					if (getGraph().isSelectionPossible()) {
 						adapter.cycle.setQrs_complex(adapter.range);
 						getGraph().getToolBox().setSelectionExists(false);
-						
+
 						lP = adapter.leftPoint;
 						rP = adapter.rightPoint;
 					}
-				}
-				else 
-				{
+				} else {
 					lP = adapter.range.getLeft();
 					rP = adapter.range.getRight();
 					removePrevious();
 					adapter.cycle.setQrs_complex(adapter.range);
 				}
 				getGraph().getToolBox().setSelectionExists(false);
-				
-				// R point --------------------
-				if (lP != -1)
-				{
-					ArrayList <Probe> probe = getGraph().getSignal().getProbe();
+
+				if (lP != -1) {
+					ArrayList<Probe> probe = getGraph().getSignal().getProbe();
 					double max = -1000000.0d;
 					int where = 0;
-					for (int i = lP; i <= rP; i++)
-					{
-						if (probe.get(i).getNormalized() > max)
-						{
+					for (int i = lP; i <= rP; i++) {
+						if (probe.get(i).getNormalized() > max) {
 							max = probe.get(i).getNormalized();
 							where = i;
 						}
 					}
-					
+
 					adapter.cycle.setR(where);
 				}
-				// ----------------------------
-				
+
 				getGraph().recalculate();
 				getGraph().draw();
 			}
 		});
-		
+
 		this.add(this.st_Segment);
-		this.st_Segment.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				if (adapter.type == Segment.selection)
-				{
-					if (getGraph().isSelectionPossible())
-					{
+		this.st_Segment.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				if (adapter.type == Segment.selection) {
+					if (getGraph().isSelectionPossible()) {
 						adapter.cycle.setSt_segment(adapter.range);
 						getGraph().getToolBox().setSelectionExists(false);
 					}
-				}
-				else 
-				{
+				} else {
 					removePrevious();
 					adapter.cycle.setSt_segment(adapter.range);
 				}
 				getGraph().getToolBox().setSelectionExists(false);
-				
+
 				getGraph().recalculate();
 				getGraph().draw();
 			}
 		});
-		
+
 		this.add(this.t_Wave);
-		this.t_Wave.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				if (adapter.type == Segment.selection)
-				{
-					if (getGraph().isSelectionPossible())
-					{
+		this.t_Wave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				if (adapter.type == Segment.selection) {
+					if (getGraph().isSelectionPossible()) {
 						adapter.cycle.setT_wave(adapter.range);
 						getGraph().getToolBox().setSelectionExists(false);
 					}
-				}
-				else 
-				{
+				} else {
 					removePrevious();
 					adapter.cycle.setT_wave(adapter.range);
 				}
 				getGraph().getToolBox().setSelectionExists(false);
-				
+
 				getGraph().recalculate();
 				getGraph().draw();
 			}
-		});		
-		
+		});
+
 		this.add(this.u_Wave);
-		this.u_Wave.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				if (adapter.type == Segment.selection)
-				{
-					if (getGraph().isSelectionPossible())
-					{
+		this.u_Wave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				if (adapter.type == Segment.selection) {
+					if (getGraph().isSelectionPossible()) {
 						adapter.cycle.setU_wave(adapter.range);
 						getGraph().getToolBox().setSelectionExists(false);
 					}
-				}
-				else 
-				{
+				} else {
 					removePrevious();
 					adapter.cycle.setU_wave(adapter.range);
 				}
-				
-				
+
 				getGraph().recalculate();
 				getGraph().draw();
 			}
 		});
-		
+
 		this.addSeparator();
-		
+
 		this.add(this.delete);
-		this.delete.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent evt)
-			{
-				if (adapter.type == Segment.selection)
-				{
-					
-				}
-				else 
-				{
+		this.delete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				if (adapter.type == Segment.selection) {
+
+				} else {
 					removePrevious();
 				}
-				getGraph().getToolBox().setSelectionExists(false);		
+				getGraph().getToolBox().setSelectionExists(false);
 				getGraph().recalculate();
 				getGraph().draw();
 			}
 		});
-		
-		
+
 	}
-	
-	public Graph getGraph()
-	{
+
+	public Graph getGraph() {
 		return this.graph;
 	}
 
-	public SelectionFlyWeight getAdapter()
-	{
+	public SelectionFlyWeight getAdapter() {
 		return adapter;
 	}
 
-	public void setAdapter(SelectionFlyWeight adapter)
-	{
+	public void setAdapter(SelectionFlyWeight adapter) {
 		this.adapter = adapter;
 	}
 }

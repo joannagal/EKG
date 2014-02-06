@@ -5,27 +5,28 @@ import pi.statistics.logic.StatisticResult;
 
 public class Max extends Function {
 
-    private double max = -999999;
-    
-    public Max() {
-	super("Max");
-    }
+	private double max = -999999;
 
-    @Override
-    public void countResult(StatisticResult statResult) {
-	
-	statResult.addValue(this.getName(), max);	
-    }
+	public Max() {
+		super("Max");
+	}
 
-    @Override
-    public void iterate(double value) {
-	if (value > max) max = value;
-    }
+	@Override
+	public void countResult(StatisticResult statResult) {
 
-    @Override
-    public void backToBegin() {
-	max = -999999;
-	
-    }
+		statResult.addValue(this.getName(), max);
+	}
+
+	@Override
+	public void iterate(double value) {
+		if (value > max)
+			max = value;
+	}
+
+	@Override
+	public void backToBegin() {
+		max = -999999;
+
+	}
 
 }

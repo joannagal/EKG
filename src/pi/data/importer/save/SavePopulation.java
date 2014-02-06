@@ -49,8 +49,7 @@ public class SavePopulation extends JDialog {
 					;
 				}
 			}
-		}
-		else if (type == 2){
+		} else if (type == 2) {
 			String path = SharedController.getInstance().getProject().getPath();
 			PopSaver ps = new PopSaver(SharedController.getInstance()
 					.getProject());

@@ -16,18 +16,11 @@ import pi.inputs.signal.ECG;
 import pi.inputs.signal.Probe;
 import pi.population.Specimen;
 
-//TODO To test!
 public class Importer {
 
 	private Document document;
 	private String filePath;
 
-	/**
-	 * Constructor. From given file path loads the xml document to import data.
-	 * 
-	 * @param filePath
-	 * @throws DocumentException
-	 */
 	public Importer(String filePath) throws DocumentException {
 		try {
 			this.setFilePath(filePath);
@@ -77,28 +70,15 @@ public class Importer {
 	public Specimen importSpecimen() throws DocumentException {
 		Specimen spec = new Specimen();
 
-		// TODO Atrybuty specimena
-		// spec.setName(name)
-
 		ArrayList<ECG> vectorOfSignals = importSignals();
-		// TODO wczytujemy list� a w specimenie jest tylko after i before?
 		if (vectorOfSignals.get(0) != null) {
-			// spec.loadBefore(vectorOfSignals.get(0));//TODO STRING?!
 		}
 		if (vectorOfSignals.get(1) != null) {
-			// TODO
 		}
 
 		return spec;
 	}
 
-	/**
-	 * Adds next ECGSignals to the returned list and fills each channel list
-	 * with data
-	 * 
-	 * @return
-	 * @throws DocumentException
-	 */
 	public ArrayList<ECG> importSignals() throws DocumentException {
 
 		String xPath = "//ekgSignal";
@@ -121,13 +101,6 @@ public class Importer {
 		return vectorOfSignals;
 	}
 
-	// Metoda zwraca wektor kana��w dla klasy ECG
-	/**
-	 * 
-	 * @param signal
-	 * @return
-	 * @throws DocumentException
-	 */
 	public ArrayList<Channel> importWaves(Node signal, double interval, ECG ecg)
 			throws DocumentException {
 

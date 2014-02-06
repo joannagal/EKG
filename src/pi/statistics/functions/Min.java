@@ -5,27 +5,27 @@ import pi.statistics.logic.StatisticResult;
 
 public class Min extends Function {
 
-    private double min = 9999999;
-    
-    public Min() {
-	super("Min");
-    }
+	private double min = 9999999;
 
-    @Override
-    public void countResult(StatisticResult statResult) {
-	statResult.addValue(this.getName(), min);
-    }
+	public Min() {
+		super("Min");
+	}
 
-    @Override
-    public void iterate(double value) {
-	if (value < min) min = value;
-    }
+	@Override
+	public void countResult(StatisticResult statResult) {
+		statResult.addValue(this.getName(), min);
+	}
 
-    @Override
-    public void backToBegin() {
-	 min = 9999999;
-	
-    }
+	@Override
+	public void iterate(double value) {
+		if (value < min)
+			min = value;
+	}
 
+	@Override
+	public void backToBegin() {
+		min = 9999999;
+
+	}
 
 }
