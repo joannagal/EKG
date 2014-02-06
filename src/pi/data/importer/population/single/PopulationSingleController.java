@@ -31,6 +31,8 @@ public class PopulationSingleController implements ActionListener {
 	private Specimen specimen;
 	private Importer importer;
 	private Importer importer2;
+	private GraphView graphFirstView;
+	private GraphView graphSecondView;
 
 	public PopulationSingleController(PopulationSingleView view) {
 		this.view = view;
@@ -107,19 +109,17 @@ public class PopulationSingleController implements ActionListener {
 						.setSecondPopulation(population2);
 
 				SharedController.getInstance().createProjectToolbar();
-				@SuppressWarnings("unused")
-				GraphView view = new GraphView(SharedController.getInstance()
-						.getProject().getFirstPopulation(), 1);
+				setGraphFirstView(new GraphView(SharedController.getInstance()
+						.getProject().getFirstPopulation(), 1));
 
-				@SuppressWarnings("unused")
-				GraphView view2 = new GraphView(SharedController.getInstance()
-						.getProject().getSecondPopulation(), 2);
-
+				setGraphSecondView(new GraphView(SharedController.getInstance()
+						.getProject().getSecondPopulation(), 2));
+				
 			} else {
 				JOptionPane.showMessageDialog(null,
 						"Size of lists should be equal and not empty!");
 			}
-			view.dispose();
+			
 		} else if (action.equals("ADD")) {
 			this.view.getFc().setMultiSelectionEnabled(true);
 			int returnVal = this.view.getFc().showOpenDialog(null);
@@ -230,5 +230,21 @@ public class PopulationSingleController implements ActionListener {
 		}
 
 		list.setSelectedIndex(selection);
+	}
+
+	public GraphView getGraphFirstView() {
+		return graphFirstView;
+	}
+
+	public void setGraphFirstView(GraphView graphFirstView) {
+		this.graphFirstView = graphFirstView;
+	}
+
+	public GraphView getGraphSecondView() {
+		return graphSecondView;
+	}
+
+	public void setGraphSecondView(GraphView graphSecondView) {
+		this.graphSecondView = graphSecondView;
 	}
 }

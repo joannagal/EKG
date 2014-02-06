@@ -7,7 +7,6 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.JobAttributes;
 import java.io.File;
 
 import javax.swing.JPanel;
@@ -28,38 +27,6 @@ import pi.statistics.logic.report.PopulReportMngr;
 import pi.statistics.logic.report.SpecimenReportMngr;
 import pi.utilities.Margin;
 
-//-------------------------------------------
-/*
- SINGLETONIK - KLASA SHARED, WSPOLDZIELONA 
- PRZEZ WSZYSTKIE
-
- OGOLNIE WRZUCILEM TU JAKIES PIERDY POKI CO
- DO RYSOWANIA ECG
-
- NP MIN-SCALE , MAX-SCALE TO SA PRZEDZIALY 
- DOPUSZCZALNYCH SKAL WIDOKU
-
- SMIALO TU MOZNA SWOJE RZECZY WRZUCAC, KTORE 
- BEDA MUSIALY BYC WIDOCZNE W WIELU MIEJSCACH
- W PROGRAMIE
-
- TRZEBA PAMIETAC O INICIE TYCH ZMIENNYCH W
- PRYWATNYM KONSTRUKTORZE
-
- NO A INSTANCJE KLASY POBIERAMY PRZEZ 
- = SharedController.getInstance();
-
- TUTAJ TWORZY SIE DOMYSLNY SCHAMAT KOLORYSTYCZNY
- - TYLKO JEDEN BEDZIEMY WYKORZYSTYWAC JEDNAK
- WIEC NIE TRZEBA TWORZYC NOWYCH
-
- NO ALE W RAZIE WSZYSTKICH WATPLIWOSCI NATURY STYLISTYCZNEJ
- NP. KOLOR CZEGO�-TAM, TO WRZUCAMY ODPOWIEDNIE POLE DO 
- KLASY SCHEME, A TUTAJ W METODZIE CREATE WHITE SCHEME
- NADAJEMY KOLOREK, A W ODPOWIEDNIM MIEJSCU PROGRAMU
- POBIERAMY GO
- */
-//-------------------------------------------
 
 public class SharedController {
 	private static SharedController instance = null;
@@ -94,26 +61,19 @@ public class SharedController {
 	private SpecimenReportMngr specimenReportMgr;
 	private PopulReportMngr populReportMngr;
 	
-
-	// -------------------------
-	// SHARED PROJECT
 	private Project project;
-
-	// SHARED PROJECT RESULT
 	private ProjectResult projectRes;
 
-	// --------------------------
-	// SHARED PASKU POSTEPU
 	private JProgressBar progressBar = null;
 
-	// SHARED PULSE
 	private double pulse;
 	private boolean isFirstPopulationSet;
 
 	private boolean toolbarSet = false;
 
 	private ProjectToolbarController toolConroller;
-
+	private ProgressView progress = new ProgressView();
+	
 	public void updateProgressBar() {
 		if (this.progressBar != null) {
 			this.progressBar.setValue(this.progressBar.getValue() + 1);
@@ -466,6 +426,14 @@ public class SharedController {
 	
 	public void disableMenu(){
 		this.getFrame().getMenubar().setEditable(false);
+	}
+
+	public ProgressView getProgress() {
+		return progress;
+	}
+
+	public void setProgress(ProgressView progress) {
+		this.progress = progress;
 	}
 
 }

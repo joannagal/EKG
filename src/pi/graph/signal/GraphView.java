@@ -28,14 +28,19 @@ public class GraphView extends JPanel {
 
 		@Override
 		public void componentResized(ComponentEvent e) {
-			Component[] children = getContext().getComponents();
-			int width = getContext().getParent().getWidth();
-			if (width < minimumWidth) {
-				width = minimumWidth;
-			}
 
-			for (Component c : children) {
-				c.setSize(width, c.getHeight());
+			try {
+				Component[] children = getContext().getComponents();
+				int width = getContext().getParent().getWidth();
+				if (width < minimumWidth) {
+					width = minimumWidth;
+				}
+
+				for (Component c : children) {
+					c.setSize(width, c.getHeight());
+				}
+			} catch (NullPointerException ex) {
+
 			}
 
 		}

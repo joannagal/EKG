@@ -59,8 +59,13 @@ public class MenuController implements ActionListener {
 		}
 
 		if (action.equals("ABOUT")) {
-
-			// okno o projekcie
+			JOptionPane.showMessageDialog(null, "This program was made for bachelor thesis (2014). \n\n"
+					+ "Authors: \n"
+					+ "Natalia Adamkiewicz \n"
+					+ "Joanna Galewska \n"
+					+ "Magdalena Jaœkiewicz \n"
+					+ "Micha³ Tomczyk");
+			
 		}
 		if (action.equals("CREATE_PROJECT")) {
 			Project project = new Project();
@@ -75,8 +80,6 @@ public class MenuController implements ActionListener {
 			setController(new OpenPopulationController(openPopulation));
 		}
 		if (action.equals("SAVE_PROJECT")) {
-
-			this.menuView.initFileChooser();
 
 			if (SharedController.getInstance().getProject() == null)
 				return;

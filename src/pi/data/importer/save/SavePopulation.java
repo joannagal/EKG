@@ -26,8 +26,6 @@ public class SavePopulation extends JDialog {
 
 		if (type == 1) {
 			this.setAlwaysOnTop(true);
-			PopSaver ps = new PopSaver(SharedController.getInstance()
-					.getProject());
 			JFileChooser fileChooser = new JFileChooser();
 			FileNameExtensionFilter filter = new FileNameExtensionFilter(
 					"XML (*.xml)", "xml");
@@ -36,26 +34,43 @@ public class SavePopulation extends JDialog {
 			fileChooser.setSelectedFile(new File("*.xml"));
 			fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 			if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-				File file = fileChooser.getSelectedFile();
-				if (!file.getName().endsWith(".xml")) {
-					ps.save(file.getAbsolutePath() + ".xml");
-					SharedController.getInstance().getProject()
-							.setPath(file.getAbsolutePath() + ".xml");
-					;
-				} else {
-					ps.save(file.getAbsolutePath());
-					SharedController.getInstance().getProject()
-							.setPath(file.getAbsolutePath());
-					;
-				}
+				String path = fileChooser.getSelectedFile().getAbsolutePath();
+				if (!path.endsWith(".xml")) {
+					path += ".xml";
+				}				
+				SaveThread runnable = new SaveThread(path);
+				Thread thread = new Thread(runnable);
+				thread.start();
+			
 			}
 		} else if (type == 2) {
 			String path = SharedController.getInstance().getProject().getPath();
-			PopSaver ps = new PopSaver(SharedController.getInstance()
-					.getProject());
-			ps.save(path);
+			SaveThread runnable = new SaveThread(path);
+			Thread thread = new Thread(runnable);
+			thread.start();
 
 		}
 	}
 
+	class SaveThread implements Runnable {
+
+		String path;
+		
+		@Override
+		public void run() {
+			PopSaver ps = new PopSaver(SharedController.getInstance()
+					.getProject());
+			try {
+				ps.save(SharedController.getInstance().getProject().getPath());
+			} catch (FileNotFoundException | UnsupportedEncodingException
+					| XMLStreamException | FactoryConfigurationError e) {
+				e.printStackTrace();
+			}
+		}
+		
+		public SaveThread(String path){
+			this.path = path;
+		}
+
+	}
 }
