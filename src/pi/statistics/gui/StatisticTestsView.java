@@ -1,5 +1,6 @@
 package pi.statistics.gui;
 
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.ArrayList;
@@ -413,5 +414,10 @@ public class StatisticTestsView extends JFrame {
 
 	public void setAtrStr(String atrStr) {
 		this.atrStr = atrStr;
+	}
+
+	public void setReportsCursor(int c) {
+		this.saveButton.setCursor(Cursor.getPredefinedCursor(c));
+		this.reportButton.setCursor(Cursor.getPredefinedCursor(c));
 	}
 }

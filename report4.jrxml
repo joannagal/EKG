@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report3" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="40e9b298-1a48-4734-aecf-48d0b693f5d6">
 	<property name="ireport.zoom" value="1.7715610000000037"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="288"/>
 	<property name="net.sf.jasperreports.export.pdf.compressed" value="true"/>
 	<style name="table">
 		<box>
@@ -85,6 +85,9 @@
 	<field name="tableName" class="java.lang.String">
 		<fieldDescription><![CDATA[tableName]]></fieldDescription>
 	</field>
+	<field name="attributeName" class="java.lang.String">
+		<fieldDescription><![CDATA[attributeName]]></fieldDescription>
+	</field>
 	<group name="Table">
 		<groupExpression><![CDATA[$F{tableName}]]></groupExpression>
 		<groupHeader>
@@ -102,6 +105,27 @@
 						<font size="12" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{tableName}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="Attribute">
+		<groupExpression><![CDATA[$F{attributeName}]]></groupExpression>
+		<groupHeader>
+			<band height="23">
+				<textField isBlankWhenNull="false">
+					<reportElement x="0" y="0" width="555" height="23" printWhenGroupChanges="Examination" forecolor="#FF0000" uuid="3c20da03-5906-494c-84a8-3e5214f6f658"/>
+					<box>
+						<pen lineWidth="1.0" lineColor="#000000"/>
+						<topPen lineWidth="1.0" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{attributeName}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>

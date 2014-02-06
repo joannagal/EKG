@@ -1,5 +1,6 @@
 package pi.statistics.gui;
 
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -48,19 +49,21 @@ public class StatisticWindowController implements ActionListener {
 					SharedController.getInstance().setSpecimenReportManager(
 							new SpecimenReportMngr());
 					comparatorView.enableReports(true);
+					comparatorView.setReportsCursor(Cursor.DEFAULT_CURSOR);
 				} else {
 					
 					SharedController.getInstance().setPopulReportMngr(
 							new PopulReportMngr());
 					testsView.enableReports(true);
 					JOptionPane.showMessageDialog(null, "Population raport");
+					testsView.setReportsCursor(Cursor.DEFAULT_CURSOR);
 				}
 			} catch (JRException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				System.out.println("Report error: " + e.toString());
 			}
-			//comparatorView.setReportsCursor(Cursor.DEFAULT_CURSOR);
+			
 		}
 	};
 

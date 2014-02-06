@@ -121,6 +121,7 @@ public class StatisticsComparatorView extends JFrame {
 	}
 
 	public void enableReports(boolean b) {
+		//this.saveButton.set
 		this.saveButton.setEnabled(b);
 		this.reportButton.setEnabled(b);
 	}
