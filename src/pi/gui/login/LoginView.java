@@ -28,6 +28,7 @@ public class LoginDialog extends JDialog {
 	private JButton loginButton;
 	private JPanel buttonPanel;
 	private boolean succeeded;
+	private LoginController controller;
 
 	public LoginDialog() {
 		this.setTitle("Login");
@@ -43,8 +44,9 @@ public class LoginDialog extends JDialog {
 		this.setLocation(x, y);
 
 		constraints.fill = GridBagConstraints.HORIZONTAL;
-
 		
+		setController(new LoginController());
+	
 		usernameLabel = new JLabel("Username: ");
 		usernameLabel.setVisible(true);
 		constraints.gridx = 0;
@@ -76,7 +78,7 @@ public class LoginDialog extends JDialog {
 		passwordField.setText("admin");
 
 		loginButton = new JButton("Login");
-
+		/*
 		loginButton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -95,7 +97,10 @@ public class LoginDialog extends JDialog {
 				}
 			}
 		});
+		*/
 		
+		loginButton.addActionListener(this.controller);
+		loginButton.setActionCommand("LOGIN");
 		buttonPanel = new JPanel();
 
 		buttonPanel.add(loginButton);
@@ -119,6 +124,16 @@ public class LoginDialog extends JDialog {
 
 	public boolean isSucceeded() {
 		return succeeded;
+	}
+
+
+	public LoginController getController() {
+		return controller;
+	}
+
+
+	public void setController(LoginController controller) {
+		this.controller = controller;
 	}
 
 }
