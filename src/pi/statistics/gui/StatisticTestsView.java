@@ -130,11 +130,13 @@ public class StatisticTestsView extends JFrame {
 		this.saveButton.setActionCommand("SAVE");
 		this.saveButton.addActionListener(controller);
 		this.saveButton.setBounds(850, 440, 140, 25);
+		this.saveButton.setEnabled(false);
 		this.add(this.saveButton);
 
 		this.reportButton.setActionCommand("DISPLAY");
 		this.reportButton.addActionListener(controller);
 		this.reportButton.setBounds(699, 440, 140, 25);
+		this.reportButton.setEnabled(false);
 		getContentPane().add(this.reportButton);
 
 		this.report.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
