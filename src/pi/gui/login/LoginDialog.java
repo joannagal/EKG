@@ -29,10 +29,11 @@ public class LoginDialog extends JDialog {
 	private JPanel buttonPanel;
 	private boolean succeeded;
 
-	public LoginDialog() {
+	public LoginDialog(){
+		super(SharedController.getInstance().getFrame());
 		this.setTitle("Login");
 		this.setVisible(true);
-		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		JPanel panel = new JPanel(new GridBagLayout());
 		panel.setVisible(true);
 		GridBagConstraints constraints = new GridBagConstraints();

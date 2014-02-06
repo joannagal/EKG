@@ -68,11 +68,32 @@ public class MenuController implements ActionListener {
 			
 		}
 		if (action.equals("CREATE_PROJECT")) {
-			Project project = new Project();
-			ChooseProjectView projectView = new ChooseProjectView();
-			setProjectController(new ChooseProjectController(project,
-					projectView));
-			projectView.setLocation(400, 200);
+			if (SharedController.getInstance().getProject() == null){
+				Project project = new Project();
+				ChooseProjectView projectView = new ChooseProjectView();
+				setProjectController(new ChooseProjectController(project,
+						projectView));
+				projectView.setLocation(400, 200);
+			} else if (SharedController.getInstance().getProject()!= null){
+			
+				int response = JOptionPane
+						.showConfirmDialog(
+								menuView,
+								"Do you want to close project? All unsaved information will be lost.",
+								"Confirm", JOptionPane.YES_NO_OPTION,
+								JOptionPane.QUESTION_MESSAGE);
+				if (response == JOptionPane.YES_OPTION) {
+					SharedController.getInstance().setProject(null);
+					Project project = new Project();
+					ChooseProjectView projectView = new ChooseProjectView();
+					setProjectController(new ChooseProjectController(project,
+							projectView));
+					projectView.setLocation(400, 200);
+				} else if (response == JOptionPane.NO_OPTION){
+					return;
+				}
+				
+			}
 		}
 
 		if (action.equals("OPEN_PROJECT")) {

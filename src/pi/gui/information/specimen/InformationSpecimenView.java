@@ -65,6 +65,8 @@ public class InformationSpecimenView extends JDialog {
 
 	public InformationSpecimenView(GraphToolbar toolbar) {
 
+		super(SharedController.getInstance().getFrame());
+		
 		URL iconURL = getClass().getResource("../../../../images/logo1.png");
 		ImageIcon icon = new ImageIcon(iconURL);
 		this.setIconImage(icon.getImage());

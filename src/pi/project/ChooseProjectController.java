@@ -45,7 +45,7 @@ public class ChooseProjectController implements ActionListener {
 				project.setType(1);
 				project.setName("New Project");
 				SharedController.getInstance().setProject(project);
-
+				
 				ImportSingleView importerView = new ImportSingleView();
 				@SuppressWarnings("unused")
 				ImportSingleController controller = new ImportSingleController(
