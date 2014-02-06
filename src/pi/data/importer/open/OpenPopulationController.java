@@ -56,7 +56,7 @@ public class OpenPopulationController implements ActionListener {
 
 					try {
 						p.parse(view.getPath());
-					} catch (SAXException | IOException ex) {
+					} catch (SAXException | IOException | NullPointerException ex) {
 						JOptionPane.showMessageDialog(null,
 								"Please provide compatible file!");
 					}

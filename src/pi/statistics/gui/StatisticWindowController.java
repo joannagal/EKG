@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import net.sf.jasperreports.engine.JRException;
 import pi.population.Specimen;
 import pi.shared.SharedController;
@@ -43,13 +45,16 @@ public class StatisticWindowController implements ActionListener {
 				String specimen = window.comboBox.getItemAt(index);
 
 				if (type == 1 || type == 2 || !specimen.equals("Count for all")) {
+					JOptionPane.showMessageDialog(null, "Specimen raport");
 					SharedController.getInstance().setSpecimenReportManager(
 							new SpecimenReportMngr());
 					comparatorView.enableReports(true);
 				} else {
+					
 					SharedController.getInstance().setPopulReportMngr(
 							new PopulReportMngr());
 					testsView.enableReports(true);
+					JOptionPane.showMessageDialog(null, "Population raport");
 				}
 			} catch (JRException e) {
 				// TODO Auto-generated catch block
