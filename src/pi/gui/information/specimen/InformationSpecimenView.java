@@ -4,7 +4,9 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.net.URL;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
@@ -63,6 +65,10 @@ public class InformationSpecimenView extends JDialog {
 
 	public InformationSpecimenView(GraphToolbar toolbar) {
 
+		URL iconURL = getClass().getResource("../../../../images/logo1.png");
+		ImageIcon icon = new ImageIcon(iconURL);
+		this.setIconImage(icon.getImage());
+		
 		this.setToolbar(toolbar);
 
 		int type = toolbar.getGraphView().getType();

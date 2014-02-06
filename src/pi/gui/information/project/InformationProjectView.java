@@ -4,7 +4,9 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.net.URL;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -38,6 +40,10 @@ public class InformationProjectView extends JDialog {
 	GridBagConstraints constraints;
 
 	public InformationProjectView() {
+		URL iconURL = getClass().getResource("../../../../images/logo1.png");
+		ImageIcon icon = new ImageIcon(iconURL);
+		this.setIconImage(icon.getImage());
+		
 		this.setTitle("Project Informations");
 		controller = new InformationProjectController(this);
 		int type = SharedController.getInstance().getProject().getType();

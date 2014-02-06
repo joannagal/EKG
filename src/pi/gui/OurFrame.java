@@ -5,8 +5,10 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.net.URL;
 
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -42,6 +44,11 @@ public class OurFrame extends JFrame {
 	public OurFrame() {
 
 		this.setTitle("ECG Analyzer");
+
+		URL iconURL = getClass().getResource("../../images/logo1.png");
+		ImageIcon icon = new ImageIcon(iconURL);
+		this.setIconImage(icon.getImage());
+
 		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
 		int x = (int)dimension.getWidth() - 100;
 		int y = (int)dimension.getHeight() - 100;

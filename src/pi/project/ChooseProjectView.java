@@ -6,8 +6,10 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
+import java.net.URL;
 
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -33,6 +35,7 @@ public class ChooseProjectView extends JDialog {
 	private String[] buttonEvent = new String[] { "CANCEL", "NEXT" };
 
 	public ChooseProjectView() {
+	
 		setAlwaysOnTop(true);
 		setVisible(true);
 		JPanel panel = new JPanel(new GridBagLayout());
@@ -112,7 +115,7 @@ public class ChooseProjectView extends JDialog {
 		panel.add(buttonPanel, constraints);
 
 		getContentPane().add(panel, BorderLayout.CENTER);
-
+		
 		pack();
 	}
 

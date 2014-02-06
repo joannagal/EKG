@@ -4,11 +4,13 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
@@ -44,6 +46,11 @@ public class PopulationSingleView extends JDialog{
 	private JFileChooser fileChooser;
 	
 	public PopulationSingleView(){
+		
+		URL iconURL = getClass().getResource("../../../../../images/logo1.png");
+		ImageIcon icon = new ImageIcon(iconURL);
+		this.setIconImage(icon.getImage());
+		
 		this.controller = new PopulationSingleController(this);
 		tabbedPane = new JTabbedPane();
 		firstBeforeListModel = new DefaultListModel<String>();

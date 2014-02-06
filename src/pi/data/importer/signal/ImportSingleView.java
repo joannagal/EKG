@@ -6,6 +6,9 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 
+import java.net.URL;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
@@ -33,7 +36,11 @@ public class ImportSingleView extends JDialog{
 	private final JFileChooser fileChooser = new JFileChooser();
 	
 	
-	public ImportSingleView(){
+	public ImportSingleView(){	
+		
+		URL iconURL = getClass().getResource("../../../../images/logo1.png");
+		ImageIcon icon = new ImageIcon(iconURL);
+		this.setIconImage(icon.getImage());
 		
 		okButton = new JButton("OK");
 		cancelButton = new JButton("CANCEL");

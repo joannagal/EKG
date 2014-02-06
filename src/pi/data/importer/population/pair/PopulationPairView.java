@@ -6,11 +6,13 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -27,10 +29,10 @@ public class PopulationPairView extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 
+	
 	private PopulationPairController controller;
 
 	private JTabbedPane tabbedPane = new JTabbedPane();
-
 	private DefaultListModel<String> firstBeforeListModel;
 	private JList<String> firstBeforeList;
 	private JScrollPane firstBeforePane;
@@ -63,6 +65,10 @@ public class PopulationPairView extends JDialog {
 
 	public PopulationPairView() {
 		
+		URL iconURL = getClass().getResource("../../../../../images/logo1.png");
+		ImageIcon icon = new ImageIcon(iconURL);
+		this.setIconImage(icon.getImage());
+			
 		this.setVisible(true);
 		firstBeforeListModel = new DefaultListModel<String>();
 		firstBeforeList = new JList<String>(
