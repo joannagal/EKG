@@ -2,13 +2,16 @@ package pi.gui.menu;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.xml.parsers.FactoryConfigurationError;
+import javax.xml.stream.XMLStreamException;
 
 import pi.data.importer.open.OpenPopulationController;
 import pi.data.importer.open.OpenPopulationView;
+import pi.data.importer.save.SavePopulation;
 import pi.project.ChooseProjectController;
 import pi.project.ChooseProjectView;
 import pi.project.Project;
@@ -19,6 +22,8 @@ public class MenuController implements ActionListener {
 	MenuView menuView;
 	private ChooseProjectController projectController;
 	private OpenPopulationController controller;
+	private SavePopulation save;
+	private SavePopulation save2;
 
 	public MenuController(MenuView view) {
 		this.menuView = view;
@@ -78,41 +83,35 @@ public class MenuController implements ActionListener {
 
 			if (SharedController.getInstance().getProject().getPath() == null) {
 
-				int returnVal = this.menuView.getFileChooser().showSaveDialog(null);
-				if (returnVal == JFileChooser.APPROVE_OPTION) {
-					File file = this.menuView.getFileChooser().getSelectedFile();
-					String path;
-					if (!file.getName().endsWith(".xml")) {
-						path = file.getAbsolutePath() + ".xml";
-						SharedController.getInstance().getProject().save(path);
-					} else {
-						SharedController.getInstance().getProject()
-								.save(file.getAbsolutePath());
-					}
+				try {
+					setSave(new SavePopulation(1));
+				} catch (FileNotFoundException | UnsupportedEncodingException
+						| XMLStreamException | FactoryConfigurationError e) {
+					e.printStackTrace();
 				}
 			} else {
-				SharedController.getInstance().getProject().save(null);
+
+				try {
+					setSave2(new SavePopulation(2));
+				} catch (FileNotFoundException | UnsupportedEncodingException
+						| XMLStreamException
+						| javax.xml.stream.FactoryConfigurationError e) {
+					e.printStackTrace();
+				}
+
 			}
 		}
 
 		if (action.equals("SAVE_AS_PROJECT")) {
 
-			this.menuView.initFileChooser();
 			if (SharedController.getInstance().getProject() == null)
 				return;
 
-			int returnVal =this.menuView.getFileChooser().showSaveDialog(null);
-
-			if (returnVal == JFileChooser.APPROVE_OPTION) {
-				File file = this.menuView.getFileChooser().getSelectedFile();
-				String path;
-				if (!file.getName().endsWith(".xml")) {
-					path = file.getAbsolutePath() + ".xml";
-					SharedController.getInstance().getProject().save(path);
-				} else {
-					SharedController.getInstance().getProject()
-							.save(file.getAbsolutePath());
-				}
+			try {
+				setSave(new SavePopulation(1));
+			} catch (FileNotFoundException | UnsupportedEncodingException
+					| XMLStreamException | FactoryConfigurationError e) {
+				e.printStackTrace();
 			}
 		}
 
@@ -148,6 +147,22 @@ public class MenuController implements ActionListener {
 
 	public void setController(OpenPopulationController controller) {
 		this.controller = controller;
+	}
+
+	public SavePopulation getSave() {
+		return save;
+	}
+
+	public void setSave(SavePopulation save) {
+		this.save = save;
+	}
+
+	public SavePopulation getSave2() {
+		return save2;
+	}
+
+	public void setSave2(SavePopulation save2) {
+		this.save2 = save2;
 	}
 
 }

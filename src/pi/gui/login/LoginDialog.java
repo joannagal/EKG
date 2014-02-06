@@ -1,10 +1,13 @@
 package pi.gui.login;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -23,19 +26,25 @@ public class LoginDialog extends JDialog {
 	private JLabel usernameLabel;
 	private JLabel passwordLabel;
 	private JButton loginButton;
-	private JButton cancelButton;
 	private JPanel buttonPanel;
 	private boolean succeeded;
 
 	public LoginDialog() {
-		setTitle("Login");
-		setVisible(true);
+		this.setTitle("Login");
+		this.setVisible(true);
+		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		JPanel panel = new JPanel(new GridBagLayout());
 		panel.setVisible(true);
 		GridBagConstraints constraints = new GridBagConstraints();
+		
+		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+		int x = (int) ((dimension.getWidth() - this.getWidth()) / 2) - 100;
+		int y = (int) ((dimension.getHeight() - this.getHeight()) / 2 - 100);
+		this.setLocation(x, y);
 
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 
+		
 		usernameLabel = new JLabel("Username: ");
 		usernameLabel.setVisible(true);
 		constraints.gridx = 0;
@@ -49,6 +58,7 @@ public class LoginDialog extends JDialog {
 		constraints.gridy = 0;
 		constraints.gridwidth = 2;
 		panel.add(usernameField, constraints);
+		usernameField.setText("admin");
 
 		passwordLabel = new JLabel("Password: ");
 		passwordLabel.setVisible(true);
@@ -63,17 +73,10 @@ public class LoginDialog extends JDialog {
 		constraints.gridy = 1;
 		constraints.gridwidth = 2;
 		panel.add(passwordField, constraints);
+		passwordField.setText("admin");
 
 		loginButton = new JButton("Login");
-		cancelButton = new JButton("Canel");
 
-		cancelButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				dispose();
-			}
-		});
-		
 		loginButton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -96,7 +99,6 @@ public class LoginDialog extends JDialog {
 		buttonPanel = new JPanel();
 
 		buttonPanel.add(loginButton);
-		buttonPanel.add(cancelButton);
 		
 		getContentPane().add(panel, BorderLayout.CENTER);
 		getContentPane().add(buttonPanel,BorderLayout.PAGE_END);

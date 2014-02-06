@@ -7,24 +7,14 @@ public class Application {
 
 
 	private static LoginDialog login;
+	private static OurFrame ourFrame;
 
 	public static void main(String[] args) {
 		
-		OurFrame ourFrame = new OurFrame();
+		setOurFrame(new OurFrame());
 		setLogin(new LoginDialog());
-			
-		while(true){
-			ourFrame.getMenubar().setLogItemText();
-			
-			if (!SharedController.getInstance().isLogged()){
-				ourFrame.getMenubar().setEditable(true);
-			} else {
-				ourFrame.getMenubar().setEditable(true);
-			}
-		}
-		 
+		SharedController.getInstance().getFrame().setEnabled(false);
 	
-		
 	}
 
 	public static LoginDialog getLogin() {
@@ -33,6 +23,14 @@ public class Application {
 
 	public static void setLogin(LoginDialog login) {
 		Application.login = login;
+	}
+
+	public static OurFrame getOurFrame() {
+		return ourFrame;
+	}
+
+	public static void setOurFrame(OurFrame ourFrame) {
+		Application.ourFrame = ourFrame;
 	}
 		
 }

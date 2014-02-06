@@ -10,7 +10,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import pi.shared.SharedController;
 
 public class MenuView extends JMenuBar {
 
@@ -47,8 +46,6 @@ public class MenuView extends JMenuBar {
 		menuItemsArray = new JMenuItem[] { aboutAppItem, closeAppItem, logItem,
 				createProjectItem, openProjectItem, saveAsProjectItem,
 				saveProjectItem, closeProjectItem };
-		setEditable(false);
-		//this.setInProject(false);
 	}
 
 	public void closeParent() {
@@ -81,7 +78,7 @@ public class MenuView extends JMenuBar {
 	public void setMainMenuItems() {
 		aboutAppItem = new JMenuItem("About application");
 		closeAppItem = new JMenuItem("Exit");
-		logItem = new JMenuItem();
+		logItem = new JMenuItem("Log out");
 
 		mainMenu.add(aboutAppItem);
 		mainMenu.add(new JSeparator());
@@ -95,7 +92,21 @@ public class MenuView extends JMenuBar {
 
 	public void setEditable(boolean value) {
 		projectMenu.setEnabled(value);
+		mainMenu.setEnabled(value);
 	}
+	
+	public void setModeBeforeProject(){
+		 createProjectItem.setEnabled(true);
+		 saveAsProjectItem.setEnabled(false);
+		 saveProjectItem.setEnabled(false);
+		 closeProjectItem.setEnabled(false);
+		 openProjectItem.setEnabled(true);
+		 
+		 logItem.setEnabled(true);
+		 aboutAppItem.setEnabled(true);
+		 closeAppItem.setEnabled(true);
+	}
+	
 
 	public void setMenuItemListener(MenuController al) {
 		for (int i = 0; i < menuItemsArray.length; i++) {
@@ -104,13 +115,6 @@ public class MenuView extends JMenuBar {
 		}
 	}
 
-	public void setLogItemText() {
-		if (SharedController.getInstance().isLogged()) {
-			logItem.setText("Log out");
-		} else {
-			logItem.setText("Log in");
-		}
-	}
 
 	public void setInProject(boolean value) {
 		this.saveProjectItem.setEnabled(value);

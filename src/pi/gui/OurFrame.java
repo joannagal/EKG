@@ -2,6 +2,7 @@ package pi.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
@@ -40,7 +41,11 @@ public class OurFrame extends JFrame {
 	
 	public OurFrame() {
 
-		this.setLocation(100, 0);
+		this.setTitle("ECG Analyzer");
+		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+		int x = (int)dimension.getWidth() - 100;
+		int y = (int)dimension.getHeight() - 100;
+		this.setSize(new Dimension(x, y));
 		getContentPane().setLayout(new BorderLayout());
 
 		initContent();
@@ -49,10 +54,12 @@ public class OurFrame extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 
+
 		setMenubar(new MenuView(this));
 		this.setJMenuBar(getMenubar());
 		setMenuController(new MenuController(getMenubar()));
-		this.setSize(new Dimension(1200, 800));
+		this.pack();
+
 		
 	}
 
@@ -88,4 +95,5 @@ public class OurFrame extends JFrame {
 	public void setContent(JPanel content) {
 		this.content = content;
 	}
+	
 }

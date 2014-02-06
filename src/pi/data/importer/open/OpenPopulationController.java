@@ -3,14 +3,24 @@ package pi.data.importer.open;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.MalformedInputException;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
+
+import com.lowagie.text.pdf.codec.Base64.InputStream;
 
 import pi.graph.signal.GraphView;
 import pi.project.Project;
@@ -21,6 +31,7 @@ public class OpenPopulationController implements ActionListener {
 	private OpenPopulationView view;
 	private GraphView graphFirstView;
 	private GraphView graphSecondView;
+	private File selectedFile;
 
 	public OpenPopulationController(OpenPopulationView view) {
 		this.view = view;
@@ -31,49 +42,64 @@ public class OpenPopulationController implements ActionListener {
 		String action = e.getActionCommand();
 
 		if (action.equals("OPEN")) {
-			PopImporter pi = new PopImporter();
-			SharedController.getInstance().getFrame().getContent().removeAll();
 
-			XMLReader p;
-			try {
+			if (!this.view.getPathArea().getText().isEmpty()) {
+				PopImporter pi = new PopImporter();
+				SharedController.getInstance().getFrame().getContent()
+						.removeAll();
 
-				p = XMLReaderFactory.createXMLReader();
-				p.setContentHandler(pi);
-				p.parse(view.getPath());
-				Project importedProject = pi.getProject();
+				XMLReader p;
+				try {
 
-				int type = importedProject.getType();
+					p = XMLReaderFactory.createXMLReader();
+					p.setContentHandler(pi);
 
-				SharedController.getInstance().setProject(importedProject);
-				SharedController.getInstance().createProjectToolbar();
+					try {
+						p.parse(view.getPath());
+					} catch (SAXException | IOException ex) {
+						JOptionPane.showMessageDialog(null,
+								"Please provide compatible file!");
+					}
+					Project importedProject = pi.getProject();
 
-				for (int i = 0; i < SharedController.getInstance().getProject().getFirstPopulation().getSpecimen().get(0).getBefore().getChannel().size(); i++){
-					System.out.println(SharedController.getInstance().getProject().getFirstPopulation().getSpecimen().get(0).getBefore().getChannel().get(i).getRange());				
+					int type = importedProject.getType();
+
+					SharedController.getInstance().setProject(importedProject);
+					SharedController.getInstance().createProjectToolbar();
+
+					for (int i = 0; i < SharedController.getInstance()
+							.getProject().getFirstPopulation().getSpecimen()
+							.get(0).getBefore().getChannel().size(); i++) {
+						System.out.println(SharedController.getInstance()
+								.getProject().getFirstPopulation()
+								.getSpecimen().get(0).getBefore().getChannel()
+								.get(i).getRange());
+					}
+
+					if (type == 1) {
+						setGraphFirstView(new GraphView(
+								importedProject.getFirstPopulation(), 1));
+					} else if (type == 2) {
+						setGraphFirstView(new GraphView(
+								importedProject.getFirstPopulation(), 1));
+						setGraphSecondView(new GraphView(
+								importedProject.getFirstPopulation(), 2));
+
+					} else if (type == 3 || type == 4) {
+						setGraphFirstView(new GraphView(
+								importedProject.getFirstPopulation(), 1));
+						setGraphSecondView(new GraphView(
+								importedProject.getSecondPopulation(), 2));
+					}
+
+				} catch (SAXException e1) {
+					e1.printStackTrace();
 				}
-				
-				
-				if (type == 1) {
-					setGraphFirstView(new GraphView(
-							importedProject.getFirstPopulation(), 1));
-				} else if (type == 2) {
-					setGraphFirstView(new GraphView(
-							importedProject.getFirstPopulation(), 1));
-					setGraphSecondView(new GraphView(
-							importedProject.getFirstPopulation(), 2));
 
-				} else if (type == 3 || type == 4) {
-					setGraphFirstView(new GraphView(
-							importedProject.getFirstPopulation(), 1));
-					setGraphSecondView(new GraphView(
-							importedProject.getSecondPopulation(), 2));
-				}
-
-			} catch (SAXException | IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				this.view.dispose();
+			} else {
+				JOptionPane.showMessageDialog(null, "Please fill in path!");
 			}
-			
-			this.view.dispose();
 
 		}
 		if (action.equals("CANCEL")) {
@@ -90,7 +116,7 @@ public class OpenPopulationController implements ActionListener {
 			int returnValue = fileChooser.showDialog(null, "Choose project...");
 
 			if (returnValue == JFileChooser.APPROVE_OPTION) {
-				File selectedFile = fileChooser.getSelectedFile();
+				selectedFile = fileChooser.getSelectedFile();
 				String path = selectedFile.getAbsolutePath();
 				SharedController.getInstance().setLastDirectory(
 						fileChooser.getSelectedFile());

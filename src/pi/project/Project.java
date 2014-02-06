@@ -25,13 +25,7 @@ public class Project {
 		setAnalyzer(new ECGAnalyzer());
 	}
 
-	public boolean save(String path) {
-		SaverThread runnable = new SaverThread(path, this);
-		Thread thread = new Thread(runnable);
-		thread.start();
 
-		return true;
-	}
 
 	public String getName() {
 		return name;

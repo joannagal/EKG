@@ -462,5 +462,9 @@ public class SharedController {
 	public void setToolConroller(ProjectToolbarController toolConroller) {
 		this.toolConroller = toolConroller;
 	}
+	
+	public void disableMenu(){
+		this.getFrame().getMenubar().setEditable(false);
+	}
 
 }
