@@ -4,17 +4,14 @@ import java.sql.Date;
 
 import pi.analyze.AnalysisResult;
 
-public class ECGAnalysisResult implements AnalysisResult
-{
+public class ECGAnalysisResult implements AnalysisResult {
 	private Date date;
 
-	public Date getDate()
-	{
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(Date date)
-	{
+	public void setDate(Date date) {
 		this.date = date;
 	}
 }

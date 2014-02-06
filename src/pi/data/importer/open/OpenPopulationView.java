@@ -13,7 +13,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-
 public class OpenPopulationView extends JDialog {
 
 	private static final long serialVersionUID = 1L;
@@ -27,13 +26,12 @@ public class OpenPopulationView extends JDialog {
 	private JButton openButton;
 	private JButton cancelButton;
 	private JPanel buttonPanel;
-	
 
 	public OpenPopulationView() {
 		URL iconURL = getClass().getResource("../../../../images/logo1.png");
 		ImageIcon icon = new ImageIcon(iconURL);
 		this.setIconImage(icon.getImage());
-		
+
 		controller = new OpenPopulationController(this);
 		this.setLayout(new GridBagLayout());
 		constraints = new GridBagConstraints();
@@ -41,8 +39,7 @@ public class OpenPopulationView extends JDialog {
 		this.setVisible(true);
 		this.setTitle("Open Project...");
 		this.setBounds(500, 200, 450, 200);
-			
-		//importPanel configuration
+
 		chooseButton = new JButton("CHOOSE");
 		chooseButton.addActionListener(this.controller);
 		chooseButton.setActionCommand("CHOOSE");
@@ -50,7 +47,7 @@ public class OpenPopulationView extends JDialog {
 		fileLabel.setVisible(true);
 		pathArea = new JTextArea();
 		getPathArea().setEditable(true);
-		getPathArea().setPreferredSize(new Dimension(250,20));
+		getPathArea().setPreferredSize(new Dimension(250, 20));
 		getPathArea().setEditable(true);
 		importPanel = new JPanel();
 		importPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -58,12 +55,12 @@ public class OpenPopulationView extends JDialog {
 		importPanel.add(getPathArea());
 		importPanel.add(chooseButton);
 		importPanel.setVisible(true);
-		importPanel.setSize(500,440);
-		
+		importPanel.setSize(500, 440);
+
 		openButton = new JButton("OPEN");
 		openButton.addActionListener(this.controller);
 		openButton.setActionCommand("OPEN");
-		
+
 		cancelButton = new JButton("CANCEL");
 		cancelButton.addActionListener(this.controller);
 		cancelButton.setActionCommand("CANCEL");
@@ -72,23 +69,22 @@ public class OpenPopulationView extends JDialog {
 		buttonPanel.setVisible(true);
 		buttonPanel.add(cancelButton);
 		buttonPanel.add(openButton);
-		
+
 		this.setLayout(new GridBagLayout());
 		constraints = new GridBagConstraints();
 		constraints.fill = GridBagConstraints.HORIZONTAL;
-		
+
 		constraints.gridx = 0;
 		constraints.gridy = 0;
 		constraints.gridwidth = 1;
 		this.add(importPanel, constraints);
-	
+
 		constraints.gridx = 0;
 		constraints.gridy = 1;
 		constraints.gridwidth = 1;
 		this.add(buttonPanel, constraints);
 
 	}
-
 
 	public String getPath() {
 		return path;

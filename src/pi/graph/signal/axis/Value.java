@@ -2,8 +2,7 @@ package pi.graph.signal.axis;
 
 import java.awt.Point;
 
-public class Value
-{
+public class Value {
 	private Point position;
 	private double value;
 	private int width;
@@ -11,72 +10,59 @@ public class Value
 
 	private boolean active;
 
-	public Value()
-	{
+	public Value() {
 		position = new Point();
 	}
 
-	public Value(Point position, double value, int id)
-	{
+	public Value(Point position, double value, int id) {
 		this.active = false;
 		this.position = position;
 		this.value = value;
 		this.id = id;
 	}
 
-	public void setPosition(int x, int y)
-	{
+	public void setPosition(int x, int y) {
 		this.position.x = x;
 		this.position.y = y;
 	}
 
-	public Point getPosition()
-	{
+	public Point getPosition() {
 		return position;
 	}
 
-	public void setPosition(Point position)
-	{
+	public void setPosition(Point position) {
 		this.position = position;
 	}
 
-	public double getValue()
-	{
+	public double getValue() {
 		return value;
 	}
 
-	public void setValue(double value)
-	{
+	public void setValue(double value) {
 		this.value = value;
 	}
 
-	public int getId()
-	{
+	public int getId() {
 		return id;
 	}
 
-	public void setId(int id)
-	{
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	public boolean isActive()
-	{
+	public boolean isActive() {
 		return active;
 	}
 
-	public void setActive(boolean active)
-	{
+	public void setActive(boolean active) {
 		this.active = active;
 	}
 
-	public int getWidth()
-	{
+	public int getWidth() {
 		return width;
 	}
 
-	public void setWidth(int width)
-	{
+	public void setWidth(int width) {
 		this.width = width;
 	}
 }

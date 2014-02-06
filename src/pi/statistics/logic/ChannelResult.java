@@ -10,13 +10,12 @@ public class ChannelResult {
 		return channelResult;
 	}
 
+	public void addValue(String name, AttributeResult result) {
+		channelResult.put(name, result);
+	}
 
-        public void addValue(String name, AttributeResult result ) {
-                channelResult.put(name, result);
-        }
-        
-        public void clearValues(){
-            channelResult.clear();
-        }
+	public void clearValues() {
+		channelResult.clear();
+	}
 
 }

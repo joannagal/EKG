@@ -243,7 +243,6 @@ public class GraphToolbar extends JPanel {
 		});
 		segmentHeightSliderPanel.add(segmentHeightSlider);
 
-		/* setting panel with panel height slider */
 		panelHeightSliderPanel = new JPanel();
 		panelHeightSliderPanel.setBorder(BorderFactory
 				.createTitledBorder("Segment Height"));
@@ -262,7 +261,6 @@ public class GraphToolbar extends JPanel {
 		});
 		panelHeightSliderPanel.add(heightSlider);
 
-		// add configured elements
 		this.add(informationButton);
 		this.add(autofinderButton);
 		this.add(segmentPanel);

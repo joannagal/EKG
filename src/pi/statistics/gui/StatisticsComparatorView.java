@@ -115,7 +115,7 @@ public class StatisticsComparatorView extends JFrame {
 		getContentPane().add(this.reportButton);
 
 		enableReports(false);
-		//TODO cursor
+		// TODO cursor
 		setReportsCursor(Cursor.WAIT_CURSOR);
 
 	}
@@ -205,11 +205,11 @@ public class StatisticsComparatorView extends JFrame {
 	public void fillChannelCombo() {
 		try {
 			for (String channelName : SharedController.getInstance()
-					.getProjectRes().getPopul1().getResult().get(0).getValue().getValue().get("Before")
-					.getValue().keySet()) {
+					.getProjectRes().getPopul1().getResult().get(0).getValue()
+					.getValue().get("Before").getValue().keySet()) {
 				int tmp = SharedController.getInstance().getProjectRes()
-						.getPopul1().getResult().get(0).getValue().getValue().get("Before").getValue()
-						.keySet().size();
+						.getPopul1().getResult().get(0).getValue().getValue()
+						.get("Before").getValue().keySet().size();
 				ArrayList<String> names = new ArrayList<String>();
 				for (int i = 0; i < tmp; i++) {
 					if (!names.contains(channelName)) {
@@ -220,11 +220,11 @@ public class StatisticsComparatorView extends JFrame {
 			}
 		} catch (Exception ex) {
 			for (String channelName : SharedController.getInstance()
-					.getProjectRes().getPopul2().getResult().get(0).getValue().getValue().get("Before")
-					.getValue().keySet()) {
+					.getProjectRes().getPopul2().getResult().get(0).getValue()
+					.getValue().get("Before").getValue().keySet()) {
 				int tmp = SharedController.getInstance().getProjectRes()
-						.getPopul2().getResult().get(0).getValue().getValue().get("Before").getValue()
-						.keySet().size();
+						.getPopul2().getResult().get(0).getValue().getValue()
+						.get("Before").getValue().keySet().size();
 				ArrayList<String> names = new ArrayList<String>();
 				for (int i = 0; i < tmp; i++) {
 					if (!names.contains(channelName)) {

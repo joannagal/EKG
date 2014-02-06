@@ -1,6 +1,5 @@
 package pi.analyze;
 
-public interface AnalysisResult
-{
+public interface AnalysisResult {
 
 }

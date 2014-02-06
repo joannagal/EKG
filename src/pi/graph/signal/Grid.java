@@ -5,55 +5,34 @@ import java.awt.Graphics;
 import pi.shared.schemes.signal.SignalScheme;
 import pi.utilities.Margin;
 
-//------------------------------------------
-//--- GRID FOR EACH SEGMENT
-public class Grid
-{
-	// --- OWNER
+public class Grid {
 	private Segment segment;
-
-	// --- DRAWING SCHEME
 	private SignalScheme scheme;
-
-	// --- MARGINS
 	private Margin margin;
 
-	// --- SIZE
 	private double width;
 	private double height;
 
 	private double yPosition;
-
-	// --- DIVIDERS OF GRID
 	private int mainDivider;
 	private int subDivider;
 
-	//------------------------------------------
-	// --- STANDARD CONSTRUCTOR
-	Grid(Segment segment)
-	{
+	Grid(Segment segment) {
 		this.segment = segment;
 		this.scheme = segment.getGraph().getScheme();
 	}
 
-	//------------------------------------------
-	// --- CHECK IF (x, y) IS IN GRID
-	public boolean isInGrid(int x, int y)
-	{
+	public boolean isInGrid(int x, int y) {
 		if ((x >= this.margin.getLeft())
 				&& (x <= this.margin.getLeft() + this.width)
-				&& (y >= this.yPosition) && (y <= this.yPosition + this.height))
-		{
+				&& (y >= this.yPosition) && (y <= this.yPosition + this.height)) {
 			return true;
 		}
 
 		return false;
 	}
 
-	//------------------------------------------
-	// --- CALLED WHEN SEGMENT IS RECALCULATED
-	public void recalculate()
-	{
+	public void recalculate() {
 		this.scheme = this.segment.getGraph().getScheme();
 		this.margin = scheme.getMargin();
 
@@ -70,12 +49,7 @@ public class Grid
 		this.subDivider = scheme.getSubDivider();
 	}
 
-	//------------------------------------------
-	// --- SIMPLE DRAW GRID
-	public void draw(Graphics graphics)
-	{
-		//------------------------------------------
-		// --- SUB GRID
+	public void draw(Graphics graphics) {
 
 		graphics.setColor(scheme.getGridColor());
 
@@ -92,34 +66,26 @@ public class Grid
 		double x = 0.0f;
 
 		for (y = this.yPosition, m = 0; y <= this.yPosition + this.height
-				- 2.0d; y += delta, m++)
-		{
-			if (m % this.subDivider != 0)
-			{
+				- 2.0d; y += delta, m++) {
+			if (m % this.subDivider != 0) {
 				graphics.drawLine((int) this.margin.getLeft(), (int) (y),
 						(int) (this.margin.getLeft() + this.width), (int) (y));
 			}
 		}
 
 		for (x = this.margin.getLeft(), m = 0; x <= this.margin.getLeft()
-				+ this.width; x += delta, m++)
-		{
-			if (m % this.subDivider != 0)
-			{
+				+ this.width; x += delta, m++) {
+			if (m % this.subDivider != 0) {
 				graphics.drawLine((int) x, (int) (this.yPosition), (int) x,
 						(int) (this.yPosition + this.height));
 			}
 		}
-		
-		//------------------------------------------
-		// --- MAIN GRID
 
 		delta = (float) this.height / (float) (this.mainDivider);
 
 		graphics.setColor(this.scheme.getMainGridColor());
 
-		for (y = this.yPosition; y <= this.yPosition + this.height; y += delta)
-		{
+		for (y = this.yPosition; y <= this.yPosition + this.height; y += delta) {
 			graphics.drawLine((int) this.margin.getLeft(), (int) y,
 					(int) (this.margin.getLeft() + this.width), (int) y);
 		}
@@ -129,8 +95,7 @@ public class Grid
 				(int) (this.margin.getLeft() + this.width),
 				(int) (this.yPosition + this.height));
 
-		for (x = this.margin.getLeft(); x <= this.margin.getLeft() + this.width; x += delta)
-		{
+		for (x = this.margin.getLeft(); x <= this.margin.getLeft() + this.width; x += delta) {
 			graphics.drawLine((int) x, (int) this.yPosition, (int) x,
 					(int) (this.yPosition + this.height));
 		}
@@ -141,25 +106,19 @@ public class Grid
 				(int) (this.yPosition + this.height));
 	}
 
-	//------------------------------------------
-	// --- GETTERS, SETTERS
-	public double getWidth()
-	{
+	public double getWidth() {
 		return width;
 	}
 
-	public void setWidth(double width)
-	{
+	public void setWidth(double width) {
 		this.width = width;
 	}
 
-	public double getHeight()
-	{
+	public double getHeight() {
 		return height;
 	}
 
-	public void setHeight(double height)
-	{
+	public void setHeight(double height) {
 		this.height = height;
 	}
 

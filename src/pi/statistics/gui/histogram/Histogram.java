@@ -10,8 +10,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class Histogram extends JPanel
-{
+public class Histogram extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	private ArrayList<ArrayList<Double>> data = null;
@@ -22,10 +21,10 @@ public class Histogram extends JPanel
 	private final Color gridColor = new Color(170, 170, 170, 255);
 	private final Color fontColor = new Color(0, 0, 0, 255);
 
-	private final Color[] drawColor =
-	{ new Color(255, 0, 0, 255), new Color(0, 255, 0, 255),
-			new Color(0, 0, 255, 255), new Color(255, 0, 255, 255),
-			new Color(255, 255, 0, 255), new Color(0, 255, 255, 255), };
+	private final Color[] drawColor = { new Color(255, 0, 0, 255),
+			new Color(0, 255, 0, 255), new Color(0, 0, 255, 255),
+			new Color(255, 0, 255, 255), new Color(255, 255, 0, 255),
+			new Color(0, 255, 255, 255), };
 
 	private int maxCounter = 0;
 	private int ranges = 5;
@@ -41,16 +40,14 @@ public class Histogram extends JPanel
 	private JButton addSegmentButton = new JButton("+");
 	private JButton delSegmentButton = new JButton("-");
 
-	public void recalculate()
-	{
+	public void recalculate() {
 		if (getData() == null)
 			return;
 
 		System.out.printf("DEEEBUG: %d %d\n", data.size(), ranges);
 
 		counter = new ArrayList<ArrayList<Integer>>(data.size());
-		for (int i = 0; i < data.size(); i++)
-		{
+		for (int i = 0; i < data.size(); i++) {
 			counter.add(new ArrayList<Integer>(ranges));
 		}
 
@@ -58,21 +55,18 @@ public class Histogram extends JPanel
 		this.maxValue = -1000000.0d;
 		this.maxCounter = 0;
 
-		for (int i = 0; i < data.size(); i++)
-		{
+		for (int i = 0; i < data.size(); i++) {
 			int size = data.get(i).size();
-			for (int j = 0; j < size; j++)
-			{
+			for (int j = 0; j < size; j++) {
 				if (getData().get(i).get(j) > maxValue)
 					maxValue = getData().get(i).get(j);
 				if (getData().get(i).get(j) < minValue)
 					minValue = getData().get(i).get(j);
 			}
-			
+
 			size = counter.get(i).size();
 
-			for (int j = 0; j < ranges; j++)
-			{
+			for (int j = 0; j < ranges; j++) {
 				counter.get(i).add(0);
 			}
 
@@ -80,20 +74,16 @@ public class Histogram extends JPanel
 
 		double range = (double) (maxValue - minValue) / (double) ranges;
 
-		for (int i = 0; i < data.size(); i++)
-		{
+		for (int i = 0; i < data.size(); i++) {
 			int size = data.get(i).size();
 			double value = 0.0d;
 			ArrayList<Integer> cnt = counter.get(i);
 
-			for (int j = 0; j < size; j++)
-			{
+			for (int j = 0; j < size; j++) {
 				value = getData().get(i).get(j);
-				for (int k = 1; k <= ranges; k++)
-				{
+				for (int k = 1; k <= ranges; k++) {
 					if ((value < minValue + (double) k * range)
-							|| (k == ranges))
-					{
+							|| (k == ranges)) {
 						int tmp = cnt.get(k - 1);
 						tmp++;
 						if (tmp > maxCounter)
@@ -107,14 +97,11 @@ public class Histogram extends JPanel
 
 		if (maxCounter <= 3)
 			divider = maxCounter;
-		else if (maxCounter <= 100)
-		{
+		else if (maxCounter <= 100) {
 			int max = -1;
 			int half = maxCounter / 2 + 1;
-			for (int i = 3; i <= half; i++)
-			{
-				if (maxCounter % i == 0)
-				{
+			for (int i = 3; i <= half; i++) {
+				if (maxCounter % i == 0) {
 					if (i > max)
 						max = i;
 				}
@@ -130,8 +117,7 @@ public class Histogram extends JPanel
 	}
 
 	@Override
-	public void paintComponent(Graphics graphics)
-	{
+	public void paintComponent(Graphics graphics) {
 
 		this.drawBackground(graphics);
 		this.drawBorder(graphics);
@@ -154,11 +140,9 @@ public class Histogram extends JPanel
 
 		double dV = (this.maxValue - this.minValue) / (double) this.ranges;
 
-		for (int i = 0; i < data.size(); i++)
-		{
+		for (int i = 0; i < data.size(); i++) {
 			ArrayList<Integer> cnt = counter.get(i);
-			for (int j = 0; j < ranges; j++)
-			{
+			for (int j = 0; j < ranges; j++) {
 				posX = 0.5d + left + innerShift + (width) * (double) j;
 				posX += i * smallWidth * this.innerScale;
 
@@ -174,15 +158,13 @@ public class Histogram extends JPanel
 				graphics.drawString(String.format("%d", cnt.get(j)),
 						(int) posX, (int) (posY - 6));
 
-				if (i == 0)
-				{
+				if (i == 0) {
 					graphics.setColor(this.fontColor);
 					graphics.drawString(
 							String.format("%f", minValue + (double) j * dV),
 							(int) posX, (int) (bottom + 10 + 10 * (j % 2)));
 
-					if (j == ranges - 1)
-					{
+					if (j == ranges - 1) {
 						posX += width;
 
 						graphics.drawString(
@@ -198,8 +180,7 @@ public class Histogram extends JPanel
 
 	}
 
-	public void drawGrid(Graphics graphics)
-	{
+	public void drawGrid(Graphics graphics) {
 		double left = marginLeft;
 		double bottom = this.getSize().height - margin;
 		double width = (this.getSize().width - margin - marginLeft);
@@ -208,8 +189,7 @@ public class Histogram extends JPanel
 
 		graphics.setColor(this.gridColor);
 
-		for (int i = 1; i <= divider; i++)
-		{
+		for (int i = 1; i <= divider; i++) {
 			posY = bottom - i * height;
 			graphics.drawLine((int) left, (int) posY, (int) (left + width),
 					(int) posY);
@@ -217,17 +197,14 @@ public class Histogram extends JPanel
 
 	}
 
-	public Histogram()
-	{
+	public Histogram() {
 		this.setLayout(null);
 
 		this.addSegmentButton.setBounds(5, 5, 45, 40);
-		this.addSegmentButton.addActionListener(new ActionListener()
-		{
+		this.addSegmentButton.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent arg0)
-			{
+			public void actionPerformed(ActionEvent arg0) {
 				addSegment();
 			}
 
@@ -235,12 +212,10 @@ public class Histogram extends JPanel
 		this.add(this.addSegmentButton);
 
 		this.delSegmentButton.setBounds(5, 45, 45, 40);
-		this.delSegmentButton.addActionListener(new ActionListener()
-		{
+		this.delSegmentButton.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent e)
-			{
+			public void actionPerformed(ActionEvent e) {
 				delSegment();
 			}
 
@@ -248,68 +223,53 @@ public class Histogram extends JPanel
 		this.add(this.delSegmentButton);
 	}
 
-	public void draw()
-	{
+	public void draw() {
 		if (getData() == null)
 			return;
 		this.repaint();
 	}
 
-	// ------------------------------------------
-	// SIMPLE DRAWING BORDER
-	public void drawBorder(Graphics graphics)
-	{
+	public void drawBorder(Graphics graphics) {
 		Rectangle frame = this.getBounds();
 		graphics.setColor(this.borderColor);
 		graphics.drawRect(0, 0, frame.width - 1, frame.height - 1);
 	}
 
-	// ------------------------------------------
-	// SIMPLE DRAWING BACKGROUND
-	public void drawBackground(Graphics graphics)
-	{
+	public void drawBackground(Graphics graphics) {
 		Rectangle frame = this.getBounds();
 		graphics.setColor(this.backgroundColor);
 		graphics.fillRect(0, 0, frame.width - 1, frame.height - 1);
 	}
 
-	public void addSegment()
-	{
-		if (this.ranges < 10)
-		{
+	public void addSegment() {
+		if (this.ranges < 10) {
 			this.ranges++;
 			this.recalculate();
 			this.draw();
 		}
 	}
 
-	public void delSegment()
-	{
-		if (this.ranges > 3)
-		{
+	public void delSegment() {
+		if (this.ranges > 3) {
 			this.ranges--;
 			this.recalculate();
 			this.draw();
 		}
 	}
 
-	public int getRanges()
-	{
+	public int getRanges() {
 		return ranges;
 	}
 
-	public void setRanges(int ranges)
-	{
+	public void setRanges(int ranges) {
 		this.ranges = ranges;
 	}
 
-	public ArrayList<ArrayList<Double>> getData()
-	{
+	public ArrayList<ArrayList<Double>> getData() {
 		return data;
 	}
 
-	public void setData(ArrayList<ArrayList<Double>> data)
-	{
+	public void setData(ArrayList<ArrayList<Double>> data) {
 		this.data = data;
 	}
 

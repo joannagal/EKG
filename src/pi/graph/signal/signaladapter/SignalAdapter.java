@@ -12,8 +12,7 @@ import pi.shared.schemes.signal.SignalScheme;
 import pi.utilities.DPoint;
 import pi.utilities.Margin;
 
-public class SignalAdapter
-{
+public class SignalAdapter {
 	private Segment segment;
 
 	private Channel signal;
@@ -25,19 +24,17 @@ public class SignalAdapter
 	private Margin margin;
 	private double height;
 	private double width;
-	
+
 	private double posY;
 
-	public SignalAdapter(Segment segment)
-	{
+	public SignalAdapter(Segment segment) {
 		this.segment = segment;
 		this.signal = this.segment.getGraph().getSignal();
 		this.startPoint = -1;
 		this.stopPoint = -1;
 	}
 
-	public void recalculate()
-	{
+	public void recalculate() {
 		ArrayList<Probe> probe = this.signal.getProbe();
 
 		this.scheme = this.segment.getGraph().getScheme();
@@ -45,7 +42,7 @@ public class SignalAdapter
 		this.margin = this.scheme.getMargin();
 		this.width = segment.getGrid().getWidth();
 		this.height = segment.getGrid().getHeight();
-		
+
 		posY = segment.getId() * segment.getGraph().getSegmentSize().height;
 
 		int capacity = probe.size();
@@ -64,8 +61,7 @@ public class SignalAdapter
 			this.stopPoint = capacity - 1;
 
 		if ((this.startPoint + this.stopPoint == 0)
-				|| (this.startPoint + this.stopPoint == (capacity - 1) * 2))
-		{
+				|| (this.startPoint + this.stopPoint == (capacity - 1) * 2)) {
 			this.startPoint = -1;
 			return;
 		}
@@ -73,14 +69,12 @@ public class SignalAdapter
 		capacity = stopPoint - startPoint + 1;
 	}
 
-	public int getPointFromTime(double time)
-	{
+	public int getPointFromTime(double time) {
 		int n = 0;
 
 		double current = this.signal.getTranslation();
 
-		while (current < time)
-		{
+		while (current < time) {
 			n++;
 			current = this.signal.getTranslation() + (double) n
 					* this.signal.getInterval();
@@ -89,25 +83,24 @@ public class SignalAdapter
 		return n;
 	}
 
-	public double getValueFromTime(double time)
-	{
+	public double getValueFromTime(double time) {
 		int left = this.getPointFromTime(time) - 1;
 		int right = left + 1;
-		
+
 		int capacity = this.signal.getProbe().size();
 
 		if (left == -1)
 			return -1;
 		if (right >= capacity)
 			return -1;
-		
+
 		Probe probe = this.signal.getProbe().get(left);
-		
+
 		double check = (double) probe.getNumber() * this.signal.getInterval()
 				+ this.signal.getTranslation();
 
 		DPoint p1, p2;
-		
+
 		p1 = new DPoint(0.0d, 0.0d);
 		p2 = new DPoint(0.0d, 0.0d);
 
@@ -120,20 +113,18 @@ public class SignalAdapter
 		p2.y = probe.getNormalized();
 
 		this.crossPoint(p1, p2, time, true);
-		
+
 		return p1.y;
 	}
-	
-	public double getYFromX(double x)
-	{
+
+	public double getYFromX(double x) {
 		double time = this.segment.getTimeFormPosition(x);
-		
+
 		double value = this.getValueFromTime(time);
 		return this.getYFromValue(value);
 	}
 
-	public double getXFromTime(double time)
-	{
+	public double getXFromTime(double time) {
 		double result = (time - segment.getStartTime()) * this.width
 				/ (segment.getStopTime() - segment.getStartTime());
 
@@ -142,8 +133,7 @@ public class SignalAdapter
 		return result + 0.5d;
 	}
 
-	public double getYFromValue(double value)
-	{
+	public double getYFromValue(double value) {
 		double result = (double) (value - this.signal.getMinValue())
 				* this.height
 				/ (this.signal.getMaxValue() - this.signal.getMinValue());
@@ -151,8 +141,7 @@ public class SignalAdapter
 		return this.margin.getTop() + height - result + 0.5d;
 	}
 
-	public void crossPoint(DPoint p1, DPoint p2, double x, boolean side)
-	{
+	public void crossPoint(DPoint p1, DPoint p2, double x, boolean side) {
 		double dx = p2.x - p1.x;
 		double dy = p2.y - p1.y;
 
@@ -161,19 +150,16 @@ public class SignalAdapter
 
 		double newY = a * (double) x + b;
 
-		if (side)
-		{
+		if (side) {
 			p1.x = x;
 			p1.y = newY;
-		} else
-		{
+		} else {
 			p2.x = x;
 			p2.y = newY;
 		}
 	}
 
-	public void draw(Graphics graphics)
-	{
+	public void draw(Graphics graphics) {
 		if (this.startPoint == -1)
 			return;
 
@@ -188,19 +174,15 @@ public class SignalAdapter
 		DPoint p1 = new DPoint(0.0d, 0.0d);
 		DPoint p2 = new DPoint(0.0d, 0.0d);
 
-	    g2d.setStroke(this.scheme.getSignalStroke());
-		
-		for (int i = this.startPoint; i < this.stopPoint; i++)
-		{
-			// point 1
+		g2d.setStroke(this.scheme.getSignalStroke());
+
+		for (int i = this.startPoint; i < this.stopPoint; i++) {
 			Probe tempProbe = probe.get(i);
 			double time = (double) tempProbe.getNumber()
 					* this.signal.getInterval() + this.signal.getTranslation();
 
 			p1.x = this.getXFromTime(time);
 			p1.y = this.getYFromValue(tempProbe.getNormalized());
-
-			// point 2
 
 			int from = i + 1;
 			if (from > this.stopPoint)
@@ -213,38 +195,30 @@ public class SignalAdapter
 			p2.x = this.getXFromTime(time);
 			p2.y = this.getYFromValue(tempProbe.getNormalized());
 
-			// cut left
-
 			if ((p1.x <= this.margin.getLeft())
-					&& (p2.x >= this.margin.getLeft()))
-			{
+					&& (p2.x >= this.margin.getLeft())) {
 				this.crossPoint(p1, p2, (int) this.margin.getLeft(), true);
 			}
 
-			// cut right
-
 			if ((p1.x <= this.margin.getLeft() + this.width)
-					&& (p2.x >= this.margin.getLeft() + this.width))
-			{
+					&& (p2.x >= this.margin.getLeft() + this.width)) {
 				this.crossPoint(p1, p2,
 						(int) (this.margin.getLeft() + this.width), false);
 			}
 
-			// draw
-			graphics.drawLine((int) p1.x, (int) (posY + p1.y), (int) p2.x, (int) (posY + p2.y));
+			graphics.drawLine((int) p1.x, (int) (posY + p1.y), (int) p2.x,
+					(int) (posY + p2.y));
 		}
 
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_OFF);
 	}
 
-	public Segment getSegment()
-	{
+	public Segment getSegment() {
 		return segment;
 	}
 
-	public void setSegment(Segment segment)
-	{
+	public void setSegment(Segment segment) {
 		this.segment = segment;
 	}
 

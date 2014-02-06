@@ -106,7 +106,6 @@ public class StatisticTestsController implements ActionListener {
 			}
 		}
 
-		// ------------------------------------
 
 		ArrayList<ArrayList<Double>> toHist = new ArrayList<ArrayList<Double>>(
 				2);
@@ -213,11 +212,11 @@ public class StatisticTestsController implements ActionListener {
 		if (com.equals("SAVE")) {
 			if (view.getStController().getFinalResult() != null) {
 				try {
-//					PopulReportMngr rm = SharedController.getInstance()
-//							.getPopulReportMngr();
-//					rm.saveRaportAsPdf(null);
-//					rm.saveReportAsHtml(null);
-					
+					// PopulReportMngr rm = SharedController.getInstance()
+					// .getPopulReportMngr();
+					// rm.saveRaportAsPdf(null);
+					// rm.saveReportAsHtml(null);
+
 					Object[] obj = { ".pdf", ".html" };
 					int type = JOptionPane.showOptionDialog(view,
 							"I want to save report as:", "Save report",

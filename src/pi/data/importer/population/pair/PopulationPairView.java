@@ -29,7 +29,6 @@ public class PopulationPairView extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 
-	
 	private PopulationPairController controller;
 
 	private JTabbedPane tabbedPane = new JTabbedPane();
@@ -38,7 +37,7 @@ public class PopulationPairView extends JDialog {
 	private JScrollPane firstBeforePane;
 	private LinkedList<File> firstBeforeFiles;
 
-	private DefaultListModel<String> firstAfterListModel; 
+	private DefaultListModel<String> firstAfterListModel;
 	private JList<String> firstAfterList;
 	private JScrollPane firstAfterPane;
 	private LinkedList<File> firstAfterFiles;
@@ -64,39 +63,35 @@ public class PopulationPairView extends JDialog {
 	private final JFileChooser fc = new JFileChooser();
 
 	public PopulationPairView() {
-		
+
 		URL iconURL = getClass().getResource("../../../../../images/logo1.png");
 		ImageIcon icon = new ImageIcon(iconURL);
 		this.setIconImage(icon.getImage());
-			
+
 		this.setVisible(true);
 		firstBeforeListModel = new DefaultListModel<String>();
-		firstBeforeList = new JList<String>(
-				firstBeforeListModel);
+		firstBeforeList = new JList<String>(firstBeforeListModel);
 		firstBeforePane = new JScrollPane(firstBeforeList,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		firstBeforeFiles = new LinkedList<File>();
 
 		firstAfterListModel = new DefaultListModel<String>();
-		firstAfterList = new JList<String>(
-				firstAfterListModel);
+		firstAfterList = new JList<String>(firstAfterListModel);
 		firstAfterPane = new JScrollPane(firstAfterList,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		firstAfterFiles = new LinkedList<File>();
 
 		secondBeforeListModel = new DefaultListModel<String>();
-		secondBeforeList = new JList<String>(
-				secondBeforeListModel);
+		secondBeforeList = new JList<String>(secondBeforeListModel);
 		secondBeforePane = new JScrollPane(secondBeforeList,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		secondBeforeFiles = new LinkedList<File>();
 
 		secondAfterListModel = new DefaultListModel<String>();
-		secondAfterList = new JList<String>(
-				secondAfterListModel);
+		secondAfterList = new JList<String>(secondAfterListModel);
 		secondAfterPane = new JScrollPane(secondAfterList,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -110,11 +105,12 @@ public class PopulationPairView extends JDialog {
 		okButton = new JButton("OK");
 		cancelButton = new JButton("Cancel");
 
-		fc.setCurrentDirectory(SharedController.getInstance().getLastDirectory());
-    	FileNameExtensionFilter filter = new FileNameExtensionFilter("XML (*.xml)","xml");
-    	fc.addChoosableFileFilter(filter);
-    	fc.setFileFilter(filter);
-		
+		fc.setCurrentDirectory(SharedController.getInstance()
+				.getLastDirectory());
+		FileNameExtensionFilter filter = new FileNameExtensionFilter(
+				"XML (*.xml)", "xml");
+		fc.addChoosableFileFilter(filter);
+		fc.setFileFilter(filter);
 
 		this.controller = new PopulationPairController(this);
 
@@ -173,7 +169,7 @@ public class PopulationPairView extends JDialog {
 		this.downButton.setActionCommand("DOWN");
 		this.downButton.addActionListener(this.controller);
 		this.add(this.downButton);
-		
+
 		JPanel controlPanel = new JPanel();
 		controlPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 		controlPanel.setVisible(true);
@@ -181,7 +177,7 @@ public class PopulationPairView extends JDialog {
 		controlPanel.add(delButton);
 		controlPanel.add(upButton);
 		controlPanel.add(downButton);
-		controlPanel.setBounds(0,385, 550, 50);
+		controlPanel.setBounds(0, 385, 550, 50);
 		this.add(controlPanel);
 
 		this.okButton.setBounds(425, 435, 100, 30);
@@ -318,7 +314,7 @@ public class PopulationPairView extends JDialog {
 	}
 
 	public void setSecondBeforeFiles(LinkedList<File> secondBeforeFiles) {
-	
+
 		this.secondBeforeFiles = secondBeforeFiles;
 	}
 

@@ -79,7 +79,6 @@ public class PopImporter extends DefaultHandler {
 			rawDataNode = false;
 			importRowData();
 		}
-		// System.out.println("End Element :" + qName);
 	}
 
 	@Override
@@ -297,7 +296,7 @@ public class PopImporter extends DefaultHandler {
 				cycle.setQrs_complex(qrs_complex);
 			}
 		}
-		
+
 		if (attributes.getValue("st_segment") != null) {
 			String st[] = attributes.getValue("st_segment").split(" ");
 			if (st.length >= 2 && st[0].matches("\\d+")
