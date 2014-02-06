@@ -14,6 +14,7 @@ public class PopulStatistic {
 	private String secondPopul;
 	private String tableName;
 	private String channelName;
+	private String attributeName;
 	private String waveName;
 	private String statisticName;
 	private double firstAverage;
@@ -232,6 +233,14 @@ public class PopulStatistic {
 
 	public void setTableName(String tableName) {
 		this.tableName = tableName;
+	}
+
+	public String getAttributeName() {
+		return attributeName;
+	}
+
+	public void setAttributeName(String attributeName) {
+		this.attributeName = attributeName;
 	}
 
 }

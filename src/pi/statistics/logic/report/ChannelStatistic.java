@@ -29,6 +29,7 @@ public class ChannelStatistic {
 
 	private String examination;
 	private String channelName;
+	private String attributeName;
 	private int channelId;
 	private String statisticName;
 
@@ -529,6 +530,14 @@ public class ChannelStatistic {
 
 	public void setPulse(Double pulse) {
 		this.pulse = pulse;
+	}
+
+	public String getAttributeName() {
+		return attributeName;
+	}
+
+	public void setAttributeName(String attributeName) {
+		this.attributeName = attributeName;
 	}
 
 }
