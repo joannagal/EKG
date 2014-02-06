@@ -61,7 +61,7 @@ public class StatisticWindowController implements ActionListener {
 				e.printStackTrace();
 				System.out.println("Report error: " + e.toString());
 			}
-			comparatorView.setReportsCursor(Cursor.DEFAULT_CURSOR);
+			//comparatorView.setReportsCursor(Cursor.DEFAULT_CURSOR);
 		}
 	};
 

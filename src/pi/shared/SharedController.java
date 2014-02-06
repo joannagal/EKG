@@ -7,6 +7,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.JobAttributes;
 import java.io.File;
 
 import javax.swing.JPanel;
@@ -451,8 +452,8 @@ public class SharedController {
 		return populReportMngr;
 	}
 
-	public void setPopulReportMngr(PopulReportMngr populReportMngr) {
-		this.populReportMngr = populReportMngr;
+	public void setPopulReportMngr(PopulReportMngr manager) {
+		this.populReportMngr = manager;
 	}
 
 	public ProjectToolbarController getToolConroller() {
