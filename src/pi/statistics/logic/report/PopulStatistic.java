@@ -27,24 +27,6 @@ public class PopulStatistic {
     public static Collection getPopulStatistics() {
 	Vector<PopulStatistic> statistics = new Vector<PopulStatistic>();
 
-	// //TODO
-	// PopulStatistic ps1 = new PopulStatistic();
-	// ps1.channelName = "channel 1";
-	// ps1.statisticName = "Average";
-	// ps1.waveName = "P-wave";
-	// ps1.firstAverage = 0.4;
-	// ps1.secondAverage = 0.5;
-	//
-	// PopulStatistic ps2 = new PopulStatistic();
-	// ps2.channelName = "channel 1";
-	// ps2.statisticName = "Wariance";
-	// ps2.waveName = "P-wave";
-	// ps2.firstAverage = 0.9;
-	// ps2.secondAverage = 0.7;
-	//
-	// statistics.add(ps1);
-	// statistics.add(ps2);
-
 	ProjectResult projectResult = SharedController.getInstance()
 		.getProjectRes();
 
@@ -146,12 +128,7 @@ public class PopulStatistic {
 			.get("Amplitude").keySet()) {
 		    // ... dla niego statystyke ...
 		    for (String statName : columnEntry.get(channelName)
-			    .get("Amplitude").get(waveName).keySet()) { // TODO
-									// rzuca
-									// NULL
-									// POINTER
-									// EX.
-
+			    .get("Amplitude").get(waveName).keySet()) {
 			Vector<Double> list = columnEntry.get(channelName)
 				.get("Amplitude").get(waveName).get(statName);
 
