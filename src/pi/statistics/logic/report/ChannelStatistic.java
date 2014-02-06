@@ -80,7 +80,6 @@ public class ChannelStatistic {
 		    cs.setSurname(specimen.getSurname());
 		    cs.setTimeToGoodMood(specimen.getTimeToGoodMood());
 		    cs.setWeight(specimen.getWeight());
-		    cs.setAttributeName("Duration");
 		    for (String waveName : before.getValue().get(name)
 			    .getValue().get("Duration").getWavesResult()
 			    .keySet()) {// PO WAVE
@@ -89,42 +88,50 @@ public class ChannelStatistic {
 				.getValue().get(statName).doubleValue();
 
 			if (waveName.equals("pWave")) {
+			    cs.setAttributeName("Duration");
 			    cs.setChannelName(name);
 			    cs.setP_waveResult(value);
 			    cs.setStatisticName(statName);
 
 			}
 			if (waveName.equals("tWave")) {
+			    cs.setAttributeName("Duration");
 			    cs.setChannelName(name);
 			    cs.setT_waveResult(value);
 			    cs.setStatisticName(statName);
 			}
 			if (waveName.equals("uWave")) {
+			    cs.setAttributeName("Duration");
 			    cs.setChannelName(name);
 			    cs.setU_waveResult(value);
 			    cs.setStatisticName(statName);
 			}
 			if (waveName.equals("prInterval")) {
+			    cs.setAttributeName("Duration");
 			    cs.setChannelName(name);
 			    cs.setPr_intervalResult(value);
 			    cs.setStatisticName(statName);
 			}
 			if (waveName.equals("prSegment")) {
+			    cs.setAttributeName("Duration");
 			    cs.setChannelName(name);
 			    cs.setPr_segmentResult(value);
 			    cs.setStatisticName(statName);
 			}
 			if (waveName.equals("stSegment")) {
+			    cs.setAttributeName("Duration");
 			    cs.setChannelName(name);
 			    cs.setSt_segmentResult(value);
 			    cs.setStatisticName(statName);
 			}
 			if (waveName.equals("stInterval")) {
+			    cs.setAttributeName("Duration");
 			    cs.setChannelName(name);
 			    cs.setSt_intervalResult(value);
 			    cs.setStatisticName(statName);
 			}
 			if (waveName.equals("qtInterval")) {
+			    cs.setAttributeName("Duration");
 			    cs.setChannelName(name);
 			    cs.setQt_intervalResult(value);
 			    cs.setStatisticName(statName);
@@ -142,16 +149,19 @@ public class ChannelStatistic {
 				    .doubleValue());
 			}
 			if (waveName.equals("qrsComplex")) {
+			    cs.setAttributeName("Duration");
 			    cs.setChannelName(name);
 			    cs.setQrs_complexResult(value);
 			    cs.setStatisticName(statName);
 			}
 			if (waveName.equals("J-point")) {
+			    cs.setAttributeName("Duration");
 			    cs.setChannelName(name);
 			    cs.setJ_point(value);
 			    cs.setStatisticName(statName);
 			}
 			if (waveName.equals("RR_interval")) {
+			    cs.setAttributeName("Duration");
 			    cs.setChannelName(name);
 			    cs.setRr_interval(value);
 			    cs.setStatisticName(statName);
@@ -164,8 +174,6 @@ public class ChannelStatistic {
 		    }
 		    
 		    
-		    statistics.add(cs);
-		    cs.setAttributeName("Amplitude");
 		    for (String waveName : before.getValue().get(name)
 			    .getValue().get("Amplitude").getWavesResult()
 			    .keySet()) {// PO WAVE
@@ -175,42 +183,50 @@ public class ChannelStatistic {
 				.doubleValue();
 
 			if (waveName.equals("pWave")) {
+			    cs.setAttributeName("Amplitude");
 			    cs.setChannelName(name);
 			    cs.setP_waveResult(value);
 			    cs.setStatisticName(statName);
 
 			}
 			if (waveName.equals("tWave")) {
+			    cs.setAttributeName("Amplitude");
 			    cs.setChannelName(name);
 			    cs.setT_waveResult(value);
 			    cs.setStatisticName(statName);
 			}
 			if (waveName.equals("uWave")) {
+			    cs.setAttributeName("Amplitude");
 			    cs.setChannelName(name);
 			    cs.setU_waveResult(value);
 			    cs.setStatisticName(statName);
 			}
 			if (waveName.equals("prInterval")) {
+			    cs.setAttributeName("Amplitude");
 			    cs.setChannelName(name);
 			    cs.setPr_intervalResult(value);
 			    cs.setStatisticName(statName);
 			}
 			if (waveName.equals("prSegment")) {
+			    cs.setAttributeName("Amplitude");
 			    cs.setChannelName(name);
 			    cs.setPr_segmentResult(value);
 			    cs.setStatisticName(statName);
 			}
 			if (waveName.equals("stSegment")) {
+			    cs.setAttributeName("Amplitude");
 			    cs.setChannelName(name);
 			    cs.setSt_segmentResult(value);
 			    cs.setStatisticName(statName);
 			}
 			if (waveName.equals("stInterval")) {
+			    cs.setAttributeName("Amplitude");
 			    cs.setChannelName(name);
 			    cs.setSt_intervalResult(value);
 			    cs.setStatisticName(statName);
 			}
 			if (waveName.equals("qtInterval")) {
+			    cs.setAttributeName("Amplitude");
 			    cs.setChannelName(name);
 			    cs.setQt_intervalResult(value);
 			    cs.setStatisticName(statName);
@@ -229,16 +245,19 @@ public class ChannelStatistic {
 			}
 			if (waveName.equals("qrsComplex")) {
 			    cs.setChannelName(name);
+			    cs.setAttributeName("Amplitude");
 			    cs.setQrs_complexResult(value);
 			    cs.setStatisticName(statName);
 			}
 			if (waveName.equals("J-point")) {
 			    cs.setChannelName(name);
+			    cs.setAttributeName("Amplitude");
 			    cs.setJ_point(value);
 			    cs.setStatisticName(statName);
 			}
 			if (waveName.equals("RR_interval")) {
 			    cs.setChannelName(name);
+			    cs.setAttributeName("Amplitude");
 			    cs.setRr_interval(value);
 			    cs.setStatisticName(statName);
 			    cs.setPulse(before.getValue().get(name).getValue()
@@ -264,7 +283,6 @@ public class ChannelStatistic {
 			ChannelStatistic cs = new ChannelStatistic();
 			
 			cs.setExamination("After");
-			cs.setAttributeName("Duration");
 			for (String waveName : after.getValue().get(name)
 				.getValue().get("Duration").getWavesResult()
 				.keySet()) {// PO WAVE
@@ -274,42 +292,50 @@ public class ChannelStatistic {
 				    .get(statName).doubleValue();
 
 			    if (waveName.equals("pWave")) {
+				cs.setAttributeName("Duration");
 				cs.setChannelName(name);
 				cs.setP_waveResult(value);
 				cs.setStatisticName(statName);
 
 			    }
 			    if (waveName.equals("tWave")) {
+				cs.setAttributeName("Duration");
 				cs.setChannelName(name);
 				cs.setT_waveResult(value);
 				cs.setStatisticName(statName);
 			    }
 			    if (waveName.equals("uWave")) {
+				cs.setAttributeName("Duration");
 				cs.setChannelName(name);
 				cs.setU_waveResult(value);
 				cs.setStatisticName(statName);
 			    }
 			    if (waveName.equals("prInterval")) {
+				cs.setAttributeName("Duration");
 				cs.setChannelName(name);
 				cs.setPr_intervalResult(value);
 				cs.setStatisticName(statName);
 			    }
 			    if (waveName.equals("prSegment")) {
+				cs.setAttributeName("Duration");
 				cs.setChannelName(name);
 				cs.setPr_segmentResult(value);
 				cs.setStatisticName(statName);
 			    }
 			    if (waveName.equals("stSegment")) {
+				cs.setAttributeName("Duration");
 				cs.setChannelName(name);
 				cs.setSt_segmentResult(value);
 				cs.setStatisticName(statName);
 			    }
 			    if (waveName.equals("stInterval")) {
+				cs.setAttributeName("Duration");
 				cs.setChannelName(name);
 				cs.setSt_intervalResult(value);
 				cs.setStatisticName(statName);
 			    }
 			    if (waveName.equals("qtInterval")) {
+				cs.setAttributeName("Duration");
 				cs.setChannelName(name);
 				cs.setQt_intervalResult(value);
 				cs.setStatisticName(statName);
@@ -328,15 +354,18 @@ public class ChannelStatistic {
 			    }
 			    if (waveName.equals("qrsComplex")) {
 				cs.setChannelName(name);
+				cs.setAttributeName("Duration");
 				cs.setQrs_complexResult(value);
 				cs.setStatisticName(statName);
 			    }
 			    if (waveName.equals("J-point")) {
+				cs.setAttributeName("Duration");
 				cs.setChannelName(name);
 				cs.setJ_point(value);
 				cs.setStatisticName(statName);
 			    }
 			    if (waveName.equals("RR_interval")) {
+				cs.setAttributeName("Duration");
 				cs.setChannelName(name);
 				cs.setRr_interval(value);
 				cs.setStatisticName(statName);
@@ -347,8 +376,6 @@ public class ChannelStatistic {
 					.doubleValue());
 			    }
 			}
-			statistics.add(cs);
-			cs.setAttributeName("Amplitude");
 			for (String waveName : after.getValue().get(name)
 				.getValue().get("Amplitude").getWavesResult()
 				.keySet()) {// PO WAVE
@@ -358,43 +385,51 @@ public class ChannelStatistic {
 				    .get(statName).doubleValue();
 
 			    if (waveName.equals("pWave")) {
+				cs.setAttributeName("Amplitude");
 				cs.setChannelName(name);
 				cs.setP_waveResult(value);
 				cs.setStatisticName(statName);
 
 			    }
 			    if (waveName.equals("tWave")) {
+				cs.setAttributeName("Amplitude");
 				cs.setChannelName(name);
 				cs.setT_waveResult(value);
 				cs.setStatisticName(statName);
 			    }
 			    if (waveName.equals("uWave")) {
+				cs.setAttributeName("Amplitude");
 				cs.setChannelName(name);
 				cs.setU_waveResult(value);
 				cs.setStatisticName(statName);
 			    }
 			    if (waveName.equals("prInterval")) {
+				cs.setAttributeName("Amplitude");
 				cs.setChannelName(name);
 				cs.setPr_intervalResult(value);
 				cs.setStatisticName(statName);
 			    }
 			    if (waveName.equals("prSegment")) {
 				cs.setChannelName(name);
+				cs.setAttributeName("Amplitude");
 				cs.setPr_segmentResult(value);
 				cs.setStatisticName(statName);
 			    }
 			    if (waveName.equals("stSegment")) {
 				cs.setChannelName(name);
+				cs.setAttributeName("Amplitude");
 				cs.setSt_segmentResult(value);
 				cs.setStatisticName(statName);
 			    }
 			    if (waveName.equals("stInterval")) {
 				cs.setChannelName(name);
+				cs.setAttributeName("Amplitude");
 				cs.setSt_intervalResult(value);
 				cs.setStatisticName(statName);
 			    }
 			    if (waveName.equals("qtInterval")) {
 				cs.setChannelName(name);
+				cs.setAttributeName("Amplitude");
 				cs.setQt_intervalResult(value);
 				cs.setStatisticName(statName);
 				cs.setQTcB(before.getValue().get(name)
@@ -411,17 +446,20 @@ public class ChannelStatistic {
 					.getValue().get("QTcR").doubleValue());
 			    }
 			    if (waveName.equals("qrsComplex")) {
+				cs.setAttributeName("Amplitude");
 				cs.setChannelName(name);
 				cs.setQrs_complexResult(value);
 				cs.setStatisticName(statName);
 			    }
 			    if (waveName.equals("J-point")) {
+				cs.setAttributeName("Amplitude");
 				cs.setChannelName(name);
 				cs.setJ_point(value);
 				cs.setStatisticName(statName);
 			    }
 			    if (waveName.equals("RR_interval")) {
 				cs.setChannelName(name);
+				cs.setAttributeName("Amplitude");
 				cs.setRr_interval(value);
 				cs.setStatisticName(statName);
 				cs.setPulse(before.getValue().get(name)
