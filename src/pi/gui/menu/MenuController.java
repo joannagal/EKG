@@ -12,6 +12,7 @@ import javax.xml.stream.XMLStreamException;
 import pi.data.importer.open.OpenPopulationController;
 import pi.data.importer.open.OpenPopulationView;
 import pi.data.importer.save.SavePopulation;
+import pi.gui.login.LoginDialog;
 import pi.project.ChooseProjectController;
 import pi.project.ChooseProjectView;
 import pi.project.Project;
@@ -24,6 +25,7 @@ public class MenuController implements ActionListener {
 	private OpenPopulationController controller;
 	private SavePopulation save;
 	private SavePopulation save2;
+	private LoginDialog login;
 
 	public MenuController(MenuView view) {
 		this.menuView = view;
@@ -35,18 +37,21 @@ public class MenuController implements ActionListener {
 
 		String action = ae.getActionCommand();
 		if (action.equals("LOG")) {
-			if (!SharedController.getInstance().isLogged()) {
-				pi.gui.login.LoginDialog login = new pi.gui.login.LoginDialog();
-				login.setLocation(400, 300);
-			} else {
-				int response = JOptionPane
-						.showConfirmDialog(menuView, "Do you want to log out?",
-								"Confirm", JOptionPane.YES_NO_OPTION,
-								JOptionPane.QUESTION_MESSAGE);
+			int response = JOptionPane.showConfirmDialog(menuView,
+					"Do you want to log out?\n"
+							+ "All unsaved data will be lost.", "Log out",
+					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+			if (response == JOptionPane.YES_OPTION) {
+				SharedController.getInstance().setProject(null);
+				SharedController.getInstance().setLogged(false);
+				SharedController.getInstance().getFrame().getMenubar()
+						.setInChoose(true);
+				SharedController.getInstance().getFrame().getMenubar()
+						.disableLogOut(false);
+				setLogin(new LoginDialog());
 
-				if (response == JOptionPane.YES_OPTION) {
-					SharedController.getInstance().setLogged(false);
-				}
+			} else if (response == JOptionPane.NO_OPTION) {
+				return;
 			}
 		}
 		if (action.equals("EXIT")) {
@@ -188,6 +193,14 @@ public class MenuController implements ActionListener {
 
 	public void setSave2(SavePopulation save2) {
 		this.save2 = save2;
+	}
+
+	public LoginDialog getLogin() {
+		return login;
+	}
+
+	public void setLogin(LoginDialog login) {
+		this.login = login;
 	}
 
 }
