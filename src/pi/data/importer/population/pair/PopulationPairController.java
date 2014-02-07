@@ -145,6 +145,8 @@ public class PopulationPairController implements ActionListener {
 				setView2(new GraphView(SharedController.getInstance()
 						.getProject().getSecondPopulation(), 2));
 
+				SharedController.getInstance().getFrame().getMenubar().setInProject(true);
+				
 				view.dispose();
 
 			} else

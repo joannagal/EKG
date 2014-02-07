@@ -59,23 +59,22 @@ public class MenuController implements ActionListener {
 		}
 
 		if (action.equals("ABOUT")) {
-			JOptionPane.showMessageDialog(null, "This program was made for bachelor thesis (2014). \n\n"
-					+ "Authors: \n"
-					+ "Natalia Adamkiewicz \n"
-					+ "Joanna Galewska \n"
-					+ "Magdalena Jaœkiewicz \n"
-					+ "Micha³ Tomczyk");
-			
+			JOptionPane.showMessageDialog(null,
+					"This program was made for bachelor thesis (2014). \n\n"
+							+ "Authors: \n" + "Natalia Adamkiewicz \n"
+							+ "Joanna Galewska \n" + "Magdalena Jaœkiewicz \n"
+							+ "Micha³ Tomczyk");
+
 		}
 		if (action.equals("CREATE_PROJECT")) {
-			if (SharedController.getInstance().getProject() == null){
+			if (SharedController.getInstance().getProject() == null) {
 				Project project = new Project();
 				ChooseProjectView projectView = new ChooseProjectView();
 				setProjectController(new ChooseProjectController(project,
 						projectView));
 				projectView.setLocation(400, 200);
-			} else if (SharedController.getInstance().getProject()!= null){
-			
+			} else if (SharedController.getInstance().getProject() != null) {
+
 				int response = JOptionPane
 						.showConfirmDialog(
 								menuView,
@@ -89,10 +88,10 @@ public class MenuController implements ActionListener {
 					setProjectController(new ChooseProjectController(project,
 							projectView));
 					projectView.setLocation(400, 200);
-				} else if (response == JOptionPane.NO_OPTION){
+				} else if (response == JOptionPane.NO_OPTION) {
 					return;
 				}
-				
+
 			}
 		}
 
@@ -150,6 +149,8 @@ public class MenuController implements ActionListener {
 								JOptionPane.QUESTION_MESSAGE);
 				if (response == JOptionPane.YES_OPTION) {
 					SharedController.getInstance().setProject(null);
+					SharedController.getInstance().getFrame().getMenubar()
+							.setInProject(false);
 
 				}
 			}

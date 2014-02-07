@@ -82,6 +82,9 @@ public class ImportPairController implements ActionListener {
 				} catch (DocumentException ae) {
 					ae.printStackTrace();
 				}
+				
+				SharedController.getInstance().getFrame().getMenubar().setInProject(true);
+
 				this.view.dispose();
 
 			} else {

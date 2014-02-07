@@ -29,7 +29,7 @@ public class LoginDialog extends JDialog {
 	private JPanel buttonPanel;
 	private boolean succeeded;
 
-	public LoginDialog(){
+	public LoginDialog() {
 		super(SharedController.getInstance().getFrame());
 		this.setTitle("Login");
 		this.setVisible(true);
@@ -37,15 +37,14 @@ public class LoginDialog extends JDialog {
 		JPanel panel = new JPanel(new GridBagLayout());
 		panel.setVisible(true);
 		GridBagConstraints constraints = new GridBagConstraints();
-		
+
 		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
 		int x = (int) ((dimension.getWidth() - this.getWidth()) / 2) - 100;
 		int y = (int) ((dimension.getHeight() - this.getHeight()) / 2 - 100);
 		this.setLocation(x, y);
 
 		constraints.fill = GridBagConstraints.HORIZONTAL;
-		
-	
+
 		usernameLabel = new JLabel("Username: ");
 		usernameLabel.setVisible(true);
 		constraints.gridx = 0;
@@ -77,40 +76,41 @@ public class LoginDialog extends JDialog {
 		passwordField.setText("admin");
 
 		loginButton = new JButton("Login");
-		
+
 		loginButton.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (Login.authenticate(getUsername(), getPassword())){
-					JOptionPane.showMessageDialog(LoginDialog.this, "You have successfully log in", "Login", JOptionPane.INFORMATION_MESSAGE);
+				if (Login.authenticate(getUsername(), getPassword())) {
+					JOptionPane.showMessageDialog(LoginDialog.this,
+							"You have successfully log in", "Login",
+							JOptionPane.INFORMATION_MESSAGE);
 					succeeded = true;
 					SharedController.getInstance().setLogged(true);
 					dispose();
-				}
-				else {
-					JOptionPane.showMessageDialog(LoginDialog.this, "Invalid username or password", "Login", JOptionPane.ERROR_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(LoginDialog.this,
+							"Invalid username or password", "Login",
+							JOptionPane.ERROR_MESSAGE);
 					usernameField.setText("");
 					passwordField.setText("");
 					succeeded = false;
 				}
 			}
 		});
-		
-		
+
 		loginButton.setActionCommand("LOGIN");
 		buttonPanel = new JPanel();
 
 		buttonPanel.add(loginButton);
-		
+
 		getContentPane().add(panel, BorderLayout.CENTER);
-		getContentPane().add(buttonPanel,BorderLayout.PAGE_END);
-		
+		getContentPane().add(buttonPanel, BorderLayout.PAGE_END);
+
 		pack();
 		setResizable(false);
-		
+
 	}
-	
 
 	public String getUsername() {
 		return usernameField.getText().trim();
@@ -123,7 +123,5 @@ public class LoginDialog extends JDialog {
 	public boolean isSucceeded() {
 		return succeeded;
 	}
-
-
 
 }

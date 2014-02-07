@@ -10,7 +10,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-
 public class MenuView extends JMenuBar {
 
 	private static final long serialVersionUID = 1L;
@@ -90,23 +89,17 @@ public class MenuView extends JMenuBar {
 
 	}
 
-	public void setEditable(boolean value) {
-		projectMenu.setEnabled(value);
-		mainMenu.setEnabled(value);
+	public void setModeBeforeProject() {
+		createProjectItem.setEnabled(false);
+		saveAsProjectItem.setEnabled(false);
+		saveProjectItem.setEnabled(false);
+		closeProjectItem.setEnabled(false);
+		openProjectItem.setEnabled(false);
+
+		logItem.setEnabled(false);
+		aboutAppItem.setEnabled(true);
+		closeAppItem.setEnabled(true);
 	}
-	
-	public void setModeBeforeProject(){
-		 createProjectItem.setEnabled(true);
-		 saveAsProjectItem.setEnabled(false);
-		 saveProjectItem.setEnabled(false);
-		 closeProjectItem.setEnabled(false);
-		 openProjectItem.setEnabled(true);
-		 
-		 logItem.setEnabled(true);
-		 aboutAppItem.setEnabled(true);
-		 closeAppItem.setEnabled(true);
-	}
-	
 
 	public void setMenuItemListener(MenuController al) {
 		for (int i = 0; i < menuItemsArray.length; i++) {
@@ -115,11 +108,18 @@ public class MenuView extends JMenuBar {
 		}
 	}
 
-
 	public void setInProject(boolean value) {
 		this.saveProjectItem.setEnabled(value);
 		this.saveAsProjectItem.setEnabled(value);
 		this.closeProjectItem.setEnabled(value);
+	}
+
+	public void setInChoose(boolean value) {
+		this.projectMenu.setEnabled(!value);
+	}
+
+	public void disableLogOut(boolean value) {
+		this.logItem.setEnabled(value);
 	}
 
 	public JFileChooser getFileChooser() {
@@ -129,8 +129,8 @@ public class MenuView extends JMenuBar {
 	public void setFileChooser(JFileChooser fileChooser) {
 		this.fileChooser = fileChooser;
 	}
-	
-	public void initFileChooser(){
+
+	public void initFileChooser() {
 		this.fileChooser = new JFileChooser();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter(
 				"XML files (*.xml)", "xml");

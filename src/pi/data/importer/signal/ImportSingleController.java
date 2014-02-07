@@ -59,6 +59,9 @@ public class ImportSingleController implements ActionListener {
 
 					@SuppressWarnings("unused")
 					GraphView view = new GraphView(population, 1);
+					
+					SharedController.getInstance().getFrame().getMenubar().setInProject(true);
+					
 				} catch (DocumentException ae) {
 					ae.printStackTrace();
 				}

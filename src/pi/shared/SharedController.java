@@ -424,9 +424,6 @@ public class SharedController {
 		this.toolConroller = toolConroller;
 	}
 	
-	public void disableMenu(){
-		this.getFrame().getMenubar().setEditable(false);
-	}
 
 	public ProgressView getProgress() {
 		return progress;
@@ -436,4 +433,5 @@ public class SharedController {
 		this.progress = progress;
 	}
 
+	
 }

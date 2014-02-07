@@ -115,6 +115,11 @@ public class PopulationSingleController implements ActionListener {
 				setGraphSecondView(new GraphView(SharedController.getInstance()
 						.getProject().getSecondPopulation(), 2));
 				
+				SharedController.getInstance().getFrame().getMenubar().setInProject(true);
+				
+				view.dispose();
+
+				
 			} else {
 				JOptionPane.showMessageDialog(null,
 						"Size of lists should be equal and not empty!");

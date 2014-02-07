@@ -41,6 +41,8 @@ public class OpenPopulationController implements ActionListener {
 				Thread thread = new Thread(runnable);
 				thread.start();
 				
+				SharedController.getInstance().getFrame().getMenubar().setInProject(true);
+				
 				this.view.dispose();
 			} else {
 				JOptionPane.showMessageDialog(null, "Please fill in path!");

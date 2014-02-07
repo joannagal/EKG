@@ -23,24 +23,26 @@ public class OurFrame extends JFrame {
 	private MenuController menuController;
 	private JPanel content;
 	private ComponentListener cl = new ComponentListener() {
-		
+
 		@Override
-		public void componentShown(ComponentEvent e) {}
-		
+		public void componentShown(ComponentEvent e) {
+		}
+
 		@Override
 		public void componentResized(ComponentEvent e) {
 			JPanel source = (JPanel) e.getSource();
 			source.setPreferredSize(source.getSize());
 		}
-		
+
 		@Override
-		public void componentMoved(ComponentEvent e) {}
-		
+		public void componentMoved(ComponentEvent e) {
+		}
+
 		@Override
-		public void componentHidden(ComponentEvent e) {}
+		public void componentHidden(ComponentEvent e) {
+		}
 	};
-	
-	
+
 	public OurFrame() {
 
 		this.setTitle("ECG Analyzer");
@@ -50,35 +52,33 @@ public class OurFrame extends JFrame {
 		this.setIconImage(icon.getImage());
 
 		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-		int x = (int)dimension.getWidth() - 100;
-		int y = (int)dimension.getHeight() - 100;
+		int x = (int) dimension.getWidth() - 50;
+		int y = (int) dimension.getHeight() - 50;
 		this.setSize(new Dimension(x, y));
 		getContentPane().setLayout(new BorderLayout());
 
 		initContent();
-		
+
 		SharedController.getInstance().setFrame(this);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
-
 
 		setMenubar(new MenuView(this));
 		this.setJMenuBar(getMenubar());
 		setMenuController(new MenuController(getMenubar()));
 		this.pack();
 
-		
 	}
 
-	public void initContent(){
+	public void initContent() {
 		content = new JPanel();
 		content.setVisible(true);
 		content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
 		content.addComponentListener(cl);
-		
+
 		getContentPane().add(content, BorderLayout.CENTER);
 	}
-	
+
 	public MenuView getMenubar() {
 		return menubar;
 	}
@@ -102,5 +102,5 @@ public class OurFrame extends JFrame {
 	public void setContent(JPanel content) {
 		this.content = content;
 	}
-	
+
 }
