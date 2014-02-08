@@ -50,7 +50,8 @@ public class ChannelStatistic {
     private Double QTcR;
     private Double QTcF;
     private Double QTcB;
-
+    private static int specimenId = 0;
+    
     @SuppressWarnings("rawtypes")
     public static Collection getChannelStatistics() {
 
@@ -58,11 +59,11 @@ public class ChannelStatistic {
 	Vector<ChannelStatistic> statistics = new Vector<ChannelStatistic>();
 
 	ChannelResult before = SharedController.getInstance().getProject()
-		.getFirstPopulation().getSpecimen().get(0)
+		.getFirstPopulation().getSpecimen().get(ChannelStatistic.getSpecimenId())
 		.getStatisticResults().getValue().getValue().get("Before");
 
 	Specimen specimen = SharedController.getInstance().getProject()
-		.getFirstPopulation().getSpecimen().get(0);
+		.getFirstPopulation().getSpecimen().get(ChannelStatistic.getSpecimenId());
 
 	try {
 	    for (String name : before.getValue().keySet()) {// PO CHANNELACH
@@ -271,7 +272,7 @@ public class ChannelStatistic {
 	    }
 
 	    ChannelResult after = SharedController.getInstance().getProject()
-		    .getFirstPopulation().getSpecimen().get(0)
+		    .getFirstPopulation().getSpecimen().get(ChannelStatistic.getSpecimenId())
 		    .getStatisticResults().getValue().getValue().get("After");
 	    if (after != null) {
 		
@@ -716,6 +717,14 @@ public class ChannelStatistic {
 
     public void setAttributeName(String attributeName) {
 	this.attributeName = attributeName;
+    }
+
+    public static int getSpecimenId() {
+	return specimenId;
+    }
+
+    public static void setSpecimenId(int specimenId) {
+	ChannelStatistic.specimenId = specimenId;
     }
 
 }

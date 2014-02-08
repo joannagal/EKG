@@ -21,10 +21,17 @@ public class SpecimenReportMngr {
 	JasperPrint jasperPrint = null;
 	JasperDesign jasperDesign = null;
 	JRBeanCollectionDataSource dataSource = null;
+	private int specimenId;
 
 	public SpecimenReportMngr() throws JRException {
 		initReport();
 	}
+	
+	public SpecimenReportMngr(int id) throws JRException {
+	    	this.specimenId = id;
+		initReport();
+	}
+
 
 	public void refreshReport() throws JRException {
 		initReport();
@@ -39,6 +46,7 @@ public class SpecimenReportMngr {
 
 		// TODO Sprawdziæ czy klonowanie dataSource jest wydajniejsze od
 		// generowania go na nowo za ka¿dym razem
+		ChannelStatistic.setSpecimenId(specimenId);
 		dataSource = new JRBeanCollectionDataSource(
 				ChannelStatistic.getChannelStatistics());
 
