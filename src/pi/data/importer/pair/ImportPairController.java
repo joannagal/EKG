@@ -15,6 +15,7 @@ import pi.graph.signal.GraphView;
 import pi.inputs.signal.ECG;
 import pi.population.Population;
 import pi.population.Specimen;
+import pi.project.Project;
 import pi.shared.SharedController;
 
 public class ImportPairController implements ActionListener {
@@ -26,6 +27,7 @@ public class ImportPairController implements ActionListener {
 	private Population population;
 	private GraphView firstView;
 	private GraphView secondView;
+	private Project project;
 
 	public ImportPairController(ImportPairView view) {
 		this.view = view;
@@ -42,6 +44,12 @@ public class ImportPairController implements ActionListener {
 				String path = this.view.getFirstPathArea().getText().toString();
 
 				try {
+					
+					project= new Project();
+					project.setType(2);
+					project.setName("New Project");
+					SharedController.getInstance().setProject(project);
+					
 					importer = new Importer(path);
 					ArrayList<ECG> temp = importer.importSignals();
 
@@ -62,14 +70,8 @@ public class ImportPairController implements ActionListener {
 
 					setSecondView(new GraphView(population, 1));
 
-				} catch (DocumentException ae) {
-					ae.printStackTrace();
-				}
-
-				String path2 = this.view.getSecondPathArea().getText()
-						.toString();
-
-				try {
+					String path2 = this.view.getSecondPathArea().getText()
+							.toString();
 
 					importer2 = new Importer(path2);
 					ArrayList<ECG> temp2 = importer2.importSignals();
@@ -79,17 +81,20 @@ public class ImportPairController implements ActionListener {
 
 					setFirstView(new GraphView(population, 2));
 
-				} catch (DocumentException ae) {
-					ae.printStackTrace();
+					SharedController.getInstance().getFrame().getMenubar()
+							.setInProject(true);
+
+					this.view.dispose();
+
+				} catch (DocumentException | IndexOutOfBoundsException ex) {
+					JOptionPane.showMessageDialog(null,
+							"Incompatible type of given file!");
 				}
-				
-				SharedController.getInstance().getFrame().getMenubar().setInProject(true);
+			}
 
-				this.view.dispose();
-
-			} else {
+			else {
 				JOptionPane.showMessageDialog(null,
-						"All fields are required, please fill in paths!");
+						"All fields are required, please provide paths!");
 			}
 
 		} else if (action.equals("CANCEL")) {

@@ -19,6 +19,7 @@ import pi.graph.signal.GraphView;
 import pi.inputs.signal.ECG;
 import pi.population.Population;
 import pi.population.Specimen;
+import pi.project.Project;
 import pi.shared.SharedController;
 
 public class PopulationPairController implements ActionListener {
@@ -31,6 +32,7 @@ public class PopulationPairController implements ActionListener {
 	private Importer importer;
 	private GraphView view2;
 	private GraphView view3;
+	private Project project;
 
 	public PopulationPairController(PopulationPairView view) {
 		this.view = view;
@@ -51,13 +53,18 @@ public class PopulationPairController implements ActionListener {
 			if (((sizeFirstBefore > 0) && (sizeFirstAfter > 0) && (sizeFirstBefore == sizeFirstAfter))
 					|| ((sizeSecondBefore > 0) && (sizeSecondAfter > 0) && (sizeSecondBefore == sizeSecondAfter))) {
 
-				population = new Population();
-				specimens = new ArrayList<Specimen>();
+				try {
+					project = new Project();
+					project.setType(4);
+					project.setName("New Project");
+					SharedController.getInstance().setProject(project);
 
-				for (int i = 0; i < sizeFirstBefore; i++) {
+					population = new Population();
+					specimens = new ArrayList<Specimen>();
 
-					String path = paths.get(0).get(i).toString();
-					try {
+					for (int i = 0; i < sizeFirstBefore; i++) {
+
+						String path = paths.get(0).get(i).toString();
 						importer = new Importer(path);
 						ArrayList<ECG> temp = importer.importSignals();
 
@@ -66,22 +73,17 @@ public class PopulationPairController implements ActionListener {
 						specimen.setPath(path);
 						specimens.add(specimen);
 						specimen.setDetails(importer.getAttributes());
-					} catch (DocumentException e) {
-						e.printStackTrace();
 					}
 
-				}
+					population.setSpecimen(specimens);
+					population.setName("First population");
 
-				population.setSpecimen(specimens);
-				population.setName("First population");
+					SharedController.getInstance().getProject()
+							.setFirstPopulation(population);
 
-				SharedController.getInstance().getProject()
-						.setFirstPopulation(population);
+					for (int i = 0; i < sizeFirstAfter; i++) {
 
-				for (int i = 0; i < sizeFirstAfter; i++) {
-
-					String firstPathAfter = paths.get(1).get(i).toString();
-					try {
+						String firstPathAfter = paths.get(1).get(i).toString();
 						importer = new Importer(firstPathAfter);
 						ArrayList<ECG> temp = importer.importSignals();
 
@@ -90,17 +92,13 @@ public class PopulationPairController implements ActionListener {
 								.getSpecimen().get(i);
 						specimen.setAfter(temp.get(0));
 						specimen.setPathAfter(firstPathAfter);
-					} catch (DocumentException e1) {
-						e1.printStackTrace();
 					}
-				}
 
-				population2 = new Population();
-				specimens2 = new ArrayList<Specimen>();
+					population2 = new Population();
+					specimens2 = new ArrayList<Specimen>();
 
-				for (int i = 0; i < sizeSecondBefore; i++) {
+					for (int i = 0; i < sizeSecondBefore; i++) {
 
-					try {
 						String secondPathBefore = paths.get(2).get(i)
 								.toString();
 						importer = new Importer(secondPathBefore);
@@ -110,21 +108,14 @@ public class PopulationPairController implements ActionListener {
 						specimen.setPath(secondPathBefore);
 						specimens2.add(specimen);
 						specimen.setDetails(importer.getAttributes());
-
-					} catch (DocumentException e1) {
-
-						e1.printStackTrace();
 					}
-				}
 
-				population2.setSpecimen(specimens2);
-				population2.setName("Second population");
-				SharedController.getInstance().getProject()
-						.setSecondPopulation(population2);
+					population2.setSpecimen(specimens2);
+					population2.setName("Second population");
+					SharedController.getInstance().getProject()
+							.setSecondPopulation(population2);
 
-				for (int i = 0; i < sizeSecondAfter; i++) {
-
-					try {
+					for (int i = 0; i < sizeSecondAfter; i++) {
 						String secondPathAfter = paths.get(3).get(i).toString();
 
 						importer = new Importer(secondPathAfter);
@@ -134,20 +125,23 @@ public class PopulationPairController implements ActionListener {
 								.getSpecimen().get(i);
 						specimen.setAfter(temp.get(0));
 						specimen.setPathAfter(secondPathAfter);
-					} catch (DocumentException e1) {
-						e1.printStackTrace();
+
+						SharedController.getInstance().createProjectToolbar();
+						setView3(new GraphView(SharedController.getInstance()
+								.getProject().getFirstPopulation(), 1));
+						setView2(new GraphView(SharedController.getInstance()
+								.getProject().getSecondPopulation(), 2));
+
+						SharedController.getInstance().getFrame().getMenubar()
+								.setInProject(true);
+
+						view.dispose();
 					}
+
+				} catch (DocumentException | IndexOutOfBoundsException e) {
+					JOptionPane.showMessageDialog(null,
+							"Incompatible type of given file!");
 				}
-
-				SharedController.getInstance().createProjectToolbar();
-				setView3(new GraphView(SharedController.getInstance()
-						.getProject().getFirstPopulation(), 1));
-				setView2(new GraphView(SharedController.getInstance()
-						.getProject().getSecondPopulation(), 2));
-
-				SharedController.getInstance().getFrame().getMenubar().setInProject(true);
-				
-				view.dispose();
 
 			} else
 				JOptionPane.showMessageDialog(null,

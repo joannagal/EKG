@@ -15,6 +15,7 @@ import pi.graph.signal.GraphView;
 import pi.inputs.signal.ECG;
 import pi.population.Population;
 import pi.population.Specimen;
+import pi.project.Project;
 import pi.shared.SharedController;
 
 public class ImportSingleController implements ActionListener {
@@ -23,6 +24,7 @@ public class ImportSingleController implements ActionListener {
 	private Importer importer;
 	private Specimen specimen;
 	private Population population;
+	private Project project;
 
 	public ImportSingleController(ImportSingleView view) {
 		this.view = view;
@@ -38,10 +40,17 @@ public class ImportSingleController implements ActionListener {
 				String path = this.view.getPathArea().getText();
 
 				try {
+					
+					project= new Project();
+					project.setType(1);
+					project.setName("New Project");
+					SharedController.getInstance().setProject(project);
+					
 					importer = new Importer(path);
 					ArrayList<ECG> temp = importer.importSignals();
 
 					specimen = new Specimen();
+
 					specimen.setBefore(temp.get(0));
 					specimen.setPath(path);
 					ArrayList<Specimen> pop = new ArrayList<>(1);
@@ -52,36 +61,40 @@ public class ImportSingleController implements ActionListener {
 					population.setSpecimen(pop);
 					population.setName("First population");
 
-
 					SharedController.getInstance().getProject()
 							.setFirstPopulation(population);
 					SharedController.getInstance().createProjectToolbar();
 
 					@SuppressWarnings("unused")
 					GraphView view = new GraphView(population, 1);
+
+					SharedController.getInstance().getFrame().getMenubar()
+							.setInProject(true);
 					
-					SharedController.getInstance().getFrame().getMenubar().setInProject(true);
-					
-				} catch (DocumentException ae) {
-					ae.printStackTrace();
+					this.view.setVisible(false);
+
+
+				} catch (DocumentException | IndexOutOfBoundsException e1) {
+					JOptionPane.showMessageDialog(null,
+							"Incompatible type of given file!");
 				}
-				
-				this.view.setVisible(false);
 			} else {
-				JOptionPane.showMessageDialog(null, "All fields are required, please fill in path!");
+				JOptionPane.showMessageDialog(null,
+						"All fields are required, please provide path!");
 			}
-			
+
 		} else if (action.equals("CANCEL")) {
 			this.view.setVisible(false);
 		} else if (action.equals("CHOOSE")) {
-			int returnValue = this.view.getFileChooser().showDialog(view.getContext(), "Choose specimen...");
-			
-			if (returnValue == JFileChooser.APPROVE_OPTION)
-			{
+			int returnValue = this.view.getFileChooser().showDialog(
+					view.getContext(), "Choose specimen...");
+
+			if (returnValue == JFileChooser.APPROVE_OPTION) {
 				File file = this.view.getFileChooser().getSelectedFile();
 				this.view.getPathArea().setText(file.getAbsolutePath());
-        		SharedController.getInstance().setLastDirectory(this.view.getFileChooser().getSelectedFile());
-        		System.out.println(file.getAbsolutePath().toString());
+				SharedController.getInstance().setLastDirectory(
+						this.view.getFileChooser().getSelectedFile());
+				System.out.println(file.getAbsolutePath().toString());
 			}
 		}
 	}

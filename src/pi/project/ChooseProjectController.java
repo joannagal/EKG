@@ -41,11 +41,6 @@ public class ChooseProjectController implements ActionListener {
 			if (selected.equals("SINGLE_SIGNAL")) {
 				view.setVisible(false);
 
-				project = new Project();
-				project.setType(1);
-				project.setName("New Project");
-				SharedController.getInstance().setProject(project);
-				
 				ImportSingleView importerView = new ImportSingleView();
 				@SuppressWarnings("unused")
 				ImportSingleController controller = new ImportSingleController(
@@ -57,12 +52,6 @@ public class ChooseProjectController implements ActionListener {
 			if (selected.equals("TWO_SIGNALS")) {
 				view.setVisible(false);
 
-				project = new Project();
-				project.setType(2);
-				project.setName("New Project");
-
-				SharedController.getInstance().setProject(project);
-
 				ImportPairView importerView = new ImportPairView();
 				setImportPairController(new ImportPairController(importerView));
 
@@ -72,12 +61,6 @@ public class ChooseProjectController implements ActionListener {
 			if (selected.equals("TWO_POPULATIONS")) {
 				view.setVisible(false);
 
-				project = new Project();
-				project.setType(3);
-				project.setName("New Project");
-
-				SharedController.getInstance().setProject(project);
-
 				PopulationSingleView view = new PopulationSingleView();
 				setPopulationSingleController(new PopulationSingleController(
 						view));
@@ -86,11 +69,6 @@ public class ChooseProjectController implements ActionListener {
 			if (selected.equals("POPULATION_DIFFERENCE")) {
 				view.setVisible(false);
 
-				project = new Project();
-				project.setType(4);
-				project.setName("New Project");
-
-				SharedController.getInstance().setProject(project);
 				PopulationPairView view = new PopulationPairView();
 				setPopulationPairController(new PopulationPairController(view));
 
@@ -122,6 +100,14 @@ public class ChooseProjectController implements ActionListener {
 
 	public void setPopulationPairController(PopulationPairController controller) {
 		this.populationPairController = controller;
+	}
+
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
 	}
 
 }
