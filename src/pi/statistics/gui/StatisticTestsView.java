@@ -199,16 +199,18 @@ public class StatisticTestsView extends JFrame {
 		this.tabbedPane.add("Results", this.reportPane);
 		this.tabbedPane.add("Histogram", this.histogram);
 		this.add(this.tabbedPane);
-		
 
 		this.validate();
 		this.pack();
-
+		this.repaint();
 	}
 
 	public void enableReports(boolean b) {
-		this.saveButton.setEnabled(b);
-		this.reportButton.setEnabled(b);
+		if (this.isVisible()) {
+			this.saveButton.setEnabled(b);
+			this.reportButton.setEnabled(b);
+			setReportsCursor(Cursor.DEFAULT_CURSOR);
+		}
 	}
 
 	public void changeSelection() {
