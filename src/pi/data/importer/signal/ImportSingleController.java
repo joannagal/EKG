@@ -93,7 +93,6 @@ public class ImportSingleController implements ActionListener {
 				this.view.getPathArea().setText(file.getAbsolutePath());
 				SharedController.getInstance().setLastDirectory(
 						this.view.getFileChooser().getSelectedFile());
-				System.out.println(file.getAbsolutePath().toString());
 			}
 		}
 	}

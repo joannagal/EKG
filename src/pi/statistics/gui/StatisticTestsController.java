@@ -59,8 +59,6 @@ public class StatisticTestsController implements ActionListener {
 			Map<String, Map<String, Map<String, Map<String, Vector<Double>>>>> map = pResult
 					.getTestResult().get(columnName);
 
-			System.out.printf("Column Name %s", columnName);
-
 			if (map != null && map.get(channel) != null
 					&& map.get(channel).get(atr) != null
 					&& map.get(channel).get(atr).get(wave) != null) {
@@ -211,11 +209,6 @@ public class StatisticTestsController implements ActionListener {
 		if (com.equals("SAVE")) {
 			if (view.getStController().getFinalResult() != null) {
 				try {
-					// PopulReportMngr rm = SharedController.getInstance()
-					// .getPopulReportMngr();
-					// rm.saveRaportAsPdf(null);
-					// rm.saveReportAsHtml(null);
-
 					Object[] obj = { ".pdf", ".html" };
 					int type = JOptionPane.showOptionDialog(view,
 							"I want to save report as:", "Save report",
@@ -234,7 +227,6 @@ public class StatisticTestsController implements ActionListener {
 									.saveReportAsHtml(path);
 					}
 				} catch (JRException ex) {
-					System.out.println("Report exception");
 					ex.printStackTrace();
 				}
 			} else {
@@ -245,7 +237,6 @@ public class StatisticTestsController implements ActionListener {
 			long start = System.currentTimeMillis();
 			if (view.getStController().getFinalResult() != null) {
 				try {
-					// SpecimenReportMngr rm = new SpecimenReportMngr();
 					if (SharedController.getInstance().getPopulReportMngr() != null)
 						SharedController.getInstance().getPopulReportMngr()
 								.viewRaport();
@@ -253,14 +244,12 @@ public class StatisticTestsController implements ActionListener {
 						JOptionPane.showMessageDialog(null,
 								"Report jest nullem");
 				} catch (JRException ex) {
-					System.out.println("Report exception");
 					ex.printStackTrace();
 				}
 			} else {
 				JOptionPane.showMessageDialog(view, "Count statistics first!");
 			}
 			long time = System.currentTimeMillis() - start;
-			System.out.println("Czas wyœwietlenia raportu: " + time);
 
 		}
 		if (com.equals("CHANGE_FIGURE")) {
@@ -333,8 +322,6 @@ public class StatisticTestsController implements ActionListener {
 		String result = "";
 
 		int projectType = SharedController.getInstance().getProject().getType();
-
-		// { "P1AB", "P2AB", "BB", "AA", "dAB", };
 
 		if (projectType == Project.POPULATION_SINGLE) {
 			if (column == 1)

@@ -111,7 +111,6 @@ public class InformationSpecimenView extends JDialog {
 		constraints = new GridBagConstraints();
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 
-		// firstname
 		setFirstnameLabel(new JLabel("First name:"));
 		setFirstnameField(new JTextField(name));
 		firstnamePanel = new JPanel();
@@ -122,7 +121,6 @@ public class InformationSpecimenView extends JDialog {
 		constraints.gridwidth = 1;
 		this.add(firstnamePanel, constraints);
 
-		// surname
 		setSurnameLabel(new JLabel("Surname:"));
 		surnameField = new JTextField(surname);
 		surnamePanel = new JPanel();
@@ -132,7 +130,6 @@ public class InformationSpecimenView extends JDialog {
 		constraints.gridwidth = 1;
 		this.add(surnamePanel, constraints);
 
-		// birthdate
 		birthLabel = new JLabel("Birth date:");
 		setBirthField(new JTextField(birthDate));
 		birthPanel = new JPanel();
@@ -142,7 +139,6 @@ public class InformationSpecimenView extends JDialog {
 		constraints.gridwidth = 1;
 		this.add(birthPanel, constraints);
 
-		// weight
 		weightLabel = new JLabel("Weight:");
 		String temp = Integer.toString(weight);
 		setWeightField(new JTextField(temp));
@@ -153,7 +149,6 @@ public class InformationSpecimenView extends JDialog {
 		constraints.gridwidth = 1;
 		this.add(weightPanel, constraints);
 
-		// methadone [ml]
 		methadoneLabel = new JLabel("Methadone [ml]:");
 		temp = Integer.toString(methadone);
 		setMethadoneField(new JTextField(temp));
@@ -165,7 +160,6 @@ public class InformationSpecimenView extends JDialog {
 		constraints.gridwidth = 1;
 		this.add(methadonePanel, constraints);
 
-		// methadone treatment
 		methadoneTreatmentLabel = new JLabel("Methadone Treatment [months]:");
 		temp = Integer.toString(methadoneTreatment);
 		setMethadoneTreatmentField(new JTextField(temp));
@@ -177,7 +171,6 @@ public class InformationSpecimenView extends JDialog {
 		constraints.gridwidth = 1;
 		this.add(methadoneTreatmentPanel, constraints);
 
-		// hiv
 		hivLabel = new JLabel("HIV");
 		hivLabel.setPreferredSize(new Dimension(200, 20));
 		setHivCheckBox(new JCheckBox());
@@ -197,7 +190,6 @@ public class InformationSpecimenView extends JDialog {
 		constraints.gridwidth = 1;
 		this.add(hivPanel, constraints);
 
-		// buttonPanel
 		okButton = new JButton("OK");
 		cancelButton = new JButton("CANCEL");
 		okButton.addActionListener(this.controller);

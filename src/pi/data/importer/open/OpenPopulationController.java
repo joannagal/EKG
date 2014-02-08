@@ -67,7 +67,6 @@ public class OpenPopulationController implements ActionListener {
 				String path = selectedFile.getAbsolutePath();
 				SharedController.getInstance().setLastDirectory(
 						fileChooser.getSelectedFile());
-				System.out.println(path);
 				this.view.getPathArea().setText(path);
 				view.setPath(path);
 			}
@@ -116,14 +115,6 @@ public class OpenPopulationController implements ActionListener {
 
 				SharedController.getInstance().setProject(importedProject);
 				SharedController.getInstance().createProjectToolbar();
-
-				for (int i = 0; i < SharedController.getInstance().getProject()
-						.getFirstPopulation().getSpecimen().get(0).getBefore()
-						.getChannel().size(); i++) {
-					System.out.println(SharedController.getInstance()
-							.getProject().getFirstPopulation().getSpecimen()
-							.get(0).getBefore().getChannel().get(i).getRange());
-				}
 
 				if (type == 1) {
 					setGraphFirstView(new GraphView(

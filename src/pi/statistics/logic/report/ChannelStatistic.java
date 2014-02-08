@@ -16,17 +16,11 @@ public class ChannelStatistic {
 	private String surname;
 	private String birth;
 	private int weight;
-	// CZAS TRWANIA UZALEZNIENIA/UPRAWIANIA SPORTU (W LATACH)
 	private int activityDuration = -1;
-	// -1 = BRAK, 0 - DODATNI 1 - UJEMNY
 	private int hiv = -1;
-	// DAWKA METADONU W ML
 	private int metadon = -1;
-	// CZAS W MIESIACACH APLIKOWANIA METADONU
 	private int metadonTimeApplication = -1;
-	// CZAS PO JAKIM PACJENT ODCZUWA DOBRE SAMOPOCZUCIE (W GODZ.)
 	private int timeToGoodMood = -1;
-	// CZAS TRWANIA DOBREGO SAMOPOCZUCIA
 	private int goodMoodDuration = -1;
 
 	private String examination;
@@ -35,7 +29,6 @@ public class ChannelStatistic {
 	private int channelId;
 	private String statisticName;
 
-	// PULS bêdzie pobierany od razu w wartoœci na minutê
 	private Double pulse;
 
 	private Double p_waveResult;
@@ -82,7 +75,7 @@ public class ChannelStatistic {
 					.getValue().get("Before");
 
 			try {
-				for (String name : before.getValue().keySet()) {// PO CHANNELACH
+				for (String name : before.getValue().keySet()) {
 					for (String statName : StatisticWindowController.statsList) {
 						ChannelStatistic cs = new ChannelStatistic();
 						cs.setExamination("Before");
@@ -99,7 +92,7 @@ public class ChannelStatistic {
 						cs.setWeight(specimen.getWeight());
 						for (String waveName : before.getValue().get(name)
 								.getValue().get("Duration").getWavesResult()
-								.keySet()) {// PO WAVE
+								.keySet()) {
 
 							if (before.getValue().get(name) == null) {
 								continue;
@@ -201,14 +194,14 @@ public class ChannelStatistic {
 
 				}
 
-				for (String name : before.getValue().keySet()) {// PO CHANNELACH
+				for (String name : before.getValue().keySet()) {
 					for (String statName : StatisticWindowController.statsList) {
 						ChannelStatistic cs = new ChannelStatistic();
 						cs.setExamination("Before");
 
 						for (String waveName : before.getValue().get(name)
 								.getValue().get("Amplitude").getWavesResult()
-								.keySet()) {// PO WAVE
+								.keySet()) {
 							if (before.getValue().get(name) == null) {
 								continue;
 							}
@@ -313,15 +306,14 @@ public class ChannelStatistic {
 						.getValue().get("After");
 				if (after != null) {
 
-					for (String name : after.getValue().keySet()) {// PO
-						// CHANNELACH
+					for (String name : after.getValue().keySet()) {
 						for (String statName : StatisticWindowController.statsList) {
 							ChannelStatistic cs = new ChannelStatistic();
 
 							cs.setExamination("After");
 							for (String waveName : after.getValue().get(name)
 									.getValue().get("Duration")
-									.getWavesResult().keySet()) {// PO WAVE
+									.getWavesResult().keySet()) {
 
 								if (after.getValue().get(name) == null) {
 									continue;
@@ -421,15 +413,14 @@ public class ChannelStatistic {
 						}
 					}
 
-					for (String name : after.getValue().keySet()) {// PO
-						// CHANNELACH
+					for (String name : after.getValue().keySet()) {
 						for (String statName : StatisticWindowController.statsList) {
 							ChannelStatistic cs = new ChannelStatistic();
 
 							cs.setExamination("After");
 							for (String waveName : after.getValue().get(name)
 									.getValue().get("Amplitude")
-									.getWavesResult().keySet()) {// PO WAVE
+									.getWavesResult().keySet()) {
 
 								if (after.getValue().get(name) == null) {
 									continue;
@@ -537,7 +528,6 @@ public class ChannelStatistic {
 		}
 
 		long time = System.currentTimeMillis() - start;
-		System.out.println("Czas przygotowania danych do raportu: " + time);
 
 		return statistics;
 	}

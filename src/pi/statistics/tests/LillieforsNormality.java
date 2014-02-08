@@ -55,20 +55,6 @@ public class LillieforsNormality {
 
 		LillieforsNormality.statistics = maxDist;
 
-		if (debug) {
-			System.out.printf("A - %f   D  %f\n", LillieforsNormality.average,
-					LillieforsNormality.deviation);
-			for (int i = 0; i < size; i++) {
-				System.out.printf("%d. - %f %f %f %f %f %f\n", i,
-						LillieforsNormality.value[i],
-						LillieforsNormality.frequency[i], cumulatedFreq[i],
-						standard[i], cumulatedNormal[i], cumulatedInput[i]);
-			}
-			System.out.printf("D - %f %f\n", maxDist,
-					LillieforsNormality.getCritFromTable(
-							LillieforsNormality.populationSize, 0.05d));
-		}
-
 	}
 
 	public static boolean isTrueForAlpha(double alpha) {
@@ -135,8 +121,6 @@ public class LillieforsNormality {
 	}
 
 	private static double getCritFromTable(int population, double alpha) {
-		// System.out.printf("::::: %d %f\n", population, alpha);
-		// α = .20 α = .15 α = .10 α = .05 α = .01
 		if (population < 4)
 			return 1.0d;
 		if (alpha > 0.2d)
@@ -160,8 +144,6 @@ public class LillieforsNormality {
 					bY = LillieforsNormality.critTable[population][i - 1];
 					dY = (LillieforsNormality.critTable[population][i] - LillieforsNormality.critTable[population][i - 1]);
 				}
-
-				// System.out.printf("-_-_- %f %f %f\n", dX, dY, bY);
 
 				double propX = (alpha - alphas[i - 1]) / (dX);
 				dY *= propX;

@@ -80,7 +80,7 @@ public class AutoFinderController {
 			this.showError("This field should be: [1 ; 5] integer number");
 			return false;
 		}
-		// --------------------------------------------------------------
+
 		value = table.getValueAt(1, 1);
 		boolean down_signal = false;
 		pass = true;
@@ -92,7 +92,7 @@ public class AutoFinderController {
 			this.showError("This field should be: 'true' or 'false'");
 			return false;
 		}
-		// --------------------------------------------------------------
+
 		value = table.getValueAt(2, 1);
 		double qrs_asc_deriv = 0.0d;
 		try {
@@ -104,7 +104,7 @@ public class AutoFinderController {
 			this.showError("This field should be: real number f.i 1.15");
 			return false;
 		}
-		// --------------------------------------------------------------
+
 		value = table.getValueAt(3, 1);
 		double qrs_asc_time = 0.0d;
 		try {
@@ -118,7 +118,7 @@ public class AutoFinderController {
 			this.showError("This field should be: real number greater/equal 0");
 			return false;
 		}
-		// --------------------------------------------------------------
+
 		value = table.getValueAt(4, 1);
 		int qrs_max_neg_asc = 0;
 		try {
@@ -132,7 +132,7 @@ public class AutoFinderController {
 			this.showError("This field should be: integer number greater/equal 0");
 			return false;
 		}
-		// --------------------------------------------------------------
+
 		value = table.getValueAt(5, 1);
 		double qrs_desc_deriv = 0.0d;
 		try {
@@ -144,7 +144,7 @@ public class AutoFinderController {
 			this.showError("This field should be: real number f.i 1.15");
 			return false;
 		}
-		// --------------------------------------------------------------
+
 		value = table.getValueAt(6, 1);
 		double qrs_desc_time = 0.0d;
 		try {
@@ -158,7 +158,7 @@ public class AutoFinderController {
 			this.showError("This field should be: real number greater/equal 0");
 			return false;
 		}
-		// --------------------------------------------------------------
+
 		value = table.getValueAt(7, 1);
 		int qrs_max_neg_desc = 0;
 		try {
@@ -172,7 +172,7 @@ public class AutoFinderController {
 			this.showError("This field should be: integer number greater/equal 0");
 			return false;
 		}
-		// --------------------------------------------------------------
+
 		value = table.getValueAt(8, 1);
 		double qrs_right_up_deriv = 0.0d;
 		try {
@@ -184,7 +184,7 @@ public class AutoFinderController {
 			this.showError("This field should be: real number f.i 1.15");
 			return false;
 		}
-		// --------------------------------------------------------------
+
 		value = table.getValueAt(9, 1);
 		double qrs_right_up_time = 0.0d;
 		try {
@@ -198,7 +198,7 @@ public class AutoFinderController {
 			this.showError("This field should be: real number greater/equal 0");
 			return false;
 		}
-		// --------------------------------------------------------------
+
 		value = table.getValueAt(10, 1);
 		int qrs_max_neg_right_up = 0;
 		try {
@@ -212,7 +212,7 @@ public class AutoFinderController {
 			this.showError("This field should be: integer number greater/equal 0");
 			return false;
 		}
-		// --------------------------------------------------------------
+
 		value = table.getValueAt(11, 1);
 		double qrs_jump_after = 0.0d;
 		try {
@@ -226,7 +226,7 @@ public class AutoFinderController {
 			this.showError("This field should be: real number greater/equal 0");
 			return false;
 		}
-		// --------------------------------------------------------------
+
 		value = table.getValueAt(12, 1);
 		boolean t_is_up = false;
 		pass = true;
@@ -238,7 +238,7 @@ public class AutoFinderController {
 			this.showError("This field should be: 'true' or 'false'");
 			return false;
 		}
-		// --------------------------------------------------------------
+
 		value = table.getValueAt(13, 1);
 		double t_left_prop = 0.0d;
 		try {
@@ -252,7 +252,7 @@ public class AutoFinderController {
 			this.showError("This field should be: real number greater/equal 0");
 			return false;
 		}
-		// --------------------------------------------------------------
+
 		value = table.getValueAt(14, 1);
 		double t_left_deriv = 0.0d;
 		try {
@@ -264,7 +264,7 @@ public class AutoFinderController {
 			this.showError("This field should be: real number f.i 1.15");
 			return false;
 		}
-		// --------------------------------------------------------------
+
 		value = table.getValueAt(15, 1);
 		double t_left_time = 0;
 		try {
@@ -278,7 +278,7 @@ public class AutoFinderController {
 			this.showError("This field should be: real number greater/equal 0");
 			return false;
 		}
-		// --------------------------------------------------------------
+
 		value = table.getValueAt(16, 1);
 		int t_left_neg = 0;
 		try {
@@ -292,7 +292,7 @@ public class AutoFinderController {
 			this.showError("This field should be: integer number greater/equal 0");
 			return false;
 		}
-		// --------------------------------------------------------------
+
 		value = table.getValueAt(17, 1);
 		double t_right_prop = 0.0d;
 		try {
@@ -307,7 +307,7 @@ public class AutoFinderController {
 			this.showError("This field should be: real number greater/equal t_left_prop");
 			return false;
 		}
-		// --------------------------------------------------------------
+
 		value = table.getValueAt(18, 1);
 		double t_right_deriv = 0.0d;
 		try {
@@ -319,7 +319,7 @@ public class AutoFinderController {
 			this.showError("This field should be: real number f.i 1.15");
 			return false;
 		}
-		// --------------------------------------------------------------
+
 		value = table.getValueAt(19, 1);
 		double t_right_time = 0;
 		try {
@@ -333,7 +333,7 @@ public class AutoFinderController {
 			this.showError("This field should be: real number greater/equal 0");
 			return false;
 		}
-		// --------------------------------------------------------------
+
 		value = table.getValueAt(20, 1);
 		int t_right_neg = 0;
 		try {
@@ -347,7 +347,7 @@ public class AutoFinderController {
 			this.showError("This field should be: integer number greater/equal 0");
 			return false;
 		}
-		// --------------------------------------------------------------
+
 		value = table.getValueAt(21, 1);
 		double p_mod = 0.0d;
 		try {
@@ -361,7 +361,7 @@ public class AutoFinderController {
 			this.showError("This field should be: real number f.i 1.15");
 			return false;
 		}
-		// --------------------------------------------------------------
+
 		value = table.getValueAt(22, 1);
 		double p_left_prop = 0;
 		try {
@@ -375,7 +375,7 @@ public class AutoFinderController {
 			this.showError("This field should be: real number [0.0 ; 1.0]");
 			return false;
 		}
-		// --------------------------------------------------------------
+
 		value = table.getValueAt(23, 1);
 		double p_right_prop = 0;
 		try {

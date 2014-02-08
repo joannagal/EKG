@@ -44,8 +44,6 @@ public class Histogram extends JPanel {
 		if (getData() == null)
 			return;
 
-		System.out.printf("DEEEBUG: %d %d\n", data.size(), ranges);
-
 		counter = new ArrayList<ArrayList<Integer>>(data.size());
 		for (int i = 0; i < data.size(); i++) {
 			counter.add(new ArrayList<Integer>(ranges));

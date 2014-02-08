@@ -388,8 +388,6 @@ public class Segment {
 		graphics.fillRect((int) left, (int) yBottom,
 				(int) (right - left + 0.5d), (int) this.grid.getHeight());
 
-		// --- LABEL
-
 		yBottom -= 10.0d;
 		double center = left + (right - left) / 2.0d;
 

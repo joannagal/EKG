@@ -63,18 +63,11 @@ public class PopulStatistic {
 						.getSecondPopulation().getName();
 			}
 
-			// dla kazdego kana³u...
 			for (String channelName : columnEntry.keySet()) {
-				// wyciagamy kazdy wave...
 				for (String waveName : columnEntry.get(channelName)
 						.get("Duration").keySet()) {
-					// ... dla niego statystyke ...
 					for (String statName : columnEntry.get(channelName)
-							.get("Duration").get(waveName).keySet()) { // TODO
-						// rzuca
-						// NULL
-						// POINTER
-						// EX.
+							.get("Duration").get(waveName).keySet()) { 
 
 						Vector<Double> list = columnEntry.get(channelName)
 								.get("Duration").get(waveName).get(statName);
@@ -121,12 +114,9 @@ public class PopulStatistic {
 					}
 				}
 			}
-			// dla kazdego kana³u...
 			for (String channelName : columnEntry.keySet()) {
-				// wyciagamy kazdy wave...
 				for (String waveName : columnEntry.get(channelName)
 						.get("Amplitude").keySet()) {
-					// ... dla niego statystyke ...
 					for (String statName : columnEntry.get(channelName)
 							.get("Amplitude").get(waveName).keySet()) {
 						Vector<Double> list = columnEntry.get(channelName)

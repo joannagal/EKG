@@ -202,12 +202,10 @@ public class StatisticWindowView extends JFrame {
 		panel_3.add(qrsComplex, gbc_qrsComplex);
 
 		JCheckBox checkAll = new JCheckBox("Check/uncheck all");
-		// checkAll.addChangeListener(new ChangeListener() {
 		checkAll.addItemListener(new ItemListener() {
 
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-				// TODO Auto-generated method stub
 				JCheckBox checkBox = (JCheckBox) e.getSource();
 				boolean state = checkBox.isSelected();
 				checkAll(state);

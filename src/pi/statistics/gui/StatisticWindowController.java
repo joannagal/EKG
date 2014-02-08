@@ -84,9 +84,6 @@ public class StatisticWindowController implements ActionListener {
 					e.printStackTrace();
 				}
 
-				// comparatorView.validate();
-				// comparatorView.pack();
-				// comparatorView.repaint();
 			} else {
 				setTestsView(new StatisticTestsView());
 
@@ -106,9 +103,7 @@ public class StatisticWindowController implements ActionListener {
 				} catch (JRException e) {
 					e.printStackTrace();
 				}
-				// testsView.validate();
-				// testsView.pack();
-				// testsView.repaint();
+
 			}
 
 			SharedController.getInstance().getProgress().setVisible(false);
@@ -218,9 +213,6 @@ public class StatisticWindowController implements ActionListener {
 			i++;
 			wavesList[i] = "RR_interval";
 
-			// stControl.countStatistics(functions, wavesNames, id);
-			// SharedController.getInstance().setReportManager(new
-			// ReportManager())\
 			this.functions = functions;
 			this.wavesNames = wavesNames;
 			this.id = id;

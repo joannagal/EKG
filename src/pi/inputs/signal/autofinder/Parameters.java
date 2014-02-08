@@ -29,8 +29,6 @@ public class Parameters {
 	public double P_LEFT_PROP = 0.25d;
 	public double P_RIGHT_PROP = 0.07d;
 
-	// ------------------------------------
-
 	public static Parameters getIParameters() {
 		Parameters params = new Parameters();
 		params.SIMPLIFIED_RANGE = 2;
@@ -144,7 +142,6 @@ public class Parameters {
 		Parameters params = new Parameters();
 		params.SIMPLIFIED_RANGE = 2;
 		params.DOWN_SIGNAL = true;
-		// QRS PHASE
 		params.QRS_ASC_DERIV = 2.0d;
 		params.QRS_ASC_TIME = 0.0005d;
 		params.QRS_MAX_NEG_ASC = 50;
@@ -158,7 +155,6 @@ public class Parameters {
 		params.QRS_MAX_NEG_RIGHT_UP = 1000;
 
 		params.QRS_JUMP_AFTER = 0.4d;
-		// --- T PHASE
 		params.T_IS_UP = true;
 		params.T_LEFT_PROP = 0.19d;
 		params.T_RIGHT_PROP = 0.35d;
@@ -168,7 +164,7 @@ public class Parameters {
 		params.T_LEFT_DERIV = 4.0d;
 		params.T_LEFT_TIME = 0.07d;
 		params.T_LEFT_NEG = 50;
-		// --- P PHASE
+
 		params.P_MOD = 0.8d;
 		params.P_LEFT_PROP = 0.2d;
 		params.P_RIGHT_PROP = 0.1d;
@@ -182,7 +178,6 @@ public class Parameters {
 		Parameters params = new Parameters();
 		params.SIMPLIFIED_RANGE = 1;
 		params.DOWN_SIGNAL = true;
-		// QRS PHASE
 		params.QRS_ASC_DERIV = 2.0d;
 		params.QRS_ASC_TIME = 0.0005d;
 		params.QRS_MAX_NEG_ASC = 50;
@@ -196,7 +191,6 @@ public class Parameters {
 		params.QRS_MAX_NEG_RIGHT_UP = 1000;
 
 		params.QRS_JUMP_AFTER = 0.4d;
-		// --- T PHASE
 		params.T_IS_UP = true;
 		params.T_LEFT_PROP = 0.15d;
 		params.T_RIGHT_PROP = 0.35d;
@@ -206,7 +200,6 @@ public class Parameters {
 		params.T_LEFT_DERIV = 4.0d;
 		params.T_LEFT_TIME = 0.07d;
 		params.T_LEFT_NEG = 50;
-		// --- P PHASE
 		params.P_MOD = 0.9d;
 		params.P_LEFT_PROP = 0.25d;
 		params.P_RIGHT_PROP = 0.1d;
@@ -220,7 +213,6 @@ public class Parameters {
 		Parameters params = new Parameters();
 		params.SIMPLIFIED_RANGE = 1;
 		params.DOWN_SIGNAL = true;
-		// QRS PHASE
 		params.QRS_ASC_DERIV = 2.0d;
 		params.QRS_ASC_TIME = 0.0005d;
 		params.QRS_MAX_NEG_ASC = 50;
@@ -234,7 +226,6 @@ public class Parameters {
 		params.QRS_MAX_NEG_RIGHT_UP = 1000;
 
 		params.QRS_JUMP_AFTER = 0.4d;
-		// --- T PHASE
 		params.T_IS_UP = true;
 		params.T_LEFT_PROP = 0.15d;
 		params.T_RIGHT_PROP = 0.35d;
@@ -244,7 +235,6 @@ public class Parameters {
 		params.T_LEFT_DERIV = 4.0d;
 		params.T_LEFT_TIME = 0.07d;
 		params.T_LEFT_NEG = 50;
-		// --- P PHASE
 		params.P_MOD = 1.1d;
 		params.P_LEFT_PROP = 0.25d;
 		params.P_RIGHT_PROP = 0.1d;
@@ -258,7 +248,6 @@ public class Parameters {
 		Parameters params = new Parameters();
 		params.SIMPLIFIED_RANGE = 2;
 		params.DOWN_SIGNAL = false;
-		// QRS PHASE
 		params.QRS_ASC_DERIV = 2.0d;
 		params.QRS_ASC_TIME = 0.01d;
 		params.QRS_MAX_NEG_ASC = 2;
@@ -272,7 +261,6 @@ public class Parameters {
 		params.QRS_MAX_NEG_RIGHT_UP = 10;
 
 		params.QRS_JUMP_AFTER = 0.4d;
-		// --- T PHASE
 		params.T_IS_UP = true;
 		params.T_LEFT_PROP = 0.15d;
 		params.T_RIGHT_PROP = 0.35d;
@@ -282,7 +270,6 @@ public class Parameters {
 		params.T_LEFT_DERIV = 4.0d;
 		params.T_LEFT_TIME = 0.07d;
 		params.T_LEFT_NEG = 50;
-		// --- P PHASE
 		params.P_MOD = 0.9d;
 		params.P_LEFT_PROP = 0.25d;
 		params.P_RIGHT_PROP = 0.1d;
@@ -296,7 +283,6 @@ public class Parameters {
 		Parameters params = new Parameters();
 		params.SIMPLIFIED_RANGE = 2;
 		params.DOWN_SIGNAL = false;
-		// QRS PHASE
 		params.QRS_ASC_DERIV = 2.0d;
 		params.QRS_ASC_TIME = 0.01d;
 		params.QRS_MAX_NEG_ASC = 2;
@@ -310,7 +296,6 @@ public class Parameters {
 		params.QRS_MAX_NEG_RIGHT_UP = 10;
 
 		params.QRS_JUMP_AFTER = 0.4d;
-		// --- T PHASE
 		params.T_IS_UP = true;
 		params.T_LEFT_PROP = 0.15d;
 		params.T_RIGHT_PROP = 0.35d;

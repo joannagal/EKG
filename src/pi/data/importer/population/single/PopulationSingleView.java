@@ -161,7 +161,6 @@ public class PopulationSingleView extends JDialog {
 
 		while (it.hasNext()) {
 			file = it.next();
-			System.out.println(file.getAbsolutePath());
 			firstBefore.add(file.getAbsolutePath());
 		}
 		paths.add(firstBefore);
@@ -172,7 +171,6 @@ public class PopulationSingleView extends JDialog {
 
 		while (it.hasNext()) {
 			file = it.next();
-			System.out.println(file.getAbsolutePath());
 			secondBefore.add(file.getAbsolutePath());
 		}
 		paths.add(secondBefore);

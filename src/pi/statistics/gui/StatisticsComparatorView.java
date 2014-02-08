@@ -116,7 +116,6 @@ public class StatisticsComparatorView extends JFrame {
 		getContentPane().add(this.reportButton);
 
 		enableReports(false);
-		// TODO cursor
 		setReportsCursor(Cursor.WAIT_CURSOR);
 
 		this.validate();
@@ -125,7 +124,6 @@ public class StatisticsComparatorView extends JFrame {
 	}
 
 	public void enableReports(boolean b) {
-		// this.saveButton.set
 		if (this.isVisible()) {
 			this.saveButton.setEnabled(b);
 			this.reportButton.setEnabled(b);

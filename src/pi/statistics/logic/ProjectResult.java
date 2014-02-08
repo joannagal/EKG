@@ -367,7 +367,6 @@ public class ProjectResult {
 						statName, result);
 			}
 		} catch (Exception ex) {
-			System.out.println("ex");
 		}
 		result.add(pval);
 		addTestResult(testName, channelName, atrName, waveName, statName,
@@ -388,7 +387,6 @@ public class ProjectResult {
 		try {
 			pval = mannWhitneyUTest.mannWhitneyUTest(ar1, ar2);
 		} catch (Exception ex) {
-			System.out.println("ex");
 		}
 		result.add(pval);
 		addTestResult(testName, channelName, atrName, waveName, statName,

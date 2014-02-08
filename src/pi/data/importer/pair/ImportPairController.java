@@ -107,7 +107,6 @@ public class ImportPairController implements ActionListener {
 				this.view.getFirstPathArea().setText(file.getAbsolutePath());
 				SharedController.getInstance().setLastDirectory(
 						this.view.getFileChooser().getSelectedFile());
-				System.out.println(file.getAbsolutePath().toString());
 			}
 
 		} else if (action.equals("CHOOSE_SECOND")) {
@@ -118,7 +117,6 @@ public class ImportPairController implements ActionListener {
 				this.view.getSecondPathArea().setText(file.getAbsolutePath());
 				SharedController.getInstance().setLastDirectory(
 						this.view.getFileChooser().getSelectedFile());
-				System.out.println(file.getAbsolutePath().toString());
 			}
 
 		}

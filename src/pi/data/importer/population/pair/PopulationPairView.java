@@ -208,7 +208,6 @@ public class PopulationPairView extends JDialog {
 
 		while (it.hasNext()) {
 			file = it.next();
-			System.out.println(file.getAbsolutePath());
 			firstBefore.add(file.getAbsolutePath());
 		}
 		paths.add(firstBefore);
@@ -219,7 +218,6 @@ public class PopulationPairView extends JDialog {
 
 		while (it.hasNext()) {
 			file = it.next();
-			System.out.println(file.getAbsolutePath());
 			firstAfter.add(file.getAbsolutePath());
 		}
 		paths.add(firstAfter);
@@ -230,7 +228,6 @@ public class PopulationPairView extends JDialog {
 
 		while (it.hasNext()) {
 			file = it.next();
-			System.out.println(file.getAbsolutePath());
 			secondBefore.add(file.getAbsolutePath());
 		}
 		paths.add(secondBefore);
@@ -241,7 +238,6 @@ public class PopulationPairView extends JDialog {
 
 		while (it.hasNext()) {
 			file = it.next();
-			System.out.println(file.getAbsolutePath());
 			secondAfter.add(file.getAbsolutePath());
 		}
 		paths.add(secondAfter);

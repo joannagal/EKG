@@ -433,7 +433,7 @@ public class AutoFinder {
 					minPointer = i;
 				}
 			}
-			//
+
 			left = maxPointer - 10;
 			right = maxPointer;
 

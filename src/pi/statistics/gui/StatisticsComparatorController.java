@@ -40,7 +40,6 @@ public class StatisticsComparatorController implements ActionListener {
 
 		this.toHist = new ArrayList<ArrayList<Double>>(2);
 
-		// ChannelResult channelResult = specResult.getBefore();
 		ChannelResult channelResult = specResult.getValue().getValue()
 				.get("Before");
 		if (channelResult != null) {
@@ -49,7 +48,6 @@ public class StatisticsComparatorController implements ActionListener {
 			this.fillColumn(channelResult, channel, wave, pntr);
 		}
 
-		// channelResult = specResult.getAfter();
 		channelResult = specResult.getValue().getValue().get("After");
 		if (channelResult != null) {
 			pntr++;
@@ -202,7 +200,6 @@ public class StatisticsComparatorController implements ActionListener {
 									.saveReportAsHtml(path);
 					}
 				} catch (JRException ex) {
-					System.out.println("Report exception");
 					ex.printStackTrace();
 				}
 			} else {
@@ -213,20 +210,16 @@ public class StatisticsComparatorController implements ActionListener {
 			long start = System.currentTimeMillis();
 			if (view.getStController().getFinalResult() != null) {
 				try {
-					// ReportManager rm = new ReportManager();
-					// rm.viewRaport();
 
 					SharedController.getInstance().getSpecimenReportManager()
 							.viewRaport();
 				} catch (JRException ex) {
-					System.out.println("Report exception");
 					ex.printStackTrace();
 				}
 			} else {
 				JOptionPane.showMessageDialog(view, "Count statistics first!");
 			}
 			long time = System.currentTimeMillis() - start;
-			System.out.println("Czas wyœwietlenia raportu: " + time);
 
 		}
 	}

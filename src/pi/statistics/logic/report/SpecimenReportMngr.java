@@ -38,29 +38,20 @@ public class SpecimenReportMngr {
 
 	@SuppressWarnings("unchecked")
 	private void initReport() throws JRException {
-		System.out.println("Init report");
 		long start = System.currentTimeMillis();
 		@SuppressWarnings("rawtypes")
 		Map parameters = new HashMap();
 
-		// TODO Sprawdziæ czy klonowanie dataSource jest wydajniejsze od
-		// generowania go na nowo za ka¿dym razem
 		ChannelStatistic.setSpecimenId(specimenId);
 		dataSource = new JRBeanCollectionDataSource(
 				ChannelStatistic.getChannelStatistics());
-
-		// File file = new File("report3.jrxml");
-		// jasperDesign = JRXmlLoader.load(file);
-		// jasperReport = JasperCompileManager.compileReport(jasperDesign);
 
 		File file = new File("report3.jasper");
 		jasperReport = (JasperReport) JRLoader.loadObject(file);
 		jasperPrint = JasperFillManager.fillReport(jasperReport, parameters,
 				dataSource);
-		// dataSource.cloneDataSource());
 
 		long time = System.currentTimeMillis() - start;
-		System.out.println("Czas inicjowania raportu: " + time);
 
 	}
 
@@ -75,7 +66,6 @@ public class SpecimenReportMngr {
 			path += ".pdf";
 		}
 		JasperExportManager.exportReportToPdfFile(jasperPrint, path);
-		System.out.println("PDF ready");
 	}
 
 	@SuppressWarnings("unchecked")
@@ -91,48 +81,15 @@ public class SpecimenReportMngr {
 		JasperPrint htmlReport = JasperFillManager.fillReport(jasperReport,
 				parameters, dataSource.cloneDataSource());
 		JasperExportManager.exportReportToHtmlFile(htmlReport, path);
-		System.out.println("HTML ready");
 	}
 
-	public void comboReport() {
-		try {
-			// JasperReport jasperReport = null;
-			// JasperPrint jasperPrint = null;
-			// JasperDesign jasperDesign = null;
-			// Map parameters = new HashMap();
-			// File file = new File("report3.jrxml");
-			// jasperDesign = JRXmlLoader.load(file);
-			// jasperReport = JasperCompileManager.compileReport(jasperDesign);
-			// jasperPrint = JasperFillManager.fillReport(
-			// jasperReport,
-			// parameters,
-			// new JRBeanCollectionDataSource(ChannelStatistic
-			// .getChannelStatistics()));
-			// JasperExportManager.exportReportToPdfFile(jasperPrint,
-			// "FirstSpecimenReport.pdf");
-			// JasperViewer.viewReport(jasperPrint);
-			// System.out.println("Specimen report generated successfully");
-		} catch (Exception ex) {
-			System.out.println("EXCEPTION: " + ex);
-		}
-	}
-
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
-		// TODO REMOVE
-
-		// http://sourceforge.net/projects/jasperreports/files/jasperreports/JasperReports%205.5.0/
-		// http://stackoverflow.com/questions/12178615/eclipse-jasper-report-not-compiling-java-lang-noclassdeffounderror-org-apach
 
 		try {
 			SpecimenReportMngr rm = new SpecimenReportMngr();
 			rm.viewRaport();
-			// rm.saveRaportAsPdf(null);
-			// rm.saveReportAsHtml(null);
+
 		} catch (JRException e) {
-			System.out.println("Report exception");
 			e.printStackTrace();
 		}
 

@@ -55,7 +55,6 @@ public class InformationProjectView extends JDialog {
 		constraints = new GridBagConstraints();
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 
-		// projectPanel
 		projectPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 		projectPanel.setVisible(true);
 		projectLabel.setSize(100, 20);
@@ -68,7 +67,6 @@ public class InformationProjectView extends JDialog {
 		constraints.gridwidth = 1;
 		this.add(projectPanel, constraints);
 
-		// firstPanel
 		firstPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 		firstPanel.setVisible(true);
 		firstLabel.setPreferredSize(new Dimension(160, 20));
@@ -80,7 +78,6 @@ public class InformationProjectView extends JDialog {
 		constraints.gridwidth = 1;
 		this.add(firstPanel, constraints);
 
-		// secondPanel
 		secondPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 		secondPanel.setVisible(true);
 		secondField.setPreferredSize(new Dimension(150, 20));
@@ -93,7 +90,6 @@ public class InformationProjectView extends JDialog {
 		this.add(secondPanel, constraints);
 		this.setSize(400, 200);
 
-		// buttonPanel
 		okButton.addActionListener(this.controller);
 		okButton.setActionCommand("OK");
 		cancelButton.addActionListener(this.controller);

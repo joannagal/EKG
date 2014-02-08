@@ -41,13 +41,11 @@ public class PopImporter extends DefaultHandler {
 
 	@Override
 	public void startDocument() {
-		System.out.println("Start project import");
 	}
 
 	@Override
 	public void endDocument() {
 		input.findAll();
-		System.out.println("Project imported");
 	}
 
 	@Override
@@ -229,11 +227,7 @@ public class PopImporter extends DefaultHandler {
 					min = probeValue;
 				probes.add(i, p);
 			} catch (NumberFormatException nfe) {
-				System.out.println(nfe);
-				System.out.println("\nprev: " + data[i - 1] + "\ncurr: "
-						+ data[i]);
-				System.out.println("\n\nROW DATA:\n=================\n"
-						+ rawDataBuffer.toString());
+
 			}
 		}
 		channel.setMaxValue((double) max / 1000.0d);
@@ -249,8 +243,6 @@ public class PopImporter extends DefaultHandler {
 
 	public void initCycle(Attributes attributes) {
 		cycle = new Cycle();
-
-		// TODO Zast¹piæ try-catch ifami
 
 		if (attributes.getValue("range") != null) {
 			String r[] = attributes.getValue("range").split(" ");
