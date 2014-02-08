@@ -86,7 +86,7 @@ public class ImportSingleController implements ActionListener {
 			this.view.setVisible(false);
 		} else if (action.equals("CHOOSE")) {
 			int returnValue = this.view.getFileChooser().showDialog(
-					view.getContext(), "Choose specimen...");
+					view.getContext(), "Open");
 
 			if (returnValue == JFileChooser.APPROVE_OPTION) {
 				File file = this.view.getFileChooser().getSelectedFile();
