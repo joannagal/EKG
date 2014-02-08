@@ -118,15 +118,19 @@ public class StatisticsComparatorView extends JFrame {
 		enableReports(false);
 		// TODO cursor
 		setReportsCursor(Cursor.WAIT_CURSOR);
-		
+
 		this.validate();
 		this.pack();
+		repaint();
 	}
 
 	public void enableReports(boolean b) {
 		// this.saveButton.set
-		this.saveButton.setEnabled(b);
-		this.reportButton.setEnabled(b);
+		if (this.isVisible()) {
+			this.saveButton.setEnabled(b);
+			this.reportButton.setEnabled(b);
+			setReportsCursor(Cursor.DEFAULT_CURSOR);
+		}
 	}
 
 	public void setReportsCursor(int c) {
