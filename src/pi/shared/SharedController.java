@@ -28,7 +28,6 @@ import pi.statistics.logic.report.PopulReportMngr;
 import pi.statistics.logic.report.SpecimenReportMngr;
 import pi.utilities.Margin;
 
-
 public class SharedController {
 	private static SharedController instance = null;
 
@@ -61,7 +60,7 @@ public class SharedController {
 	private File lastDirectory;
 	private SpecimenReportMngr specimenReportMgr;
 	private PopulReportMngr populReportMngr;
-	
+
 	private Project project;
 	private ProjectResult projectRes;
 
@@ -76,12 +75,11 @@ public class SharedController {
 	private ProgressView progress = new ProgressView();
 
 	private final AtomicLong sequence = new AtomicLong();
-	
-	public long getNextId(){
-	    return sequence.incrementAndGet();
+
+	public long getNextId() {
+		return sequence.incrementAndGet();
 	}
-	
-	
+
 	public void updateProgressBar() {
 		if (this.progressBar != null) {
 			this.progressBar.setValue(this.progressBar.getValue() + 1);
@@ -271,7 +269,7 @@ public class SharedController {
 		JScrollPane sp = new JScrollPane(panel);
 		sp.getVerticalScrollBar().setUnitIncrement(15);
 		sp.getHorizontalScrollBar().setUnitIncrement(15);
-		
+
 		if (getFrame().getContent().getComponentCount() > 0) {
 			Component temp = getFrame().getContent().getComponent(0);
 			JSplitPane split = new JSplitPane(JSplitPane.VERTICAL_SPLIT, temp,
@@ -305,7 +303,7 @@ public class SharedController {
 
 	public void setProject(Project project) {
 		this.project = project;
-		if(project == null){
+		if (project == null) {
 			Dimension conSize = frame.getContent().getSize();
 			frame.getContentPane().removeAll();
 			toolbarSet = false;
@@ -318,9 +316,8 @@ public class SharedController {
 	public void createProjectToolbar() {
 		if (!toolbarSet) {
 			ProjectToolbar tool = new ProjectToolbar();
-			
-			setToolConroller(new ProjectToolbarController(
-					tool));
+
+			setToolConroller(new ProjectToolbarController(tool));
 			tool.setVisible(true);
 			SharedController.getInstance().getFrame().getContentPane()
 					.add(tool, BorderLayout.NORTH);
@@ -431,7 +428,6 @@ public class SharedController {
 	public void setToolConroller(ProjectToolbarController toolConroller) {
 		this.toolConroller = toolConroller;
 	}
-	
 
 	public ProgressView getProgress() {
 		return progress;
@@ -441,5 +437,4 @@ public class SharedController {
 		this.progress = progress;
 	}
 
-	
 }

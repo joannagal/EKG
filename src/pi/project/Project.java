@@ -25,8 +25,6 @@ public class Project {
 		setAnalyzer(new ECGAnalyzer());
 	}
 
-
-
 	public String getName() {
 		return name;
 	}

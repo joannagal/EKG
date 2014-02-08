@@ -25,7 +25,6 @@ public class DurationResult {
 		value.clear();
 	}
 
-
 	public void checkRR() {
 		if (value.containsKey("RR_interval")) {
 			Vector<Double> toRemove = new Vector<Double>();

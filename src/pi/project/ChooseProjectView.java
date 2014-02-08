@@ -33,7 +33,7 @@ public class ChooseProjectView extends JDialog {
 	private String[] buttonEvent = new String[] { "CANCEL", "NEXT" };
 
 	public ChooseProjectView() {
-	
+
 		setAlwaysOnTop(true);
 		setVisible(true);
 		JPanel panel = new JPanel(new GridBagLayout());
@@ -113,7 +113,7 @@ public class ChooseProjectView extends JDialog {
 		panel.add(buttonPanel, constraints);
 
 		getContentPane().add(panel, BorderLayout.CENTER);
-		
+
 		pack();
 	}
 

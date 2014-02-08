@@ -2,33 +2,28 @@ package pi.statistics.tests;
 
 import java.util.ArrayList;
 
-
-public class LillieVariance
-{
+public class LillieVariance {
 	static Result result;
-	
-	static public void init(Result input, Double avg)
-	{
+
+	static public void init(Result input, Double avg) {
 		result = input;
-		input.setValue(new ArrayList <Double> (3));
+		input.setValue(new ArrayList<Double>(3));
 		input.getValue().add(0.0d);
 		input.getValue().add(0.0d);
 		input.getValue().add(avg);
 	}
-	
-	static public void iterate(Double value)
-	{
+
+	static public void iterate(Double value) {
 		double tmp = value - result.getValue().get(2);
 		double accu = result.getValue().get(0);
 		accu += (tmp * tmp);
 		result.getValue().set(0, accu);
-		
+
 		tmp = result.getValue().get(1) + 1.0d;
 		result.getValue().set(1, tmp);
 	}
-	
-	static public void finish()
-	{
+
+	static public void finish() {
 		double res = result.getValue().get(0) / result.getValue().get(1);
 		result.getValue().set(0, res);
 	}

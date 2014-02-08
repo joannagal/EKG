@@ -6,32 +6,22 @@ import java.awt.Font;
 
 import pi.utilities.Margin;
 
-
-//-------------------------------------------
-/*
-	KLASA ODPOWIEDZIALNA ZA WYGLAD SYGNALU,
-	PRZECHOWUJE KOLORKI
-*/
-//-------------------------------------------
-
-public class SignalScheme
-{
+public class SignalScheme {
 	private Margin margin;
-	
+
 	private int mainDivider;
 	private int subDivider;
 
 	private Color backgroundColor;
 	private Color borderColor;
-	
+
 	private Color mainGridColor;
 	private Color subGridColor;
 	private Color gridColor;
-	
-	
+
 	private Color probeColor;
 	private Color signalColor;
-	
+
 	private Color selectColor;
 	private Color p_WaveColor;
 	private Color pr_SegmentColor;
@@ -41,254 +31,204 @@ public class SignalScheme
 	private Color u_WaveColor;
 	private Color cycleColor;
 	private Color markeredCycleColor;
-	
+
 	private int fontSize;
 	private Color fontColor;
 	private Font font;
-	
+
 	private BasicStroke signalStroke;
 	private BasicStroke probeStroke;
-	
 
-	public Margin getMargin()
-	{
+	public Margin getMargin() {
 		return margin;
 	}
 
-	public void setMargin(Margin margin)
-	{
+	public void setMargin(Margin margin) {
 		this.margin = margin;
 	}
 
-	public int getMainDivider()
-	{
+	public int getMainDivider() {
 		return mainDivider;
 	}
 
-	public void setMainDivider(int mainDivider)
-	{
+	public void setMainDivider(int mainDivider) {
 		this.mainDivider = mainDivider;
 	}
 
-	public int getSubDivider()
-	{
+	public int getSubDivider() {
 		return subDivider;
 	}
 
-	public void setSubDivider(int subDivider)
-	{
+	public void setSubDivider(int subDivider) {
 		this.subDivider = subDivider;
 	}
 
-	public Color getFontColor()
-	{
+	public Color getFontColor() {
 		return fontColor;
 	}
 
-	public void setFontColor(Color fontColor)
-	{
+	public void setFontColor(Color fontColor) {
 		this.fontColor = fontColor;
 	}
 
-	public int getFontSize()
-	{
+	public int getFontSize() {
 		return fontSize;
 	}
 
-	public void setFontSize(int fontSize)
-	{
+	public void setFontSize(int fontSize) {
 		this.fontSize = fontSize;
 	}
 
-	public Font getFont()
-	{
+	public Font getFont() {
 		return font;
 	}
 
-	public void setFont(Font font)
-	{
+	public void setFont(Font font) {
 		this.font = font;
 	}
 
-	public Color getSignalColor()
-	{
+	public Color getSignalColor() {
 		return signalColor;
 	}
 
-	public void setSignalColor(Color signalColor)
-	{
+	public void setSignalColor(Color signalColor) {
 		this.signalColor = signalColor;
 	}
 
-	public Color getBackgroundColor()
-	{
+	public Color getBackgroundColor() {
 		return backgroundColor;
 	}
 
-	public void setBackgroundColor(Color backgroundColor)
-	{
+	public void setBackgroundColor(Color backgroundColor) {
 		this.backgroundColor = backgroundColor;
 	}
 
-	public Color getBorderColor()
-	{
+	public Color getBorderColor() {
 		return borderColor;
 	}
 
-	public void setBorderColor(Color borderColor)
-	{
+	public void setBorderColor(Color borderColor) {
 		this.borderColor = borderColor;
 	}
 
-	public Color getMainGridColor()
-	{
+	public Color getMainGridColor() {
 		return mainGridColor;
 	}
 
-	public void setMainGridColor(Color mainGridColor)
-	{
+	public void setMainGridColor(Color mainGridColor) {
 		this.mainGridColor = mainGridColor;
 	}
 
-	public Color getSubGridColor()
-	{
+	public Color getSubGridColor() {
 		return subGridColor;
 	}
 
-	public void setSubGridColor(Color subGridColor)
-	{
+	public void setSubGridColor(Color subGridColor) {
 		this.subGridColor = subGridColor;
 	}
 
-	public Color getProbeColor()
-	{
+	public Color getProbeColor() {
 		return probeColor;
 	}
 
-	public void setProbeColor(Color probeColor)
-	{
+	public void setProbeColor(Color probeColor) {
 		this.probeColor = probeColor;
 	}
 
-	public Color getGridColor()
-	{
+	public Color getGridColor() {
 		return gridColor;
 	}
 
-	public void setGridColor(Color gridColor)
-	{
+	public void setGridColor(Color gridColor) {
 		this.gridColor = gridColor;
 	}
 
-	public BasicStroke getSignalStroke()
-	{
+	public BasicStroke getSignalStroke() {
 		return signalStroke;
 	}
 
-	public void setSignalStroke(BasicStroke signalStroke)
-	{
+	public void setSignalStroke(BasicStroke signalStroke) {
 		this.signalStroke = signalStroke;
 	}
 
-	public BasicStroke getProbeStroke()
-	{
+	public BasicStroke getProbeStroke() {
 		return probeStroke;
 	}
 
-	public void setProbeStroke(BasicStroke probeStroke)
-	{
+	public void setProbeStroke(BasicStroke probeStroke) {
 		this.probeStroke = probeStroke;
 	}
 
-	public Color getSelectColor()
-	{
+	public Color getSelectColor() {
 		return selectColor;
 	}
 
-	public void setSelectColor(Color selectColor)
-	{
+	public void setSelectColor(Color selectColor) {
 		this.selectColor = selectColor;
 	}
 
-	public Color getP_WaveColor()
-	{
+	public Color getP_WaveColor() {
 		return p_WaveColor;
 	}
 
-	public void setP_WaveColor(Color p_WaveColor)
-	{
+	public void setP_WaveColor(Color p_WaveColor) {
 		this.p_WaveColor = p_WaveColor;
 	}
 
-	public Color getPr_SegmentColor()
-	{
+	public Color getPr_SegmentColor() {
 		return pr_SegmentColor;
 	}
 
-	public void setPr_SegmentColor(Color pr_SegmentColor)
-	{
+	public void setPr_SegmentColor(Color pr_SegmentColor) {
 		this.pr_SegmentColor = pr_SegmentColor;
 	}
 
-	public Color getQrs_SegmentColor()
-	{
+	public Color getQrs_SegmentColor() {
 		return qrs_SegmentColor;
 	}
 
-	public void setQrs_SegmentColor(Color qrs_SegmentColor)
-	{
+	public void setQrs_SegmentColor(Color qrs_SegmentColor) {
 		this.qrs_SegmentColor = qrs_SegmentColor;
 	}
 
-	public Color getSt_SegmentColor()
-	{
+	public Color getSt_SegmentColor() {
 		return st_SegmentColor;
 	}
 
-	public void setSt_SegmentColor(Color st_SegmentColor)
-	{
+	public void setSt_SegmentColor(Color st_SegmentColor) {
 		this.st_SegmentColor = st_SegmentColor;
 	}
 
-	public Color getT_WaveColor()
-	{
+	public Color getT_WaveColor() {
 		return t_WaveColor;
 	}
 
-	public void setT_WaveColor(Color t_WaveColor)
-	{
+	public void setT_WaveColor(Color t_WaveColor) {
 		this.t_WaveColor = t_WaveColor;
 	}
 
-	public Color getU_WaveColor()
-	{
+	public Color getU_WaveColor() {
 		return u_WaveColor;
 	}
 
-	public void setU_WaveColor(Color u_WaveColor)
-	{
+	public void setU_WaveColor(Color u_WaveColor) {
 		this.u_WaveColor = u_WaveColor;
 	}
 
-	public Color getCycleColor()
-	{
+	public Color getCycleColor() {
 		return cycleColor;
 	}
 
-	public void setCycleColor(Color cycleColor)
-	{
+	public void setCycleColor(Color cycleColor) {
 		this.cycleColor = cycleColor;
 	}
 
-	public Color getMarkeredCycleColor()
-	{
+	public Color getMarkeredCycleColor() {
 		return markeredCycleColor;
 	}
 
-	public void setMarkeredCycleColor(Color markeredCycleColor)
-	{
+	public void setMarkeredCycleColor(Color markeredCycleColor) {
 		this.markeredCycleColor = markeredCycleColor;
 	}
-
 
 }

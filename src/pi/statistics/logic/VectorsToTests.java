@@ -15,7 +15,6 @@ public class VectorsToTests {
 		getVectors().clear();
 	}
 
-
 	public Map<String, Map<String, Vector<Object>>> getWaves() {
 		return waves;
 	}

@@ -106,7 +106,6 @@ public class StatisticTestsController implements ActionListener {
 			}
 		}
 
-
 		ArrayList<ArrayList<Double>> toHist = new ArrayList<ArrayList<Double>>(
 				2);
 
@@ -251,7 +250,8 @@ public class StatisticTestsController implements ActionListener {
 						SharedController.getInstance().getPopulReportMngr()
 								.viewRaport();
 					else
-						JOptionPane.showMessageDialog(null, "Report jest nullem");
+						JOptionPane.showMessageDialog(null,
+								"Report jest nullem");
 				} catch (JRException ex) {
 					System.out.println("Report exception");
 					ex.printStackTrace();

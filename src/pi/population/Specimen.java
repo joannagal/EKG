@@ -40,7 +40,7 @@ public class Specimen {
 
 	public boolean loadAfter(String path) {
 		this.setAfter(this.loadSignal(path));
-		
+
 		if (this.before == null)
 			return false;
 		return true;

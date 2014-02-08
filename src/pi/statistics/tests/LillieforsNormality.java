@@ -68,7 +68,7 @@ public class LillieforsNormality {
 					LillieforsNormality.getCritFromTable(
 							LillieforsNormality.populationSize, 0.05d));
 		}
-	
+
 	}
 
 	public static boolean isTrueForAlpha(double alpha) {

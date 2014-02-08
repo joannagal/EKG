@@ -42,16 +42,16 @@ public class PopulReportMngr {
 		dataSource = new JRBeanCollectionDataSource(
 				PopulStatistic.getPopulStatistics());
 
-		//File file = new File("report3.jrxml");
-		//jasperDesign = JRXmlLoader.load(file);
-		//jasperReport = JasperCompileManager.compileReport(jasperDesign);
-		
+		// File file = new File("report3.jrxml");
+		// jasperDesign = JRXmlLoader.load(file);
+		// jasperReport = JasperCompileManager.compileReport(jasperDesign);
+
 		File file = new File("report4.jasper");
 		jasperReport = (JasperReport) JRLoader.loadObject(file);
 		jasperPrint = JasperFillManager.fillReport(jasperReport, parameters,
 				dataSource);
-				//dataSource.cloneDataSource());
-		
+		// dataSource.cloneDataSource());
+
 		long time = System.currentTimeMillis() - start;
 		System.out.println("Czas inicjowania raportu: " + time);
 
@@ -122,8 +122,8 @@ public class PopulReportMngr {
 		try {
 			PopulReportMngr rm = new PopulReportMngr();
 			rm.viewRaport();
-			//rm.saveRaportAsPdf(null);
-			//rm.saveReportAsHtml(null);
+			// rm.saveRaportAsPdf(null);
+			// rm.saveReportAsHtml(null);
 		} catch (JRException e) {
 			System.out.println("Report exception");
 			e.printStackTrace();

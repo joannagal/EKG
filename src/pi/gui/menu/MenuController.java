@@ -108,7 +108,6 @@ public class MenuController implements ActionListener {
 
 			if (SharedController.getInstance().getProject() == null)
 				return;
-			
 
 			if (SharedController.getInstance().getProject().getPath() == null) {
 
