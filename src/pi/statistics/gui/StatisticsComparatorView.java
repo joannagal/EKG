@@ -121,7 +121,7 @@ public class StatisticsComparatorView extends JFrame {
 	}
 
 	public void enableReports(boolean b) {
-		//this.saveButton.set
+		// this.saveButton.set
 		this.saveButton.setEnabled(b);
 		this.reportButton.setEnabled(b);
 	}
@@ -220,17 +220,21 @@ public class StatisticsComparatorView extends JFrame {
 				}
 			}
 		} catch (Exception ex) {
-			for (String channelName : SharedController.getInstance()
-					.getProjectRes().getPopul2().getResult().get(0).getValue()
-					.getValue().get("Before").getValue().keySet()) {
-				int tmp = SharedController.getInstance().getProjectRes()
-						.getPopul2().getResult().get(0).getValue().getValue()
-						.get("Before").getValue().keySet().size();
-				ArrayList<String> names = new ArrayList<String>();
-				for (int i = 0; i < tmp; i++) {
-					if (!names.contains(channelName)) {
-						this.channelCombo.addItem(channelName);
-						names.add(channelName);
+			if (SharedController.getInstance().getProjectRes().getPopul2() != null) {
+				for (String channelName : SharedController.getInstance()
+						.getProjectRes().getPopul2().getResult().get(0)
+						.getValue().getValue().get("Before").getValue()
+						.keySet()) {
+					int tmp = SharedController.getInstance().getProjectRes()
+							.getPopul2().getResult().get(0).getValue()
+							.getValue().get("Before").getValue().keySet()
+							.size();
+					ArrayList<String> names = new ArrayList<String>();
+					for (int i = 0; i < tmp; i++) {
+						if (!names.contains(channelName)) {
+							this.channelCombo.addItem(channelName);
+							names.add(channelName);
+						}
 					}
 				}
 			}

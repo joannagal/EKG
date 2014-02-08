@@ -45,7 +45,6 @@ public class StatisticWindowController implements ActionListener {
 				String specimen = window.comboBox.getItemAt(index);
 
 				if (type == 1 || type == 2 || !specimen.equals("Count for all")) {
-					JOptionPane.showMessageDialog(null, "Specimen raport");
 					SharedController.getInstance().setSpecimenReportManager(
 							new SpecimenReportMngr());
 					comparatorView.enableReports(true);
@@ -55,7 +54,6 @@ public class StatisticWindowController implements ActionListener {
 					SharedController.getInstance().setPopulReportMngr(
 							new PopulReportMngr());
 					testsView.enableReports(true);
-					JOptionPane.showMessageDialog(null, "Population raport");
 					testsView.setReportsCursor(Cursor.DEFAULT_CURSOR);
 				}
 			} catch (JRException e) {
