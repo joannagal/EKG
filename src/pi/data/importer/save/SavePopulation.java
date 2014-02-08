@@ -40,6 +40,7 @@ public class SavePopulation extends JDialog {
 				if (!path.endsWith(".xml")) {
 					path += ".xml";
 				}
+				SharedController.getInstance().getProject().setPath(path);
 				SaveThread runnable = new SaveThread(path);
 				Thread thread = new Thread(runnable);
 				thread.start();
