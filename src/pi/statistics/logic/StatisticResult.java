@@ -20,13 +20,5 @@ public class StatisticResult {
 		value.clear();
 	}
 
-	public void printValues(String waveName) {
-		System.out.println(waveName + "\n");
-		for (String string : value.keySet()) {
-			System.out.println(string + ": \n");
-			System.out.println(value.get(string) + "\n");
-
-		}
-	}
 
 }

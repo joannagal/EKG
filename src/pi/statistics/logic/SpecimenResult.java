@@ -23,7 +23,6 @@ public class SpecimenResult {
 							double value = result.getValue().get(channelName)
 									.getValue().get(atrName).getWavesResult()
 									.get(waveName).getValue().get(statName);
-							System.out.println(value);
 							vectors.addVector(channelName, atrName, waveName,
 									statName, value);
 						} catch (Exception ex) {

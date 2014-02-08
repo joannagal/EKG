@@ -25,13 +25,6 @@ public class DurationResult {
 		value.clear();
 	}
 
-	public void printDurations() {
-		for (String string : value.keySet()) {
-			System.out.println(string + ": \n");
-			System.out.println(value.get(string) + "\n");
-
-		}
-	}
 
 	public void checkRR() {
 		if (value.containsKey("RR_interval")) {

@@ -8,6 +8,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.io.File;
+import java.util.concurrent.atomic.AtomicLong;
 
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
@@ -73,6 +74,13 @@ public class SharedController {
 
 	private ProjectToolbarController toolConroller;
 	private ProgressView progress = new ProgressView();
+
+	private final AtomicLong sequence = new AtomicLong();
+	
+	public long getNextId(){
+	    return sequence.incrementAndGet();
+	}
+	
 	
 	public void updateProgressBar() {
 		if (this.progressBar != null) {
