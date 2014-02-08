@@ -278,9 +278,9 @@ public class SharedController {
 					sp);
 			getFrame().getContent().removeAll();
 			getFrame().getContent().add(split);
-			split.setDividerLocation(0.5);
 			split.setContinuousLayout(true);
 			split.setResizeWeight(0.5);
+			split.setDividerLocation(0.5);
 		} else {
 			getFrame().getContent().add(sp);
 		}
