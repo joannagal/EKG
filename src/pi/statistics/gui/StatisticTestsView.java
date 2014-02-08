@@ -87,6 +87,7 @@ public class StatisticTestsView extends JFrame {
 
 		this.setLayout(null);
 		this.setSize(new Dimension(1000, 500));
+		this.setPreferredSize(new Dimension(1000, 500));
 		this.setResizable(false);
 
 		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
@@ -198,6 +199,10 @@ public class StatisticTestsView extends JFrame {
 		this.tabbedPane.add("Results", this.reportPane);
 		this.tabbedPane.add("Histogram", this.histogram);
 		this.add(this.tabbedPane);
+		
+
+		this.validate();
+		this.pack();
 
 	}
 

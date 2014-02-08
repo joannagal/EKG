@@ -56,6 +56,7 @@ public class StatisticsComparatorView extends JFrame {
 
 		getContentPane().setLayout(null);
 		this.setSize(new Dimension(1000, 500));
+		this.setPreferredSize(new Dimension(1000, 500));
 		this.setResizable(false);
 
 		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
@@ -117,7 +118,9 @@ public class StatisticsComparatorView extends JFrame {
 		enableReports(false);
 		// TODO cursor
 		setReportsCursor(Cursor.WAIT_CURSOR);
-
+		
+		this.validate();
+		this.pack();
 	}
 
 	public void enableReports(boolean b) {

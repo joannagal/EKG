@@ -5,8 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
-
 import net.sf.jasperreports.engine.JRException;
 import pi.population.Specimen;
 import pi.shared.SharedController;
@@ -35,35 +33,71 @@ public class StatisticWindowController implements ActionListener {
 			"V4", "V5", "V6" };
 	public static String[] statsList = { "Average", "Max", "Min", "Amplitude",
 			"Variance", "SD" };
+
+	private ArrayList<Function> functions;
+	private ArrayList<String> wavesNames;
+	private String id;
+
 	private Runnable r = new Runnable() {
+
 		public void run() {
-			try {
 
-				int type = SharedController.getInstance().getProject()
-						.getType();
-				int index = window.comboBox.getSelectedIndex();
-				String specimen = window.comboBox.getItemAt(index);
+			stControl.countStatistics(functions, wavesNames, id);
 
-				if (type == 1 || type == 2 || !specimen.equals("Count for all")) {
+			int type = SharedController.getInstance().getProject().getType();
+			int index = window.comboBox.getSelectedIndex();
+			String specimen = window.comboBox.getItemAt(index);
+
+			if (type == 1 || type == 2 || id != null) {
+				System.out.println(specimanStr);
+				if (comparatorView != null) {
+					comparatorView.setVisible(false);
+					comparatorView.dispose();
+				}
+				setComparatorView(new StatisticsComparatorView(specimanStr));
+				getComparatorView().setStController(stControl);
+				getComparatorView().setSpecimanStr(specimanStr);
+				getComparatorView().prepare(
+						getComparatorView().getSpecimanStr(),
+						getComparatorView().getChannelStr(),
+						getComparatorView().getWaveStr());
+				getComparatorView().setVisible(true);
+				try {
 					SharedController.getInstance().setSpecimenReportManager(
 							new SpecimenReportMngr());
 					comparatorView.enableReports(true);
 					comparatorView.setReportsCursor(Cursor.DEFAULT_CURSOR);
-				} else {
-					
+				} catch (JRException e) {
+					e.printStackTrace();
+				}
+				comparatorView.validate();
+				comparatorView.pack();
+			} else {
+				setTestsView(new StatisticTestsView());
+				getTestsView().setStController(stControl);
+				getTestsView()
+						.prepare(getTestsView().getChannelStr(),
+								getTestsView().getAtrStr(),
+								getTestsView().getWaveStr());
+				getTestsView().getReport().changeSelection(0, 1, false, false);
+				getTestsView().setVisible(true);
+				try {
 					SharedController.getInstance().setPopulReportMngr(
 							new PopulReportMngr());
 					testsView.enableReports(true);
 					testsView.setReportsCursor(Cursor.DEFAULT_CURSOR);
+				} catch (JRException e) {
+					e.printStackTrace();
 				}
-			} catch (JRException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				System.out.println("Report error: " + e.toString());
+				testsView.validate();
+				testsView.pack();
 			}
 			
+
 		}
 	};
+
+	private String specimanStr;
 
 	public StatisticWindowController(StatisticWindowView window) {
 		this.window = window;
@@ -144,37 +178,16 @@ public class StatisticWindowController implements ActionListener {
 			i++;
 			wavesList[i] = "RR_interval";
 
-			stControl.countStatistics(functions, wavesNames, id);
+			// stControl.countStatistics(functions, wavesNames, id);
 			// SharedController.getInstance().setReportManager(new
-			// ReportManager())
+			// ReportManager())\
+			this.functions = functions;
+			this.wavesNames = wavesNames;
+			this.id = id;
+			this.specimanStr = specimanStr;
+			
 			new Thread(r).start();
-
-			int type = SharedController.getInstance().getProject().getType();
-
-			if (type == 1 || type == 2 || id != null) {
-				System.out.println(specimanStr);
-				if (comparatorView != null) {
-					comparatorView.setVisible(false);
-					comparatorView.dispose();
-				}
-				setComparatorView(new StatisticsComparatorView(specimanStr));
-				getComparatorView().setStController(stControl);
-				getComparatorView().setSpecimanStr(specimanStr);
-				getComparatorView().prepare(
-						getComparatorView().getSpecimanStr(),
-						getComparatorView().getChannelStr(),
-						getComparatorView().getWaveStr());
-				getComparatorView().setVisible(true);
-			} else {
-				setTestsView(new StatisticTestsView());
-				getTestsView().setStController(stControl);
-				getTestsView()
-						.prepare(getTestsView().getChannelStr(),
-								getTestsView().getAtrStr(),
-								getTestsView().getWaveStr());
-				getTestsView().getReport().changeSelection(0, 1, false, false);
-				getTestsView().setVisible(true);
-			}
+	
 		}
 
 	}
