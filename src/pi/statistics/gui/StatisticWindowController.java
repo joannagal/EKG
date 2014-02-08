@@ -42,6 +42,15 @@ public class StatisticWindowController implements ActionListener {
 
 		public void run() {
 
+			int sum = SharedController.getInstance().getProject().getFirstPopulation().getSpecimen().size();
+			
+			
+			if (SharedController.getInstance().getProject().getSecondPopulation().getSpecimen() != null){
+				sum += SharedController.getInstance().getProject().getSecondPopulation().getSpecimen().size();
+			}
+			
+			SharedController.getInstance().getProgress().init(sum + 1);
+			
 			stControl.countStatistics(functions, wavesNames, id);
 
 			int type = SharedController.getInstance().getProject().getType();
@@ -68,7 +77,7 @@ public class StatisticWindowController implements ActionListener {
 				
 				try {
 					SharedController.getInstance().setSpecimenReportManager(
-							new SpecimenReportMngr());
+							new SpecimenReportMngr(index));
 					comparatorView.enableReports(true);
 					
 				} catch (JRException e) {
