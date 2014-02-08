@@ -13,7 +13,7 @@ import pi.statistics.gui.StatisticWindowView;
 public class ProjectToolbar extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JButton projectButton = new JButton("Project info");
+	private JButton projectButton = new JButton("Project information");
 	private JButton statisticsButton = new JButton("Calculate statistics");
 	private JButton resultsButton = new JButton("Display statistic results");
 	private JButton[] buttons;

@@ -48,3 +48,4 @@ public class ProgressView extends JFrame
 	}
 
 }
+
