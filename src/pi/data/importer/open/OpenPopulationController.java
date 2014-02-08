@@ -141,6 +141,18 @@ public class OpenPopulationController implements ActionListener {
 							importedProject.getSecondPopulation(), 2));
 				}
 
+				SharedController.getInstance().getProject()
+						.setPath(view.getPathArea().getText().toString());
+				SharedController
+						.getInstance()
+						.getFrame()
+						.setTitle(
+								SharedController.getInstance().getFrame()
+										.getTitle()
+										+ " "
+										+ view.getPathArea().getText()
+												.toString());
+
 			} catch (SAXException e1) {
 				e1.printStackTrace();
 			}
