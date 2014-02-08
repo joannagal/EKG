@@ -61,7 +61,6 @@ public class StatisticWindowController implements ActionListener {
 	    int index = window.comboBox.getSelectedIndex();
 
 	    if (type == 1 || type == 2 || id != null) {
-		System.out.println(specimanStr);
 		if (comparatorView != null) {
 		    comparatorView.setVisible(false);
 		    comparatorView.dispose();
@@ -140,13 +139,26 @@ public class StatisticWindowController implements ActionListener {
 	    String specimanStr = null;
 
 	    if (specimen.equals("Count for all")) {
-		id = null;
+		int type = SharedController.getInstance().getProject()
+			.getType();
 		specimanStr = SharedController.getInstance().getProject()
 			.getFirstPopulation().getSpecimen().get(0).getName()
 			+ " "
 			+ SharedController.getInstance().getProject()
 				.getFirstPopulation().getSpecimen().get(0)
 				.getSurname();
+		if (type == 3 || type == 4) {
+		    id = null;
+		} else {
+		    Specimen man = SharedController.getInstance().getProject()
+			    .getFirstPopulation().getSpecimen().get(0);
+		    if (man.getId() == "") {
+			man.setId(String.valueOf(SharedController.getInstance()
+				.getNextId()));
+		    }
+		    id = man.getId();
+		}
+
 	    } else {
 		specimanStr = specimen;
 		String[] ids = specimen.split(" ");

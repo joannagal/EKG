@@ -100,36 +100,31 @@ public class ChannelStatistic {
 			for (String waveName : before.getValue().get(name)
 				.getValue().get("Duration").getWavesResult()
 				.keySet()) {// PO WAVE
-			    
-			    
-			    
-			    if (before.getValue().get(name) == null){
+
+			    if (before.getValue().get(name) == null) {
 				continue;
 			    }
-			    if (before.getValue().get(name).getValue().get("Duration") == null){
+			    if (before.getValue().get(name).getValue()
+				    .get("Duration") == null) {
 				continue;
 			    }
-			    			    
-			    if (before.getValue().get(name)
-			    .getValue().get("Duration")
-			    .getWavesResult().get(waveName) == null){
+
+			    if (before.getValue().get(name).getValue()
+				    .get("Duration").getWavesResult()
+				    .get(waveName) == null) {
 				continue;
 			    }
-			    
-			    
-			    if (before.getValue().get(name)
-			    .getValue().get("Duration")
-			    .getWavesResult().get(waveName).getValue()
-			    .get(statName) == null){
+
+			    if (before.getValue().get(name).getValue()
+				    .get("Duration").getWavesResult()
+				    .get(waveName).getValue().get(statName) == null) {
 				continue;
 			    }
-			    
+
 			    double value = before.getValue().get(name)
 				    .getValue().get("Duration")
 				    .getWavesResult().get(waveName).getValue()
 				    .get(statName).doubleValue();
-			    
-			    
 
 			    if (waveName.equals("pWave")) {
 				cs.setAttributeName("Duration");
@@ -179,18 +174,6 @@ public class ChannelStatistic {
 				cs.setChannelName(name);
 				cs.setQt_intervalResult(value);
 				cs.setStatisticName(statName);
-				cs.setQTcB(before.getValue().get(name)
-					.getValue().get("Duration")
-					.getWavesResult().get(waveName)
-					.getValue().get("QTcB").doubleValue());
-				cs.setQTcF(before.getValue().get(name)
-					.getValue().get("Duration")
-					.getWavesResult().get(waveName)
-					.getValue().get("QTcF").doubleValue());
-				cs.setQTcR(before.getValue().get(name)
-					.getValue().get("Duration")
-					.getWavesResult().get(waveName)
-					.getValue().get("QTcR").doubleValue());
 			    }
 			    if (waveName.equals("qrsComplex")) {
 				cs.setAttributeName("Duration");
@@ -209,11 +192,6 @@ public class ChannelStatistic {
 				cs.setChannelName(name);
 				cs.setRr_interval(value);
 				cs.setStatisticName(statName);
-				cs.setPulse(before.getValue().get(name)
-					.getValue().get("Duration")
-					.getWavesResult().get(waveName)
-					.getValue().get("Pulse(min)")
-					.doubleValue());
 			    }
 
 			}
@@ -227,9 +205,30 @@ public class ChannelStatistic {
 		    for (String statName : StatisticWindowController.statsList) {
 			ChannelStatistic cs = new ChannelStatistic();
 			cs.setExamination("Before");
+
 			for (String waveName : before.getValue().get(name)
 				.getValue().get("Amplitude").getWavesResult()
 				.keySet()) {// PO WAVE
+			    if (before.getValue().get(name) == null) {
+				continue;
+			    }
+			    if (before.getValue().get(name).getValue()
+				    .get("Amplitude") == null) {
+				continue;
+			    }
+
+			    if (before.getValue().get(name).getValue()
+				    .get("Amplitude").getWavesResult()
+				    .get(waveName) == null) {
+				continue;
+			    }
+
+			    if (before.getValue().get(name).getValue()
+				    .get("Amplitude").getWavesResult()
+				    .get(waveName).getValue().get(statName) == null) {
+				continue;
+			    }
+
 			    double value = before.getValue().get(name)
 				    .getValue().get("Amplitude")
 				    .getWavesResult().get(waveName).getValue()
@@ -323,6 +322,27 @@ public class ChannelStatistic {
 			    for (String waveName : after.getValue().get(name)
 				    .getValue().get("Duration")
 				    .getWavesResult().keySet()) {// PO WAVE
+
+				if (after.getValue().get(name) == null) {
+				    continue;
+				}
+				if (after.getValue().get(name).getValue()
+					.get("Duration") == null) {
+				    continue;
+				}
+
+				if (after.getValue().get(name).getValue()
+					.get("Duration").getWavesResult()
+					.get(waveName) == null) {
+				    continue;
+				}
+
+				if (after.getValue().get(name).getValue()
+					.get("Duration").getWavesResult()
+					.get(waveName).getValue().get(statName) == null) {
+				    continue;
+				}
+
 				double value = after.getValue().get(name)
 					.getValue().get("Duration")
 					.getWavesResult().get(waveName)
@@ -376,21 +396,6 @@ public class ChannelStatistic {
 				    cs.setChannelName(name);
 				    cs.setQt_intervalResult(value);
 				    cs.setStatisticName(statName);
-				    cs.setQTcB(before.getValue().get(name)
-					    .getValue().get("Duration")
-					    .getWavesResult().get(waveName)
-					    .getValue().get("QTcB")
-					    .doubleValue());
-				    cs.setQTcF(before.getValue().get(name)
-					    .getValue().get("Duration")
-					    .getWavesResult().get(waveName)
-					    .getValue().get("QTcF")
-					    .doubleValue());
-				    cs.setQTcR(before.getValue().get(name)
-					    .getValue().get("Duration")
-					    .getWavesResult().get(waveName)
-					    .getValue().get("QTcR")
-					    .doubleValue());
 				}
 				if (waveName.equals("qrsComplex")) {
 				    cs.setChannelName(name);
@@ -409,11 +414,6 @@ public class ChannelStatistic {
 				    cs.setChannelName(name);
 				    cs.setRr_interval(value);
 				    cs.setStatisticName(statName);
-				    cs.setPulse(before.getValue().get(name)
-					    .getValue().get("Duration")
-					    .getWavesResult().get(waveName)
-					    .getValue().get("Pulse(min)")
-					    .doubleValue());
 				}
 			    }
 
@@ -430,6 +430,26 @@ public class ChannelStatistic {
 			    for (String waveName : after.getValue().get(name)
 				    .getValue().get("Amplitude")
 				    .getWavesResult().keySet()) {// PO WAVE
+
+				if (after.getValue().get(name) == null) {
+				    continue;
+				}
+				if (after.getValue().get(name).getValue()
+					.get("Amplitude") == null) {
+				    continue;
+				}
+
+				if (after.getValue().get(name).getValue()
+					.get("Amplitude").getWavesResult()
+					.get(waveName) == null) {
+				    continue;
+				}
+
+				if (after.getValue().get(name).getValue()
+					.get("Amplitude").getWavesResult()
+					.get(waveName).getValue().get(statName) == null) {
+				    continue;
+				}
 				double value = after.getValue().get(name)
 					.getValue().get("Amplitude")
 					.getWavesResult().get(waveName)
@@ -515,7 +535,7 @@ public class ChannelStatistic {
 		ex.printStackTrace();
 	    }
 	}
-	
+
 	long time = System.currentTimeMillis() - start;
 	System.out.println("Czas przygotowania danych do raportu: " + time);
 
