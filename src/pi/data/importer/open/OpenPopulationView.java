@@ -30,7 +30,7 @@ public class OpenPopulationView extends JDialog {
 	private JPanel buttonPanel;
 
 	public OpenPopulationView() {
-		
+
 		super(SharedController.getInstance().getFrame());
 
 		URL iconURL = getClass().getResource("../../../../images/logo1.png");

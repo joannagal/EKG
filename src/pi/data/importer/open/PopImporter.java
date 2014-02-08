@@ -96,15 +96,15 @@ public class PopImporter extends DefaultHandler {
 		project = new Project();
 		project.setName(attributes.getValue("name"));
 		project.setPath(attributes.getValue("path"));
-		
+
 		String tmp = attributes.getValue("specimens");
 		int specimens = 0;
 		if (tmp != null) {
 			specimens = Integer.parseInt(attributes.getValue("specimens"));
 		}
-		
+
 		SharedController.getInstance().getProgress().init(specimens);
-		
+
 		String type = attributes.getValue("type");
 		if (type != "")
 			project.setType(Integer.parseInt(type));
@@ -130,7 +130,7 @@ public class PopImporter extends DefaultHandler {
 	public void initSpecimen(Attributes attributes) {
 
 		SharedController.getInstance().getProgress().increase();
-		
+
 		spec = new Specimen();
 		spec.setName(attributes.getValue("name"));
 		spec.setSurname(attributes.getValue("surname"));

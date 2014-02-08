@@ -34,7 +34,7 @@ public class ImportSingleView extends JDialog {
 	private final JFileChooser fileChooser = new JFileChooser();
 
 	public ImportSingleView() {
-		
+
 		super(SharedController.getInstance().getFrame());
 
 		URL iconURL = getClass().getResource("../../../../images/logo1.png");

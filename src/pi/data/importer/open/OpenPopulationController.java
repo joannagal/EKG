@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
-
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -36,13 +35,14 @@ public class OpenPopulationController implements ActionListener {
 		if (action.equals("OPEN")) {
 
 			if (!this.view.getPathArea().getText().isEmpty()) {
-					
+
 				OpenThread runnable = new OpenThread();
 				Thread thread = new Thread(runnable);
 				thread.start();
-				
-				SharedController.getInstance().getFrame().getMenubar().setInProject(true);
-				
+
+				SharedController.getInstance().getFrame().getMenubar()
+						.setInProject(true);
+
 				this.view.dispose();
 			} else {
 				JOptionPane.showMessageDialog(null, "Please fill in path!");
@@ -90,14 +90,13 @@ public class OpenPopulationController implements ActionListener {
 	public void setGraphSecondView(GraphView graphSecondView) {
 		this.graphSecondView = graphSecondView;
 	}
-	
-	class OpenThread implements Runnable{
+
+	class OpenThread implements Runnable {
 
 		@Override
 		public void run() {
 			PopImporter pi = new PopImporter();
-			SharedController.getInstance().getFrame().getContent()
-					.removeAll();
+			SharedController.getInstance().getFrame().getContent().removeAll();
 
 			XMLReader p;
 			try {
@@ -118,13 +117,12 @@ public class OpenPopulationController implements ActionListener {
 				SharedController.getInstance().setProject(importedProject);
 				SharedController.getInstance().createProjectToolbar();
 
-				for (int i = 0; i < SharedController.getInstance()
-						.getProject().getFirstPopulation().getSpecimen()
-						.get(0).getBefore().getChannel().size(); i++) {
+				for (int i = 0; i < SharedController.getInstance().getProject()
+						.getFirstPopulation().getSpecimen().get(0).getBefore()
+						.getChannel().size(); i++) {
 					System.out.println(SharedController.getInstance()
-							.getProject().getFirstPopulation()
-							.getSpecimen().get(0).getBefore().getChannel()
-							.get(i).getRange());
+							.getProject().getFirstPopulation().getSpecimen()
+							.get(0).getBefore().getChannel().get(i).getRange());
 				}
 
 				if (type == 1) {
@@ -146,10 +144,9 @@ public class OpenPopulationController implements ActionListener {
 			} catch (SAXException e1) {
 				e1.printStackTrace();
 			}
-			
-			
+
 		}
-		
+
 	}
 
 }

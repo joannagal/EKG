@@ -44,12 +44,12 @@ public class ImportPairController implements ActionListener {
 				String path = this.view.getFirstPathArea().getText().toString();
 
 				try {
-					
-					project= new Project();
+
+					project = new Project();
 					project.setType(2);
 					project.setName("New Project");
 					SharedController.getInstance().setProject(project);
-					
+
 					importer = new Importer(path);
 					ArrayList<ECG> temp = importer.importSignals();
 

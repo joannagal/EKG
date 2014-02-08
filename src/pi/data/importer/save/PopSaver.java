@@ -37,24 +37,21 @@ public class PopSaver {
 		OutputStream outStream = new FileOutputStream(new File(path));
 		out = XMLOutputFactory.newInstance().createXMLStreamWriter(
 				new OutputStreamWriter(outStream, "utf-8"));
-		
-		
+
 		out.writeStartDocument();
 		out.writeStartElement("PROJECT");
 		if (project.getName() != null)
 			out.writeAttribute("name", project.getName());
 		if (project.getPath() != null)
 			out.writeAttribute("path", project.getPath());
-		
-		
+
 		int specimens = project.getFirstPopulation().getSpecimen().size();
 		if (project.getSecondPopulation() != null)
 			specimens += project.getSecondPopulation().getSpecimen().size();
-	
+
 		out.writeAttribute("specimens", Integer.toString(specimens));
 		SharedController.getInstance().getProgress().init(specimens);
-		
-				
+
 		if (project.getDate() != null) {
 			out.writeAttribute("date", project.getDate().toString());
 		} else {
@@ -91,7 +88,7 @@ public class PopSaver {
 	}
 
 	private void saveSpecimen(Specimen s) throws XMLStreamException {
-		
+
 		SharedController.getInstance().getProgress().increase();
 		out.writeStartElement("SPECIMEN");
 		if (s.getName() != null)

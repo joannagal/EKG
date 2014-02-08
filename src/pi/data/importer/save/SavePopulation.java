@@ -21,9 +21,8 @@ public class SavePopulation extends JDialog {
 	public SavePopulation(int type) throws FileNotFoundException,
 			UnsupportedEncodingException, XMLStreamException,
 			FactoryConfigurationError {
-		
-		super(SharedController.getInstance().getFrame());
 
+		super(SharedController.getInstance().getFrame());
 
 		this.type = type;
 
@@ -40,11 +39,11 @@ public class SavePopulation extends JDialog {
 				String path = fileChooser.getSelectedFile().getAbsolutePath();
 				if (!path.endsWith(".xml")) {
 					path += ".xml";
-				}				
+				}
 				SaveThread runnable = new SaveThread(path);
 				Thread thread = new Thread(runnable);
 				thread.start();
-			
+
 			}
 		} else if (type == 2) {
 			String path = SharedController.getInstance().getProject().getPath();
@@ -58,7 +57,7 @@ public class SavePopulation extends JDialog {
 	class SaveThread implements Runnable {
 
 		String path;
-		
+
 		@Override
 		public void run() {
 			PopSaver ps = new PopSaver(SharedController.getInstance()
@@ -70,8 +69,8 @@ public class SavePopulation extends JDialog {
 				e.printStackTrace();
 			}
 		}
-		
-		public SaveThread(String path){
+
+		public SaveThread(String path) {
 			this.path = path;
 		}
 

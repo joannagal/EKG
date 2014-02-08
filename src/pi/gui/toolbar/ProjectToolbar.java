@@ -17,9 +17,11 @@ public class ProjectToolbar extends JPanel {
 	private JButton statisticsButton = new JButton("Calculate statistics");
 	private JButton resultsButton = new JButton("Display statistic results");
 	private JButton[] buttons;
-	private String[] buttonsEvent = new String[]{"PROJECT_INFO", "CALCULATE", "STATS"};
+	private String[] buttonsEvent = new String[] { "PROJECT_INFO", "CALCULATE",
+			"STATS" };
 	private StatisticWindowView stView = new StatisticWindowView();
-	private StatisticWindowController stControl = new StatisticWindowController(stView);
+	private StatisticWindowController stControl = new StatisticWindowController(
+			stView);
 
 	public ProjectToolbar() {
 
@@ -29,33 +31,34 @@ public class ProjectToolbar extends JPanel {
 		this.setBorder(BorderFactory.createTitledBorder("Project Settings"));
 
 		this.add(this.projectButton);
-		this.add(this.statisticsButton);	
+		this.add(this.statisticsButton);
 		this.add(this.resultsButton);
-		buttons = new JButton[]{projectButton, statisticsButton, resultsButton};
+		buttons = new JButton[] { projectButton, statisticsButton,
+				resultsButton };
 	}
-	
-	public void setButtonsListener(ActionListener al){
-		
-		for (int i = 0; i < buttons.length; i++){
+
+	public void setButtonsListener(ActionListener al) {
+
+		for (int i = 0; i < buttons.length; i++) {
 			buttons[i].setActionCommand(buttonsEvent[i]);
 			buttons[i].addActionListener(al);
 		}
 	}
-	
+
 	public StatisticWindowView getStView() {
-	    return stView;
+		return stView;
 	}
 
 	public void setStView(StatisticWindowView stView) {
-	    this.stView = stView;
+		this.stView = stView;
 	}
 
 	public StatisticWindowController getStControl() {
-	    return stControl;
+		return stControl;
 	}
 
 	public void setStControl(StatisticWindowController stControl) {
-	    this.stControl = stControl;
+		this.stControl = stControl;
 	}
 
 }

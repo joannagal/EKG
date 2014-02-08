@@ -40,12 +40,12 @@ public class ImportSingleController implements ActionListener {
 				String path = this.view.getPathArea().getText();
 
 				try {
-					
-					project= new Project();
+
+					project = new Project();
 					project.setType(1);
 					project.setName("New Project");
 					SharedController.getInstance().setProject(project);
-					
+
 					importer = new Importer(path);
 					ArrayList<ECG> temp = importer.importSignals();
 
@@ -70,9 +70,8 @@ public class ImportSingleController implements ActionListener {
 
 					SharedController.getInstance().getFrame().getMenubar()
 							.setInProject(true);
-					
-					this.view.setVisible(false);
 
+					this.view.setVisible(false);
 
 				} catch (DocumentException | IndexOutOfBoundsException e1) {
 					JOptionPane.showMessageDialog(null,

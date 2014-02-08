@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 import pi.shared.SharedController;
 
 public class InformationProjectView extends JDialog {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	private InformationProjectController controller;
@@ -42,11 +42,11 @@ public class InformationProjectView extends JDialog {
 
 	public InformationProjectView() {
 		super(SharedController.getInstance().getFrame());
-		
+
 		URL iconURL = getClass().getResource("../../../../images/logo1.png");
 		ImageIcon icon = new ImageIcon(iconURL);
 		this.setIconImage(icon.getImage());
-		
+
 		this.setTitle("Project Informations");
 		controller = new InformationProjectController(this);
 		int type = SharedController.getInstance().getProject().getType();
