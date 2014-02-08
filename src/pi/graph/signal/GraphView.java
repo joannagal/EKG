@@ -57,6 +57,9 @@ public class GraphView extends JPanel {
 	public GraphView(Population population, int type) {
 
 		this.setPopulation(population);
+		
+		
+		
 
 		this.addComponentListener(cl);
 		this.setVisible(true);

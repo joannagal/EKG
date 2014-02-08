@@ -56,7 +56,53 @@ public class GraphToolbar extends JPanel {
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
 
 		this.setSize(new Dimension(1300, 100));
-		this.setBorder(BorderFactory.createTitledBorder("Settings"));
+
+		if (SharedController.getInstance().getProject().getType() == 1) {
+			this.setBorder(BorderFactory.createTitledBorder(SharedController
+					.getInstance().getProject().getFirstPopulation()
+					.getSpecimen().get(0).getName()
+					+ " "
+					+ SharedController.getInstance().getProject()
+							.getFirstPopulation().getSpecimen().get(0)
+							.getSurname()));
+		} else if (SharedController.getInstance().getProject().getType() == 2){
+			if (view.getType() == 1){
+				this.setBorder(BorderFactory.createTitledBorder(SharedController
+						.getInstance().getProject().getFirstPopulation()
+						.getSpecimen().get(0).getName()
+						+ " "
+						+ SharedController.getInstance().getProject()
+								.getFirstPopulation().getSpecimen().get(0)
+								.getSurname() +  " - BEFORE"));
+			}
+			else if (view.getType() == 2){
+				this.setBorder(BorderFactory.createTitledBorder(SharedController
+						.getInstance().getProject().getFirstPopulation()
+						.getSpecimen().get(0).getName()
+						+ " "
+						+ SharedController.getInstance().getProject()
+								.getFirstPopulation().getSpecimen().get(0)
+								.getSurname() +  " - AFTER"));
+			}
+		} else if (SharedController.getInstance().getProject().getType() == 3){
+			if (view.getType() == 1){
+				this.setBorder(BorderFactory.createTitledBorder("POPULATION - BEFORE"));
+			}
+			else if (view.getType() == 2){
+				this.setBorder(BorderFactory.createTitledBorder("POPULATION - AFTER"));
+			}
+		}
+		else if (SharedController.getInstance().getProject().getType() == 4){
+			if (view.getType() == 1){
+				this.setBorder(BorderFactory.createTitledBorder("POPULATION 1"));
+			}
+			else if (view.getType() == 2){
+				this.setBorder(BorderFactory.createTitledBorder("POPULATION 2"));
+			}
+		}
+		
+		
+
 		this.setVisible(true);
 
 		informationButton = new JButton("Information");
