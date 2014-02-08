@@ -125,18 +125,17 @@ public class PopulationPairController implements ActionListener {
 								.getSpecimen().get(i);
 						specimen.setAfter(temp.get(0));
 						specimen.setPathAfter(secondPathAfter);
-
-						SharedController.getInstance().createProjectToolbar();
-						setView3(new GraphView(SharedController.getInstance()
-								.getProject().getFirstPopulation(), 1));
-						setView2(new GraphView(SharedController.getInstance()
-								.getProject().getSecondPopulation(), 2));
-
-						SharedController.getInstance().getFrame().getMenubar()
-								.setInProject(true);
-
-						view.dispose();
 					}
+
+					SharedController.getInstance().createProjectToolbar();
+					setView3(new GraphView(SharedController.getInstance()
+							.getProject().getFirstPopulation(), 1));
+					setView2(new GraphView(SharedController.getInstance()
+							.getProject().getSecondPopulation(), 2));
+
+					SharedController.getInstance().getFrame().getMenubar()
+							.setInProject(true);
+					view.dispose();
 
 				} catch (DocumentException | IndexOutOfBoundsException e) {
 					JOptionPane.showMessageDialog(null,
