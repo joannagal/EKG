@@ -1,6 +1,5 @@
 package pi.statistics.gui;
 
-import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -58,6 +57,7 @@ public class StatisticWindowController implements ActionListener {
 			stControl.countStatistics(functions, wavesNames, id);
 
 			int type = SharedController.getInstance().getProject().getType();
+			@SuppressWarnings("unused")
 			int index = window.comboBox.getSelectedIndex();
 
 			if (type == 1 || type == 2 || id != null) {

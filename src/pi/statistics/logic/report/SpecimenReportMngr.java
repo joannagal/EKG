@@ -51,6 +51,7 @@ public class SpecimenReportMngr {
 		jasperPrint = JasperFillManager.fillReport(jasperReport, parameters,
 				dataSource);
 
+		@SuppressWarnings("unused")
 		long time = System.currentTimeMillis() - start;
 
 	}

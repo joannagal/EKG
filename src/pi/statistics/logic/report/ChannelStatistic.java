@@ -7,9 +7,6 @@ import pi.population.Specimen;
 import pi.shared.SharedController;
 import pi.statistics.gui.StatisticWindowController;
 import pi.statistics.logic.ChannelResult;
-import pi.statistics.logic.StatisticResult;
-import pi.statistics.logic.WavesResult;
-
 public class ChannelStatistic {
 
 	private String name;
@@ -527,6 +524,7 @@ public class ChannelStatistic {
 			}
 		}
 
+		@SuppressWarnings("unused")
 		long time = System.currentTimeMillis() - start;
 
 		return statistics;

@@ -44,6 +44,7 @@ public class PopulReportMngr {
 		jasperPrint = JasperFillManager.fillReport(jasperReport, parameters,
 				dataSource);
 
+		@SuppressWarnings("unused")
 		long time = System.currentTimeMillis() - start;
 
 	}

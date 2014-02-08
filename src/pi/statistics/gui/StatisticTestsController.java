@@ -11,7 +11,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import net.sf.jasperreports.engine.JRException;
-
 import pi.project.Project;
 import pi.shared.SharedController;
 import pi.statistics.logic.ProjectResult;
@@ -249,6 +248,7 @@ public class StatisticTestsController implements ActionListener {
 			} else {
 				JOptionPane.showMessageDialog(view, "Count statistics first!");
 			}
+			@SuppressWarnings("unused")
 			long time = System.currentTimeMillis() - start;
 
 		}

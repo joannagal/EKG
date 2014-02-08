@@ -219,6 +219,7 @@ public class StatisticsComparatorController implements ActionListener {
 			} else {
 				JOptionPane.showMessageDialog(view, "Count statistics first!");
 			}
+			@SuppressWarnings("unused")
 			long time = System.currentTimeMillis() - start;
 
 		}

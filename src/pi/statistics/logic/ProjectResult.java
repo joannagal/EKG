@@ -533,7 +533,6 @@ public class ProjectResult {
 			atrs.put(atr, waves);
 		} else if (atrs.get(atr).get(wave) == null) {
 			addWaves(wave, statistic, result);
-			// atrs.put(atr, waves);
 		} else if (atrs.get(atr).get(wave).get(statistic) == null) {
 			addStats(statistic, result);
 		}
