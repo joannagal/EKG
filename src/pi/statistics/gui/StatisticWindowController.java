@@ -45,7 +45,8 @@ public class StatisticWindowController implements ActionListener {
 			int sum = SharedController.getInstance().getProject().getFirstPopulation().getSpecimen().size();
 			
 			
-			if (SharedController.getInstance().getProject().getSecondPopulation().getSpecimen() != null){
+			if (SharedController.getInstance().getProject().getSecondPopulation() != null && 
+					SharedController.getInstance().getProject().getSecondPopulation().getSpecimen() != null){
 				sum += SharedController.getInstance().getProject().getSecondPopulation().getSpecimen().size();
 			}
 			
