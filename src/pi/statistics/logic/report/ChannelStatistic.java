@@ -65,7 +65,6 @@ public class ChannelStatistic {
 		.getFirstPopulation().getSpecimen()) {
 	    if (man.getId() == ChannelStatistic.specimenId) {
 		spec = man;
-		System.out.println("I: "+man.getName());
 	    }
 	}
 	if (SharedController.getInstance().getProject().getSecondPopulation() != null) {
@@ -73,7 +72,6 @@ public class ChannelStatistic {
 		    .getSecondPopulation().getSpecimen()) {
 		if (man.getId() == ChannelStatistic.specimenId) {
 		    spec = man;
-		    System.out.println("II: " +man.getName());
 		}
 	    }
 	}
@@ -125,7 +123,7 @@ public class ChannelStatistic {
 			    .get(statName) == null){
 				continue;
 			    }
-			    System.out.println(statName);
+			    
 			    double value = before.getValue().get(name)
 				    .getValue().get("Duration")
 				    .getWavesResult().get(waveName).getValue()

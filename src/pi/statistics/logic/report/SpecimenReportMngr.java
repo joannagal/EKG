@@ -46,7 +46,6 @@ public class SpecimenReportMngr {
 	// TODO Sprawdziæ czy klonowanie dataSource jest wydajniejsze od
 	// generowania go na nowo za ka¿dym razem
 	ChannelStatistic.setSpecimenId(specimenId);
-	System.out.println("Specimen id: " + specimenId);
 	dataSource = new JRBeanCollectionDataSource(
 		ChannelStatistic.getChannelStatistics());
 

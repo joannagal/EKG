@@ -42,25 +42,8 @@ public class StatisticWindowController implements ActionListener {
 
 	public void run() {
 
-<<<<<<< HEAD
 	    int sum = SharedController.getInstance().getProject()
 		    .getFirstPopulation().getSpecimen().size();
-=======
-			int sum = SharedController.getInstance().getProject()
-					.getFirstPopulation().getSpecimen().size();
-
-			if (SharedController.getInstance().getProject()
-					.getSecondPopulation() != null
-					&& SharedController.getInstance().getProject()
-							.getSecondPopulation().getSpecimen() != null) {
-				sum += SharedController.getInstance().getProject()
-						.getSecondPopulation().getSpecimen().size();
-			}
-
-			SharedController.getInstance().getProgress().init(sum + 1);
-
-			stControl.countStatistics(functions, wavesNames, id);
->>>>>>> refs/remotes/origin/master
 
 	    if (SharedController.getInstance().getProject()
 		    .getSecondPopulation() != null
@@ -70,78 +53,18 @@ public class StatisticWindowController implements ActionListener {
 			.getSecondPopulation().getSpecimen().size();
 	    }
 
-<<<<<<< HEAD
 	    SharedController.getInstance().getProgress().init(sum + 1);
-=======
-			if (type == 1 || type == 2 || id != null) {
-				System.out.println(specimanStr);
-				if (comparatorView != null) {
-					comparatorView.setVisible(false);
-					comparatorView.dispose();
-				}
-				setComparatorView(new StatisticsComparatorView(specimanStr));
 
-				getComparatorView().setStController(stControl);
-				getComparatorView().setSpecimanStr(specimanStr);
-				getComparatorView().prepare(
-						getComparatorView().getSpecimanStr(),
-						getComparatorView().getChannelStr(),
-						getComparatorView().getWaveStr());
-				getComparatorView().setVisible(true);
-
-				try {
-					SharedController.getInstance().setSpecimenReportManager(
-							new SpecimenReportMngr(index));
-					comparatorView.enableReports(true);
-
-				} catch (JRException e) {
-					e.printStackTrace();
-				}
-
-				// comparatorView.validate();
-				// comparatorView.pack();
-				// comparatorView.repaint();
-			} else {
-				setTestsView(new StatisticTestsView());
-
-				getTestsView().setStController(stControl);
-				getTestsView()
-						.prepare(getTestsView().getChannelStr(),
-								getTestsView().getAtrStr(),
-								getTestsView().getWaveStr());
-				getTestsView().getReport().changeSelection(0, 1, false, false);
-				getTestsView().setVisible(true);
-
-				try {
-					SharedController.getInstance().setPopulReportMngr(
-							new PopulReportMngr());
-					testsView.enableReports(true);
-
-				} catch (JRException e) {
-					e.printStackTrace();
-				}
-				// testsView.validate();
-				// testsView.pack();
-				// testsView.repaint();
-			}
->>>>>>> refs/remotes/origin/master
-
-<<<<<<< HEAD
 	    stControl.countStatistics(functions, wavesNames, id);
 
-	    
 	    int type = SharedController.getInstance().getProject().getType();
 	    int index = window.comboBox.getSelectedIndex();
-	    String specimen = window.comboBox.getItemAt(index);
 
 	    if (type == 1 || type == 2 || id != null) {
 		System.out.println(specimanStr);
 		if (comparatorView != null) {
 		    comparatorView.setVisible(false);
 		    comparatorView.dispose();
-=======
-			SharedController.getInstance().getProgress().setVisible(false);
->>>>>>> refs/remotes/origin/master
 		}
 		setComparatorView(new StatisticsComparatorView(specimanStr));
 
@@ -181,55 +104,15 @@ public class StatisticWindowController implements ActionListener {
 			    new PopulReportMngr());
 		    testsView.enableReports(true);
 
-<<<<<<< HEAD
 		} catch (JRException e) {
 		    e.printStackTrace();
-=======
-			Function average = new Average();
-			functions.add(average);
-			Function max = new Max();
-			functions.add(max);
-			Function min = new Min();
-			functions.add(min);
-			Function amplitude = new Amplitude();
-			functions.add(amplitude);
-			Function sd = new SD();
-			functions.add(sd);
-			Function variance = new Variance();
-			functions.add(variance);
-
-			for (int i = 0; i < window.checkBoxArray.length; i++) {
-				if (window.checkBoxArray[i].isSelected() == true) {
-					wavesNames.add(window.checkBoxArray[i].getName());
-				}
-			}
-
-			wavesList = new String[wavesNames.size() + 2];
-			int i;
-			for (i = 0; i < wavesNames.size(); i++) {
-				wavesList[i] = wavesNames.get(i);
-			}
-			wavesList[i] = "J-point";
-			i++;
-			wavesList[i] = "RR_interval";
-
-			// stControl.countStatistics(functions, wavesNames, id);
-			// SharedController.getInstance().setReportManager(new
-			// ReportManager())\
-			this.functions = functions;
-			this.wavesNames = wavesNames;
-			this.id = id;
-			this.specimanStr = specimanStr;
-
-			new Thread(r).start();
-
->>>>>>> refs/remotes/origin/master
 		}
 		// testsView.validate();
 		// testsView.pack();
 		// testsView.repaint();
 	    }
 
+	    SharedController.getInstance().getProgress().setVisible(false);
 	}
     };
 
@@ -271,10 +154,9 @@ public class StatisticWindowController implements ActionListener {
 			.getFirstPopulation().getSpecimen()) {
 		    if (ids[0].equals(man.getName())
 			    && ids[1].equals(man.getSurname())) {
-			
-			if(man.getId()=="")
-			{
-			    man.setId(String.valueOf(SharedController.getInstance().getNextId()));
+			if (man.getId() == "") {
+			    man.setId(String.valueOf(SharedController
+				    .getInstance().getNextId()));
 			}
 			id = man.getId();
 		    }
@@ -285,8 +167,12 @@ public class StatisticWindowController implements ActionListener {
 			    .getProject().getSecondPopulation().getSpecimen()) {
 			if (ids[0].equals(man.getName())
 				&& ids[1].equals(man.getSurname())) {
+			    if (man.getId() == "") {
+				man.setId(String.valueOf(SharedController
+					.getInstance().getNextId()));
+			    }
 			    id = man.getId();
-			    
+
 			}
 		    }
 		}
@@ -327,9 +213,6 @@ public class StatisticWindowController implements ActionListener {
 	    this.wavesNames = wavesNames;
 	    this.id = id;
 	    this.specimanStr = specimanStr;
-	    
-	    System.out.println("Spec id!:" + id);
-	    
 
 	    new Thread(r).start();
 
